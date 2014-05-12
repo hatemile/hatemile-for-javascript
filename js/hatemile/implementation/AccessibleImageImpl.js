@@ -28,7 +28,7 @@ exports.hatemile.implementation.AccessibleImageImp = (function() {
     this.prefixId = configuration.getParameter('prefix-generated-ids');
     this.classListImageAreas = configuration.getParameter('class-list-image-areas');
     this.classLongDescriptionLink = configuration.getParameter('class-longdescription-link');
-    this.textLongDescriptionLink = configuration.getParameter('text-longdescription-link');
+    this.sufixLongDescriptionLink = configuration.getParameter('sufix-longdescription-link');
     this.dataListForImage = configuration.getParameter('data-list-for-image');
     this.dataLongDescriptionForImage = configuration.getParameter('data-longdescription-for-image');
     this.dataIgnore = configuration.getParameter('data-ignore');
@@ -90,9 +90,9 @@ exports.hatemile.implementation.AccessibleImageImp = (function() {
       exports.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
       if (isEmpty(this.parser.find("[" + this.dataLongDescriptionForImage + "=" + (element.getAttribute('id')) + "]").firstResult())) {
         if (element.hasAttribute('alt')) {
-          text = "" + (element.getAttribute('alt')) + " " + this.textLongDescriptionLink;
+          text = "" + (element.getAttribute('alt')) + " " + this.sufixLongDescriptionLink;
         } else {
-          text = this.textLongDescriptionLink;
+          text = this.sufixLongDescriptionLink;
         }
         longDescription = element.getAttribute('longdesc');
         anchor = this.parser.createElement('a');

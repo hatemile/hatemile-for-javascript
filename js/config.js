@@ -12,16 +12,16 @@ config = {
 		"data-accesskey": "data-accesskey",
 		"data-list-for-image": "data-list-for-image",
 		"data-longdescription-for-image": "data-longdescription-for-image",
-		"text-longdescription-link": "[d]",
 		"text-skip-container-shortcuts": "Skip shortcuts",
 		"text-no-shortcuts-alert": "No access keys have been defined for this page.",
 		"text-shortcuts-prefix": "Shortcuts:",
 		"prefix-generated-ids": "id-cs-",
+		"sufix-longdescription-link": "[d]",
 		"sufix-required-field": "*"
-	}
+	},
 	//Bootstrap recomendations
-	/*,
 	"selectorChanges": [
+		/*
 		{"selector": "li.dropdown", "attribute": "aria-haspopup", "valueForAttribute": "true"},
 		{"selector": ".has-error input, .has-error select, .has-error textarea", "attribute": "aria-invalid", "valueForAttribute": "true"},
 		{"selector": ".dropdown-menu li a", "attribute": "tabindex", "valueForAttribute": "-1"},
@@ -31,5 +31,6 @@ config = {
 		{"selector": ".dropdown-menu", "attribute": "role", "valueForAttribute": "menubar"},
 		{"selector": ".dropdown-menu li", "attribute": "role", "valueForAttribute": "presentation"},
 		{"selector": ".alert", "attribute": "role", "valueForAttribute": "alert"}
-	]*/
+		*/
+	]
 };

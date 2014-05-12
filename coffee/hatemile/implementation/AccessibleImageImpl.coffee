@@ -21,7 +21,7 @@ class exports.hatemile.implementation.AccessibleImageImp
 		@prefixId = configuration.getParameter('prefix-generated-ids')
 		@classListImageAreas = configuration.getParameter('class-list-image-areas')
 		@classLongDescriptionLink = configuration.getParameter('class-longdescription-link')
-		@textLongDescriptionLink = configuration.getParameter('text-longdescription-link')
+		@sufixLongDescriptionLink = configuration.getParameter('sufix-longdescription-link')
 		@dataListForImage = configuration.getParameter('data-list-for-image')
 		@dataLongDescriptionForImage = configuration.getParameter('data-longdescription-for-image')
 		@dataIgnore = configuration.getParameter('data-ignore')
@@ -68,9 +68,9 @@ class exports.hatemile.implementation.AccessibleImageImp
 			exports.hatemile.util.CommonFunctions.generateId(element, @prefixId)
 			if isEmpty(@parser.find("[#{@dataLongDescriptionForImage}=#{element.getAttribute('id')}]").firstResult())
 				if element.hasAttribute('alt')
-					text = "#{element.getAttribute('alt')} #{@textLongDescriptionLink}"
+					text = "#{element.getAttribute('alt')} #{@sufixLongDescriptionLink}"
 				else
-					text = @textLongDescriptionLink
+					text = @sufixLongDescriptionLink
 				longDescription = element.getAttribute('longdesc')
 				anchor = @parser.createElement('a')
 				anchor.setAttribute('href', longDescription)
