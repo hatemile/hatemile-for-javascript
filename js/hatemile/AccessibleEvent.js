@@ -18,16 +18,80 @@ var exports;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @class AccessibleEvent
+ * @classdesc The AccessibleEvent interface fix the problems of accessibility
+ * associated with Javascript events in the elements.
+ * @version 1.0
+ * @memberof hatemile
+*/
+
 
 exports.hatemile.AccessibleEvent = (function() {
   function AccessibleEvent() {}
 
+  /**
+  	 * Fix some problem of accessibility in the events that are
+  	 * called when its mouse is over or out the element.
+  	 * @param {hatemile.util.HTMLDOMElement} element The element that will be fixed.
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G90.html|G90: Providing keyboard-triggered event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G202.html|G202: Ensuring keyboard control for all functionality}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR2.html|SCR2: Using redundant keyboard and mouse event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR20.html|SCR20: Using both keyboard and other device-specific functions}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR29.html|SCR29: Adding keyboard-accessible actions to static HTML elements}
+  	 * @memberof hatemile.AccessibleEvent
+  */
+
+
   AccessibleEvent.prototype.fixOnHover = function(element) {};
+
+  /**
+  	 * Fix some problem of accessibility in the events that are
+  	 * called when its mouse is over or out of any element of page.
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G90.html|G90: Providing keyboard-triggered event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G202.html|G202: Ensuring keyboard control for all functionality}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR2.html|SCR2: Using redundant keyboard and mouse event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR20.html|SCR20: Using both keyboard and other device-specific functions}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR29.html|SCR29: Adding keyboard-accessible actions to static HTML elements}
+  	 * @memberof hatemile.AccessibleEvent
+  */
+
 
   AccessibleEvent.prototype.fixOnHovers = function() {};
 
+  /**
+  	 * Fix some problem of accessibility in the events that are
+  	 * called when its mouse click in the element.
+  	 * @param {hatemile.util.HTMLDOMElement} element The element that will be fixed.
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G90.html|G90: Providing keyboard-triggered event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G202.html|G202: Ensuring keyboard control for all functionality}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR2.html|SCR2: Using redundant keyboard and mouse event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR20.html|SCR20: Using both keyboard and other device-specific functions}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR29.html|SCR29: Adding keyboard-accessible actions to static HTML elements}
+  	 * @memberof hatemile.AccessibleEvent
+  */
+
+
   AccessibleEvent.prototype.fixOnClick = function(element) {};
+
+  /**
+  	 * Fix some problem of accessibility in the events that are
+  	 * called when its mouse click in any elements of page.
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G90.html|G90: Providing keyboard-triggered event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G202.html|G202: Ensuring keyboard control for all functionality}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR2.html|SCR2: Using redundant keyboard and mouse event handlers}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR20.html|SCR20: Using both keyboard and other device-specific functions}
+  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/SCR29.html|SCR29: Adding keyboard-accessible actions to static HTML elements}
+  	 * @memberof hatemile.AccessibleEvent
+  */
+
 
   AccessibleEvent.prototype.fixOnClicks = function() {};
 

@@ -18,36 +18,101 @@ var exports, _base;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @namespace util
+ * @memberof hatemile
+*/
+
 
 (_base = exports.hatemile).util || (_base.util = {});
 
 exports.hatemile.util.SelectorChange = (function() {
+  /**
+  	 * Inicializes a new object with the values pre-defineds.
+  	 * @param {String} selector The selector.
+  	 * @param {String} attribute The attribute.
+  	 * @param {String} valueForAttribute The value of the attribute.
+  	 * @class SelectorChange
+  	 * @classdesc The SelectorChange class store the selector that be attribute
+  	 * change.
+  	 * @version 1.0
+  	 * @memberof hatemile.util
+  */
+
   function SelectorChange(selector, attribute, valueForAttribute) {
     this.selector = selector;
     this.attribute = attribute;
     this.valueForAttribute = valueForAttribute;
   }
 
+  /**
+  	 * Returns the selector.
+  	 * @return {String} The selector.
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
+
   SelectorChange.prototype.getSelector = function() {
     return this.selector;
   };
+
+  /**
+  	 * Change the selector.
+  	 * @param {String} selector The new selector.
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
 
   SelectorChange.prototype.setSelector = function(selector) {
     this.selector = selector;
   };
 
+  /**
+  	 * Returns the attribute.
+  	 * @return {String} The attribute.
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
+
   SelectorChange.prototype.getAttribute = function() {
     return this.attribute;
   };
+
+  /**
+  	 * Change the attribute.
+  	 * @param {String} attribute The new attribute. 
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
 
   SelectorChange.prototype.setAttribute = function(attribute) {
     this.attribute = attribute;
   };
 
+  /**
+  	 * Returns the value of the attribute.
+  	 * @return {String} The value of the attribute.
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
+
   SelectorChange.prototype.getValueForAttribute = function() {
     return this.valueForAttribute;
   };
+
+  /**
+  	 * Change the value of the attribute.
+  	 * @param {String} valueForAttribute The new value of the attribute.
+  	 * @memberof hatemile.util.SelectorChange
+  */
+
 
   SelectorChange.prototype.setValueForAttribute = function(valueForAttribute) {
     this.valueForAttribute = valueForAttribute;

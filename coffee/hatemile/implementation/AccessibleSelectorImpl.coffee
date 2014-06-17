@@ -14,9 +14,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace implementation
+ * @memberof hatemile
+###
 exports.hatemile.implementation or= {}
+
 class exports.hatemile.implementation.AccessibleSelectorImpl
+	
+	###*
+	 * Initializes a new object that manipulate the accessibility through of the
+	 * selectors of the configuration file.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class AccessibleSelectorImpl
+	 * @classdesc The AccessibleSelectorImpl class is official implementation of
+	 * AccessibleSelector interface.
+	 * @extends hatemile.AccessibleSelector
+	 * @version 1.0
+	 * @memberof hatemile.implementation
+	###
 	constructor: (@parser, configuration) ->
 		@changes = configuration.getSelectorChanges()
 		@dataIgnore = configuration.getParameter('data-ignore')

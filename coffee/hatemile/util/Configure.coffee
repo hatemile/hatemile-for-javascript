@@ -14,16 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace util
+ * @memberof hatemile
+###
 exports.hatemile.util or= {}
+
 class exports.hatemile.util.Configure
+	
+	###*
+	 * Initializes a new object that contains the configuration of HaTeMiLe.
+	 * @param {Object} config The JSON configuration.
+	 * @class Configure
+	 * @classdesc The Configure class contains the configuration of HaTeMiLe.
+	 * @version 1.0
+	 * @memberof hatemile.util
+	###
 	constructor: (config) ->
 		@parameters = config.parameters
 		@selectorChanges = []
 		changes = config.selectorChanges
 		for change in changes
 			@selectorChanges.push(new exports.hatemile.util.SelectorChange(change.selector, change.attribute, change.valueForAttribute))
+	
+	###*
+	 * Returns the value of a parameter of configuration.
+	 * @param {String} parameter The parameter.
+	 * @return {String} The value of the parameter.
+	 * @memberof hatemile.util.Configure
+	###
 	getParameter: (name) ->
 		return @parameters[name]
+	
+	###*
+	 * Returns the changes that will be done in selectors.
+	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in selectors.
+	 * @memberof hatemile.util.Configure
+	###
 	getSelectorChanges: () ->
 		return @selectorChanges

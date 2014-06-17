@@ -18,14 +18,48 @@ var exports;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @class AccessibleShortcut
+ * @classdesc The AccessibleShortcut interface fix the problems of accessibility
+ * associated with the shortcuts.
+ * @version 1.0
+ * @memberof hatemile
+*/
+
 
 exports.hatemile.AccessibleShortcut = (function() {
   function AccessibleShortcut() {}
 
+  /**
+  	 * Returns the browser shortcut prefix.
+  	 * @return {String} The browser shortcut prefix.
+  	 * @memberof hatemile.AccessibleShortcut
+  */
+
+
   AccessibleShortcut.prototype.getPrefix = function() {};
 
+  /**
+  	 * Fix the element with shortcuts.
+  	 * @param {hatemile.util.HTMLDOMElement} element The element with shortcuts.
+  	 * @memberof hatemile.AccessibleShortcut
+  */
+
+
   AccessibleShortcut.prototype.fixShortcut = function(element) {};
+
+  /**
+  	 * Fix the elements with shortcuts.
+  	 * @memberof hatemile.AccessibleShortcut
+  */
+
 
   AccessibleShortcut.prototype.fixShortcuts = function() {};
 

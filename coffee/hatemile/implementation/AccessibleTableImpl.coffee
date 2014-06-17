@@ -14,20 +14,56 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace implementation
+ * @memberof hatemile
+###
 exports.hatemile.implementation or= {}
-class exports.hatemile.implementation.AccessibleTableImp
+
+class exports.hatemile.implementation.AccessibleTableImpl
+	
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * tables of parser.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class AccessibleTableImpl
+	 * @classdesc The AccessibleTableImpl class is official implementation of
+	 * AccessibleTable interface.
+	 * @extends hatemile.AccessibleTable
+	 * @version 1.0
+	 * @memberof hatemile.implementation
+	###
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
 		@dataIgnore = configure.getParameter('data-ignore')
-
-	generatePart = (element, parser) ->
+	
+	###*
+	 * Returns a list that represents the table.
+	 * @param {hatemile.util.HTMLDOMElement} part The table header, table footer or table body.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
+	generatePart = (part, parser) ->
 		table = []
-		rows = parser.find(element).findChildren('tr').listResults()
+		rows = parser.find(part).findChildren('tr').listResults()
 		for row in rows
 			table.push(generateColspan(parser.find(row).findChildren('th,td').listResults()))
 		return generateRowspan(table)
-		
+	
+	###*
+	 * Returns a list that represents the table with the rowspans.
+	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} rows The list that represents the table without the rowspans.
+	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table with the rowspans.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
 	generateRowspan = (rows) ->
 		copy = []
 		table = []
@@ -57,7 +93,13 @@ class exports.hatemile.implementation.AccessibleTableImp
 									table[n] = []
 								table[n][m] = cell
 		return table
-
+	
+	###*
+	 * Returns a list that represents the table with the colspans.
+	 * @param {hatemile.util.HTMLDOMElement[]} cells The list that represents the table without the colspans.
+	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the table with the colspans.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
 	generateColspan = (cells) ->
 		copy = []
 		copy = copy.concat(cells)
@@ -69,7 +111,14 @@ class exports.hatemile.implementation.AccessibleTableImp
 					for j in [1..colspan - 1]
 						copy.splice(i + j, 0, cells[i])
 		return copy
-
+	
+	###*
+	 * Validate the list that represents the table header.
+	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
+	 * @return {Boolean} True if the table header is valid or false
+	 * if the table header is not valid.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
 	validateHeader = (header) ->
 		if isEmpty(header)
 			return false
@@ -82,7 +131,14 @@ class exports.hatemile.implementation.AccessibleTableImp
 			else if row.length isnt length
 				return false
 		return true
-
+	
+	###*
+	 * Returns a list with ids of rows of same column.
+	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
+	 * @param {Number} index The index of columns.
+	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same column.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
 	returnListIdsColumns = (header, index) ->
 		ids = []
 		for cells in header
@@ -90,6 +146,13 @@ class exports.hatemile.implementation.AccessibleTableImp
 				ids.push(cells[index].getAttribute('id'))
 		return ids
 	
+	###*
+	 * Fix the table body or table footer.
+	 * @param {hatemile.util.HTMLDOMElement} element The table body or table footer.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {String} prefixId The prefix of generated id.
+	 * @memberof hatemile.implementation.AccessibleTableImpl
+	###
 	fixBodyOrFooter = (element, parser, prefixId) ->
 		table = generatePart(element, parser)
 		for cells in table
@@ -110,37 +173,37 @@ class exports.hatemile.implementation.AccessibleTableImp
 						cell.setAttribute("headers", headers)
 		return
 
-	fixHeader: (element) ->
-		if element.getTagName() is 'THEAD'
-			cells = @parser.find(element).findChildren('tr').findChildren('th').listResults()
+	fixHeader: (tableHeader) ->
+		if tableHeader.getTagName() is 'THEAD'
+			cells = @parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
 			for cell in cells
 				exports.hatemile.util.CommonFunctions.generateId(cell, @prefixId)
 				cell.setAttribute('scope', 'col')
 		return
 
-	fixFooter: (element) ->
-		if element.getTagName() is 'TFOOT'
-			fixBodyOrFooter(element, @parser, @prefixId)
+	fixFooter: (tableFooter) ->
+		if tableFooter.getTagName() is 'TFOOT'
+			fixBodyOrFooter(tableFooter, @parser, @prefixId)
 		return
 
-	fixBody: (element) ->
-		if element.getTagName() is 'TBODY'
-			fixBodyOrFooter(element, @parser, @prefixId)
+	fixBody: (tableBody) ->
+		if tableBody.getTagName() is 'TBODY'
+			fixBodyOrFooter(tableBody, @parser, @prefixId)
 		return
 
-	fixTable: (element) ->
-		header = @parser.find(element).findChildren('thead').firstResult()
-		body = @parser.find(element).findChildren('tbody').firstResult()
-		footer = @parser.find(element).findChildren('tfoot').firstResult()
+	fixTable: (table) ->
+		header = @parser.find(table).findChildren('thead').firstResult()
+		body = @parser.find(table).findChildren('tbody').firstResult()
+		footer = @parser.find(table).findChildren('tfoot').firstResult()
 		if not isEmpty(header)
 			@fixHeader(header)
 			headerCells = generatePart(header, @parser)
 			if validateHeader(headerCells) and not isEmpty(body)
 				lengthHeader = headerCells[0].length
-				table = generatePart(body, @parser)
+				fakeTable = generatePart(body, @parser)
 				if not isEmpty(footer)
-					table = table.concat(generatePart(footer, @parser))
-				for cells in table
+					fakeTable = fakeTable.concat(generatePart(footer, @parser))
+				for cells in fakeTable
 					i = 0
 					if cells.length is lengthHeader
 						for cell in cells

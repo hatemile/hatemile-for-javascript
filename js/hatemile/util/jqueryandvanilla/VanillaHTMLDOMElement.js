@@ -18,13 +18,42 @@ var exports, _base, _base1;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
 
+/**
+ * @namespace util
+ * @memberof hatemile
+*/
+
+
 (_base = exports.hatemile).util || (_base.util = {});
+
+/**
+ * @namespace jqueryandvanilla
+ * @memberof hatemile.util
+*/
+
 
 (_base1 = exports.hatemile.util).jqueryandvanilla || (_base1.jqueryandvanilla = {});
 
 exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
+  /**
+  	 * Initializes a new object that encapsulate the
+  	 * HTMLElement.
+  	 * @param {HTMLElement} element The element.
+  	 * @class VanillaHTMLDOMElement
+  	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
+  	 * HTMLDOMElement interface for the javascript.
+  	 * @extends hatemile.util.HTMLDOMElement
+  	 * @version 1.0
+  	 * @memberof hatemile.util.jqueryandvanilla
+  */
+
   function VanillaHTMLDOMElement(data) {
     this.data = data;
   }

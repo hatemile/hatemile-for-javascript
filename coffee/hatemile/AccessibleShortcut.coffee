@@ -14,8 +14,37 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @class AccessibleShortcut
+ * @classdesc The AccessibleShortcut interface fix the problems of accessibility
+ * associated with the shortcuts.
+ * @version 1.0
+ * @memberof hatemile
+###
 class exports.hatemile.AccessibleShortcut
+	
+	###*
+	 * Returns the browser shortcut prefix.
+	 * @return {String} The browser shortcut prefix.
+	 * @memberof hatemile.AccessibleShortcut
+	###
 	getPrefix: () ->
+	
+	###*
+	 * Fix the element with shortcuts.
+	 * @param {hatemile.util.HTMLDOMElement} element The element with shortcuts.
+	 * @memberof hatemile.AccessibleShortcut
+	###
 	fixShortcut: (element) ->
+	
+	###*
+	 * Fix the elements with shortcuts.
+	 * @memberof hatemile.AccessibleShortcut
+	###
 	fixShortcuts: () ->

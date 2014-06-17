@@ -14,49 +14,85 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace util
+ * @memberof hatemile
+###
 exports.hatemile.util or= {}
+
+###*
+ * @namespace jqueryandvanilla
+ * @memberof hatemile.util
+###
 exports.hatemile.util.jqueryandvanilla or= {}
+
 class exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
-	results = undefined
+	
+	###*
+	 * Initializes a new object that encapsulate the jQuery.
+	 * @class JQueryHTMLDOMParser
+	 * @classdesc The class JQueryHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for the jQuery library.
+	 * @extends hatemile.util.HTMLDOMParser
+	 * @version 1.0
+	 * @memberof hatemile.util.jqueryandvanilla
+	###
+	constructor: () ->
+		@results = undefined
+	
 	find: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
-		results = jQuery(selector)
+		@results = jQuery(selector)
 		return this
+	
 	findChildren: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
-		results = jQuery(results).children(selector)
+		@results = jQuery(@results).children(selector)
 		return this
+	
 	findDescendants: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
-		results = jQuery(results).find(selector)
+		@results = jQuery(@results).find(selector)
 		return this
+	
 	findAncestors: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
-		results = jQuery(results).parents(selector)
+		@results = jQuery(@results).parents(selector)
 		return this
+	
 	firstResult: () ->
-		if isEmpty(results)
+		if isEmpty(@results)
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(results.get(0))
+		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@results.get(0))
+	
 	lastResult: () ->
-		if isEmpty(results)
+		if isEmpty(@results)
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(results.get(results.length - 1))
+		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@results.get(@results.length - 1))
+	
 	listResults: () ->
 		array = []
-		if not isEmpty(results)
-			for result in results
+		if not isEmpty(@results)
+			for result in @results
 				array.push(new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(result))
 		return array
+	
 	createElement: (tagName) ->
 		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tagName))
+	
 	getHTML: () ->
 		return
+	
 	clearParser: () ->
-		results = undefined
+		@results = undefined
 		return

@@ -14,24 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace implementation
+ * @memberof hatemile
+###
 exports.hatemile.implementation or= {}
-class exports.hatemile.implementation.AccessibleFormImp
+
+class exports.hatemile.implementation.AccessibleFormImpl
+	
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * forms of parser.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class AccessibleFormImpl
+	 * @classdesc The AccessibleFormImpl class is official implementation of
+	 * AccessibleForm interface.
+	 * @extends hatemile.AccessibleForm
+	 * @version 1.0
+	 * @memberof hatemile.implementation
+	###
 	constructor: (@parser, configuration) ->
 		@prefixId = configuration.getParameter('prefix-generated-ids')
-		@classRequiredField = configuration.getParameter('class-required-field')
-		@sufixRequiredField = configuration.getParameter('sufix-required-field')
+		@dataLabelRequiredField = configuration.getParameter('data-label-required-field')
+		@prefixRequiredField = configuration.getParameter('prefix-required-field')
+		@suffixRequiredField = configuration.getParameter('suffix-required-field')
 		@dataIgnore = configuration.getParameter('data-ignore')
 
-	fixRequiredField: (element) ->
-		if element.hasAttribute('required')
-			element.setAttribute('aria-required', 'true')
-			if element.hasAttribute('id')
-				labels = @parser.find("label[for=#{element.getAttribute('id')}]").listResults()
+	fixRequiredField: (requiredField) ->
+		if requiredField.hasAttribute('required')
+			requiredField.setAttribute('aria-required', 'true')
+			if requiredField.hasAttribute('id')
+				labels = @parser.find("label[for=#{requiredField.getAttribute('id')}]").listResults()
 			if isEmpty(labels)
-				labels = @parser.find(element).findAncestors('label').listResults()
+				labels = @parser.find(requiredField).findAncestors('label').listResults()
 			for label in labels
-				label.setAttribute('class', exports.hatemile.util.CommonFunctions.increaseInList(label.getAttribute('class'), @classRequiredField))
+				label.setAttribute(@dataLabelRequiredField, 'true')
 		return
 
 	fixRequiredFields: () ->
@@ -41,9 +65,9 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixRequiredField(element)
 		return
 
-	fixDisabledField: (element) ->
-		if element.hasAttribute('disabled')
-			element.setAttribute('aria-disabled', 'true')
+	fixDisabledField: (disabledField) ->
+		if disabledField.hasAttribute('disabled')
+			disabledField.setAttribute('aria-disabled', 'true')
 		return
 
 	fixDisabledFields: () ->
@@ -53,9 +77,9 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixDisabledField(element)
 		return
 
-	fixReadOnlyField: (element) ->
-		if element.hasAttribute('readonly')
-			element.setAttribute('aria-readonly', 'true')
+	fixReadOnlyField: (readOnlyField) ->
+		if readOnlyField.hasAttribute('readonly')
+			readOnlyField.setAttribute('aria-readonly', 'true')
 		return
 
 	fixReadOnlyFields: () ->
@@ -65,11 +89,11 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixReadOnlyField(element)
 		return
 
-	fixRangeField: (element) ->
-		if element.hasAttribute('min')
-			element.setAttribute('aria-valuemin', element.getAttribute('min'))
-		if element.hasAttribute('max')
-			element.setAttribute('aria-valuemax', element.getAttribute('max'))
+	fixRangeField: (rangeField) ->
+		if rangeField.hasAttribute('min')
+			rangeField.setAttribute('aria-valuemin', rangeField.getAttribute('min'))
+		if rangeField.hasAttribute('max')
+			rangeField.setAttribute('aria-valuemax', rangeField.getAttribute('max'))
 		return
 
 	fixRangeFields: () ->
@@ -79,14 +103,14 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixRangeField(element)
 		return
 
-	fixTextField: (element) ->
-		if (element.getTagName() is 'INPUT') and (element.hasAttribute('type'))
-			type = element.getAttribute('type').toLowerCase()
+	fixTextField: (textField) ->
+		if (textField.getTagName() is 'INPUT') and (textField.hasAttribute('type'))
+			type = textField.getAttribute('type').toLowerCase()
 			types = ['text', 'search', 'email', 'url', 'tel', 'number']
 			if types.indexOf(type) > -1
-				element.setAttribute('aria-multiline', 'false')
-		else if element.getTagName() is 'TEXTAREA'
-			element.setAttribute('aria-multiline', 'true')
+				textField.setAttribute('aria-multiline', 'false')
+		else if textField.getTagName() is 'TEXTAREA'
+			textField.setAttribute('aria-multiline', 'true')
 		return
 
 	fixTextFields: () ->
@@ -96,12 +120,12 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixTextField(element)
 		return
 
-	fixSelectField: (element) ->
-		if element.getTagName() is 'SELECT'
-			if element.hasAttribute('multiple')
-				element.setAttribute('aria-multiselectable', 'true')
+	fixSelectField: (selectField) ->
+		if selectField.getTagName() is 'SELECT'
+			if selectField.hasAttribute('multiple')
+				selectField.setAttribute('aria-multiselectable', 'true')
 			else
-				element.setAttribute('aria-multiselectable', 'false')
+				selectField.setAttribute('aria-multiselectable', 'false')
 		return
 
 	fixSelectFields: () ->
@@ -111,24 +135,26 @@ class exports.hatemile.implementation.AccessibleFormImp
 				@fixSelectField(element)
 		return
 
-	fixLabel: (element) ->
-		if element.getTagName() is 'LABEL'
-			if element.hasAttribute('for')
-				input = @parser.find("##{element.getAttribute('for')}").firstResult()
+	fixLabel: (label) ->
+		if label.getTagName() is 'LABEL'
+			if label.hasAttribute('for')
+				input = @parser.find("##{label.getAttribute('for')}").firstResult()
 			else
-				input = @parser.find(element).findDescendants('input,select,textarea').firstResult()
+				input = @parser.find(label).findDescendants('input,select,textarea').firstResult()
 				if not isEmpty(input)
 					exports.hatemile.util.CommonFunctions.generateId(input, @prefixId)
-					element.setAttribute('for', input.getAttribute('id'))
+					label.setAttribute('for', input.getAttribute('id'))
 			if not isEmpty(input)
 				if not input.hasAttribute('aria-label')
-					label = element.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
+					contentLabel = label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
 					if input.hasAttribute('aria-required')
-						if (input.getAttribute('aria-required').toLowerCase() is 'true') and (label.indexOf(@sufixRequiredField) is -1)
-							label += " #{@sufixRequiredField}"
-					input.setAttribute('aria-label', label)
-				exports.hatemile.util.CommonFunctions.generateId(element, @prefixId)
-				input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), element.getAttribute('id')))
+						if (input.getAttribute('aria-required').toLowerCase() is 'true') and (contentLabel.indexOf(@prefixRequiredField) is -1)
+							contentLabel = "#{@prefixRequiredField} #{contentLabel}"
+						if (input.getAttribute('aria-required').toLowerCase() is 'true') and (contentLabel.indexOf(@suffixRequiredField) is -1)
+							contentLabel += " #{@suffixRequiredField}"
+					input.setAttribute('aria-label', contentLabel)
+				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
+				input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 
 	fixLabels: () ->

@@ -18,24 +18,49 @@ var exports, _base, _base1;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
 
+/**
+ * @namespace util
+ * @memberof hatemile
+*/
+
+
 (_base = exports.hatemile).util || (_base.util = {});
+
+/**
+ * @namespace jqueryandvanilla
+ * @memberof hatemile.util
+*/
+
 
 (_base1 = exports.hatemile.util).jqueryandvanilla || (_base1.jqueryandvanilla = {});
 
 exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
-  var results;
+  /**
+  	 * Initializes a new object that encapsulate the jQuery.
+  	 * @class JQueryHTMLDOMParser
+  	 * @classdesc The class JQueryHTMLDOMParser is official implementation of
+  	 * HTMLDOMParser interface for the jQuery library.
+  	 * @extends hatemile.util.HTMLDOMParser
+  	 * @version 1.0
+  	 * @memberof hatemile.util.jqueryandvanilla
+  */
 
-  function JQueryHTMLDOMParser() {}
-
-  results = void 0;
+  function JQueryHTMLDOMParser() {
+    this.results = void 0;
+  }
 
   JQueryHTMLDOMParser.prototype.find = function(selector) {
     if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement) {
       selector = selector.getData();
     }
-    results = jQuery(selector);
+    this.results = jQuery(selector);
     return this;
   };
 
@@ -43,7 +68,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
     if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement) {
       selector = selector.getData();
     }
-    results = jQuery(results).children(selector);
+    this.results = jQuery(this.results).children(selector);
     return this;
   };
 
@@ -51,7 +76,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
     if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement) {
       selector = selector.getData();
     }
-    results = jQuery(results).find(selector);
+    this.results = jQuery(this.results).find(selector);
     return this;
   };
 
@@ -59,30 +84,31 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
     if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement) {
       selector = selector.getData();
     }
-    results = jQuery(results).parents(selector);
+    this.results = jQuery(this.results).parents(selector);
     return this;
   };
 
   JQueryHTMLDOMParser.prototype.firstResult = function() {
-    if (isEmpty(results)) {
+    if (isEmpty(this.results)) {
       return void 0;
     }
-    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(results.get(0));
+    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(this.results.get(0));
   };
 
   JQueryHTMLDOMParser.prototype.lastResult = function() {
-    if (isEmpty(results)) {
+    if (isEmpty(this.results)) {
       return void 0;
     }
-    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(results.get(results.length - 1));
+    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
   };
 
   JQueryHTMLDOMParser.prototype.listResults = function() {
-    var array, result, _i, _len;
+    var array, result, _i, _len, _ref;
     array = [];
-    if (!isEmpty(results)) {
-      for (_i = 0, _len = results.length; _i < _len; _i++) {
-        result = results[_i];
+    if (!isEmpty(this.results)) {
+      _ref = this.results;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        result = _ref[_i];
         array.push(new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(result));
       }
     }
@@ -96,7 +122,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   JQueryHTMLDOMParser.prototype.getHTML = function() {};
 
   JQueryHTMLDOMParser.prototype.clearParser = function() {
-    results = void 0;
+    this.results = void 0;
   };
 
   return JQueryHTMLDOMParser;

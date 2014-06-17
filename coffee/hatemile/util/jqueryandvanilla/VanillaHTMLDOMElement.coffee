@@ -14,11 +14,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace util
+ * @memberof hatemile
+###
 exports.hatemile.util or= {}
+
+###*
+ * @namespace jqueryandvanilla
+ * @memberof hatemile.util
+###
 exports.hatemile.util.jqueryandvanilla or= {}
+
 class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
+	
+	###*
+	 * Initializes a new object that encapsulate the
+	 * HTMLElement.
+	 * @param {HTMLElement} element The element.
+	 * @class VanillaHTMLDOMElement
+	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
+	 * HTMLDOMElement interface for the javascript.
+	 * @extends hatemile.util.HTMLDOMElement
+	 * @version 1.0
+	 * @memberof hatemile.util.jqueryandvanilla
+	###
 	constructor: (@data) ->
+	
 	getTagName: () ->
 		return @data.tagName.toUpperCase()
 	

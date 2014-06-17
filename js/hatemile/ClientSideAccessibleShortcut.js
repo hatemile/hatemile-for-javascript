@@ -18,10 +18,31 @@ var exports;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @class ClientSideAccessibleShortcut
+ * @classdesc The ClientSideAccessibleShortcut interface fix the problems of
+ * accessibility associated with the shortcuts, with more options in by the
+ * client-side.
+ * @version 1.0
+ * @memberof hatemile
+*/
+
 
 exports.hatemile.ClientSideAccessibleShortcut = (function() {
   function ClientSideAccessibleShortcut() {}
+
+  /**
+  	 * Show the shortcuts for the user.
+  	 * @memberof hatemile.ClientSideAccessibleShortcut
+  */
+
 
   ClientSideAccessibleShortcut.prototype.showShortcuts = function() {};
 

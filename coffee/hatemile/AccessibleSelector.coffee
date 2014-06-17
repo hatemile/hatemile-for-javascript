@@ -14,6 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @class AccessibleSelector
+ * @classdesc The AccessibleSelector interface do changes in selectors.
+ * @version 1.0
+ * @memberof hatemile
+###
 class exports.hatemile.AccessibleSelector
+	
+	###*
+	 * Fix changes in selectors.
+	 * @memberof hatemile.AccessibleSelector
+	###
 	fixSelectors: () ->

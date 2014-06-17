@@ -14,6 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @class ClientSideAccessibleShortcut
+ * @classdesc The ClientSideAccessibleShortcut interface fix the problems of
+ * accessibility associated with the shortcuts, with more options in by the
+ * client-side.
+ * @version 1.0
+ * @memberof hatemile
+###
 class exports.hatemile.ClientSideAccessibleShortcut
+	
+	###*
+	 * Show the shortcuts for the user.
+	 * @memberof hatemile.ClientSideAccessibleShortcut
+	###
 	showShortcuts: () ->

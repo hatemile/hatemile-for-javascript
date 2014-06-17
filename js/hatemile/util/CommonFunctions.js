@@ -18,18 +18,59 @@ var exports, _base;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @namespace util
+ * @memberof hatemile
+*/
+
 
 (_base = exports.hatemile).util || (_base.util = {});
 
+/**
+ * @class CommonFunctions
+ * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
+ * classes.
+ * @version 1.0
+ * @memberof hatemile.util
+*/
+
+
 exports.hatemile.util.CommonFunctions = {
+  /**
+  	 * Count the number of ids created.
+  	 * @type {Number}
+  	 * @memberof hatemile.util.CommonFunctions
+  */
+
   count: 0,
+  /**
+  	 * Generate a id for a element.
+  	 * @param {hatemile.util.HTMLDOMElement} element The element.
+  	 * @param {String} prefix The prefix of id.
+  	 * @memberof hatemile.util.CommonFunctions
+  */
+
   generateId: function(element, prefix) {
     if (!element.hasAttribute('id')) {
       element.setAttribute('id', prefix + this.count.toString());
       this.count++;
     }
   },
+  /**
+  	 * Copy a list of attributes of a element for other element.
+  	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have attributes copied.
+  	 * @param {hatemile.util.HTMLDOMElement} element2 The element that copy the attributes.
+  	 * @param {String[]} attributes The list of attributes that will be copied.
+  	 * @memberof hatemile.util.CommonFunctions
+  */
+
   setListAttributes: function(element1, element2, attributes) {
     var attribute, _i, _len;
     for (_i = 0, _len = attributes.length; _i < _len; _i++) {
@@ -39,6 +80,15 @@ exports.hatemile.util.CommonFunctions = {
       }
     }
   },
+  /**
+  	 * Increase a item in a HTML list.
+  	 * @param {String} list The HTML list.
+  	 * @param {String} stringToIncrease The value of item.
+  	 * @return {String} The HTML list with the item added, if the item
+  	 * not was contained in list.
+  	 * @memberof hatemile.util.CommonFunctions
+  */
+
   increaseInList: function(list, stringToIncrease) {
     var array, item, _i, _len;
     if (!(isEmpty(list) || isEmpty(stringToIncrease))) {

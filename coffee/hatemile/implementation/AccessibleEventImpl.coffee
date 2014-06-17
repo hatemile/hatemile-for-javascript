@@ -14,36 +14,55 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace implementation
+ * @memberof hatemile
+###
 exports.hatemile.implementation or= {}
-class exports.hatemile.implementation.AccessibleEventsImp
+
+class exports.hatemile.implementation.AccessibleEventsImpl
+	
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * Javascript events of elements of parser.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class AccessibleEventImpl
+	 * @classdesc The AccessibleEventImpl class is official implementation of
+	 * AccessibleEvent interface.
+	 * @extends hatemile.AccessibleEvent
+	 * @version 1.0
+	 * @memberof hatemile.implementation
+	###
 	constructor: (@parser, configuration) ->
-		@dataFocused = configuration.getParameter('data-focused')
-		@dataPressed = configuration.getParameter('data-pressed')
 		@dataIgnore = configuration.getParameter('data-ignore')
 
 	fixOnHover: (element) ->
 		tag = element.getTagName()
+		nativeElement = element.getData()
 		if not ((tag is 'INPUT') or (tag is 'BUTTON') or (tag is 'A') or (tag is 'SELECT') or (tag is 'TEXTAREA') or (element.hasAttribute('tabindex')))
 			element.setAttribute('tabindex', '0')
-		_dataFocused = @dataFocused
-		if isEmpty(element.getData().onfocus)
-			element.getData().onfocus = () ->
-				element.setAttribute(_dataFocused, 'true')
-				if not isEmpty(element.getData().onmouseover)
-					element.getData().onmouseover()
-		if isEmpty(element.getData().onblur)
-			element.getData().onblur = () ->
-				if element.hasAttribute(_dataFocused)
-					if (element.getAttribute(_dataFocused).toLowerCase() is 'true') and (not isEmpty(element.getData().onmouseout))
-						element.getData().onmouseout()
-					element.setAttribute(_dataFocused, 'false')
+		if isEmpty(nativeElement.onfocus)
+			nativeElement.onfocus = () ->
+				if not isEmpty(nativeElement.onmouseover)
+					nativeElement.onmouseover()
+		if isEmpty(nativeElement.onblur)
+			nativeElement.onblur = () ->
+				if not isEmpty(nativeElement.onmouseout)
+					nativeElement.onmouseout()
 		return
 
 	fixOnHovers: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
-			if (not element.hasAttribute(@dataIgnore)) and ((not isEmpty(element.getData().onmouseover)) or (not isEmpty(element.getData().onmouseout)))
+			nativeElement = element.getData()
+			if (not element.hasAttribute(@dataIgnore)) and ((not isEmpty(nativeElement.onmouseover)) or (not isEmpty(nativeElement.onmouseout)))
 				@fixOnHover(element)
 		return
 
@@ -52,25 +71,37 @@ class exports.hatemile.implementation.AccessibleEventsImp
 		if not ((tag is 'INPUT') or (tag is 'BUTTON') or (tag is 'A'))
 			if not ((element.hasAttribute('tabindex')) or (tag is 'SELECT') or (tag is 'TEXTAREA'))
 				element.setAttribute('tabindex', '0')
-			if (isEmpty(element.getData().onkeypress)) and (isEmpty(element.getData().onkeyup)) and (isEmpty(element.getData().onkeydown))
-				_dataPressed = @dataPressed
-				element.getData().onkeypress = (event) ->
-					element.setAttribute(_dataPressed, event.keyCode)
-				element.getData().onkeyup = (event) ->
-					key = event.keyCode
-					enter1 = "\n".charCodeAt(0)
-					enter2 = "\r".charCodeAt(0)
-					if (key is enter1) or (key is enter2)
-						if element.hasAttribute(_dataPressed)
-							if key is parseInt(element.getAttribute(_dataPressed))
-								if not isEmpty(element.getData().onclick)
-									element.getData().click()
-								element.removeAttribute(_dataPressed)
+			nativeElement = element.getData()
+			if isEmpty(nativeElement.onkeypress)
+				nativeElement.onkeypress = (event) ->
+					enter1 = '\n'.charCodeAt(0)
+					enter2 = '\r'.charCodeAt(0)
+					keyCode = event.keyCode
+					if (keyCode is enter1) or (keyCode is enter2)
+						if not isEmpty(nativeElement.onclick)
+							nativeElement.click()
+						else if not isEmpty(nativeElement.ondblclick)
+							nativeElement.ondblclick()
+			if isEmpty(nativeElement.onkeyup)
+				nativeElement.onkeyup = (event) ->
+					enter1 = '\n'.charCodeAt(0)
+					enter2 = '\r'.charCodeAt(0)
+					keyCode = event.keyCode
+					if ((keyCode is enter1) or (keyCode is enter2)) and (not isEmpty(nativeElement.onmouseup))
+						nativeElement.onmouseup()
+			if isEmpty(nativeElement.onkeydown)
+				nativeElement.onkeydown = (event) ->
+					enter1 = '\n'.charCodeAt(0)
+					enter2 = '\r'.charCodeAt(0)
+					keyCode = event.keyCode
+					if ((keyCode is enter1) or (keyCode is enter2)) and (not isEmpty(nativeElement.onmousedown))
+						nativeElement.onmousedown()
 		return
 
 	fixOnClicks: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
-			if (not element.hasAttribute(@dataIgnore)) and (not isEmpty(element.getData().onclick))
+			nativeElement = element.getData()
+			if (not element.hasAttribute(@dataIgnore)) and ((not isEmpty(nativeElement.onclick)) or (not isEmpty(nativeElement.onmousedown)) or (not isEmpty(nativeElement.onmouseup)) or (not isEmpty(nativeElement.ondblclick)))
 				@fixOnClick(element)
 		return

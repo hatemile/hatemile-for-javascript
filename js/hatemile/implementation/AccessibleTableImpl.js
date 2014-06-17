@@ -18,29 +18,70 @@ var exports, _base;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @namespace implementation
+ * @memberof hatemile
+*/
+
 
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleTableImp = (function() {
+exports.hatemile.implementation.AccessibleTableImpl = (function() {
+  /**
+  	 * Initializes a new object that manipulate the accessibility of the
+  	 * tables of parser.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+  	 * @class AccessibleTableImpl
+  	 * @classdesc The AccessibleTableImpl class is official implementation of
+  	 * AccessibleTable interface.
+  	 * @extends hatemile.AccessibleTable
+  	 * @version 1.0
+  	 * @memberof hatemile.implementation
+  */
+
   var fixBodyOrFooter, generateColspan, generatePart, generateRowspan, returnListIdsColumns, validateHeader;
 
-  function AccessibleTableImp(parser, configure) {
+  function AccessibleTableImpl(parser, configure) {
     this.parser = parser;
     this.prefixId = configure.getParameter('prefix-generated-ids');
     this.dataIgnore = configure.getParameter('data-ignore');
   }
 
-  generatePart = function(element, parser) {
+  /**
+  	 * Returns a list that represents the table.
+  	 * @param {hatemile.util.HTMLDOMElement} part The table header, table footer or table body.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
+
+  generatePart = function(part, parser) {
     var row, rows, table, _i, _len;
     table = [];
-    rows = parser.find(element).findChildren('tr').listResults();
+    rows = parser.find(part).findChildren('tr').listResults();
     for (_i = 0, _len = rows.length; _i < _len; _i++) {
       row = rows[_i];
       table.push(generateColspan(parser.find(row).findChildren('th,td').listResults()));
     }
     return generateRowspan(table);
   };
+
+  /**
+  	 * Returns a list that represents the table with the rowspans.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} rows The list that represents the table without the rowspans.
+  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table with the rowspans.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
 
   generateRowspan = function(rows) {
     var cell, cells, columnIndex, copy, i, j, l, lengthCells, lengthRows, m, n, row, rowspan, table, _i, _j, _k, _ref, _ref1, _ref2;
@@ -83,6 +124,14 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     return table;
   };
 
+  /**
+  	 * Returns a list that represents the table with the colspans.
+  	 * @param {hatemile.util.HTMLDOMElement[]} cells The list that represents the table without the colspans.
+  	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the table with the colspans.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
+
   generateColspan = function(cells) {
     var colspan, copy, i, j, length, _i, _j, _ref, _ref1;
     copy = [];
@@ -100,6 +149,15 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
     return copy;
   };
+
+  /**
+  	 * Validate the list that represents the table header.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
+  	 * @return {Boolean} True if the table header is valid or false
+  	 * if the table header is not valid.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
 
   validateHeader = function(header) {
     var length, row, _i, _len;
@@ -120,6 +178,15 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     return true;
   };
 
+  /**
+  	 * Returns a list with ids of rows of same column.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
+  	 * @param {Number} index The index of columns.
+  	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same column.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
+
   returnListIdsColumns = function(header, index) {
     var cells, ids, _i, _len;
     ids = [];
@@ -131,6 +198,15 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
     return ids;
   };
+
+  /**
+  	 * Fix the table body or table footer.
+  	 * @param {hatemile.util.HTMLDOMElement} element The table body or table footer.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @param {String} prefixId The prefix of generated id.
+  	 * @memberof hatemile.implementation.AccessibleTableImpl
+  */
+
 
   fixBodyOrFooter = function(element, parser, prefixId) {
     var cell, cells, headerId, headers, headersIds, table, _i, _j, _k, _l, _len, _len1, _len2, _len3;
@@ -165,10 +241,10 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
   };
 
-  AccessibleTableImp.prototype.fixHeader = function(element) {
+  AccessibleTableImpl.prototype.fixHeader = function(tableHeader) {
     var cell, cells, _i, _len;
-    if (element.getTagName() === 'THEAD') {
-      cells = this.parser.find(element).findChildren('tr').findChildren('th').listResults();
+    if (tableHeader.getTagName() === 'THEAD') {
+      cells = this.parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
       for (_i = 0, _len = cells.length; _i < _len; _i++) {
         cell = cells[_i];
         exports.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
@@ -177,34 +253,34 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
   };
 
-  AccessibleTableImp.prototype.fixFooter = function(element) {
-    if (element.getTagName() === 'TFOOT') {
-      fixBodyOrFooter(element, this.parser, this.prefixId);
+  AccessibleTableImpl.prototype.fixFooter = function(tableFooter) {
+    if (tableFooter.getTagName() === 'TFOOT') {
+      fixBodyOrFooter(tableFooter, this.parser, this.prefixId);
     }
   };
 
-  AccessibleTableImp.prototype.fixBody = function(element) {
-    if (element.getTagName() === 'TBODY') {
-      fixBodyOrFooter(element, this.parser, this.prefixId);
+  AccessibleTableImpl.prototype.fixBody = function(tableBody) {
+    if (tableBody.getTagName() === 'TBODY') {
+      fixBodyOrFooter(tableBody, this.parser, this.prefixId);
     }
   };
 
-  AccessibleTableImp.prototype.fixTable = function(element) {
-    var body, cell, cells, footer, header, headerCells, headers, i, id, ids, lengthHeader, table, _i, _j, _k, _len, _len1, _len2;
-    header = this.parser.find(element).findChildren('thead').firstResult();
-    body = this.parser.find(element).findChildren('tbody').firstResult();
-    footer = this.parser.find(element).findChildren('tfoot').firstResult();
+  AccessibleTableImpl.prototype.fixTable = function(table) {
+    var body, cell, cells, fakeTable, footer, header, headerCells, headers, i, id, ids, lengthHeader, _i, _j, _k, _len, _len1, _len2;
+    header = this.parser.find(table).findChildren('thead').firstResult();
+    body = this.parser.find(table).findChildren('tbody').firstResult();
+    footer = this.parser.find(table).findChildren('tfoot').firstResult();
     if (!isEmpty(header)) {
       this.fixHeader(header);
       headerCells = generatePart(header, this.parser);
       if (validateHeader(headerCells) && !isEmpty(body)) {
         lengthHeader = headerCells[0].length;
-        table = generatePart(body, this.parser);
+        fakeTable = generatePart(body, this.parser);
         if (!isEmpty(footer)) {
-          table = table.concat(generatePart(footer, this.parser));
+          fakeTable = fakeTable.concat(generatePart(footer, this.parser));
         }
-        for (_i = 0, _len = table.length; _i < _len; _i++) {
-          cells = table[_i];
+        for (_i = 0, _len = fakeTable.length; _i < _len; _i++) {
+          cells = fakeTable[_i];
           i = 0;
           if (cells.length === lengthHeader) {
             for (_j = 0, _len1 = cells.length; _j < _len1; _j++) {
@@ -233,7 +309,7 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
   };
 
-  AccessibleTableImp.prototype.fixTables = function() {
+  AccessibleTableImpl.prototype.fixTables = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('table').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -244,6 +320,6 @@ exports.hatemile.implementation.AccessibleTableImp = (function() {
     }
   };
 
-  return AccessibleTableImp;
+  return AccessibleTableImpl;
 
 })();

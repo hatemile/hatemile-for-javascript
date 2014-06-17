@@ -18,37 +18,62 @@ var exports, _base;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @namespace implementation
+ * @memberof hatemile
+*/
+
 
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleFormImp = (function() {
-  function AccessibleFormImp(parser, configuration) {
+exports.hatemile.implementation.AccessibleFormImpl = (function() {
+  /**
+  	 * Initializes a new object that manipulate the accessibility of the
+  	 * forms of parser.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+  	 * @class AccessibleFormImpl
+  	 * @classdesc The AccessibleFormImpl class is official implementation of
+  	 * AccessibleForm interface.
+  	 * @extends hatemile.AccessibleForm
+  	 * @version 1.0
+  	 * @memberof hatemile.implementation
+  */
+
+  function AccessibleFormImpl(parser, configuration) {
     this.parser = parser;
     this.prefixId = configuration.getParameter('prefix-generated-ids');
-    this.classRequiredField = configuration.getParameter('class-required-field');
-    this.sufixRequiredField = configuration.getParameter('sufix-required-field');
+    this.dataLabelRequiredField = configuration.getParameter('data-label-required-field');
+    this.prefixRequiredField = configuration.getParameter('prefix-required-field');
+    this.suffixRequiredField = configuration.getParameter('suffix-required-field');
     this.dataIgnore = configuration.getParameter('data-ignore');
   }
 
-  AccessibleFormImp.prototype.fixRequiredField = function(element) {
+  AccessibleFormImpl.prototype.fixRequiredField = function(requiredField) {
     var label, labels, _i, _len;
-    if (element.hasAttribute('required')) {
-      element.setAttribute('aria-required', 'true');
-      if (element.hasAttribute('id')) {
-        labels = this.parser.find("label[for=" + (element.getAttribute('id')) + "]").listResults();
+    if (requiredField.hasAttribute('required')) {
+      requiredField.setAttribute('aria-required', 'true');
+      if (requiredField.hasAttribute('id')) {
+        labels = this.parser.find("label[for=" + (requiredField.getAttribute('id')) + "]").listResults();
       }
       if (isEmpty(labels)) {
-        labels = this.parser.find(element).findAncestors('label').listResults();
+        labels = this.parser.find(requiredField).findAncestors('label').listResults();
       }
       for (_i = 0, _len = labels.length; _i < _len; _i++) {
         label = labels[_i];
-        label.setAttribute('class', exports.hatemile.util.CommonFunctions.increaseInList(label.getAttribute('class'), this.classRequiredField));
+        label.setAttribute(this.dataLabelRequiredField, 'true');
       }
     }
   };
 
-  AccessibleFormImp.prototype.fixRequiredFields = function() {
+  AccessibleFormImpl.prototype.fixRequiredFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('[required]').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -59,13 +84,13 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixDisabledField = function(element) {
-    if (element.hasAttribute('disabled')) {
-      element.setAttribute('aria-disabled', 'true');
+  AccessibleFormImpl.prototype.fixDisabledField = function(disabledField) {
+    if (disabledField.hasAttribute('disabled')) {
+      disabledField.setAttribute('aria-disabled', 'true');
     }
   };
 
-  AccessibleFormImp.prototype.fixDisabledFields = function() {
+  AccessibleFormImpl.prototype.fixDisabledFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('[disabled]').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -76,13 +101,13 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixReadOnlyField = function(element) {
-    if (element.hasAttribute('readonly')) {
-      element.setAttribute('aria-readonly', 'true');
+  AccessibleFormImpl.prototype.fixReadOnlyField = function(readOnlyField) {
+    if (readOnlyField.hasAttribute('readonly')) {
+      readOnlyField.setAttribute('aria-readonly', 'true');
     }
   };
 
-  AccessibleFormImp.prototype.fixReadOnlyFields = function() {
+  AccessibleFormImpl.prototype.fixReadOnlyFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('[readonly]').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -93,16 +118,16 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixRangeField = function(element) {
-    if (element.hasAttribute('min')) {
-      element.setAttribute('aria-valuemin', element.getAttribute('min'));
+  AccessibleFormImpl.prototype.fixRangeField = function(rangeField) {
+    if (rangeField.hasAttribute('min')) {
+      rangeField.setAttribute('aria-valuemin', rangeField.getAttribute('min'));
     }
-    if (element.hasAttribute('max')) {
-      element.setAttribute('aria-valuemax', element.getAttribute('max'));
+    if (rangeField.hasAttribute('max')) {
+      rangeField.setAttribute('aria-valuemax', rangeField.getAttribute('max'));
     }
   };
 
-  AccessibleFormImp.prototype.fixRangeFields = function() {
+  AccessibleFormImpl.prototype.fixRangeFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('[min],[max]').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -113,20 +138,20 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixTextField = function(element) {
+  AccessibleFormImpl.prototype.fixTextField = function(textField) {
     var type, types;
-    if ((element.getTagName() === 'INPUT') && (element.hasAttribute('type'))) {
-      type = element.getAttribute('type').toLowerCase();
+    if ((textField.getTagName() === 'INPUT') && (textField.hasAttribute('type'))) {
+      type = textField.getAttribute('type').toLowerCase();
       types = ['text', 'search', 'email', 'url', 'tel', 'number'];
       if (types.indexOf(type) > -1) {
-        element.setAttribute('aria-multiline', 'false');
+        textField.setAttribute('aria-multiline', 'false');
       }
-    } else if (element.getTagName() === 'TEXTAREA') {
-      element.setAttribute('aria-multiline', 'true');
+    } else if (textField.getTagName() === 'TEXTAREA') {
+      textField.setAttribute('aria-multiline', 'true');
     }
   };
 
-  AccessibleFormImp.prototype.fixTextFields = function() {
+  AccessibleFormImpl.prototype.fixTextFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('input[type=text],input[type=search],input[type=email],input[type=url],input[type=tel],input[type=number],textarea').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -137,17 +162,17 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixSelectField = function(element) {
-    if (element.getTagName() === 'SELECT') {
-      if (element.hasAttribute('multiple')) {
-        element.setAttribute('aria-multiselectable', 'true');
+  AccessibleFormImpl.prototype.fixSelectField = function(selectField) {
+    if (selectField.getTagName() === 'SELECT') {
+      if (selectField.hasAttribute('multiple')) {
+        selectField.setAttribute('aria-multiselectable', 'true');
       } else {
-        element.setAttribute('aria-multiselectable', 'false');
+        selectField.setAttribute('aria-multiselectable', 'false');
       }
     }
   };
 
-  AccessibleFormImp.prototype.fixSelectFields = function() {
+  AccessibleFormImpl.prototype.fixSelectFields = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('select').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -158,35 +183,38 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  AccessibleFormImp.prototype.fixLabel = function(element) {
-    var input, label;
-    if (element.getTagName() === 'LABEL') {
-      if (element.hasAttribute('for')) {
-        input = this.parser.find("#" + (element.getAttribute('for'))).firstResult();
+  AccessibleFormImpl.prototype.fixLabel = function(label) {
+    var contentLabel, input;
+    if (label.getTagName() === 'LABEL') {
+      if (label.hasAttribute('for')) {
+        input = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
       } else {
-        input = this.parser.find(element).findDescendants('input,select,textarea').firstResult();
+        input = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
         if (!isEmpty(input)) {
           exports.hatemile.util.CommonFunctions.generateId(input, this.prefixId);
-          element.setAttribute('for', input.getAttribute('id'));
+          label.setAttribute('for', input.getAttribute('id'));
         }
       }
       if (!isEmpty(input)) {
         if (!input.hasAttribute('aria-label')) {
-          label = element.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
+          contentLabel = label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
           if (input.hasAttribute('aria-required')) {
-            if ((input.getAttribute('aria-required').toLowerCase() === 'true') && (label.indexOf(this.sufixRequiredField) === -1)) {
-              label += " " + this.sufixRequiredField;
+            if ((input.getAttribute('aria-required').toLowerCase() === 'true') && (contentLabel.indexOf(this.prefixRequiredField) === -1)) {
+              contentLabel = "" + this.prefixRequiredField + " " + contentLabel;
+            }
+            if ((input.getAttribute('aria-required').toLowerCase() === 'true') && (contentLabel.indexOf(this.suffixRequiredField) === -1)) {
+              contentLabel += " " + this.suffixRequiredField;
             }
           }
-          input.setAttribute('aria-label', label);
+          input.setAttribute('aria-label', contentLabel);
         }
-        exports.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
-        input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), element.getAttribute('id')));
+        exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
+        input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), label.getAttribute('id')));
       }
     }
   };
 
-  AccessibleFormImp.prototype.fixLabels = function() {
+  AccessibleFormImpl.prototype.fixLabels = function() {
     var element, elements, _i, _len;
     elements = this.parser.find('label').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -197,6 +225,6 @@ exports.hatemile.implementation.AccessibleFormImp = (function() {
     }
   };
 
-  return AccessibleFormImp;
+  return AccessibleFormImpl;
 
 })();

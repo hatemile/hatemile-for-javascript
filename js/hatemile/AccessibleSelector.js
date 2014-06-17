@@ -18,10 +18,29 @@ var exports;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @class AccessibleSelector
+ * @classdesc The AccessibleSelector interface do changes in selectors.
+ * @version 1.0
+ * @memberof hatemile
+*/
+
 
 exports.hatemile.AccessibleSelector = (function() {
   function AccessibleSelector() {}
+
+  /**
+  	 * Fix changes in selectors.
+  	 * @memberof hatemile.AccessibleSelector
+  */
+
 
   AccessibleSelector.prototype.fixSelectors = function() {};
 

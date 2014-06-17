@@ -14,28 +14,52 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 exports = this
+
+###*
+ * @namespace hatemile
+###
 exports.hatemile or= {}
+
+###*
+ * @namespace implementation
+ * @memberof hatemile
+###
 exports.hatemile.implementation or= {}
-class exports.hatemile.implementation.AccessibleImageImp
+
+class exports.hatemile.implementation.AccessibleImageImpl
+	
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * images of parser.
+	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class AccessibleImageImpl
+	 * @classdesc The AccessibleImageImpl class is official implementation of
+	 * AccessibleImage interface.
+	 * @extends hatemile.AccessibleImage
+	 * @version 1.0
+	 * @memberof hatemile.implementation
+	###
 	constructor: (@parser, configuration) ->
 		@prefixId = configuration.getParameter('prefix-generated-ids')
 		@classListImageAreas = configuration.getParameter('class-list-image-areas')
 		@classLongDescriptionLink = configuration.getParameter('class-longdescription-link')
-		@sufixLongDescriptionLink = configuration.getParameter('sufix-longdescription-link')
+		@prefixLongDescriptionLink = configure.getParameter('prefix-longdescription-link')
+		@suffixLongDescriptionLink = configuration.getParameter('suffix-longdescription-link')
 		@dataListForImage = configuration.getParameter('data-list-for-image')
 		@dataLongDescriptionForImage = configuration.getParameter('data-longdescription-for-image')
 		@dataIgnore = configuration.getParameter('data-ignore')
 
-	fixMap: (element) ->
-		if element.getTagName() is 'MAP'
-			if element.hasAttribute('name')
-				name = element.getAttribute('name')
-			else if element.hasAttribute('id')
-				name = element.getAttribute('id')
+	fixMap: (map) ->
+		if map.getTagName() is 'MAP'
+			if map.hasAttribute('name')
+				name = map.getAttribute('name')
+			else if map.hasAttribute('id')
+				name = map.getAttribute('id')
 			if not isEmpty(name)
 				list = @parser.createElement('ul')
 				list.setAttribute('class', @classListImageAreas)
-				areas = @parser.find(element).findChildren('area, a').listResults()
+				areas = @parser.find(map).findChildren('area,a').listResults()
 				for area in areas
 					if area.hasAttribute('alt')
 						item = @parser.createElement('li')
@@ -50,9 +74,10 @@ class exports.hatemile.implementation.AccessibleImageImp
 					images = @parser.find("[usemap=##{name}]").listResults()
 					for image in images
 						exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
-						if isEmpty(@parser.find("[#{@dataListForImage}=#{image.getAttribute('id')}]").firstResult())
+						id = image.getAttribute('id')
+						if isEmpty(@parser.find("[#{@dataListForImage}=#{id}]").firstResult())
 							newList = list.cloneElement()
-							newList.setAttribute(@dataListForImage, image.getAttribute('id'))
+							newList.setAttribute(@dataListForImage, id)
 							image.insertAfter(newList)
 		return
 
@@ -63,22 +88,23 @@ class exports.hatemile.implementation.AccessibleImageImp
 				@fixMap(element)
 		return
 		
-	fixLongDescription: (element) ->
-		if element.hasAttribute('longdesc')
-			exports.hatemile.util.CommonFunctions.generateId(element, @prefixId)
-			if isEmpty(@parser.find("[#{@dataLongDescriptionForImage}=#{element.getAttribute('id')}]").firstResult())
-				if element.hasAttribute('alt')
-					text = "#{element.getAttribute('alt')} #{@sufixLongDescriptionLink}"
+	fixLongDescription: (image) ->
+		if image.hasAttribute('longdesc')
+			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+			id = image.getAttribute('id')
+			if isEmpty(@parser.find("[#{@dataLongDescriptionForImage}=#{id}]").firstResult())
+				if image.hasAttribute('alt')
+					text = "#{@prefixLongDescriptionLink} #{image.getAttribute('alt')} #{@suffixLongDescriptionLink}"
 				else
-					text = @sufixLongDescriptionLink
-				longDescription = element.getAttribute('longdesc')
+					text = "#{@prefixLongDescriptionLink} #{@suffixLongDescriptionLink}"
+				longDescription = image.getAttribute('longdesc')
 				anchor = @parser.createElement('a')
 				anchor.setAttribute('href', longDescription)
 				anchor.setAttribute('target', '_blank')
-				anchor.setAttribute(@dataLongDescriptionForImage, element.getAttribute('id'))
+				anchor.setAttribute(@dataLongDescriptionForImage, id)
 				anchor.setAttribute('class', @classLongDescriptionLink)
 				anchor.appendText(text)
-				element.insertAfter(anchor)
+				image.insertAfter(anchor)
 		return
 
 	fixLongDescriptions: () ->

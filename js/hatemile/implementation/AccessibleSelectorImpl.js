@@ -18,11 +18,35 @@ var exports, _base;
 
 exports = this;
 
+/**
+ * @namespace hatemile
+*/
+
+
 exports.hatemile || (exports.hatemile = {});
+
+/**
+ * @namespace implementation
+ * @memberof hatemile
+*/
+
 
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleSelectorImpl = (function() {
+  /**
+  	 * Initializes a new object that manipulate the accessibility through of the
+  	 * selectors of the configuration file.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+  	 * @class AccessibleSelectorImpl
+  	 * @classdesc The AccessibleSelectorImpl class is official implementation of
+  	 * AccessibleSelector interface.
+  	 * @extends hatemile.AccessibleSelector
+  	 * @version 1.0
+  	 * @memberof hatemile.implementation
+  */
+
   function AccessibleSelectorImpl(parser, configuration) {
     this.parser = parser;
     this.changes = configuration.getSelectorChanges();
