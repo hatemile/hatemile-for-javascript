@@ -37,27 +37,32 @@ class exports.hatemile.implementation.AccessibleEventsImpl
 	 * @classdesc The AccessibleEventImpl class is official implementation of
 	 * AccessibleEvent interface.
 	 * @extends hatemile.AccessibleEvent
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.implementation
 	###
-	constructor: (@parser, configuration) ->
-		@dataIgnore = configuration.getParameter('data-ignore')
-
+	constructor: (@parser, configure) ->
+		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
+	
 	fixOnHover: (element) ->
 		tag = element.getTagName()
-		nativeElement = element.getData()
 		if not ((tag is 'INPUT') or (tag is 'BUTTON') or (tag is 'A') or (tag is 'SELECT') or (tag is 'TEXTAREA') or (element.hasAttribute('tabindex')))
 			element.setAttribute('tabindex', '0')
+		
+		nativeElement = element.getData()
 		if isEmpty(nativeElement.onfocus)
 			nativeElement.onfocus = () ->
 				if not isEmpty(nativeElement.onmouseover)
-					nativeElement.onmouseover()
+					try
+						nativeElement.onmouseover()
+					catch error
 		if isEmpty(nativeElement.onblur)
 			nativeElement.onblur = () ->
 				if not isEmpty(nativeElement.onmouseout)
-					nativeElement.onmouseout()
+					try
+						nativeElement.onmouseout()
+					catch error
 		return
-
+	
 	fixOnHovers: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
@@ -65,12 +70,13 @@ class exports.hatemile.implementation.AccessibleEventsImpl
 			if (not element.hasAttribute(@dataIgnore)) and ((not isEmpty(nativeElement.onmouseover)) or (not isEmpty(nativeElement.onmouseout)))
 				@fixOnHover(element)
 		return
-
-	fixOnClick: (element) ->
+	
+	fixOnActive: (element) ->
 		tag = element.getTagName()
 		if not ((tag is 'INPUT') or (tag is 'BUTTON') or (tag is 'A'))
 			if not ((element.hasAttribute('tabindex')) or (tag is 'SELECT') or (tag is 'TEXTAREA'))
 				element.setAttribute('tabindex', '0')
+			
 			nativeElement = element.getData()
 			if isEmpty(nativeElement.onkeypress)
 				nativeElement.onkeypress = (event) ->
@@ -79,29 +85,37 @@ class exports.hatemile.implementation.AccessibleEventsImpl
 					keyCode = event.keyCode
 					if (keyCode is enter1) or (keyCode is enter2)
 						if not isEmpty(nativeElement.onclick)
-							nativeElement.click()
+							try
+								nativeElement.click()
+							catch error
 						else if not isEmpty(nativeElement.ondblclick)
-							nativeElement.ondblclick()
+							try
+								nativeElement.ondblclick()
+							catch error
 			if isEmpty(nativeElement.onkeyup)
 				nativeElement.onkeyup = (event) ->
 					enter1 = '\n'.charCodeAt(0)
 					enter2 = '\r'.charCodeAt(0)
 					keyCode = event.keyCode
 					if ((keyCode is enter1) or (keyCode is enter2)) and (not isEmpty(nativeElement.onmouseup))
-						nativeElement.onmouseup()
+						try
+							nativeElement.onmouseup()
+						catch error
 			if isEmpty(nativeElement.onkeydown)
 				nativeElement.onkeydown = (event) ->
 					enter1 = '\n'.charCodeAt(0)
 					enter2 = '\r'.charCodeAt(0)
 					keyCode = event.keyCode
 					if ((keyCode is enter1) or (keyCode is enter2)) and (not isEmpty(nativeElement.onmousedown))
-						nativeElement.onmousedown()
+						try
+							nativeElement.onmousedown()
+						catch error
 		return
-
-	fixOnClicks: () ->
+	
+	fixOnActives: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
 			nativeElement = element.getData()
 			if (not element.hasAttribute(@dataIgnore)) and ((not isEmpty(nativeElement.onclick)) or (not isEmpty(nativeElement.onmousedown)) or (not isEmpty(nativeElement.onmouseup)) or (not isEmpty(nativeElement.ondblclick)))
-				@fixOnClick(element)
+				@fixOnActive(element)
 		return

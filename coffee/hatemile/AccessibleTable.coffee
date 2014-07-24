@@ -24,37 +24,10 @@ exports.hatemile or= {}
  * @class AccessibleTable
  * @classdesc The AccessibleTable interface fix the problems of accessibility
  * associated with the tables.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile
 ###
 class exports.hatemile.AccessibleTable
-	
-	###*
-	 * Fix the table header.
-	 * @param {hatemile.util.HTMLDOMElement} tableHeader The table header.
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H43.html|H43: Using id and headers attributes to associate data cells with header cells in data tables}
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H63.html|H63: Using the scope attribute to associate header cells and data cells in data tables}
-	 * @memberof hatemile.AccessibleTable
-	###
-	fixHeader: (tableHeader) ->
-	
-	###*
-	 * Fix the table footer.
-	 * @param {hatemile.util.HTMLDOMElement} tableFooter The table footer.
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H43.html|H43: Using id and headers attributes to associate data cells with header cells in data tables}
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H63.html|H63: Using the scope attribute to associate header cells and data cells in data tables}
-	 * @memberof hatemile.AccessibleTable
-	###
-	fixFooter: (tableFooter) ->
-	
-	###*
-	 * Fix the table body.
-	 * @param {hatemile.util.HTMLDOMElement} tableBody The table body.
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H43.html|H43: Using id and headers attributes to associate data cells with header cells in data tables}
-	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H63.html|H63: Using the scope attribute to associate header cells and data cells in data tables}
-	 * @memberof hatemile.AccessibleTable
-	###
-	fixBody: (tableBody) ->
 	
 	###*
 	 * Fix the table.

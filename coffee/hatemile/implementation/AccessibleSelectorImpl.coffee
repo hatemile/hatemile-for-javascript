@@ -37,12 +37,12 @@ class exports.hatemile.implementation.AccessibleSelectorImpl
 	 * @classdesc The AccessibleSelectorImpl class is official implementation of
 	 * AccessibleSelector interface.
 	 * @extends hatemile.AccessibleSelector
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.implementation
 	###
-	constructor: (@parser, configuration) ->
-		@changes = configuration.getSelectorChanges()
-		@dataIgnore = configuration.getParameter('data-ignore')
+	constructor: (@parser, configure) ->
+		@changes = configure.getSelectorChanges()
+		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
 
 	fixSelectors: () ->
 		for change in @changes

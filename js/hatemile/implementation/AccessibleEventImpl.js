@@ -43,33 +43,43 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
   	 * @classdesc The AccessibleEventImpl class is official implementation of
   	 * AccessibleEvent interface.
   	 * @extends hatemile.AccessibleEvent
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.implementation
   */
 
-  function AccessibleEventsImpl(parser, configuration) {
+  function AccessibleEventsImpl(parser, configure) {
     this.parser = parser;
-    this.dataIgnore = configuration.getParameter('data-ignore');
+    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
 
   AccessibleEventsImpl.prototype.fixOnHover = function(element) {
     var nativeElement, tag;
     tag = element.getTagName();
-    nativeElement = element.getData();
     if (!((tag === 'INPUT') || (tag === 'BUTTON') || (tag === 'A') || (tag === 'SELECT') || (tag === 'TEXTAREA') || (element.hasAttribute('tabindex')))) {
       element.setAttribute('tabindex', '0');
     }
+    nativeElement = element.getData();
     if (isEmpty(nativeElement.onfocus)) {
       nativeElement.onfocus = function() {
+        var error;
         if (!isEmpty(nativeElement.onmouseover)) {
-          return nativeElement.onmouseover();
+          try {
+            return nativeElement.onmouseover();
+          } catch (_error) {
+            error = _error;
+          }
         }
       };
     }
     if (isEmpty(nativeElement.onblur)) {
       nativeElement.onblur = function() {
+        var error;
         if (!isEmpty(nativeElement.onmouseout)) {
-          return nativeElement.onmouseout();
+          try {
+            return nativeElement.onmouseout();
+          } catch (_error) {
+            error = _error;
+          }
         }
       };
     }
@@ -87,7 +97,7 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
     }
   };
 
-  AccessibleEventsImpl.prototype.fixOnClick = function(element) {
+  AccessibleEventsImpl.prototype.fixOnActive = function(element) {
     var nativeElement, tag;
     tag = element.getTagName();
     if (!((tag === 'INPUT') || (tag === 'BUTTON') || (tag === 'A'))) {
@@ -97,52 +107,68 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
       nativeElement = element.getData();
       if (isEmpty(nativeElement.onkeypress)) {
         nativeElement.onkeypress = function(event) {
-          var enter1, enter2, keyCode;
+          var enter1, enter2, error, keyCode;
           enter1 = '\n'.charCodeAt(0);
           enter2 = '\r'.charCodeAt(0);
           keyCode = event.keyCode;
           if ((keyCode === enter1) || (keyCode === enter2)) {
             if (!isEmpty(nativeElement.onclick)) {
-              return nativeElement.click();
+              try {
+                return nativeElement.click();
+              } catch (_error) {
+                error = _error;
+              }
             } else if (!isEmpty(nativeElement.ondblclick)) {
-              return nativeElement.ondblclick();
+              try {
+                return nativeElement.ondblclick();
+              } catch (_error) {
+                error = _error;
+              }
             }
           }
         };
       }
       if (isEmpty(nativeElement.onkeyup)) {
         nativeElement.onkeyup = function(event) {
-          var enter1, enter2, keyCode;
+          var enter1, enter2, error, keyCode;
           enter1 = '\n'.charCodeAt(0);
           enter2 = '\r'.charCodeAt(0);
           keyCode = event.keyCode;
           if (((keyCode === enter1) || (keyCode === enter2)) && (!isEmpty(nativeElement.onmouseup))) {
-            return nativeElement.onmouseup();
+            try {
+              return nativeElement.onmouseup();
+            } catch (_error) {
+              error = _error;
+            }
           }
         };
       }
       if (isEmpty(nativeElement.onkeydown)) {
         nativeElement.onkeydown = function(event) {
-          var enter1, enter2, keyCode;
+          var enter1, enter2, error, keyCode;
           enter1 = '\n'.charCodeAt(0);
           enter2 = '\r'.charCodeAt(0);
           keyCode = event.keyCode;
           if (((keyCode === enter1) || (keyCode === enter2)) && (!isEmpty(nativeElement.onmousedown))) {
-            return nativeElement.onmousedown();
+            try {
+              return nativeElement.onmousedown();
+            } catch (_error) {
+              error = _error;
+            }
           }
         };
       }
     }
   };
 
-  AccessibleEventsImpl.prototype.fixOnClicks = function() {
+  AccessibleEventsImpl.prototype.fixOnActives = function() {
     var element, elements, nativeElement, _i, _len;
     elements = this.parser.find('body *').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
       element = elements[_i];
       nativeElement = element.getData();
       if ((!element.hasAttribute(this.dataIgnore)) && ((!isEmpty(nativeElement.onclick)) || (!isEmpty(nativeElement.onmousedown)) || (!isEmpty(nativeElement.onmouseup)) || (!isEmpty(nativeElement.ondblclick)))) {
-        this.fixOnClick(element);
+        this.fixOnActive(element);
       }
     }
   };

@@ -36,7 +36,7 @@ class exports.hatemile.util.SelectorChange
 	 * @class SelectorChange
 	 * @classdesc The SelectorChange class store the selector that be attribute
 	 * change.
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.util
 	###
 	constructor: (@selector, @attribute, @valueForAttribute) ->
@@ -50,15 +50,6 @@ class exports.hatemile.util.SelectorChange
 		return @selector
 	
 	###*
-	 * Change the selector.
-	 * @param {String} selector The new selector.
-	 * @memberof hatemile.util.SelectorChange
-	###
-	setSelector: (selector) ->
-		@selector = selector
-		return
-	
-	###*
 	 * Returns the attribute.
 	 * @return {String} The attribute.
 	 * @memberof hatemile.util.SelectorChange
@@ -67,27 +58,9 @@ class exports.hatemile.util.SelectorChange
 		return @attribute
 	
 	###*
-	 * Change the attribute.
-	 * @param {String} attribute The new attribute. 
-	 * @memberof hatemile.util.SelectorChange
-	###
-	setAttribute: (attribute) ->
-		@attribute = attribute
-		return
-	
-	###*
 	 * Returns the value of the attribute.
 	 * @return {String} The value of the attribute.
 	 * @memberof hatemile.util.SelectorChange
 	###
 	getValueForAttribute: () ->
 		return @valueForAttribute
-	
-	###*
-	 * Change the value of the attribute.
-	 * @param {String} valueForAttribute The new value of the attribute.
-	 * @memberof hatemile.util.SelectorChange
-	###
-	setValueForAttribute: (valueForAttribute) ->
-		@valueForAttribute = valueForAttribute
-		return

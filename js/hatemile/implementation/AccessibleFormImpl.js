@@ -35,26 +35,85 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.implementation.AccessibleFormImpl = (function() {
   /**
-  	 * Initializes a new object that manipulate the accessibility of the
-  	 * forms of parser.
+  	 * Initializes a new object that manipulate the accessibility of the forms of
+  	 * parser.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
   	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
   	 * @class AccessibleFormImpl
   	 * @classdesc The AccessibleFormImpl class is official implementation of
   	 * AccessibleForm interface.
   	 * @extends hatemile.AccessibleForm
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.implementation
   */
 
-  function AccessibleFormImpl(parser, configuration) {
+  var fixControlAutoComplete, fixLabelRequiredField;
+
+  function AccessibleFormImpl(parser, configure) {
     this.parser = parser;
-    this.prefixId = configuration.getParameter('prefix-generated-ids');
-    this.dataLabelRequiredField = configuration.getParameter('data-label-required-field');
-    this.prefixRequiredField = configuration.getParameter('prefix-required-field');
-    this.suffixRequiredField = configuration.getParameter('suffix-required-field');
-    this.dataIgnore = configuration.getParameter('data-ignore');
+    this.prefixId = configure.getParameter('prefix-generated-ids');
+    this.prefixRequiredField = configure.getParameter('prefix-required-field');
+    this.suffixRequiredField = configure.getParameter('suffix-required-field');
+    this.dataLabelRequiredField = "data-" + (configure.getParameter('data-label-required-field'));
+    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
+
+  /**
+  	 * Do the label or the aria-label to inform in label that the field is
+  	 * required.
+  	 * @param {hatemile.util.HTMLDOMElement} label The label.
+  	 * @param {hatemile.util.HTMLDOMElement} requiredField The required field.
+  	 * @param {String} dataLabelRequiredField The name of attribute for the label
+  	 * of a required field.
+  	 * @param {String} prefixRequiredField The prefix of required field.
+  	 * @param {String} suffixRequiredField The suffix of required field.
+  	 * @memberof hatemile.implementation.AccessibleFormImpl
+  */
+
+
+  fixLabelRequiredField = function(label, requiredField, dataLabelRequiredField, prefixRequiredField, suffixRequiredField) {
+    var contentLabel;
+    if ((requiredField.hasAttribute('required')) || ((requiredField.hasAttribute('aria-required')) && (requiredField.getAttribute('aria-required').toLowerCase() === 'true'))) {
+      if (!label.hasAttribute(dataLabelRequiredField)) {
+        label.setAttribute(dataLabelRequiredField, 'true');
+      }
+      if (requiredField.hasAttribute('aria-label')) {
+        contentLabel = requiredField.getAttribute('aria-label');
+        if ((!isEmpty(prefixRequiredField)) && (contentLabel.indexOf(prefixRequiredField) === -1)) {
+          contentLabel = "" + prefixRequiredField + " " + contentLabel;
+        }
+        if ((!isEmpty(suffixRequiredField)) && (contentLabel.indexOf(suffixRequiredField) === -1)) {
+          contentLabel += " " + suffixRequiredField;
+        }
+        requiredField.setAttribute('aria-label', contentLabel);
+      }
+    }
+  };
+
+  /**
+  	 * Fix the control to inform if it has autocomplete and the type.
+  	 * @param {hatemile.util.HTMLDOMElement} control The form control.
+  	 * @param {Boolean} active If the element has autocomplete.
+  	 * @memberof hatemile.implementation.AccessibleFormImpl
+  */
+
+
+  fixControlAutoComplete = function(control, active, parser) {
+    var list;
+    if (active) {
+      control.setAttribute('aria-autocomplete', 'both');
+    } else if (!((active !== void 0) && (control.hasAttribute('aria-autocomplete')))) {
+      if (control.hasAttribute('list')) {
+        list = parser.find("datalist[id=" + (control.getAttribute('list')) + "]").firstResult();
+        if (!isEmpty(list)) {
+          control.setAttribute('aria-autocomplete', 'list');
+        }
+      }
+      if ((active === false) && ((!control.hasAttribute('aria-autocomplete')) || (!control.getAttribute('aria-autocomplete').toLowerCase() === 'list'))) {
+        control.setAttribute('aria-autocomplete', 'none');
+      }
+    }
+  };
 
   AccessibleFormImpl.prototype.fixRequiredField = function(requiredField) {
     var label, labels, _i, _len;
@@ -68,52 +127,18 @@ exports.hatemile.implementation.AccessibleFormImpl = (function() {
       }
       for (_i = 0, _len = labels.length; _i < _len; _i++) {
         label = labels[_i];
-        label.setAttribute(this.dataLabelRequiredField, 'true');
+        fixLabelRequiredField(label, requiredField, this.dataLabelRequiredField, this.prefixRequiredField, this.suffixRequiredField);
       }
     }
   };
 
   AccessibleFormImpl.prototype.fixRequiredFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('[required]').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixRequiredField(element);
-      }
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixDisabledField = function(disabledField) {
-    if (disabledField.hasAttribute('disabled')) {
-      disabledField.setAttribute('aria-disabled', 'true');
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixDisabledFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('[disabled]').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixDisabledField(element);
-      }
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixReadOnlyField = function(readOnlyField) {
-    if (readOnlyField.hasAttribute('readonly')) {
-      readOnlyField.setAttribute('aria-readonly', 'true');
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixReadOnlyFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('[readonly]').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixReadOnlyField(element);
+    var requiredField, requiredFields, _i, _len;
+    requiredFields = this.parser.find('[required]').listResults();
+    for (_i = 0, _len = requiredFields.length; _i < _len; _i++) {
+      requiredField = requiredFields[_i];
+      if (!requiredField.hasAttribute(this.dataIgnore)) {
+        this.fixRequiredField(requiredField);
       }
     }
   };
@@ -128,99 +153,105 @@ exports.hatemile.implementation.AccessibleFormImpl = (function() {
   };
 
   AccessibleFormImpl.prototype.fixRangeFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('[min],[max]').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixRangeField(element);
-      }
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixTextField = function(textField) {
-    var type, types;
-    if ((textField.getTagName() === 'INPUT') && (textField.hasAttribute('type'))) {
-      type = textField.getAttribute('type').toLowerCase();
-      types = ['text', 'search', 'email', 'url', 'tel', 'number'];
-      if (types.indexOf(type) > -1) {
-        textField.setAttribute('aria-multiline', 'false');
-      }
-    } else if (textField.getTagName() === 'TEXTAREA') {
-      textField.setAttribute('aria-multiline', 'true');
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixTextFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('input[type=text],input[type=search],input[type=email],input[type=url],input[type=tel],input[type=number],textarea').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixTextField(element);
-      }
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixSelectField = function(selectField) {
-    if (selectField.getTagName() === 'SELECT') {
-      if (selectField.hasAttribute('multiple')) {
-        selectField.setAttribute('aria-multiselectable', 'true');
-      } else {
-        selectField.setAttribute('aria-multiselectable', 'false');
-      }
-    }
-  };
-
-  AccessibleFormImpl.prototype.fixSelectFields = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('select').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixSelectField(element);
+    var rangeField, rangeFields, _i, _len;
+    rangeFields = this.parser.find('[min],[max]').listResults();
+    for (_i = 0, _len = rangeFields.length; _i < _len; _i++) {
+      rangeField = rangeFields[_i];
+      if (!rangeField.hasAttribute(this.dataIgnore)) {
+        this.fixRangeField(rangeField);
       }
     }
   };
 
   AccessibleFormImpl.prototype.fixLabel = function(label) {
-    var contentLabel, input;
+    var field;
     if (label.getTagName() === 'LABEL') {
       if (label.hasAttribute('for')) {
-        input = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
+        field = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
       } else {
-        input = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
-        if (!isEmpty(input)) {
-          exports.hatemile.util.CommonFunctions.generateId(input, this.prefixId);
-          label.setAttribute('for', input.getAttribute('id'));
+        field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
+        if (!isEmpty(field)) {
+          exports.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
+          label.setAttribute('for', field.getAttribute('id'));
         }
       }
-      if (!isEmpty(input)) {
-        if (!input.hasAttribute('aria-label')) {
-          contentLabel = label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
-          if (input.hasAttribute('aria-required')) {
-            if ((input.getAttribute('aria-required').toLowerCase() === 'true') && (contentLabel.indexOf(this.prefixRequiredField) === -1)) {
-              contentLabel = "" + this.prefixRequiredField + " " + contentLabel;
-            }
-            if ((input.getAttribute('aria-required').toLowerCase() === 'true') && (contentLabel.indexOf(this.suffixRequiredField) === -1)) {
-              contentLabel += " " + this.suffixRequiredField;
-            }
-          }
-          input.setAttribute('aria-label', contentLabel);
+      if (!isEmpty(field)) {
+        if (!field.hasAttribute('aria-label')) {
+          field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
         }
+        fixLabelRequiredField(label, field, this.dataLabelRequiredField, this.prefixRequiredField, this.suffixRequiredField);
         exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
-        input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), label.getAttribute('id')));
+        field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
       }
     }
   };
 
   AccessibleFormImpl.prototype.fixLabels = function() {
+    var label, labels, _i, _len;
+    labels = this.parser.find('label').listResults();
+    for (_i = 0, _len = labels.length; _i < _len; _i++) {
+      label = labels[_i];
+      if (!label.hasAttribute(this.dataIgnore)) {
+        this.fixLabel(label);
+      }
+    }
+  };
+
+  AccessibleFormImpl.prototype.fixAutoComplete = function(element) {
+    var active, autoCompleteControlFormValue, control, controls, fix, id, type, value, _i, _len;
+    if (element.hasAttribute('autocomplete')) {
+      value = element.getAttribute('autocomplete');
+      if (value === 'on') {
+        active = true;
+      } else if (value === 'off') {
+        active = false;
+      } else {
+        active = void 0;
+      }
+      if (active !== void 0) {
+        if (element.getTagName() === 'FORM') {
+          controls = this.parser.find(element).findDescendants('input,textarea').listResults();
+          if (element.hasAttribute('id')) {
+            id = element.getAttribute('id');
+            controls = controls.concat(this.parser.find("input[form=" + id + "],textarea[form=" + id + "]").listResults());
+          }
+          for (_i = 0, _len = controls.length; _i < _len; _i++) {
+            control = controls[_i];
+            fix = true;
+            if ((control.getTagName() === 'INPUT') && (control.hasAttribute('type'))) {
+              type = control.getAttribute('type').toLowerCase();
+              if ((type === 'button') || (type === 'submit') || (type === 'reset') || (type === 'image') || (type === 'file') || (type === 'checkbox') || (type === 'radio') || (type === 'password') || (type === 'hidden')) {
+                fix = false;
+              }
+            }
+            if (fix) {
+              autoCompleteControlFormValue = control.getAttribute('autocomplete');
+              if (autoCompleteControlFormValue === 'on') {
+                fixControlAutoComplete(control, true, this.parser);
+              } else if (autoCompleteControlFormValue === 'off') {
+                fixControlAutoComplete(control, false, this.parser);
+              } else {
+                fixControlAutoComplete(control, active, this.parser);
+              }
+            }
+          }
+        } else {
+          fixControlAutoComplete(element, active, this.parser);
+        }
+      }
+    }
+    if ((!element.hasAttribute('aria-autocomplete')) && (element.hasAttribute('list'))) {
+      fixControlAutoComplete(element, void 0, this.parser);
+    }
+  };
+
+  AccessibleFormImpl.prototype.fixAutoCompletes = function() {
     var element, elements, _i, _len;
-    elements = this.parser.find('label').listResults();
+    elements = this.parser.find('[autocomplete],[list]').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
       element = elements[_i];
       if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixLabel(element);
+        this.fixAutoComplete(element);
       }
     }
   };

@@ -29,48 +29,57 @@ exports.hatemile.implementation or= {}
 class exports.hatemile.implementation.AccessibleShortcutImpl
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the
-	 * shortcuts of parser.
+	 * Initializes a new object that manipulate the accessibility of the shortcuts
+	 * of parser.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
 	 * @param {String} userAgent The user agent of the user.
 	 * @class AccessibleShortcutImpl
 	 * @classdesc The AccessibleShortcutImpl class is official implementation of
 	 * AccessibleShortcut interface.
-	 * @extends hatemile.AccessibleShortcut
-	 * @version 1.0
+	 * @extends hatemile.ClientSideAccessibleShortcut
+	 * @version 2014-07-23
 	 * @memberof hatemile.implementation
 	###
 	constructor: (@parser, configure, userAgent) ->
 		@idContainerShortcuts = configure.getParameter('id-container-shortcuts')
 		@idSkipLinkContainerShortcuts = configure.getParameter('id-skip-link-container-shortcuts')
 		@idSkipContainerShortcuts = configure.getParameter('id-skip-container-shortcuts')
-		@idTextShortcuts = configure.getParameter("id-text-shortcuts")
-		@dataAccessKey = configure.getParameter('data-accesskey')
+		@idTextShortcuts = configure.getParameter('id-text-shortcuts')
 		@textSkipLinkContainerShortcuts = configure.getParameter('text-skip-container-shortcuts')
 		@textWithoutShortcut = configure.getParameter('text-no-shortcuts-alert')
 		@textShortcuts = configure.getParameter('text-shortcuts')
-		@standartPrefix = configure.getParameter("text-standart-shortcut")
-		@dataIgnore = configure.getParameter('data-ignore')
+		@standartPrefix = configure.getParameter('text-standart-shortcut-prefix')
+		@dataAccessKey = "data-#{configure.getParameter('data-accesskey')}"
+		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
+		@listAdded = false
+		
 		if not isEmpty(userAgent)
 			userAgent = userAgent.toLowerCase()
+			opera = userAgent.indexOf('opera') > -1
 			mac = userAgent.indexOf('mac') > -1
 			konqueror = userAgent.indexOf('konqueror') > -1
 			spoofer = userAgent.indexOf('spoofer') > -1
 			safari = userAgent.indexOf('applewebkit') > -1
 			windows = userAgent.indexOf('windows') > -1
-			if userAgent.indexOf('opera') > -1
+			chrome = userAgent.indexOf('chrome') > -1
+			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent)
+			ie = (userAgent.indexOf('msie') > -1) or (userAgent.indexOf('trident') > -1)
+			
+			if opera
 				@prefix = 'SHIFT + ESC'
-			else if (userAgent.indexOf('chome') > -1) and (not spoofer) and (mac)
+			else if chrome and mac and (not spoofer)
 				@prefix = 'CTRL + OPTION'
-			else if (safari) and (not windows) and (not spoofer)
+			else if safari and (not windows) and (not spoofer)
 				@prefix = 'CTRL + ALT'
-			else if (not windows) and ((safari) or (mac) or (konqueror))
+			else if (not windows) and (safari or mac or konqueror)
 				@prefix = 'CTRL'
-			else if /firefox\/[2-9]|minefield\/3/.test(userAgent)
+			else if firefox
 				@prefix = 'ALT + SHIFT'
-			else
+			else if chrome or ie
 				@prefix = 'ALT'
+			else
+				@prefix = @standartPrefix
 		else
 			@prefix = @standartPrefix
 	
@@ -82,31 +91,32 @@ class exports.hatemile.implementation.AccessibleShortcutImpl
 	 * @memberof hatemile.implementation.AccessibleShortcutImpl
 	###
 	getDescription = (element, parser) ->
-		description = ''
+		description = undefined
 		if element.hasAttribute('title')
 			description = element.getAttribute('title')
+		else if element.hasAttribute('aria-label')
+			description = element.getAttribute('aria-label')
+		else if element.hasAttribute('alt')
+			description = element.getAttribute('alt')
+		else if element.hasAttribute('label')
+			description = element.getAttribute('label')
 		else if element.hasAttribute('aria-labelledby') or element.hasAttribute('aria-describedby')
 			if element.hasAttribute('aria-labelledby')
 				descriptionIds = element.getAttribute('aria-labelledby').split(new RegExp('[ \n\t\r]+'))
 			else
 				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'))
 			for descriptionId in descriptionIds
-				label = parser.find("##{descriptionId}").firstResult()
-				if not isEmpty(label)
-					description = label.getTextContent()
+				elementDescription = parser.find("##{descriptionId}").firstResult()
+				if not isEmpty(elementDescription)
+					description = elementDescription.getTextContent()
 					break
-		else if element.hasAttribute('aria-label')
-			description = element.getAttribute('aria-label')
-		else if element.hasAttribute('alt')
-			description = element.getAttribute('alt')
 		else if element.getTagName() is 'INPUT'
 			type = element.getAttribute('type').toLowerCase()
 			if ((type is 'button') or (type is 'submit') or (type is 'reset')) and (element.hasAttribute('value'))
 				description = element.getAttribute('value')
-		else
+		if isEmpty(description)
 			description = element.getTextContent()
-		description = description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
-		return description
+		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
 	
 	###*
 	 * Generate the list of shortcuts of page.
@@ -115,53 +125,57 @@ class exports.hatemile.implementation.AccessibleShortcutImpl
 	 * the description of shortcuts.
 	 * @param {String} idSkipLinkContainerShortcuts The id of link element that
 	 * skip the list of shortcuts.
-	 * @param {String} idSkipContainerShortcuts The id of anchor element after
-	 * the list of shortcuts.
+	 * @param {String} idSkipContainerShortcuts The id of anchor element after the
+	 * list of shortcuts.
 	 * @param {String} textSkipLinkContainerShortcuts The text of link element
 	 * that skip the list of shortcuts.
-	 * @param {String} idTextShortcuts The id of text that precede the
-	 * shortcuts descriptions.
+	 * @param {String} idTextShortcuts The id of text that precede the shortcuts
+	 * descriptions.
 	 * @param {String} textShortcuts The text that precede the shortcuts
 	 * descriptions.
 	 * @return {hatemile.util.HTMLDOMElement} The list of shortcuts of page.
 	 * @memberof hatemile.implementation.AccessibleShortcutImpl
 	###
 	generateList = (parser, idContainerShortcuts, idSkipLinkContainerShortcuts, idSkipContainerShortcuts, textSkipLinkContainerShortcuts, idTextShortcuts, textShortcuts) ->
-		container = parser.find("##{idContainerShortcuts}").firstResult()
-		if isEmpty(container)
-			container = parser.createElement('div')
-			container.setAttribute('id', idContainerShortcuts)
-			firstChild = parser.find('body').firstResult().getFirstElementChild()
-			firstChild.insertBefore(container)
-			
-			anchorJump = parser.createElement('a')
-			anchorJump.setAttribute('id', idSkipLinkContainerShortcuts)
-			anchorJump.setAttribute('href', "##{idSkipContainerShortcuts}")
-			anchorJump.appendText(textSkipLinkContainerShortcuts)
-			container.insertBefore(anchorJump)
-			
-			anchor = parser.createElement('a')
-			anchor.setAttribute('name', idSkipContainerShortcuts)
-			anchor.setAttribute('id', idSkipContainerShortcuts)
-			firstChild.insertBefore(anchor)
-			
-			textContainer = parser.createElement('span')
-			textContainer.setAttribute('id', idTextShortcuts)
-			textContainer.appendText(textShortcuts)
-			container.appendElement(textContainer)
-		list = parser.find(container).findChildren('ul').firstResult()
-		if isEmpty(list)
-			list = parser.createElement('ul')
-			container.appendElement(list)
+		local = parser.find('body').firstResult()
+		list = undefined
+		if not isEmpty(local)
+			container = parser.find("##{idContainerShortcuts}").firstResult()
+			if isEmpty(container)
+				container = parser.createElement('div')
+				container.setAttribute('id', idContainerShortcuts)
+				firstChild = local.getFirstElementChild()
+				firstChild.insertBefore(container)
+				
+				anchorJump = parser.createElement('a')
+				anchorJump.setAttribute('id', idSkipLinkContainerShortcuts)
+				anchorJump.setAttribute('href', "##{idSkipContainerShortcuts}")
+				anchorJump.appendText(textSkipLinkContainerShortcuts)
+				container.insertBefore(anchorJump)
+				
+				anchor = parser.createElement('a')
+				anchor.setAttribute('name', idSkipContainerShortcuts)
+				anchor.setAttribute('id', idSkipContainerShortcuts)
+				firstChild.insertBefore(anchor)
+				
+				textContainer = parser.createElement('span')
+				textContainer.setAttribute('id', idTextShortcuts)
+				textContainer.appendText(textShortcuts)
+				container.appendElement(textContainer)
+			list = parser.find(container).findChildren('ul').firstResult()
+			if isEmpty(list)
+				list = parser.createElement('ul')
+				container.appendElement(list)
+		@listAdded = true
 		return list
 	
 	###*
-	 * Get a list of elements that contains
-	 * the descriptions of shortcuts.
+	 * Get a list of elements that contains the descriptions of shortcuts.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} idContainerShortcuts The id of list element that contains
 	 * the description of shortcuts.
-	 * @return {hatemile.util.HTMLDOMElement[]} The list of elements with descriptions of shortcuts.
+	 * @return {hatemile.util.HTMLDOMElement[]} The list of elements with
+	 * descriptions of shortcuts.
 	 * @memberof hatemile.implementation.AccessibleShortcutImpl
 	###
 	getShortcuts = (parser, idContainerShortcuts) ->
@@ -178,7 +192,7 @@ class exports.hatemile.implementation.AccessibleShortcutImpl
 					return []
 				else
 					return items
-
+	
 	showShortcuts: () ->
 		items = getShortcuts(@parser, @idContainerShortcuts)
 		if isEmpty(items)
@@ -189,27 +203,30 @@ class exports.hatemile.implementation.AccessibleShortcutImpl
 			text += "\n*#{item.getTextContent()}"
 		alert(text)
 		return
-
+	
 	getPrefix: () ->
 		return @prefix
-
+	
 	fixShortcut: (element) ->
 		if element.hasAttribute('accesskey')
 			description = getDescription(element, @parser)
 			if not element.hasAttribute('title')
 				element.setAttribute('title', description)
-			keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
-			if isEmpty(@list)
+			
+			if not @listAdded
 				@list = generateList(@parser, @idContainerShortcuts, @idSkipLinkContainerShortcuts, @idSkipContainerShortcuts, @textSkipLinkContainerShortcuts, @idTextShortcuts, @textShortcuts)
-			for key in keys
-				key = key.toUpperCase()
-				if isEmpty(@parser.find(@list).findChildren("[#{@dataAccessKey}=#{key}]").firstResult())
-					item = @parser.createElement('li')
-					item.setAttribute(@dataAccessKey, key)
-					item.appendText("#{@prefix} + #{key}: #{description}")
-					@list.appendElement(item)
+			
+			if not isEmpty(@list)
+				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
+				for key in keys
+					key = key.toUpperCase()
+					if isEmpty(@parser.find(@list).findChildren("[#{@dataAccessKey}=#{key}]").firstResult())
+						item = @parser.createElement('li')
+						item.setAttribute(@dataAccessKey, key)
+						item.appendText("#{@prefix} + #{key}: #{description}")
+						@list.appendElement(item)
 		return
-
+	
 	fixShortcuts: () ->
 		elements = @parser.find('[accesskey]').listResults()
 		for element in elements

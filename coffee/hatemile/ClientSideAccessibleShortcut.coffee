@@ -25,10 +25,11 @@ exports.hatemile or= {}
  * @classdesc The ClientSideAccessibleShortcut interface fix the problems of
  * accessibility associated with the shortcuts, with more options in by the
  * client-side.
- * @version 1.0
+ * @extends hatemile.AccessibleShortcut
+ * @version 2014-07-23
  * @memberof hatemile
 ###
-class exports.hatemile.ClientSideAccessibleShortcut
+class exports.hatemile.ClientSideAccessibleShortcut extends exports.hatemile.AccessibleShortcut
 	
 	###*
 	 * Show the shortcuts for the user.

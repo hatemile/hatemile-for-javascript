@@ -35,31 +35,33 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.implementation.AccessibleTableImpl = (function() {
   /**
-  	 * Initializes a new object that manipulate the accessibility of the
-  	 * tables of parser.
+  	 * Initializes a new object that manipulate the accessibility of the tables of
+  	 * parser.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
   	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
   	 * @class AccessibleTableImpl
   	 * @classdesc The AccessibleTableImpl class is official implementation of
   	 * AccessibleTable interface.
   	 * @extends hatemile.AccessibleTable
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.implementation
   */
 
-  var fixBodyOrFooter, generateColspan, generatePart, generateRowspan, returnListIdsColumns, validateHeader;
+  var fixBodyOrFooter, fixHeader, generateColspan, generatePart, generateRowspan, returnListIdsColumns, validateHeader;
 
   function AccessibleTableImpl(parser, configure) {
     this.parser = parser;
     this.prefixId = configure.getParameter('prefix-generated-ids');
-    this.dataIgnore = configure.getParameter('data-ignore');
+    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
 
   /**
   	 * Returns a list that represents the table.
-  	 * @param {hatemile.util.HTMLDOMElement} part The table header, table footer or table body.
+  	 * @param {hatemile.util.HTMLDOMElement} part The table header, table footer
+  	 * or table body.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table.
+  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
+  	 * the table.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
   */
 
@@ -77,8 +79,10 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
 
   /**
   	 * Returns a list that represents the table with the rowspans.
-  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} rows The list that represents the table without the rowspans.
-  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents the table with the rowspans.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} rows The list that
+  	 * represents the table without the rowspans.
+  	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
+  	 * the table with the rowspans.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
   */
 
@@ -125,9 +129,11 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
   };
 
   /**
-  	 * Returns a list that represents the table with the colspans.
-  	 * @param {hatemile.util.HTMLDOMElement[]} cells The list that represents the table without the colspans.
-  	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the table with the colspans.
+  	 * Returns a list that represents the line of table with the colspans.
+  	 * @param {hatemile.util.HTMLDOMElement[]} cells The list that represents the
+  	 * line of table without the colspans.
+  	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the line
+  	 * of table with the colspans.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
   */
 
@@ -152,9 +158,10 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
 
   /**
   	 * Validate the list that represents the table header.
-  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
-  	 * @return {Boolean} True if the table header is valid or false
-  	 * if the table header is not valid.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that
+  	 * represents the table header.
+  	 * @return {Boolean} True if the table header is valid or false if the table
+  	 * header is not valid.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
   */
 
@@ -180,20 +187,22 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
 
   /**
   	 * Returns a list with ids of rows of same column.
-  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that represents the table header.
+  	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that
+  	 * represents the table header.
   	 * @param {Number} index The index of columns.
-  	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same column.
+  	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same
+  	 * column.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
   */
 
 
   returnListIdsColumns = function(header, index) {
-    var cells, ids, _i, _len;
+    var ids, row, _i, _len;
     ids = [];
     for (_i = 0, _len = header.length; _i < _len; _i++) {
-      cells = header[_i];
-      if (cells[index].getTagName() === 'TH') {
-        ids.push(cells[index].getAttribute('id'));
+      row = header[_i];
+      if (row[index].getTagName() === 'TH') {
+        ids.push(row[index].getAttribute('id'));
       }
     }
     return ids;
@@ -201,7 +210,8 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
 
   /**
   	 * Fix the table body or table footer.
-  	 * @param {hatemile.util.HTMLDOMElement} element The table body or table footer.
+  	 * @param {hatemile.util.HTMLDOMElement} element The table body or table
+  	 * footer.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
   	 * @param {String} prefixId The prefix of generated id.
   	 * @memberof hatemile.implementation.AccessibleTableImpl
@@ -218,62 +228,53 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
         cell = cells[_j];
         if (cell.getTagName() === 'TH') {
           exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
-          cell.setAttribute("scope", "row");
-          headersIds.push(cell.getAttribute("id"));
+          headersIds.push(cell.getAttribute('id'));
+          cell.setAttribute('scope', 'row');
         }
       }
       if (!isEmpty(headersIds)) {
         for (_k = 0, _len2 = cells.length; _k < _len2; _k++) {
           cell = cells[_k];
           if (cell.getTagName() === 'TD') {
-            headers = '';
-            if (cell.hasAttribute('headers')) {
-              headers = cell.getAttribute('headers');
-            }
+            headers = cell.getAttribute('headers');
             for (_l = 0, _len3 = headersIds.length; _l < _len3; _l++) {
               headerId = headersIds[_l];
               headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId);
             }
-            cell.setAttribute("headers", headers);
+            cell.setAttribute('headers', headers);
           }
         }
       }
     }
   };
 
-  AccessibleTableImpl.prototype.fixHeader = function(tableHeader) {
+  /**
+  	 * Fix the table header.
+  	 * @param {hatemile.util.HTMLDOMElement} tableHeader The table header.
+  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+  	 * @param {String} prefixId The prefix of generated id.
+  */
+
+
+  fixHeader = function(tableHeader, parser, prefixId) {
     var cell, cells, _i, _len;
-    if (tableHeader.getTagName() === 'THEAD') {
-      cells = this.parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
-      for (_i = 0, _len = cells.length; _i < _len; _i++) {
-        cell = cells[_i];
-        exports.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
-        cell.setAttribute('scope', 'col');
-      }
-    }
-  };
-
-  AccessibleTableImpl.prototype.fixFooter = function(tableFooter) {
-    if (tableFooter.getTagName() === 'TFOOT') {
-      fixBodyOrFooter(tableFooter, this.parser, this.prefixId);
-    }
-  };
-
-  AccessibleTableImpl.prototype.fixBody = function(tableBody) {
-    if (tableBody.getTagName() === 'TBODY') {
-      fixBodyOrFooter(tableBody, this.parser, this.prefixId);
+    cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
+    for (_i = 0, _len = cells.length; _i < _len; _i++) {
+      cell = cells[_i];
+      exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
+      cell.setAttribute('scope', 'col');
     }
   };
 
   AccessibleTableImpl.prototype.fixTable = function(table) {
-    var body, cell, cells, fakeTable, footer, header, headerCells, headers, i, id, ids, lengthHeader, _i, _j, _k, _len, _len1, _len2;
+    var body, cell, cells, fakeTable, footer, header, headerCells, headers, headersId, headersIds, i, lengthHeader, _i, _j, _k, _len, _len1, _len2;
     header = this.parser.find(table).findChildren('thead').firstResult();
     body = this.parser.find(table).findChildren('tbody').firstResult();
     footer = this.parser.find(table).findChildren('tfoot').firstResult();
     if (!isEmpty(header)) {
-      this.fixHeader(header);
+      fixHeader(header, this.parser, this.prefixId);
       headerCells = generatePart(header, this.parser);
-      if (validateHeader(headerCells) && !isEmpty(body)) {
+      if (!isEmpty(body) && validateHeader(headerCells)) {
         lengthHeader = headerCells[0].length;
         fakeTable = generatePart(body, this.parser);
         if (!isEmpty(footer)) {
@@ -281,18 +282,15 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
         }
         for (_i = 0, _len = fakeTable.length; _i < _len; _i++) {
           cells = fakeTable[_i];
-          i = 0;
           if (cells.length === lengthHeader) {
+            i = 0;
             for (_j = 0, _len1 = cells.length; _j < _len1; _j++) {
               cell = cells[_j];
-              ids = returnListIdsColumns(headerCells, i);
-              headers = '';
-              if (cell.hasAttribute('headers')) {
-                headers = cell.getAttribute('headers');
-              }
-              for (_k = 0, _len2 = ids.length; _k < _len2; _k++) {
-                id = ids[_k];
-                headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, id);
+              headersIds = returnListIdsColumns(headerCells, i);
+              headers = cell.getAttribute('headers');
+              for (_k = 0, _len2 = headersIds.length; _k < _len2; _k++) {
+                headersId = headersIds[_k];
+                headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId);
               }
               cell.setAttribute('headers', headers);
               i++;
@@ -302,20 +300,20 @@ exports.hatemile.implementation.AccessibleTableImpl = (function() {
       }
     }
     if (!isEmpty(body)) {
-      this.fixBody(body);
+      fixBodyOrFooter(body, this.parser, this.prefixId);
     }
     if (!isEmpty(footer)) {
-      this.fixFooter(footer);
+      fixBodyOrFooter(footer, this.parser, this.prefixId);
     }
   };
 
   AccessibleTableImpl.prototype.fixTables = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('table').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixTable(element);
+    var table, tables, _i, _len;
+    tables = this.parser.find('table').listResults();
+    for (_i = 0, _len = tables.length; _i < _len; _i++) {
+      table = tables[_i];
+      if (!table.hasAttribute(this.dataIgnore)) {
+        this.fixTable(table);
       }
     }
   };

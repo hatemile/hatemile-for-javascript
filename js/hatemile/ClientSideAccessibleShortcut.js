@@ -14,7 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports;
+var exports, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 exports = this;
 
@@ -30,13 +32,19 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The ClientSideAccessibleShortcut interface fix the problems of
  * accessibility associated with the shortcuts, with more options in by the
  * client-side.
- * @version 1.0
+ * @extends hatemile.AccessibleShortcut
+ * @version 2014-07-23
  * @memberof hatemile
 */
 
 
-exports.hatemile.ClientSideAccessibleShortcut = (function() {
-  function ClientSideAccessibleShortcut() {}
+exports.hatemile.ClientSideAccessibleShortcut = (function(_super) {
+  __extends(ClientSideAccessibleShortcut, _super);
+
+  function ClientSideAccessibleShortcut() {
+    _ref = ClientSideAccessibleShortcut.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
 
   /**
   	 * Show the shortcuts for the user.
@@ -48,4 +56,4 @@ exports.hatemile.ClientSideAccessibleShortcut = (function() {
 
   return ClientSideAccessibleShortcut;
 
-})();
+})(exports.hatemile.AccessibleShortcut);

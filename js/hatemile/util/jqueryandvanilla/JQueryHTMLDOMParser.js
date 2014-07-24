@@ -48,11 +48,12 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   	 * @classdesc The class JQueryHTMLDOMParser is official implementation of
   	 * HTMLDOMParser interface for the jQuery library.
   	 * @extends hatemile.util.HTMLDOMParser
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.util.jqueryandvanilla
   */
 
-  function JQueryHTMLDOMParser() {
+  function JQueryHTMLDOMParser(html) {
+    this.root = jQuery(html);
     this.results = void 0;
   }
 
@@ -60,7 +61,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
     if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement) {
       selector = selector.getData();
     }
-    this.results = jQuery(selector);
+    this.results = this.root.find(selector);
     return this;
   };
 
@@ -115,11 +116,17 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
     return array;
   };
 
-  JQueryHTMLDOMParser.prototype.createElement = function(tagName) {
-    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tagName));
+  JQueryHTMLDOMParser.prototype.createElement = function(tag) {
+    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tag));
   };
 
-  JQueryHTMLDOMParser.prototype.getHTML = function() {};
+  JQueryHTMLDOMParser.prototype.getHTML = function() {
+    return document.documentElement.outerHTML;
+  };
+
+  JQueryHTMLDOMParser.prototype.getParser = function() {
+    return this.root;
+  };
 
   JQueryHTMLDOMParser.prototype.clearParser = function() {
     this.results = void 0;

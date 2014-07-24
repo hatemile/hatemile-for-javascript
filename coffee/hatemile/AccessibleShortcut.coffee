@@ -24,7 +24,7 @@ exports.hatemile or= {}
  * @class AccessibleShortcut
  * @classdesc The AccessibleShortcut interface fix the problems of accessibility
  * associated with the shortcuts.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile
 ###
 class exports.hatemile.AccessibleShortcut

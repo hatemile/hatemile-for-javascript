@@ -43,14 +43,13 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   /**
-  	 * Initializes a new object that encapsulate the
-  	 * HTMLElement.
+  	 * Initializes a new object that encapsulate the HTMLElement.
   	 * @param {HTMLElement} element The element.
   	 * @class VanillaHTMLDOMElement
   	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
-  	 * HTMLDOMElement interface for the javascript.
+  	 * HTMLDOMElement interface for the Javascript.
   	 * @extends hatemile.util.HTMLDOMElement
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.util.jqueryandvanilla
   */
 
@@ -71,7 +70,9 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   };
 
   VanillaHTMLDOMElement.prototype.removeAttribute = function(name) {
-    this.data.removeAttribute(name);
+    if (this.hasAttribute(name)) {
+      this.data.removeAttribute(name);
+    }
   };
 
   VanillaHTMLDOMElement.prototype.hasAttribute = function(name) {
@@ -131,7 +132,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
 
   VanillaHTMLDOMElement.prototype.removeElement = function() {
     this.data.remove();
-    return this.data;
+    return this;
   };
 
   VanillaHTMLDOMElement.prototype.replaceElement = function(newElement) {
@@ -189,7 +190,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   };
 
   VanillaHTMLDOMElement.prototype.setData = function(data) {
-    return this.data = data;
+    this.data = data;
   };
 
   VanillaHTMLDOMElement.prototype.cloneElement = function() {

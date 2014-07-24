@@ -40,16 +40,17 @@ class exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
 	 * @classdesc The class JQueryHTMLDOMParser is official implementation of
 	 * HTMLDOMParser interface for the jQuery library.
 	 * @extends hatemile.util.HTMLDOMParser
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.util.jqueryandvanilla
 	###
-	constructor: () ->
+	constructor: (html) ->
+		@root = jQuery(html)
 		@results = undefined
 	
 	find: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
-		@results = jQuery(selector)
+		@results = @root.find(selector)
 		return this
 	
 	findChildren: (selector) ->
@@ -87,11 +88,14 @@ class exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
 				array.push(new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(result))
 		return array
 	
-	createElement: (tagName) ->
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tagName))
+	createElement: (tag) ->
+		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tag))
 	
 	getHTML: () ->
-		return
+		return document.documentElement.outerHTML
+	
+	getParser: () ->
+		return @root
 	
 	clearParser: () ->
 		@results = undefined

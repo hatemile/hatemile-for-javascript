@@ -35,28 +35,28 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.implementation.AccessibleImageImpl = (function() {
   /**
-  	 * Initializes a new object that manipulate the accessibility of the
-  	 * images of parser.
+  	 * Initializes a new object that manipulate the accessibility of the images of
+  	 * parser.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
   	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
   	 * @class AccessibleImageImpl
   	 * @classdesc The AccessibleImageImpl class is official implementation of
   	 * AccessibleImage interface.
   	 * @extends hatemile.AccessibleImage
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.implementation
   */
 
-  function AccessibleImageImpl(parser, configuration) {
+  function AccessibleImageImpl(parser, configure) {
     this.parser = parser;
-    this.prefixId = configuration.getParameter('prefix-generated-ids');
-    this.classListImageAreas = configuration.getParameter('class-list-image-areas');
-    this.classLongDescriptionLink = configuration.getParameter('class-longdescription-link');
+    this.prefixId = configure.getParameter('prefix-generated-ids');
+    this.classListImageAreas = configure.getParameter('class-list-image-areas');
+    this.classLongDescriptionLink = configure.getParameter('class-longdescription-link');
     this.prefixLongDescriptionLink = configure.getParameter('prefix-longdescription-link');
-    this.suffixLongDescriptionLink = configuration.getParameter('suffix-longdescription-link');
-    this.dataListForImage = configuration.getParameter('data-list-for-image');
-    this.dataLongDescriptionForImage = configuration.getParameter('data-longdescription-for-image');
-    this.dataIgnore = configuration.getParameter('data-ignore');
+    this.suffixLongDescriptionLink = configure.getParameter('suffix-longdescription-link');
+    this.dataListForImage = "data-" + (configure.getParameter('data-list-for-image'));
+    this.dataLongDescriptionForImage = "data-" + (configure.getParameter('data-longdescription-for-image'));
+    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
 
   AccessibleImageImpl.prototype.fixMap = function(map) {
@@ -69,20 +69,18 @@ exports.hatemile.implementation.AccessibleImageImpl = (function() {
       }
       if (!isEmpty(name)) {
         list = this.parser.createElement('ul');
-        list.setAttribute('class', this.classListImageAreas);
-        areas = this.parser.find(map).findChildren('area,a').listResults();
+        areas = this.parser.find(map).findChildren('area[alt]').listResults();
         for (_i = 0, _len = areas.length; _i < _len; _i++) {
           area = areas[_i];
-          if (area.hasAttribute('alt')) {
-            item = this.parser.createElement('li');
-            anchor = this.parser.createElement('a');
-            anchor.appendText(area.getAttribute('alt'));
-            exports.hatemile.util.CommonFunctions.setListAttributes(area, anchor, ['href', 'target', 'download', 'hreflang', 'media', 'rel', 'type', 'title']);
-            item.appendElement(anchor);
-            list.appendElement(item);
-          }
+          item = this.parser.createElement('li');
+          anchor = this.parser.createElement('a');
+          anchor.appendText(area.getAttribute('alt'));
+          exports.hatemile.util.CommonFunctions.setListAttributes(area, anchor, ['href', 'tabindex', 'target', 'download', 'hreflang', 'media', 'nohref', 'ping', 'rel', 'type', 'title', 'accesskey', 'name', 'onblur', 'onfocus', 'onmouseout', 'onmouseover', 'onkeydown', 'onkeypress', 'onkeyup', 'onmousedown', 'onclick', 'ondblclick', 'onmouseup']);
+          item.appendElement(anchor);
+          list.appendElement(item);
         }
         if (list.hasChildren()) {
+          list.setAttribute('class', this.classListImageAreas);
           images = this.parser.find("[usemap=#" + name + "]").listResults();
           for (_j = 0, _len1 = images.length; _j < _len1; _j++) {
             image = images[_j];
@@ -100,35 +98,34 @@ exports.hatemile.implementation.AccessibleImageImpl = (function() {
   };
 
   AccessibleImageImpl.prototype.fixMaps = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('map').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixMap(element);
+    var map, maps, _i, _len;
+    maps = this.parser.find('map').listResults();
+    for (_i = 0, _len = maps.length; _i < _len; _i++) {
+      map = maps[_i];
+      if (!map.hasAttribute(this.dataIgnore)) {
+        this.fixMap(map);
       }
     }
   };
 
-  AccessibleImageImpl.prototype.fixLongDescription = function(image) {
-    var anchor, id, longDescription, text;
-    if (image.hasAttribute('longdesc')) {
-      exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
-      id = image.getAttribute('id');
+  AccessibleImageImpl.prototype.fixLongDescription = function(element) {
+    var anchor, id, text;
+    if (element.hasAttribute('longdesc')) {
+      exports.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
+      id = element.getAttribute('id');
       if (isEmpty(this.parser.find("[" + this.dataLongDescriptionForImage + "=" + id + "]").firstResult())) {
-        if (image.hasAttribute('alt')) {
-          text = "" + this.prefixLongDescriptionLink + " " + (image.getAttribute('alt')) + " " + this.suffixLongDescriptionLink;
+        if (element.hasAttribute('alt')) {
+          text = "" + this.prefixLongDescriptionLink + " " + (element.getAttribute('alt')) + " " + this.suffixLongDescriptionLink;
         } else {
           text = "" + this.prefixLongDescriptionLink + " " + this.suffixLongDescriptionLink;
         }
-        longDescription = image.getAttribute('longdesc');
         anchor = this.parser.createElement('a');
-        anchor.setAttribute('href', longDescription);
+        anchor.setAttribute('href', element.getAttribute('longdesc'));
         anchor.setAttribute('target', '_blank');
         anchor.setAttribute(this.dataLongDescriptionForImage, id);
         anchor.setAttribute('class', this.classLongDescriptionLink);
         anchor.appendText(text);
-        image.insertAfter(anchor);
+        element.insertAfter(anchor);
       }
     }
   };

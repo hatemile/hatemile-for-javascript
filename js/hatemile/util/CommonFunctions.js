@@ -37,7 +37,7 @@ exports.hatemile || (exports.hatemile = {});
  * @class CommonFunctions
  * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
  * classes.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile.util
 */
 
@@ -65,8 +65,10 @@ exports.hatemile.util.CommonFunctions = {
   },
   /**
   	 * Copy a list of attributes of a element for other element.
-  	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have attributes copied.
-  	 * @param {hatemile.util.HTMLDOMElement} element2 The element that copy the attributes.
+  	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have
+  	 * attributes copied.
+  	 * @param {hatemile.util.HTMLDOMElement} element2 The element that copy the
+  	 * attributes.
   	 * @param {String[]} attributes The list of attributes that will be copied.
   	 * @memberof hatemile.util.CommonFunctions
   */
@@ -84,8 +86,8 @@ exports.hatemile.util.CommonFunctions = {
   	 * Increase a item in a HTML list.
   	 * @param {String} list The HTML list.
   	 * @param {String} stringToIncrease The value of item.
-  	 * @return {String} The HTML list with the item added, if the item
-  	 * not was contained in list.
+  	 * @return {String} The HTML list with the item added, if the item not was
+  	 * contained in list.
   	 * @memberof hatemile.util.CommonFunctions
   */
 

@@ -30,7 +30,7 @@ exports.hatemile.util or= {}
  * @class HTMLDOMParser
  * @classdesc The HTMLDOMParser interface contains the methods for access a
  * native parser.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile.util
 ###
 class exports.hatemile.util.HTMLDOMParser
@@ -44,8 +44,7 @@ class exports.hatemile.util.HTMLDOMParser
 	find: (selector) ->
 	
 	###*
-	 * Find all elements in the parser by selector, children of
-	 * found elements.
+	 * Find all elements in the parser by selector, children of found elements.
 	 * @param {(String|hatemile.util.HTMLDOMElement)} selector The selector.
 	 * @return {hatemile.util.HTMLDOMParser} The parser with the elements found.
 	 * @memberof hatemile.util.HTMLDOMParser
@@ -53,8 +52,7 @@ class exports.hatemile.util.HTMLDOMParser
 	findChildren: (selector) ->
 	
 	###*
-	 * Find all elements in the parser by selector, descendants of
-	 * found elements.
+	 * Find all elements in the parser by selector, descendants of found elements.
 	 * @param {(String|hatemile.util.HTMLDOMElement)} selector The selector.
 	 * @return {hatemile.util.HTMLDOMParser} The parser with the elements found.
 	 * @memberof hatemile.util.HTMLDOMParser
@@ -62,8 +60,7 @@ class exports.hatemile.util.HTMLDOMParser
 	findDescendants: (selector) ->
 	
 	###*
-	 * Find all elements in the parser by selector, ancestors of
-	 * found elements.
+	 * Find all elements in the parser by selector, ancestors of found elements.
 	 * @param {(String|hatemile.util.HTMLDOMElement)} selector The selector.
 	 * @return {hatemile.util.HTMLDOMParser} The parser with the elements found.
 	 * @memberof hatemile.util.HTMLDOMParser
@@ -72,7 +69,7 @@ class exports.hatemile.util.HTMLDOMParser
 	
 	###*
 	 * Returns the first element found.
-	 * @return {hatemile.util.HTMLDOMElement} The first element found or null
+	 * @return {hatemile.util.HTMLDOMElement} The first element found or undefined
 	 * if not have elements found.
 	 * @memberof hatemile.util.HTMLDOMParser
 	###
@@ -80,7 +77,7 @@ class exports.hatemile.util.HTMLDOMParser
 	
 	###*
 	 * Returns the last element found.
-	 * @return {hatemile.util.HTMLDOMElement} The last element found or null
+	 * @return {hatemile.util.HTMLDOMElement} The last element found or undefined
 	 * if not have elements found.
 	 * @memberof hatemile.util.HTMLDOMParser
 	###
@@ -96,10 +93,10 @@ class exports.hatemile.util.HTMLDOMParser
 	###*
 	 * Create a element.
 	 * @param {String} tag The tag of element.
-	 * @return {hatemile.util.HTMLDOMElement} The elemente created.
+	 * @return {hatemile.util.HTMLDOMElement} The element created.
 	 * @memberof hatemile.util.HTMLDOMParser
 	###
-	createElement: (tagName) ->
+	createElement: (tag) ->
 	
 	###*
 	 * Returns the HTML code of parser.
@@ -107,6 +104,12 @@ class exports.hatemile.util.HTMLDOMParser
 	 * @memberof hatemile.util.HTMLDOMParser
 	###
 	getHTML: () ->
+	
+	###*
+	 * Returns the parser.
+	 * @return {Object} The parser or root element of the parser.
+	###
+	getParser: () ->
 	
 	###*
 	 * Clear the memory of this object.

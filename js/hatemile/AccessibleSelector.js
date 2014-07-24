@@ -28,7 +28,7 @@ exports.hatemile || (exports.hatemile = {});
 /**
  * @class AccessibleSelector
  * @classdesc The AccessibleSelector interface do changes in selectors.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile
 */
 

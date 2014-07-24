@@ -43,14 +43,14 @@ exports.hatemile.implementation.AccessibleSelectorImpl = (function() {
   	 * @classdesc The AccessibleSelectorImpl class is official implementation of
   	 * AccessibleSelector interface.
   	 * @extends hatemile.AccessibleSelector
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.implementation
   */
 
-  function AccessibleSelectorImpl(parser, configuration) {
+  function AccessibleSelectorImpl(parser, configure) {
     this.parser = parser;
-    this.changes = configuration.getSelectorChanges();
-    this.dataIgnore = configuration.getParameter('data-ignore');
+    this.changes = configure.getSelectorChanges();
+    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
 
   AccessibleSelectorImpl.prototype.fixSelectors = function() {

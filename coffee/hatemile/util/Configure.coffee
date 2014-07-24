@@ -33,15 +33,25 @@ class exports.hatemile.util.Configure
 	 * @param {Object} config The JSON configuration.
 	 * @class Configure
 	 * @classdesc The Configure class contains the configuration of HaTeMiLe.
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.util
 	###
 	constructor: (config) ->
-		@parameters = config.parameters
+		@parameters = config['parameters']
 		@selectorChanges = []
-		changes = config.selectorChanges
+		changes = config['selector-changes']
 		for change in changes
-			@selectorChanges.push(new exports.hatemile.util.SelectorChange(change.selector, change.attribute, change.valueForAttribute))
+			@selectorChanges.push(new exports.hatemile.util.SelectorChange(change['selector'], change['attribute'], change['value-attribute']))
+	
+	###*
+	 * Returns the parameters of configuration.
+	 * @return {Object} The parameters of configuration.
+	###
+	getParameters: () ->
+		clonedParameters = {}
+		for key, value of @parameters
+			clonedParameters[key] = value
+		return clonedParameters
 	
 	###*
 	 * Returns the value of a parameter of configuration.
@@ -54,8 +64,10 @@ class exports.hatemile.util.Configure
 	
 	###*
 	 * Returns the changes that will be done in selectors.
-	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in selectors.
+	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in
+	 * selectors.
 	 * @memberof hatemile.util.Configure
 	###
 	getSelectorChanges: () ->
-		return @selectorChanges
+		clonedSelectorChanges = []
+		return clonedSelectorChanges.concat(@selectorChanges)

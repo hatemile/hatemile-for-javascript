@@ -24,14 +24,15 @@ exports.hatemile or= {}
  * @class AccessibleForm
  * @classdesc The AccessibleForm interface fix the problems of accessibility
  * associated with the forms.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile
 ###
 class exports.hatemile.AccessibleForm
 	
 	###*
 	 * Fix required field.
-	 * @param {hatemile.util.HTMLDOMElement} requiredField The element that will be fixed.
+	 * @param {hatemile.util.HTMLDOMElement} requiredField The element that will
+	 * be fixed.
 	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/H90.html|H90: Indicating required form controls using label or legend}
 	 * @see {@link http://www.w3.org/TR/2014/NOTE-WCAG20-TECHS-20140311/ARIA2|ARIA2: Identifying a required field with the aria-required property}
 	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/F81.html|F81: Failure of Success Criterion 1.4.1 due to identifying required or error fields using color differences only}
@@ -51,38 +52,9 @@ class exports.hatemile.AccessibleForm
 	fixRequiredFields: () ->
 	
 	###*
-	 * Fix disabled field.
-	 * @param {hatemile.util.HTMLDOMElement} disabledField The element that will be fixed.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled|aria-disabled (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixDisabledField: (disabledField) ->
-	
-	###*
-	 * Fix disabled fields.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled|aria-disabled (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixDisabledFields: () ->
-	
-	###*
-	 * Fix read-only field.
-	 * @param {hatemile.util.HTMLDOMElement} readOnlyField The element that will be fixed.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly|aria-readonly (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixReadOnlyField: (readOnlyField) ->
-	
-	###*
-	 * Fix read-only fields.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly|aria-readonly (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixReadOnlyFields: () ->
-	
-	###*
 	 * Fix range field.
-	 * @param {hatemile.util.HTMLDOMElement} rangeField The element that will be fixed.
+	 * @param {hatemile.util.HTMLDOMElement} rangeField The element that will be
+	 * fixed.
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin|aria-valuemin (property) | Supported States and Properties}
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax|aria-valuemax (property) | Supported States and Properties}
 	 * @see {@link http://www.w3.org/WAI/GL/wiki/Using_WAI-ARIA_range_attributes_for_range_widgets_such_as_progressbar,_scrollbar,_slider,_and_spinbutton|Using WAI-ARIA range attributes for range widgets such as progressbar, scrollbar, slider and spinbutton}
@@ -102,37 +74,7 @@ class exports.hatemile.AccessibleForm
 	fixRangeFields: () ->
 	
 	###*
-	 * Fix text field.
-	 * @param {hatemile.util.HTMLDOMElement} textField The element that will be fixed.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline|aria-multiline (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixTextField: (textField) ->
-	
-	###*
-	 * Fix text fields.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline|aria-multiline (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixTextFields: () ->
-	
-	###*
-	 * Fix select field.
-	 * @param {hatemile.util.HTMLDOMElement} selectField The element that will be fixed.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable|aria-multiselectable (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixSelectField: (selectField) ->
-	
-	###*
-	 * Fix select fields.
-	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable|aria-multiselectable (property) | Supported States and Properties}
-	 * @memberof hatemile.AccessibleForm
-	###
-	fixSelectFields: () ->
-	
-	###*
-	 * Fix field with label.
+	 * Fix field associated with the label.
 	 * @param {hatemile.util.HTMLDOMElement} label The element that will be fixed.
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-label|aria-label (property) | Supported States and Properties}
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby|aria-labelledby (property) | Supported States and Properties}
@@ -141,9 +83,24 @@ class exports.hatemile.AccessibleForm
 	fixLabel: (label) ->
 	
 	###*
-	 * Fix fields with labels.
+	 * Fix fields associated with the labels.
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-label|aria-label (property) | Supported States and Properties}
 	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby|aria-labelledby (property) | Supported States and Properties}
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixLabels: () ->
+	
+	###*
+	 * Fix element to inform if has autocomplete and the type.
+	 * @param {hatemile.util.HTMLDOMElement} element The element that will be fixed.
+	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete|aria-autocomplete (property) | Supported States and Properties}
+	 * @memberof hatemile.AccessibleForm
+	###
+	fixAutoComplete: (element) ->
+	
+	###*
+	 * Fix elements to inform if has autocomplete and the type.
+	 * @see {@link http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete|aria-autocomplete (property) | Supported States and Properties}
+	 * @memberof hatemile.AccessibleForm
+	###
+	fixAutoCompletes: () ->

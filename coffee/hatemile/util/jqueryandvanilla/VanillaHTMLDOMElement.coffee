@@ -35,14 +35,13 @@ exports.hatemile.util.jqueryandvanilla or= {}
 class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	
 	###*
-	 * Initializes a new object that encapsulate the
-	 * HTMLElement.
+	 * Initializes a new object that encapsulate the HTMLElement.
 	 * @param {HTMLElement} element The element.
 	 * @class VanillaHTMLDOMElement
 	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
-	 * HTMLDOMElement interface for the javascript.
+	 * HTMLDOMElement interface for the Javascript.
 	 * @extends hatemile.util.HTMLDOMElement
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.util.jqueryandvanilla
 	###
 	constructor: (@data) ->
@@ -58,7 +57,8 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return
 	
 	removeAttribute: (name) ->
-		@data.removeAttribute(name)
+		if @hasAttribute(name)
+			@data.removeAttribute(name)
 		return
 	
 	hasAttribute: (name) ->
@@ -102,7 +102,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	
 	removeElement: () ->
 		@data.remove()
-		return @data
+		return this
 	
 	replaceElement: (newElement) ->
 		parent = @data.parentElement
@@ -147,6 +147,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	
 	setData: (data) ->
 		@data = data
+		return
 	
 	cloneElement: () ->
 		div = document.createElement('div')

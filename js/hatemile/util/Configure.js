@@ -39,20 +39,37 @@ exports.hatemile.util.Configure = (function() {
   	 * @param {Object} config The JSON configuration.
   	 * @class Configure
   	 * @classdesc The Configure class contains the configuration of HaTeMiLe.
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.util
   */
 
   function Configure(config) {
     var change, changes, _i, _len;
-    this.parameters = config.parameters;
+    this.parameters = config['parameters'];
     this.selectorChanges = [];
-    changes = config.selectorChanges;
+    changes = config['selector-changes'];
     for (_i = 0, _len = changes.length; _i < _len; _i++) {
       change = changes[_i];
-      this.selectorChanges.push(new exports.hatemile.util.SelectorChange(change.selector, change.attribute, change.valueForAttribute));
+      this.selectorChanges.push(new exports.hatemile.util.SelectorChange(change['selector'], change['attribute'], change['value-attribute']));
     }
   }
+
+  /**
+  	 * Returns the parameters of configuration.
+  	 * @return {Object} The parameters of configuration.
+  */
+
+
+  Configure.prototype.getParameters = function() {
+    var clonedParameters, key, value, _ref;
+    clonedParameters = {};
+    _ref = this.parameters;
+    for (key in _ref) {
+      value = _ref[key];
+      clonedParameters[key] = value;
+    }
+    return clonedParameters;
+  };
 
   /**
   	 * Returns the value of a parameter of configuration.
@@ -68,13 +85,16 @@ exports.hatemile.util.Configure = (function() {
 
   /**
   	 * Returns the changes that will be done in selectors.
-  	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in selectors.
+  	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in
+  	 * selectors.
   	 * @memberof hatemile.util.Configure
   */
 
 
   Configure.prototype.getSelectorChanges = function() {
-    return this.selectorChanges;
+    var clonedSelectorChanges;
+    clonedSelectorChanges = [];
+    return clonedSelectorChanges.concat(this.selectorChanges);
   };
 
   return Configure;

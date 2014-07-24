@@ -29,137 +29,165 @@ exports.hatemile.implementation or= {}
 class exports.hatemile.implementation.AccessibleFormImpl
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the
-	 * forms of parser.
+	 * Initializes a new object that manipulate the accessibility of the forms of
+	 * parser.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
 	 * @class AccessibleFormImpl
 	 * @classdesc The AccessibleFormImpl class is official implementation of
 	 * AccessibleForm interface.
 	 * @extends hatemile.AccessibleForm
-	 * @version 1.0
+	 * @version 2014-07-23
 	 * @memberof hatemile.implementation
 	###
-	constructor: (@parser, configuration) ->
-		@prefixId = configuration.getParameter('prefix-generated-ids')
-		@dataLabelRequiredField = configuration.getParameter('data-label-required-field')
-		@prefixRequiredField = configuration.getParameter('prefix-required-field')
-		@suffixRequiredField = configuration.getParameter('suffix-required-field')
-		@dataIgnore = configuration.getParameter('data-ignore')
-
+	constructor: (@parser, configure) ->
+		@prefixId = configure.getParameter('prefix-generated-ids')
+		@prefixRequiredField = configure.getParameter('prefix-required-field')
+		@suffixRequiredField = configure.getParameter('suffix-required-field')
+		@dataLabelRequiredField = "data-#{configure.getParameter('data-label-required-field')}"
+		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
+	
+	###*
+	 * Do the label or the aria-label to inform in label that the field is
+	 * required.
+	 * @param {hatemile.util.HTMLDOMElement} label The label.
+	 * @param {hatemile.util.HTMLDOMElement} requiredField The required field.
+	 * @param {String} dataLabelRequiredField The name of attribute for the label
+	 * of a required field.
+	 * @param {String} prefixRequiredField The prefix of required field.
+	 * @param {String} suffixRequiredField The suffix of required field.
+	 * @memberof hatemile.implementation.AccessibleFormImpl
+	###
+	fixLabelRequiredField = (label, requiredField, dataLabelRequiredField, prefixRequiredField, suffixRequiredField) ->
+		if (requiredField.hasAttribute('required')) or ((requiredField.hasAttribute('aria-required')) and (requiredField.getAttribute('aria-required').toLowerCase() is 'true'))
+			if not label.hasAttribute(dataLabelRequiredField)
+				label.setAttribute(dataLabelRequiredField, 'true')
+			
+			if requiredField.hasAttribute('aria-label')
+				contentLabel = requiredField.getAttribute('aria-label')
+				if (not isEmpty(prefixRequiredField)) and (contentLabel.indexOf(prefixRequiredField) is -1)
+					contentLabel = "#{prefixRequiredField} #{contentLabel}"
+				if (not isEmpty(suffixRequiredField)) and (contentLabel.indexOf(suffixRequiredField) is -1)
+					contentLabel += " #{suffixRequiredField}"
+				requiredField.setAttribute('aria-label', contentLabel)
+		return
+	
+	###*
+	 * Fix the control to inform if it has autocomplete and the type.
+	 * @param {hatemile.util.HTMLDOMElement} control The form control.
+	 * @param {Boolean} active If the element has autocomplete.
+	 * @memberof hatemile.implementation.AccessibleFormImpl
+	###
+	fixControlAutoComplete = (control, active, parser) ->
+		if active
+			control.setAttribute('aria-autocomplete', 'both')
+		else if not ((active isnt undefined) and (control.hasAttribute('aria-autocomplete')))
+			if control.hasAttribute('list')
+				list = parser.find("datalist[id=#{control.getAttribute('list')}]").firstResult()
+				if not isEmpty(list)
+					control.setAttribute('aria-autocomplete', 'list')
+			if (active is false) and ((not control.hasAttribute('aria-autocomplete')) or (not control.getAttribute('aria-autocomplete').toLowerCase() is 'list'))
+				control.setAttribute('aria-autocomplete', 'none')
+		return
+	
 	fixRequiredField: (requiredField) ->
 		if requiredField.hasAttribute('required')
 			requiredField.setAttribute('aria-required', 'true')
+			
 			if requiredField.hasAttribute('id')
 				labels = @parser.find("label[for=#{requiredField.getAttribute('id')}]").listResults()
 			if isEmpty(labels)
 				labels = @parser.find(requiredField).findAncestors('label').listResults()
 			for label in labels
-				label.setAttribute(@dataLabelRequiredField, 'true')
+				fixLabelRequiredField(label, requiredField, @dataLabelRequiredField, @prefixRequiredField, @suffixRequiredField)
 		return
-
+	
 	fixRequiredFields: () ->
-		elements = @parser.find('[required]').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixRequiredField(element)
+		requiredFields = @parser.find('[required]').listResults()
+		for requiredField in requiredFields
+			if not requiredField.hasAttribute(@dataIgnore)
+				@fixRequiredField(requiredField)
 		return
-
-	fixDisabledField: (disabledField) ->
-		if disabledField.hasAttribute('disabled')
-			disabledField.setAttribute('aria-disabled', 'true')
-		return
-
-	fixDisabledFields: () ->
-		elements = @parser.find('[disabled]').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixDisabledField(element)
-		return
-
-	fixReadOnlyField: (readOnlyField) ->
-		if readOnlyField.hasAttribute('readonly')
-			readOnlyField.setAttribute('aria-readonly', 'true')
-		return
-
-	fixReadOnlyFields: () ->
-		elements = @parser.find('[readonly]').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixReadOnlyField(element)
-		return
-
+	
 	fixRangeField: (rangeField) ->
 		if rangeField.hasAttribute('min')
 			rangeField.setAttribute('aria-valuemin', rangeField.getAttribute('min'))
 		if rangeField.hasAttribute('max')
 			rangeField.setAttribute('aria-valuemax', rangeField.getAttribute('max'))
 		return
-
+	
 	fixRangeFields: () ->
-		elements = @parser.find('[min],[max]').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixRangeField(element)
+		rangeFields = @parser.find('[min],[max]').listResults()
+		for rangeField in rangeFields
+			if not rangeField.hasAttribute(@dataIgnore)
+				@fixRangeField(rangeField)
 		return
-
-	fixTextField: (textField) ->
-		if (textField.getTagName() is 'INPUT') and (textField.hasAttribute('type'))
-			type = textField.getAttribute('type').toLowerCase()
-			types = ['text', 'search', 'email', 'url', 'tel', 'number']
-			if types.indexOf(type) > -1
-				textField.setAttribute('aria-multiline', 'false')
-		else if textField.getTagName() is 'TEXTAREA'
-			textField.setAttribute('aria-multiline', 'true')
-		return
-
-	fixTextFields: () ->
-		elements = @parser.find('input[type=text],input[type=search],input[type=email],input[type=url],input[type=tel],input[type=number],textarea').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixTextField(element)
-		return
-
-	fixSelectField: (selectField) ->
-		if selectField.getTagName() is 'SELECT'
-			if selectField.hasAttribute('multiple')
-				selectField.setAttribute('aria-multiselectable', 'true')
-			else
-				selectField.setAttribute('aria-multiselectable', 'false')
-		return
-
-	fixSelectFields: () ->
-		elements = @parser.find('select').listResults()
-		for element in elements
-			if not element.hasAttribute(@dataIgnore)
-				@fixSelectField(element)
-		return
-
+	
 	fixLabel: (label) ->
 		if label.getTagName() is 'LABEL'
 			if label.hasAttribute('for')
-				input = @parser.find("##{label.getAttribute('for')}").firstResult()
+				field = @parser.find("##{label.getAttribute('for')}").firstResult()
 			else
-				input = @parser.find(label).findDescendants('input,select,textarea').firstResult()
-				if not isEmpty(input)
-					exports.hatemile.util.CommonFunctions.generateId(input, @prefixId)
-					label.setAttribute('for', input.getAttribute('id'))
-			if not isEmpty(input)
-				if not input.hasAttribute('aria-label')
-					contentLabel = label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
-					if input.hasAttribute('aria-required')
-						if (input.getAttribute('aria-required').toLowerCase() is 'true') and (contentLabel.indexOf(@prefixRequiredField) is -1)
-							contentLabel = "#{@prefixRequiredField} #{contentLabel}"
-						if (input.getAttribute('aria-required').toLowerCase() is 'true') and (contentLabel.indexOf(@suffixRequiredField) is -1)
-							contentLabel += " #{@suffixRequiredField}"
-					input.setAttribute('aria-label', contentLabel)
+				field = @parser.find(label).findDescendants('input,select,textarea').firstResult()
+				
+				if not isEmpty(field)
+					exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
+					label.setAttribute('for', field.getAttribute('id'))
+			if not isEmpty(field)
+				if not field.hasAttribute('aria-label')
+					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
+				
+				fixLabelRequiredField(label, field, @dataLabelRequiredField, @prefixRequiredField, @suffixRequiredField)
+				
 				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
-				input.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(input.getAttribute('aria-labelledby'), label.getAttribute('id')))
+				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
-
+	
 	fixLabels: () ->
-		elements = @parser.find('label').listResults()
+		labels = @parser.find('label').listResults()
+		for label in labels
+			if not label.hasAttribute(@dataIgnore)
+				@fixLabel(label)
+		return
+	
+	fixAutoComplete: (element) ->
+		if element.hasAttribute('autocomplete')
+			value = element.getAttribute('autocomplete')
+			if value is 'on'
+				active = true
+			else if value is 'off'
+				active = false
+			else
+				active = undefined
+			if active isnt undefined
+				if element.getTagName() is 'FORM'
+					controls = @parser.find(element).findDescendants('input,textarea').listResults()
+					if element.hasAttribute('id')
+						id = element.getAttribute('id')
+						controls = controls.concat(@parser.find("input[form=#{id}],textarea[form=#{id}]").listResults())
+					for control in controls
+						fix = true
+						if (control.getTagName() is 'INPUT') and (control.hasAttribute('type'))
+							type = control.getAttribute('type').toLowerCase()
+							if (type is 'button') or (type is 'submit') or (type is 'reset') or (type is 'image') or (type is 'file') or (type is 'checkbox') or (type is 'radio') or (type is 'password') or (type is 'hidden')
+								fix = false
+						if (fix)
+							autoCompleteControlFormValue = control.getAttribute('autocomplete')
+							if autoCompleteControlFormValue is 'on'
+								fixControlAutoComplete(control, true, @parser)
+							else if autoCompleteControlFormValue is 'off'
+								fixControlAutoComplete(control, false, @parser)
+							else
+								fixControlAutoComplete(control, active, @parser)
+				else
+					fixControlAutoComplete(element, active, @parser)
+		if (not element.hasAttribute('aria-autocomplete')) and (element.hasAttribute('list'))
+			fixControlAutoComplete(element, undefined, @parser)
+		return
+	
+	fixAutoCompletes: () ->
+		elements = @parser.find('[autocomplete],[list]').listResults()
 		for element in elements
 			if not element.hasAttribute(@dataIgnore)
-				@fixLabel(element)
+				@fixAutoComplete(element)
 		return

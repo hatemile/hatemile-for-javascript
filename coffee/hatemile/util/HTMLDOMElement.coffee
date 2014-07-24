@@ -30,7 +30,7 @@ exports.hatemile.util or= {}
  * @class HTMLDOMElement
  * @classdesc The HTMLDOMElement interface contains the methods for access of
  * the HTML element.
- * @version 1.0
+ * @version 2014-07-23
  * @memberof hatemile.util
 ###
 class exports.hatemile.util.HTMLDOMElement
@@ -45,8 +45,8 @@ class exports.hatemile.util.HTMLDOMElement
 	###*
 	 * Returns the value of a attribute.
 	 * @param {String} name The name of attribute.
-	 * @return {String} The value of the attribute, if the element not
-	 * contains the attribute returns null.
+	 * @return {String} The value of the attribute, if the element not contains
+	 * the attribute returns null.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
 	getAttribute: (name) ->
@@ -67,18 +67,18 @@ class exports.hatemile.util.HTMLDOMElement
 	removeAttribute: (name) ->
 	
 	###*
-	 * Returns if the element contains an attribute.
+	 * Returns if the element has an attribute.
 	 * @param {String} name The name of attribute.
-	 * @return {Boolean} True if the element contains the attribute or
-	 * false if the element not contains the attribute.
+	 * @return {Boolean} True if the element has the attribute or false if the
+	 * element not has the attribute.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
 	hasAttribute: (name) ->
 	
 	###*
 	 * Returns if the element has attributes.
-	 * @return {Boolean} True if the element has attributes or
-	 * false if the element not has attributes.
+	 * @return {Boolean} True if the element has attributes or false if the
+	 * element not has attributes.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
 	hasAttributes: () ->
@@ -126,7 +126,7 @@ class exports.hatemile.util.HTMLDOMElement
 	
 	###*
 	 * Append a element child.
-	 * @param {hatemile.util.HTMLDOMElement} element The element will be inserted.
+	 * @param {hatemile.util.HTMLDOMElement} element The element that be inserted.
 	 * @return {hatemile.util.HTMLDOMElement} The element inserted.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
@@ -148,15 +148,15 @@ class exports.hatemile.util.HTMLDOMElement
 	
 	###*
 	 * Returns if the element has children.
-	 * @return {Boolean} True if the element has children or
-	 * false if the element not has children.
+	 * @return {Boolean} True if the element has children or false if the element
+	 * not has children.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
 	hasChildren: () ->
 	
 	###*
 	 * Returns the parent element of this element.
-	 * @return {hatemile.util.HTMLDOMElement} The parente element of this element.
+	 * @return {hatemile.util.HTMLDOMElement} The parent element of this element.
 	 * @memberof hatemile.util.HTMLDOMElement
 	###
 	getParentElement: () ->

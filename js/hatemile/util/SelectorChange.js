@@ -42,7 +42,7 @@ exports.hatemile.util.SelectorChange = (function() {
   	 * @class SelectorChange
   	 * @classdesc The SelectorChange class store the selector that be attribute
   	 * change.
-  	 * @version 1.0
+  	 * @version 2014-07-23
   	 * @memberof hatemile.util
   */
 
@@ -64,17 +64,6 @@ exports.hatemile.util.SelectorChange = (function() {
   };
 
   /**
-  	 * Change the selector.
-  	 * @param {String} selector The new selector.
-  	 * @memberof hatemile.util.SelectorChange
-  */
-
-
-  SelectorChange.prototype.setSelector = function(selector) {
-    this.selector = selector;
-  };
-
-  /**
   	 * Returns the attribute.
   	 * @return {String} The attribute.
   	 * @memberof hatemile.util.SelectorChange
@@ -86,17 +75,6 @@ exports.hatemile.util.SelectorChange = (function() {
   };
 
   /**
-  	 * Change the attribute.
-  	 * @param {String} attribute The new attribute. 
-  	 * @memberof hatemile.util.SelectorChange
-  */
-
-
-  SelectorChange.prototype.setAttribute = function(attribute) {
-    this.attribute = attribute;
-  };
-
-  /**
   	 * Returns the value of the attribute.
   	 * @return {String} The value of the attribute.
   	 * @memberof hatemile.util.SelectorChange
@@ -105,17 +83,6 @@ exports.hatemile.util.SelectorChange = (function() {
 
   SelectorChange.prototype.getValueForAttribute = function() {
     return this.valueForAttribute;
-  };
-
-  /**
-  	 * Change the value of the attribute.
-  	 * @param {String} valueForAttribute The new value of the attribute.
-  	 * @memberof hatemile.util.SelectorChange
-  */
-
-
-  SelectorChange.prototype.setValueForAttribute = function(valueForAttribute) {
-    this.valueForAttribute = valueForAttribute;
   };
 
   return SelectorChange;
