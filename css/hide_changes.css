@@ -4,8 +4,9 @@ label[for].required:after,
 #container-shortcuts,
 #link-skip-shortcuts,
 #skip-shortcuts,
-#list-areas,
-#longdescription-link {
+#text-shortcuts,
+.list-areas,
+.longdescription-link {
 	position: absolute;
 	width: 1px;
 	height: 1px;

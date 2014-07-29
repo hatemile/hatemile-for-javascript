@@ -121,7 +121,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   };
 
   JQueryHTMLDOMParser.prototype.getHTML = function() {
-    return document.documentElement.outerHTML;
+    return this.root.html();
   };
 
   JQueryHTMLDOMParser.prototype.getParser = function() {

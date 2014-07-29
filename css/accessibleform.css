@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+input[required], select[required], textarea[required],
+input[aria-required=true], select[aria-required=true], textarea[aria-required=true],
+:required {
+	border: 1px solid #0000ff;
+	box-shadow: #0000ff 0px 0px 2px 0;
+	-webkit-box-shadow: #0000ff 0px 0px 2px 0;
+	-moz-box-shadow: #0000ff 0px 0px 2px 0;
+}
+
+input[aria-invalid=false], select[aria-invalid=false], textarea[aria-invalid=false],
+:valid,
+:in-range {
+	border: 1px solid #00ff00;
+	box-shadow: #00ff00 0px 0px 2px 0;
+	-webkit-box-shadow: #00ff00 0px 0px 2px 0;
+	-moz-box-shadow: #00ff00 0px 0px 2px 0;
+}
+
+input[aria-invalid=true], select[aria-invalid=true], textarea[aria-invalid=true],
+:invalid,
+:out-of-range {
+	border: 1px solid #ff0000;
+	box-shadow: #ff0000 0px 0px 2px 0;
+	-webkit-box-shadow: #ff0000 0px 0px 2px 0;
+	-moz-box-shadow: #ff0000 0px 0px 2px 0;
+}
