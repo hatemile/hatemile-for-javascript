@@ -26,7 +26,7 @@ exports.hatemile or= {}
 ###
 exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleEventsImpl
+class exports.hatemile.implementation.AccessibleEventImpl
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the
