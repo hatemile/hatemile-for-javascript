@@ -33,7 +33,7 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleEventsImpl = (function() {
+exports.hatemile.implementation.AccessibleEventImpl = (function() {
   /**
   	 * Initializes a new object that manipulate the accessibility of the
   	 * Javascript events of elements of parser.
@@ -47,12 +47,12 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
   	 * @memberof hatemile.implementation
   */
 
-  function AccessibleEventsImpl(parser, configure) {
+  function AccessibleEventImpl(parser, configure) {
     this.parser = parser;
     this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
   }
 
-  AccessibleEventsImpl.prototype.fixOnHover = function(element) {
+  AccessibleEventImpl.prototype.fixOnHover = function(element) {
     var nativeElement, tag;
     tag = element.getTagName();
     if (!((tag === 'INPUT') || (tag === 'BUTTON') || (tag === 'A') || (tag === 'SELECT') || (tag === 'TEXTAREA') || (element.hasAttribute('tabindex')))) {
@@ -85,7 +85,7 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
     }
   };
 
-  AccessibleEventsImpl.prototype.fixOnHovers = function() {
+  AccessibleEventImpl.prototype.fixOnHovers = function() {
     var element, elements, nativeElement, _i, _len;
     elements = this.parser.find('body *').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -97,7 +97,7 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
     }
   };
 
-  AccessibleEventsImpl.prototype.fixOnActive = function(element) {
+  AccessibleEventImpl.prototype.fixOnActive = function(element) {
     var nativeElement, tag;
     tag = element.getTagName();
     if (!((tag === 'INPUT') || (tag === 'BUTTON') || (tag === 'A'))) {
@@ -161,7 +161,7 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
     }
   };
 
-  AccessibleEventsImpl.prototype.fixOnActives = function() {
+  AccessibleEventImpl.prototype.fixOnActives = function() {
     var element, elements, nativeElement, _i, _len;
     elements = this.parser.find('body *').listResults();
     for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -173,6 +173,6 @@ exports.hatemile.implementation.AccessibleEventsImpl = (function() {
     }
   };
 
-  return AccessibleEventsImpl;
+  return AccessibleEventImpl;
 
 })();
