@@ -49,7 +49,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
   	 * HTMLDOMElement interface for the Javascript.
   	 * @extends hatemile.util.HTMLDOMElement
-  	 * @version 2014-07-23
+  	 * @version 2014-10-28
   	 * @memberof hatemile.util.jqueryandvanilla
   */
 
@@ -107,14 +107,14 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
 
   VanillaHTMLDOMElement.prototype.insertBefore = function(newElement) {
     var parent;
-    parent = this.data.parentElement;
+    parent = this.data.parentNode;
     parent.insertBefore(newElement.getData(), this.data);
     return newElement;
   };
 
   VanillaHTMLDOMElement.prototype.insertAfter = function(newElement) {
     var child, childs, found, parent, _i, _len;
-    parent = this.data.parentElement;
+    parent = this.data.parentNode;
     childs = parent.childNodes;
     found = false;
     for (_i = 0, _len = childs.length; _i < _len; _i++) {
@@ -137,7 +137,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
 
   VanillaHTMLDOMElement.prototype.replaceElement = function(newElement) {
     var parent;
-    parent = this.data.parentElement;
+    parent = this.data.parentNode;
     parent.replaceChild(newElement.getData(), this.data);
     return newElement;
   };
@@ -167,10 +167,10 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   };
 
   VanillaHTMLDOMElement.prototype.getParentElement = function() {
-    if (isEmpty(this.data.parentElement)) {
+    if (isEmpty(this.data.parentNode)) {
       return void 0;
     }
-    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(this.data.parentElement);
+    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(this.data.parentNode);
   };
 
   VanillaHTMLDOMElement.prototype.getInnerHTML = function() {
