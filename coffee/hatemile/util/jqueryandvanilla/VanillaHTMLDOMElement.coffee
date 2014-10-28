@@ -41,7 +41,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
 	 * HTMLDOMElement interface for the Javascript.
 	 * @extends hatemile.util.HTMLDOMElement
-	 * @version 2014-07-23
+	 * @version 2014-10-28
 	 * @memberof hatemile.util.jqueryandvanilla
 	###
 	constructor: (@data) ->
@@ -83,12 +83,12 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return text
 	
 	insertBefore: (newElement) ->
-		parent = @data.parentElement
+		parent = @data.parentNode
 		parent.insertBefore(newElement.getData(), @data)
 		return newElement
 	
 	insertAfter: (newElement) ->
-		parent = @data.parentElement
+		parent = @data.parentNode
 		childs = parent.childNodes
 		found = false
 		for child in childs
@@ -105,7 +105,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return this
 	
 	replaceElement: (newElement) ->
-		parent = @data.parentElement
+		parent = @data.parentNode
 		parent.replaceChild(newElement.getData(), @data)
 		return newElement
 	
@@ -128,9 +128,9 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return not isEmpty(@data.children)
 	
 	getParentElement: () ->
-		if isEmpty(@data.parentElement)
+		if isEmpty(@data.parentNode)
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@data.parentElement)
+		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
 	getInnerHTML: () ->
 		return @data.innerHTML
