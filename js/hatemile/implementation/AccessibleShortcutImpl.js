@@ -44,7 +44,7 @@ exports.hatemile.implementation.AccessibleShortcutImpl = (function() {
   	 * @classdesc The AccessibleShortcutImpl class is official implementation of
   	 * AccessibleShortcut interface.
   	 * @extends hatemile.ClientSideAccessibleShortcut
-  	 * @version 2014-07-23
+  	 * @version 2014-10-28
   	 * @memberof hatemile.implementation
   */
 
@@ -234,7 +234,7 @@ exports.hatemile.implementation.AccessibleShortcutImpl = (function() {
       alert(this.textWithoutShortcut);
       return;
     }
-    text = this.textShortcut;
+    text = this.textShortcuts;
     for (_i = 0, _len = items.length; _i < _len; _i++) {
       item = items[_i];
       text += "\n*" + (item.getTextContent());
