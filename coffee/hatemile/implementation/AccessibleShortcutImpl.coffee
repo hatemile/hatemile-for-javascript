@@ -198,7 +198,7 @@ class exports.hatemile.implementation.AccessibleShortcutImpl
 		if isEmpty(items)
 			alert(@textWithoutShortcut)
 			return
-		text = @textShortcut
+		text = @textShortcuts
 		for item in items
 			text += "\n*#{item.getTextContent()}"
 		alert(text)
