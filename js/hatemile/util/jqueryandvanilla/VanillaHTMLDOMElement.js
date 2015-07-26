@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -41,16 +39,20 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base1 = exports.hatemile.util).jqueryandvanilla || (_base1.jqueryandvanilla = {});
 
+/**
+ * @class VanillaHTMLDOMElement
+ * @classdesc The VanillaHTMLDOMElement class is official implementation of
+ * HTMLDOMElement interface for the Javascript.
+ * @extends hatemile.util.HTMLDOMElement
+ * @memberof hatemile.util.jqueryandvanilla
+*/
+
+
 exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   /**
   	 * Initializes a new object that encapsulate the HTMLElement.
   	 * @param {HTMLElement} element The element.
-  	 * @class VanillaHTMLDOMElement
-  	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
-  	 * HTMLDOMElement interface for the Javascript.
-  	 * @extends hatemile.util.HTMLDOMElement
-  	 * @version 2014-10-28
-  	 * @memberof hatemile.util.jqueryandvanilla
+  	 * @memberof hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
   */
 
   function VanillaHTMLDOMElement(data) {
@@ -62,7 +64,11 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   };
 
   VanillaHTMLDOMElement.prototype.getAttribute = function(name) {
-    return this.data.getAttribute(name);
+    if (this.hasAttribute(name)) {
+      return this.data.getAttribute(name);
+    } else {
+      return null;
+    }
   };
 
   VanillaHTMLDOMElement.prototype.setAttribute = function(name, value) {

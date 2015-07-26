@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -37,7 +35,6 @@ exports.hatemile || (exports.hatemile = {});
  * @class HTMLDOMElement
  * @classdesc The HTMLDOMElement interface contains the methods for access of
  * the HTML element.
- * @version 2014-07-23
  * @memberof hatemile.util
 */
 

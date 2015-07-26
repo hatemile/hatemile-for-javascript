@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -30,7 +28,6 @@ exports.hatemile.util or= {}
  * @class CommonFunctions
  * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
  * classes.
- * @version 2014-07-23
  * @memberof hatemile.util
 ###
 exports.hatemile.util.CommonFunctions = {
@@ -71,7 +68,7 @@ exports.hatemile.util.CommonFunctions = {
 	
 	###*
 	 * Increase a item in a HTML list.
-	 * @param {String} list The HTML list.
+	 * @param {String} list The list.
 	 * @param {String} stringToIncrease The value of item.
 	 * @return {String} The HTML list with the item added, if the item not was
 	 * contained in list.
@@ -79,13 +76,28 @@ exports.hatemile.util.CommonFunctions = {
 	###
 	increaseInList: (list, stringToIncrease) ->
 		if not (isEmpty(list) or isEmpty(stringToIncrease))
-			array = list.split(new RegExp('[ \n\t\r]+'))
-			for item in array
-				if item is stringToIncrease
-					return list
-			return "#{list} #{stringToIncrease}"
+			if @inList(list, stringToIncrease)
+				return list
+			else
+				return "#{list} #{stringToIncrease}"
 		else if isEmpty(list)
 			return stringToIncrease
 		else
 			return list
+	
+	###*
+	 * Verify if the list contains the item.
+	 * @param {String} list The list.
+	 * @param {String} stringToSearch The value of item.
+	 * @return {Boolean} True if the list contains the item or false is not
+	 * contains.
+	 * @memberof hatemile.util.CommonFunctions
+	###
+	inList: (list, stringToSearch) ->
+		if not (isEmpty(list) or isEmpty(stringToSearch))
+			array = list.split(new RegExp('[ \n\t\r]+'))
+			for item in array
+				if item is stringToSearch
+					return true
+		return false
 }

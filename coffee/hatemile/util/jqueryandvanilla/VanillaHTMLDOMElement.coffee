@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -32,17 +30,19 @@ exports.hatemile.util or= {}
 ###
 exports.hatemile.util.jqueryandvanilla or= {}
 
+###*
+ * @class VanillaHTMLDOMElement
+ * @classdesc The VanillaHTMLDOMElement class is official implementation of
+ * HTMLDOMElement interface for the Javascript.
+ * @extends hatemile.util.HTMLDOMElement
+ * @memberof hatemile.util.jqueryandvanilla
+###
 class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLElement.
 	 * @param {HTMLElement} element The element.
-	 * @class VanillaHTMLDOMElement
-	 * @classdesc The VanillaHTMLDOMElement class is official implementation of
-	 * HTMLDOMElement interface for the Javascript.
-	 * @extends hatemile.util.HTMLDOMElement
-	 * @version 2014-10-28
-	 * @memberof hatemile.util.jqueryandvanilla
+	 * @memberof hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	###
 	constructor: (@data) ->
 	
@@ -50,7 +50,10 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return @data.tagName.toUpperCase()
 	
 	getAttribute: (name) ->
-		return @data.getAttribute(name)
+		if @hasAttribute(name)
+			return @data.getAttribute(name)
+		else
+			return null
 	
 	setAttribute: (name, value) ->
 		@data.setAttribute(name, value)

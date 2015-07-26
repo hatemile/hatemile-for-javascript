@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -26,23 +24,25 @@ exports.hatemile or= {}
 ###
 exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleSelectorImpl
+###*
+ * @class AccessibleSelectorImplementation
+ * @classdesc The AccessibleSelectorImplementation class is official
+ * implementation of AccessibleSelector interface.
+ * @extends hatemile.AccessibleSelector
+ * @memberof hatemile.implementation
+###
+class exports.hatemile.implementation.AccessibleSelectorImplementation
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility through of the
 	 * selectors of the configuration file.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-	 * @class AccessibleSelectorImpl
-	 * @classdesc The AccessibleSelectorImpl class is official implementation of
-	 * AccessibleSelector interface.
-	 * @extends hatemile.AccessibleSelector
-	 * @version 2014-07-23
-	 * @memberof hatemile.implementation
+	 * @memberof hatemile.implementation.AccessibleSelectorImplementation
 	###
 	constructor: (@parser, configure) ->
 		@changes = configure.getSelectorChanges()
-		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
+		@dataIgnore = 'data-ignoreaccessibilityfix'
 
 	fixSelectors: () ->
 		for change in @changes

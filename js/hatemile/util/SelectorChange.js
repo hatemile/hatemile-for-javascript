@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -33,17 +31,21 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base = exports.hatemile).util || (_base.util = {});
 
+/**
+ * @class SelectorChange
+ * @classdesc The SelectorChange class store the selector that be attribute
+ * change.
+ * @memberof hatemile.util
+*/
+
+
 exports.hatemile.util.SelectorChange = (function() {
   /**
   	 * Inicializes a new object with the values pre-defineds.
   	 * @param {String} selector The selector.
   	 * @param {String} attribute The attribute.
   	 * @param {String} valueForAttribute The value of the attribute.
-  	 * @class SelectorChange
-  	 * @classdesc The SelectorChange class store the selector that be attribute
-  	 * change.
-  	 * @version 2014-07-23
-  	 * @memberof hatemile.util
+  	 * @memberof hatemile.util.SelectorChange
   */
 
   function SelectorChange(selector, attribute, valueForAttribute) {

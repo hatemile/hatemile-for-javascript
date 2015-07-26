@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -41,15 +39,19 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base1 = exports.hatemile.util).jqueryandvanilla || (_base1.jqueryandvanilla = {});
 
+/**
+ * @class JQueryHTMLDOMParser
+ * @classdesc The class JQueryHTMLDOMParser is official implementation of
+ * HTMLDOMParser interface for the jQuery library.
+ * @extends hatemile.util.HTMLDOMParser
+ * @memberof hatemile.util.jqueryandvanilla
+*/
+
+
 exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   /**
   	 * Initializes a new object that encapsulate the jQuery.
-  	 * @class JQueryHTMLDOMParser
-  	 * @classdesc The class JQueryHTMLDOMParser is official implementation of
-  	 * HTMLDOMParser interface for the jQuery library.
-  	 * @extends hatemile.util.HTMLDOMParser
-  	 * @version 2014-07-23
-  	 * @memberof hatemile.util.jqueryandvanilla
+  	 * @memberof hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
   */
 
   function JQueryHTMLDOMParser(html) {
@@ -121,7 +123,7 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   };
 
   JQueryHTMLDOMParser.prototype.getHTML = function() {
-    return this.root.html();
+    return document.documentElement.outerHTML;
   };
 
   JQueryHTMLDOMParser.prototype.getParser = function() {

@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -33,30 +31,41 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base = exports.hatemile).util || (_base.util = {});
 
+/**
+ * @class Configure
+ * @classdesc The Configure class contains the configuration of HaTeMiLe.
+ * @memberof hatemile.util
+*/
+
+
 exports.hatemile.util.Configure = (function() {
   /**
   	 * Initializes a new object that contains the configuration of HaTeMiLe.
   	 * @param {Object} config The JSON configuration.
-  	 * @class Configure
-  	 * @classdesc The Configure class contains the configuration of HaTeMiLe.
-  	 * @version 2014-07-23
-  	 * @memberof hatemile.util
+  	 * @memberof hatemile.util.Configure
   */
 
   function Configure(config) {
-    var change, changes, _i, _len;
+    var change, changes, link, links, _i, _j, _len, _len1;
     this.parameters = config['parameters'];
     this.selectorChanges = [];
+    this.skippers = [];
     changes = config['selector-changes'];
+    links = config['skippers'];
     for (_i = 0, _len = changes.length; _i < _len; _i++) {
       change = changes[_i];
       this.selectorChanges.push(new exports.hatemile.util.SelectorChange(change['selector'], change['attribute'], change['value-attribute']));
+    }
+    for (_j = 0, _len1 = links.length; _j < _len1; _j++) {
+      link = links[_j];
+      this.skippers.push(new exports.hatemile.util.Skipper(link['selector'], link['default-text'], link['shortcut']));
     }
   }
 
   /**
   	 * Returns the parameters of configuration.
   	 * @return {Object} The parameters of configuration.
+  	 * @memberof hatemile.util.Configure
   */
 
 
@@ -95,6 +104,19 @@ exports.hatemile.util.Configure = (function() {
     var clonedSelectorChanges;
     clonedSelectorChanges = [];
     return clonedSelectorChanges.concat(this.selectorChanges);
+  };
+
+  /**
+  	 * Returns the skippers.
+  	 * @return {hatemile.util.Skipper} The skippers.
+  	 * @memberof hatemile.util.Configure
+  */
+
+
+  Configure.prototype.getSkippers = function() {
+    var clonedSkippers;
+    clonedSkippers = [];
+    return clonedSkippers.concat(this.skippers);
   };
 
   return Configure;

@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -22,14 +20,13 @@ exports.hatemile or= {}
 
 ###*
  * @class AccessibleSelector
- * @classdesc The AccessibleSelector interface do changes in selectors.
- * @version 2014-07-23
+ * @classdesc The AccessibleSelector interface perform changes in selectors.
  * @memberof hatemile
 ###
 class exports.hatemile.AccessibleSelector
 	
 	###*
-	 * Fix changes in selectors.
+	 * Change the selectors.
 	 * @memberof hatemile.AccessibleSelector
 	###
 	fixSelectors: () ->

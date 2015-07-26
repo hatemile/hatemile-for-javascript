@@ -9,46 +9,129 @@
 	overflow: hidden;
 	padding: 0;
 	margin: -1px;
-	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
 
-ol.numerable {
-	list-style-type: none;
-	counter-reset: item;
+[data-prefixrequiredfield]:before {
+	content: attr(data-prefixrequiredfield) ' ';
 }
-ol.numerable > li:before {
-	counter-increment: item;
-	padding-right: 10px;
+[data-prefixvalueminfield]:before {
+	content: attr(data-prefixvalueminfield) ' ';
 }
-ol.numerable > li:before, ol.numerable.decimal > li:before {
-	content: counters(item, ".") ".";
+[data-prefixvaluemaxfield]:before {
+	content: attr(data-prefixvaluemaxfield) ' ';
 }
-ol.numerable[data-liststyletype=decimal-leading-zero] > li:before {
-	content: counters(item, ".", decimal-leading-zero) ".";
-}
-ol.numerable[data-liststyletype=lower-roman] > li:before {
-	content: counters(item, ".", lower-roman) ".";
-}
-ol.numerable[data-liststyletype=upper-roman] > li:before {
-	content: counters(item, ".", upper-roman) ".";
-}
-ol.numerable[data-liststyletype=lower-greek] > li:before {
-	content: counters(item, ".", lower-greek) ".";
-}
-ol.numerable[data-liststyletype=lower-latin] > li:before {
-	content: counters(item, ".", lower-latin) ".";
-}
-ol.numerable[data-liststyletype=upper-latin] > li:before {
-	content: counters(item, ".", upper-latin) ".";
-}
-ol.numerable[data-liststyletype=lower-alpha] > li:before {
-	content: counters(item, ".", lower-alpha) ".";
-}
-ol.numerable[data-liststyletype=upper-alpha] > li:before {
-	content: counters(item, ".", upper-alpha) ".";
+[data-prefixautocompletefield]:before {
+	content: attr(data-prefixautocompletefield) ' ';
 }
 
-label[for].required:before {
-	content: '*';
+
+
+[data-prefixrequiredfield][data-prefixvalueminfield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvalueminfield) ' ';
+}
+[data-prefixrequiredfield][data-prefixvaluemaxfield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvaluemaxfield) ' ';
+}
+[data-prefixrequiredfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+[data-prefixvalueminfield][data-prefixvaluemaxfield]:before {
+	content: attr(data-prefixvalueminfield) ' ' attr(data-prefixvaluemaxfield) ' ';
+}
+[data-prefixvalueminfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixvalueminfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+[data-prefixvaluemaxfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixvaluemaxfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+
+
+[data-prefixrequiredfield][data-prefixvalueminfield][data-prefixvaluemaxfield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvalueminfield) ' ' attr(data-prefixvaluemaxfield) ' ';
+}
+[data-prefixrequiredfield][data-prefixvalueminfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvalueminfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+[data-prefixrequiredfield][data-prefixvaluemaxfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvaluemaxfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+
+[data-prefixvalueminfield][data-prefixvaluemaxfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixvalueminfield) ' ' attr(data-prefixvaluemaxfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+
+
+[data-prefixrequiredfield][data-prefixvalueminfield][data-prefixvaluemaxfield][data-prefixautocompletefield]:before {
+	content: attr(data-prefixrequiredfield) ' ' attr(data-prefixvalueminfield) ' ' attr(data-prefixvaluemaxfield) ' ' attr(data-prefixautocompletefield) ' ';
+}
+
+
+
+
+[data-suffixrequiredfield]:after {
+	content: ' ' attr(data-suffixrequiredfield);
+}
+[data-suffixvalueminfield]:after {
+	content: ' ' attr(data-suffixvalueminfield);
+}
+[data-suffixvaluemaxfield]:after {
+	content: ' ' attr(data-suffixvaluemaxfield);
+}
+[data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixautocompletefield);
+}
+
+
+
+[data-suffixrequiredfield][data-suffixvalueminfield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvalueminfield);
+}
+[data-suffixrequiredfield][data-suffixvaluemaxfield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvaluemaxfield);
+}
+[data-suffixrequiredfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixautocompletefield);
+}
+
+[data-suffixvalueminfield][data-suffixvaluemaxfield]:after {
+	content: ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixvaluemaxfield);
+}
+[data-suffixvalueminfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixautocompletefield);
+}
+
+[data-suffixvaluemaxfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixvaluemaxfield) ' ' attr(data-suffixautocompletefield);
+}
+
+
+
+[data-suffixrequiredfield][data-suffixvalueminfield][data-suffixvaluemaxfield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixvaluemaxfield);
+}
+[data-suffixrequiredfield][data-suffixvalueminfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixautocompletefield);
+}
+
+[data-suffixrequiredfield][data-suffixvaluemaxfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvaluemaxfield) ' ' attr(data-suffixautocompletefield);
+}
+
+
+[data-suffixvalueminfield][data-suffixvaluemaxfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixvaluemaxfield) ' ' attr(data-suffixautocompletefield);
+}
+
+
+
+[data-suffixrequiredfield][data-suffixvalueminfield][data-suffixvaluemaxfield][data-suffixautocompletefield]:after {
+	content: ' ' attr(data-suffixrequiredfield) ' ' attr(data-suffixvalueminfield) ' ' attr(data-suffixvaluemaxfield) ' ' attr(data-suffixautocompletefield);
 }

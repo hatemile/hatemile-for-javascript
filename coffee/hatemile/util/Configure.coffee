@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -26,26 +24,33 @@ exports.hatemile or= {}
 ###
 exports.hatemile.util or= {}
 
+###*
+ * @class Configure
+ * @classdesc The Configure class contains the configuration of HaTeMiLe.
+ * @memberof hatemile.util
+###
 class exports.hatemile.util.Configure
 	
 	###*
 	 * Initializes a new object that contains the configuration of HaTeMiLe.
 	 * @param {Object} config The JSON configuration.
-	 * @class Configure
-	 * @classdesc The Configure class contains the configuration of HaTeMiLe.
-	 * @version 2014-07-23
-	 * @memberof hatemile.util
+	 * @memberof hatemile.util.Configure
 	###
 	constructor: (config) ->
 		@parameters = config['parameters']
 		@selectorChanges = []
+		@skippers = []
 		changes = config['selector-changes']
+		links = config['skippers']
 		for change in changes
 			@selectorChanges.push(new exports.hatemile.util.SelectorChange(change['selector'], change['attribute'], change['value-attribute']))
+		for link in links
+			@skippers.push(new exports.hatemile.util.Skipper(link['selector'], link['default-text'], link['shortcut']))
 	
 	###*
 	 * Returns the parameters of configuration.
 	 * @return {Object} The parameters of configuration.
+	 * @memberof hatemile.util.Configure
 	###
 	getParameters: () ->
 		clonedParameters = {}
@@ -71,3 +76,12 @@ class exports.hatemile.util.Configure
 	getSelectorChanges: () ->
 		clonedSelectorChanges = []
 		return clonedSelectorChanges.concat(@selectorChanges)
+	
+	###*
+	 * Returns the skippers.
+	 * @return {hatemile.util.Skipper} The skippers.
+	 * @memberof hatemile.util.Configure
+	###
+	getSkippers: () ->
+		clonedSkippers = []
+		return clonedSkippers.concat(@skippers)

@@ -1,63 +1,126 @@
+var config;
+
 config = {
-	"parameters": {
-		"id-container-shortcuts": "container-shortcuts",
-		"id-skip-link-container-shortcuts": "link-skip-shortcuts",
-		"id-skip-container-shortcuts": "skip-shortcuts",
-		"id-text-shortcuts": "text-shortcuts",
-		
-		"class-list-image-areas": "list-areas",
-		"class-longdescription-link": "longdescription-link",
-		
-		"data-ignore": "ignorehatemile",
-		"data-label-required-field": "labelrequiredfield",
-		"data-accesskey": "accesskey",
-		"data-list-for-image": "listforimage",
-		"data-longdescription-for-image": "longdescriptionforimage",
-		
-		"text-skip-container-shortcuts": "Skip shortcuts",
-		"text-no-shortcuts-alert": "No access keys have been defined for this page.",
-		"text-shortcuts": "Shortcuts:",
-		"text-standart-shortcut-prefix": "ALT",
-		
-		"prefix-required-field": "*",
-		"prefix-generated-ids": "id-cs-",
-		"prefix-longdescription-link": "",
-		
-		"suffix-longdescription-link": "[d]",
-		"suffix-required-field": ""
-	},
-	"selector-changes": [
-		//HTML5 Recommendations
-		{"selector": "article:not([role])", "attribute": "role", "value-attribute": "article"},
-		{"selector": "aside:not([role])", "attribute": "role", "value-attribute": "complementary"},
-		{"selector": "datalist", "attribute": "role", "value-attribute": "listbox"},
-		{"selector": "datalist", "attribute": "aria-multiselectable", "value-attribute": "false"},
-		{"selector": "dialog:not([role])", "attribute": "role", "value-attribute": "dialog"},
-		{"selector": "input[type=range]", "attribute": "role", "value-attribute": "slider"},
-		{"selector": "input[type=number]", "attribute": "role", "value-attribute": "spinbutton"},
-		{"selector": "main", "attribute": "role", "value-attribute": "main"},
-		{"selector": "math", "attribute": "role", "value-attribute": "math"},
-		{"selector": "menu", "attribute": "role", "value-attribute": "menu"},
-		{"selector": "menu[type=toolbar]", "attribute": "role", "value-attribute": "toolbar"},
-		{"selector": "menuitem", "attribute": "role", "value-attribute": "menuitem"},
-		{"selector": "menu [type=checkbox]", "attribute": "role", "value-attribute": "menuitemcheckbox"},
-		{"selector": "menu [type=radio]", "attribute": "role", "value-attribute": "menuitemradio"},
-		{"selector": "nav", "attribute": "role", "value-attribute": "navigation"},
-		{"selector": "output:not([role])", "attribute": "role", "value-attribute": "status"},
-		{"selector": "output", "attribute": "aria-live", "value-attribute": "polite"},
-		{"selector": "progress", "attribute": "role", "value-attribute": "progressbar"},
-		{"selector": "summary", "attribute": "role", "value-attribute": "button"}
-		//Bootstrap Recomendations
-		/*
-		{"selector": "li.dropdown", "attribute": "aria-haspopup", "value-attribute": "true"},
-		{"selector": ".has-error input, .has-error select, .has-error textarea", "attribute": "aria-invalid", "value-attribute": "true"},
-		{"selector": ".dropdown-menu li a", "attribute": "tabindex", "value-attribute": "-1"},
-		{"selector": ".navbar", "attribute": "role", "value-attribute": "navigation"},
-		{"selector": ".dropdown-menu li a", "attribute": "role", "value-attribute": "menuitem"},
-		{"selector": ".progress-bar", "attribute": "role", "value-attribute": "progressbar"},
-		{"selector": ".dropdown-menu", "attribute": "role", "value-attribute": "menubar"},
-		{"selector": ".dropdown-menu li", "attribute": "role", "value-attribute": "presentation"},
-		{"selector": ".alert", "attribute": "role", "value-attribute": "alert"}
-		*/
-	]
+  "parameters": {
+    "text-shortcuts": "Shortcuts:",
+    "text-standart-shortcut-prefix": "ALT",
+    "text-autocomplete-value-both": "List or Inline",
+    "text-autocomplete-value-list": "List",
+    "text-autocomplete-value-inline": "Inline",
+    "text-autocomplete-value-none": "None",
+    "text-heading": "Summary:",
+    "prefix-required-field": "*",
+    "prefix-range-min-field": "",
+    "prefix-range-max-field": "",
+    "prefix-autocomplete-field": "",
+    "prefix-generated-ids": "id-cs-",
+    "prefix-longdescription": "",
+    "suffix-longdescription": "[d]",
+    "suffix-required-field": "",
+    "suffix-range-min-field": "(Min: {{value}})",
+    "suffix-range-max-field": "(Max: {{value}})",
+    "suffix-autocomplete-field": "(Autocomplete: {{value}})"
+  },
+  "skippers": [
+    {
+      "selector": "main,[role=main]",
+      "default-text": "Main Content",
+      "shortcut": "1"
+    }, {
+      "selector": "nav,[role=navigation]",
+      "default-text": "Menu",
+      "shortcut": "2"
+    }, {
+      "selector": "form",
+      "default-text": "Form",
+      "shortcut": "3"
+    }, {
+      "selector": "#container-shortcuts",
+      "default-text": "Shortcuts",
+      "shortcut": "9"
+    }, {
+      "selector": "#container-heading",
+      "default-text": "Summary",
+      "shortcut": "0"
+    }
+  ],
+  "selector-changes": [
+    {
+      "selector": "article:not([role])",
+      "attribute": "role",
+      "value-attribute": "article"
+    }, {
+      "selector": "aside:not([role])",
+      "attribute": "role",
+      "value-attribute": "complementary"
+    }, {
+      "selector": "datalist",
+      "attribute": "role",
+      "value-attribute": "listbox"
+    }, {
+      "selector": "datalist",
+      "attribute": "aria-multiselectable",
+      "value-attribute": "false"
+    }, {
+      "selector": "dialog:not([role])",
+      "attribute": "role",
+      "value-attribute": "dialog"
+    }, {
+      "selector": "input[type=range]",
+      "attribute": "role",
+      "value-attribute": "slider"
+    }, {
+      "selector": "input[type=number]",
+      "attribute": "role",
+      "value-attribute": "spinbutton"
+    }, {
+      "selector": "main",
+      "attribute": "role",
+      "value-attribute": "main"
+    }, {
+      "selector": "math",
+      "attribute": "role",
+      "value-attribute": "math"
+    }, {
+      "selector": "menu",
+      "attribute": "role",
+      "value-attribute": "menu"
+    }, {
+      "selector": "menu[type=toolbar]",
+      "attribute": "role",
+      "value-attribute": "toolbar"
+    }, {
+      "selector": "menuitem",
+      "attribute": "role",
+      "value-attribute": "menuitem"
+    }, {
+      "selector": "menu [type=checkbox]",
+      "attribute": "role",
+      "value-attribute": "menuitemcheckbox"
+    }, {
+      "selector": "menu [type=radio]",
+      "attribute": "role",
+      "value-attribute": "menuitemradio"
+    }, {
+      "selector": "nav",
+      "attribute": "role",
+      "value-attribute": "navigation"
+    }, {
+      "selector": "output:not([role])",
+      "attribute": "role",
+      "value-attribute": "status"
+    }, {
+      "selector": "output",
+      "attribute": "aria-live",
+      "value-attribute": "polite"
+    }, {
+      "selector": "progress",
+      "attribute": "role",
+      "value-attribute": "progressbar"
+    }, {
+      "selector": "summary",
+      "attribute": "role",
+      "value-attribute": "button"
+    }
+  ]
 };

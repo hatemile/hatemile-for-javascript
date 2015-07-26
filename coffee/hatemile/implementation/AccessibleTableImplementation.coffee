@@ -1,6 +1,4 @@
 ###
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -26,23 +24,25 @@ exports.hatemile or= {}
 ###
 exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleTableImpl
+###*
+ * @class AccessibleTableImplementation
+ * @classdesc The AccessibleTableImplementation class is official implementation
+ * of AccessibleTable interface.
+ * @extends hatemile.AccessibleTable
+ * @memberof hatemile.implementation
+###
+class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the tables of
-	 * parser.
+	 * Initializes a new object that manipulate the accessibility of the tables
+	 * of parser.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-	 * @class AccessibleTableImpl
-	 * @classdesc The AccessibleTableImpl class is official implementation of
-	 * AccessibleTable interface.
-	 * @extends hatemile.AccessibleTable
-	 * @version 2014-07-23
-	 * @memberof hatemile.implementation
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@dataIgnore = "data-#{configure.getParameter('data-ignore')}"
+		@dataIgnore = 'data-ignoreaccessibilityfix'
 	
 	###*
 	 * Returns a list that represents the table.
@@ -51,7 +51,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
 	 * the table.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	generatePart = (part, parser) ->
 		table = []
@@ -66,7 +66,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * represents the table without the rowspans.
 	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
 	 * the table with the rowspans.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	generateRowspan = (rows) ->
 		copy = []
@@ -76,26 +76,27 @@ class exports.hatemile.implementation.AccessibleTableImpl
 			lengthRows = copy.length
 			for i in [0..lengthRows - 1]
 				cells = copy[i]
-				columnIndex = 0
-				lengthCells = cells.length
 				if isEmpty(table[i])
 					table[i] = []
-				for j in [0..lengthCells - 1]
-					cell = cells[j]
-					m = j + columnIndex
-					row = table[i]
-					while not isEmpty(row[m])
-						columnIndex = columnIndex + 1
+				if not isEmpty(cells)
+					columnIndex = 0
+					lengthCells = cells.length
+					for j in [0..lengthCells - 1]
+						cell = cells[j]
 						m = j + columnIndex
-					row[m] = cell
-					if cell.hasAttribute('rowspan')
-						rowspan = parseInt(cell.getAttribute('rowspan'))
-						if rowspan > 1
-							for l in [1..rowspan-1]
-								n = i + l
-								if isEmpty(table[n])
-									table[n] = []
-								table[n][m] = cell
+						row = table[i]
+						while not isEmpty(row[m])
+							columnIndex = columnIndex + 1
+							m = j + columnIndex
+						row[m] = cell
+						if cell.hasAttribute('rowspan')
+							rowspan = parseInt(cell.getAttribute('rowspan'))
+							if rowspan > 1
+								for l in [1..rowspan-1]
+									n = i + l
+									if isEmpty(table[n])
+										table[n] = []
+									table[n][m] = cell
 		return table
 	
 	###*
@@ -104,18 +105,19 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * line of table without the colspans.
 	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the line
 	 * of table with the colspans.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	generateColspan = (cells) ->
 		copy = []
 		copy = copy.concat(cells)
-		length = cells.length
-		for i in [0..length - 1]
-			if cells[i].hasAttribute('colspan')
-				colspan = parseInt(cells[i].getAttribute('colspan'))
-				if colspan > 1
-					for j in [1..colspan - 1]
-						copy.splice(i + j, 0, cells[i])
+		if not isEmpty(copy)
+			length = cells.length
+			for i in [0..length - 1]
+				if cells[i].hasAttribute('colspan')
+					colspan = parseInt(cells[i].getAttribute('colspan'))
+					if colspan > 1
+						for j in [1..colspan - 1]
+							copy.splice(i + j, 0, cells[i])
 		return copy
 	
 	###*
@@ -124,7 +126,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * represents the table header.
 	 * @return {Boolean} True if the table header is valid or false if the table
 	 * header is not valid.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	validateHeader = (header) ->
 		if isEmpty(header)
@@ -146,7 +148,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * @param {Number} index The index of columns.
 	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same
 	 * column.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	returnListIdsColumns = (header, index) ->
 		ids = []
@@ -161,7 +163,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * footer.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} prefixId The prefix of generated id.
-	 * @memberof hatemile.implementation.AccessibleTableImpl
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	fixBodyOrFooter = (element, parser, prefixId) ->
 		table = generatePart(element, parser)
@@ -187,6 +189,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 	 * @param {hatemile.util.HTMLDOMElement} tableHeader The table header.
 	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} prefixId The prefix of generated id.
+	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	fixHeader = (tableHeader, parser, prefixId) ->
 		cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
@@ -196,7 +199,7 @@ class exports.hatemile.implementation.AccessibleTableImpl
 			cell.setAttribute('scope', 'col')
 		return
 	
-	fixTable: (table) ->
+	fixAssociationCellsTable: (table) ->
 		header = @parser.find(table).findChildren('thead').firstResult()
 		body = @parser.find(table).findChildren('tbody').firstResult()
 		footer = @parser.find(table).findChildren('tfoot').firstResult()
@@ -225,9 +228,9 @@ class exports.hatemile.implementation.AccessibleTableImpl
 			fixBodyOrFooter(footer, @parser, @prefixId)
 		return
 	
-	fixTables: () ->
+	fixAssociationCellsTables: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
 			if not table.hasAttribute(@dataIgnore)
-				@fixTable(table)
+				@fixAssociationCellsTable(table)
 		return

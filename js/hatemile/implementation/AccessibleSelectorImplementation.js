@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -33,27 +31,31 @@ exports.hatemile || (exports.hatemile = {});
 
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleSelectorImpl = (function() {
+/**
+ * @class AccessibleSelectorImplementation
+ * @classdesc The AccessibleSelectorImplementation class is official
+ * implementation of AccessibleSelector interface.
+ * @extends hatemile.AccessibleSelector
+ * @memberof hatemile.implementation
+*/
+
+
+exports.hatemile.implementation.AccessibleSelectorImplementation = (function() {
   /**
   	 * Initializes a new object that manipulate the accessibility through of the
   	 * selectors of the configuration file.
   	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
   	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-  	 * @class AccessibleSelectorImpl
-  	 * @classdesc The AccessibleSelectorImpl class is official implementation of
-  	 * AccessibleSelector interface.
-  	 * @extends hatemile.AccessibleSelector
-  	 * @version 2014-07-23
-  	 * @memberof hatemile.implementation
+  	 * @memberof hatemile.implementation.AccessibleSelectorImplementation
   */
 
-  function AccessibleSelectorImpl(parser, configure) {
+  function AccessibleSelectorImplementation(parser, configure) {
     this.parser = parser;
     this.changes = configure.getSelectorChanges();
-    this.dataIgnore = "data-" + (configure.getParameter('data-ignore'));
+    this.dataIgnore = 'data-ignoreaccessibilityfix';
   }
 
-  AccessibleSelectorImpl.prototype.fixSelectors = function() {
+  AccessibleSelectorImplementation.prototype.fixSelectors = function() {
     var change, element, elements, _i, _j, _len, _len1, _ref;
     _ref = this.changes;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -68,6 +70,6 @@ exports.hatemile.implementation.AccessibleSelectorImpl = (function() {
     }
   };
 
-  return AccessibleSelectorImpl;
+  return AccessibleSelectorImplementation;
 
 })();

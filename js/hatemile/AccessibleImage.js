@@ -1,6 +1,4 @@
 /*
-Copyright 2014 Carlson Santana Cruz
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -27,9 +25,8 @@ exports.hatemile || (exports.hatemile = {});
 
 /**
  * @class AccessibleImage
- * @classdesc The AccessibleImage interface fix the problems of accessibility
- * associated with the images.
- * @version 2014-07-23
+ * @classdesc The AccessibleImage interface fixes accessibility problems
+ * associated with images.
  * @memberof hatemile
 */
 
@@ -38,30 +35,9 @@ exports.hatemile.AccessibleImage = (function() {
   function AccessibleImage() {}
 
   /**
-  	 * Fix the map of images.
-  	 * @param {hatemile.util.HTMLDOMElement} map The map of images.
-  	 * @see {@link http://www.w3.org/TR/WAI-WEBCONTENT-TECHS/#tech-redundant-client-links|WCAG 1.0 Checkpoint 1.5}
-  	 * @memberof hatemile.AccessibleImage
-  */
-
-
-  AccessibleImage.prototype.fixMap = function(map) {};
-
-  /**
-  	 * Fix the maps of images.
-  	 * @see {@link http://www.w3.org/TR/WAI-WEBCONTENT-TECHS/#tech-redundant-client-links|WCAG 1.0 Checkpoint 1.5}
-  	 * @memberof hatemile.AccessibleImage
-  */
-
-
-  AccessibleImage.prototype.fixMaps = function() {};
-
-  /**
-  	 * Fix the element with long description.
+  	 * Provide an alternative way to access the long description of element.
   	 * @param {hatemile.util.HTMLDOMElement} element The element with long
   	 * description.
-  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G73.html|G73: Providing a long description in another location with a link to it that is immediately adjacent to the non-text content}
-  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G74.html|G74: Providing a long description in text near the non-text content, with a reference to the location of the long description in the short description}
   	 * @memberof hatemile.AccessibleImage
   */
 
@@ -69,9 +45,7 @@ exports.hatemile.AccessibleImage = (function() {
   AccessibleImage.prototype.fixLongDescription = function(element) {};
 
   /**
-  	 * Fix the elements with longs descriptions.
-  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G73.html|G73: Providing a long description in another location with a link to it that is immediately adjacent to the non-text content}
-  	 * @see {@link http://www.w3.org/TR/WCAG20-TECHS/G74.html|G74: Providing a long description in text near the non-text content, with a reference to the location of the long description in the short description}
+  	 * Provide an alternative way to access the longs descriptions of elements.
   	 * @memberof hatemile.AccessibleImage
   */
 
