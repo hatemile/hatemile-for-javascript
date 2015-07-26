@@ -52,6 +52,14 @@ exports.hatemile.util.CommonFunctions = {
 		return
 	
 	###*
+	 * Reset the count number of ids.
+	 * @memberof hatemile.util.CommonFunctions
+	###
+	resetCount: () ->
+		@count = 0
+		return
+	
+	###*
 	 * Copy a list of attributes of a element for other element.
 	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have
 	 * attributes copied.
