@@ -51,7 +51,7 @@ exports.hatemile || (exports.hatemile = {});
 exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   /**
   	 * Initializes a new object that encapsulate the HTMLElement.
-  	 * @param {HTMLElement} element The element.
+  	 * @param {HTMLElement} data The native element.
   	 * @memberof hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
   */
 
@@ -101,9 +101,9 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
     childs = this.data.childNodes;
     for (_i = 0, _len = childs.length; _i < _len; _i++) {
       child = childs[_i];
-      if (child.nodeType === document.TEXT_NODE) {
+      if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
         text += child.nodeValue;
-      } else if (child.nodeType === document.ELEMENT_NODE) {
+      } else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
         elementChild = new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(child);
         text += elementChild.getTextContent();
       }
@@ -165,7 +165,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
   };
 
   VanillaHTMLDOMElement.prototype.appendText = function(text) {
-    this.data.appendChild(document.createTextNode(text));
+    this.data.appendChild(this.data.ownerDocument.createTextNode(text));
   };
 
   VanillaHTMLDOMElement.prototype.hasChildren = function() {
@@ -201,7 +201,7 @@ exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement = (function() {
 
   VanillaHTMLDOMElement.prototype.cloneElement = function() {
     var div;
-    div = document.createElement('div');
+    div = this.data.ownerDocument.createElement('div');
     div.innerHTML = this.getOuterHTML();
     return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(div.firstElementChild);
   };

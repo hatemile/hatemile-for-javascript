@@ -54,9 +54,16 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   	 * @memberof hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
   */
 
-  function JQueryHTMLDOMParser(html) {
+  function JQueryHTMLDOMParser(html, ownerDocument) {
     this.root = jQuery(html);
     this.results = void 0;
+    if (!isEmpty(ownerDocument)) {
+      this.ownerDocument = ownerDocument;
+    } else if (!isEmpty(html.ownerDocument)) {
+      this.ownerDocument = html.ownerDocument;
+    } else {
+      this.ownerDocument = document;
+    }
   }
 
   JQueryHTMLDOMParser.prototype.find = function(selector) {
@@ -119,11 +126,11 @@ exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser = (function() {
   };
 
   JQueryHTMLDOMParser.prototype.createElement = function(tag) {
-    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tag));
+    return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
   };
 
   JQueryHTMLDOMParser.prototype.getHTML = function() {
-    return document.documentElement.outerHTML;
+    return this.ownerDocument.documentElement.outerHTML;
   };
 
   JQueryHTMLDOMParser.prototype.getParser = function() {

@@ -280,24 +280,24 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
     var error, handlerEvent, listenerEvent, nativeElement, _i, _len, _ref;
     nativeElement = element.getData();
     if (hasEvent(element, event.type)) {
-      try {
-        if (!isEmpty(nativeElement.dispatchEvent)) {
-          nativeElement.dispatchEvent(event);
-        } else {
-          handlerEvent = nativeElement["on" + event.type];
-          if (!isEmpty(handlerEvent)) {
-            handlerEvent(event);
-          }
-          if ((!isEmpty(nativeElement.eventListenerList)) && (!isEmpty(nativeElement.eventListenerList[event.type]))) {
-            _ref = nativeElement.eventListenerList[event.type];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              listenerEvent = _ref[_i];
-              listenerEvent(event);
-            }
+      handlerEvent = nativeElement["on" + event.type];
+      if (!isEmpty(handlerEvent)) {
+        try {
+          handlerEvent.call(nativeElement, event);
+        } catch (_error) {
+          error = _error;
+        }
+      }
+      if ((!isEmpty(nativeElement.eventListenerList)) && (!isEmpty(nativeElement.eventListenerList[event.type]))) {
+        _ref = nativeElement.eventListenerList[event.type];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          listenerEvent = _ref[_i];
+          try {
+            listenerEvent.call(nativeElement, event);
+          } catch (_error) {
+            error = _error;
           }
         }
-      } catch (_error) {
-        error = _error;
       }
     }
   };
@@ -313,41 +313,44 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 
 
   createMouseEvent = function(type, element, event) {
-    var data, mouseEvent;
+    var data;
     data = {
+      'type': type,
       'view': event.view,
+      'ctrlKey': event.ctrlKey,
+      'shiftKey': event.shiftKey,
+      'altKey': event.altKey,
+      'metaKey': event.metaKey,
+      'button': 0,
+      'buttons': 1,
       'bubbles': true,
       'cancelable': true,
       'target': element.getData(),
-      'altKey': event.altKey,
-      'ctrlKey': event.ctrlKey,
+      'originalTarget': element.getData(),
       'cancelBubble': false,
       'isTrusted': true,
-      'metaKey': false,
-      'shiftKey': event.shiftKey,
+      'detail': 0,
       'clientX': 0,
       'clientY': 0,
       'pageX': 0,
       'pageY': 0,
       'screenX': 0,
-      'screenY': 0
+      'screenY': 0,
+      'layerX': 0,
+      'layerY': 0,
+      'offsetX': 0,
+      'offsetY': 0
     };
-    if (isEmpty(Event)) {
-      mouseEvent = data;
-      mouseEvent.type = type;
-    } else {
-      mouseEvent = new Event(type, data);
-    }
-    mouseEvent.preventDefault = function() {
+    data.preventDefault = function() {
       return event.preventDefault();
     };
-    mouseEvent.stopImmediatePropagation = function() {
+    data.stopImmediatePropagation = function() {
       return event.stopImmediatePropagation();
     };
-    mouseEvent.stopPropagation = function() {
+    data.stopPropagation = function() {
       return event.stopPropagation();
     };
-    return mouseEvent;
+    return data;
   };
 
   /**

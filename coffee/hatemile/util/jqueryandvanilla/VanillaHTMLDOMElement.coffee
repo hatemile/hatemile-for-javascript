@@ -41,7 +41,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLElement.
-	 * @param {HTMLElement} element The element.
+	 * @param {HTMLElement} data The native element.
 	 * @memberof hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	###
 	constructor: (@data) ->
@@ -78,9 +78,9 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		text = ''
 		childs = @data.childNodes
 		for child in childs
-			if (child.nodeType is document.TEXT_NODE)
+			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
 				text += child.nodeValue
-			else if (child.nodeType is document.ELEMENT_NODE)
+			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
 				elementChild = new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(child)
 				text += elementChild.getTextContent()
 		return text
@@ -124,7 +124,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return array
 	
 	appendText: (text) ->
-		@data.appendChild(document.createTextNode(text))
+		@data.appendChild(@data.ownerDocument.createTextNode(text))
 		return
 	
 	hasChildren: () ->
@@ -153,7 +153,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		return
 	
 	cloneElement: () ->
-		div = document.createElement('div')
+		div = @data.ownerDocument.createElement('div')
 		div.innerHTML = @getOuterHTML()
 		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(div.firstElementChild)
 	

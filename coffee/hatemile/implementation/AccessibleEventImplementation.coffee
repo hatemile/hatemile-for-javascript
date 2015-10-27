@@ -224,17 +224,16 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	executeEvent = (element, event) ->
 		nativeElement = element.getData()
 		if hasEvent(element, event.type)
-			try
-				if not isEmpty(nativeElement.dispatchEvent)
-					nativeElement.dispatchEvent(event)
-				else
-					handlerEvent = nativeElement["on#{event.type}"]
-					if not isEmpty(handlerEvent)
-						handlerEvent(event)
-					if (not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[event.type]))
-						for listenerEvent in nativeElement.eventListenerList[event.type]
-							listenerEvent(event)
-			catch error
+			handlerEvent = nativeElement["on#{event.type}"]
+			if not isEmpty(handlerEvent)
+				try
+					handlerEvent.call(nativeElement, event)
+				catch error
+			if (not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[event.type]))
+				for listenerEvent in nativeElement.eventListenerList[event.type]
+					try
+						listenerEvent.call(nativeElement, event)
+					catch error
 		return
 	
 	###*
@@ -247,39 +246,43 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###
 	createMouseEvent = (type, element, event) ->
 		data = {
-			'view': event.view,
-			'bubbles': true,
-			'cancelable': true,
-			'target': element.getData(),
-			'altKey': event.altKey,
-			'ctrlKey': event.ctrlKey,
-			'cancelBubble': false,
-			'isTrusted': true,
-			'metaKey': false,
-			'shiftKey': event.shiftKey,
-			'clientX': 0,
-			'clientY': 0,
-			'pageX': 0,
-			'pageY': 0,
-			'screenX': 0,
-			'screenY': 0
+			'type': type
+			, 'view': event.view
+			, 'ctrlKey': event.ctrlKey
+			, 'shiftKey': event.shiftKey
+			, 'altKey': event.altKey
+			, 'metaKey': event.metaKey
+			, 'button': 0
+			, 'buttons': 1
+			, 'bubbles': true
+			, 'cancelable': true
+			, 'target': element.getData()
+			, 'originalTarget': element.getData()
+			, 'cancelBubble': false
+			, 'isTrusted': true
+			, 'detail': 0
+			, 'clientX': 0
+			, 'clientY': 0
+			, 'pageX': 0
+			, 'pageY': 0
+			, 'screenX': 0
+			, 'screenY': 0
+			, 'layerX': 0
+			, 'layerY': 0
+			, 'offsetX': 0
+			, 'offsetY': 0
 		}
-		if isEmpty(Event)
-			mouseEvent = data
-			mouseEvent.type = type
-		else
-			mouseEvent = new Event(type, data)
 		
-		mouseEvent.preventDefault = () ->
+		data.preventDefault = () ->
 			event.preventDefault()
 		
-		mouseEvent.stopImmediatePropagation = () ->
+		data.stopImmediatePropagation = () ->
 			event.stopImmediatePropagation()
 		
-		mouseEvent.stopPropagation = () ->
+		data.stopPropagation = () ->
 			event.stopPropagation()
 		
-		return mouseEvent
+		return data
 	
 	###*
 	 * Create a proxy for original event, simulating the drag event.

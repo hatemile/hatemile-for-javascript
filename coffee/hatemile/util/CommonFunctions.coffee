@@ -46,7 +46,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * @memberof hatemile.util.CommonFunctions
 	###
 	generateId: (element, prefix) ->
-		if !element.hasAttribute('id')
+		if not element.hasAttribute('id')
 			element.setAttribute('id', prefix + @count.toString())
 			@count++
 		return

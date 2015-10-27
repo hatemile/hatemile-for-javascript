@@ -43,9 +43,15 @@ class exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
 	 * Initializes a new object that encapsulate the jQuery.
 	 * @memberof hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
 	###
-	constructor: (html) ->
+	constructor: (html, ownerDocument) ->
 		@root = jQuery(html)
 		@results = undefined
+		if (not isEmpty(ownerDocument))
+			@ownerDocument = ownerDocument
+		else if (not isEmpty(html.ownerDocument))
+			@ownerDocument = html.ownerDocument
+		else
+			@ownerDocument = document
 	
 	find: (selector) ->
 		if (selector instanceof exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement)
@@ -89,10 +95,10 @@ class exports.hatemile.util.jqueryandvanilla.JQueryHTMLDOMParser
 		return array
 	
 	createElement: (tag) ->
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(document.createElement(tag))
+		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
 	
 	getHTML: () ->
-		return document.documentElement.outerHTML
+		return @ownerDocument.documentElement.outerHTML
 	
 	getParser: () ->
 		return @root
