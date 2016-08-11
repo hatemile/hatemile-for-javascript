@@ -28,7 +28,7 @@ class exports.hatemile.AccessibleImage
 	
 	###*
 	 * Provide an alternative way to access the long description of element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with long
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with long
 	 * description.
 	 * @memberof hatemile.AccessibleImage
 	###

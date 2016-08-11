@@ -28,14 +28,14 @@ class exports.hatemile.AccessibleEvent
 	
 	###*
 	 * Provide a solution for the element that has drop events.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with drop event.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drop event.
 	 * @memberof hatemile.AccessibleEvent
 	###
 	fixDrop: (element) ->
 	
 	###*
 	 * Provide a solution for the element that has drag events.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with drag event.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag event.
 	 * @memberof hatemile.AccessibleEvent
 	###
 	fixDrag: (element) ->
@@ -48,7 +48,7 @@ class exports.hatemile.AccessibleEvent
 	
 	###*
 	 * Provide a solution for the element that has inaccessible hover events.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with hover event.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with hover event.
 	 * @memberof hatemile.AccessibleEvent
 	###
 	fixHover: (element) ->
@@ -61,7 +61,7 @@ class exports.hatemile.AccessibleEvent
 	
 	###*
 	 * Provide a solution for the element that has inaccessible active events.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with active
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with active
 	 * event.
 	 * @memberof hatemile.AccessibleEvent
 	###

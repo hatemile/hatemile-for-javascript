@@ -28,7 +28,7 @@ class exports.hatemile.AccessibleNavigation
 	
 	###*
 	 * Display the shortcuts of element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with shortcuts.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with shortcuts.
 	 * @memberof hatemile.AccessibleNavigation
 	###
 	fixShortcut: (element) ->
@@ -41,8 +41,8 @@ class exports.hatemile.AccessibleNavigation
 	
 	###*
 	 * Provide content skipper for element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
-	 * @param {hatemile.util.Skipper} skipper The skipper.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.configuration.Skipper} skipper The skipper.
 	 * @memberof hatemile.AccessibleNavigation
 	###
 	fixSkipper: (element, skipper) ->
@@ -55,7 +55,7 @@ class exports.hatemile.AccessibleNavigation
 	
 	###*
 	 * Provide a navigation by heading.
-	 * @param {hatemile.util.HTMLDOMElement} element The heading element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The heading element.
 	 * @memberof hatemile.AccessibleNavigation
 	###
 	fixHeading: (element) ->

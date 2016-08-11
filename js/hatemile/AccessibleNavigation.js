@@ -18,9 +18,7 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
@@ -28,64 +26,57 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The AccessibleNavigation interface fixes accessibility problems
  * associated with navigation.
  * @memberof hatemile
-*/
-
-
+ */
 exports.hatemile.AccessibleNavigation = (function() {
-  function AccessibleNavigation() {}
+	function AccessibleNavigation() {
+	}
 
-  /**
-  	 * Display the shortcuts of element.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with shortcuts.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
+	/**
+	 * Display the shortcuts of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with shortcuts.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixShortcut = function(element) {
+	};
 
+	/**
+	 * Display the shortcuts of elements.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixShortcuts = function() {
+	};
 
-  AccessibleNavigation.prototype.fixShortcut = function(element) {};
+	/**
+	 * Provide content skipper for element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.configuration.Skipper} skipper The skipper.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixSkipper = function(element, skipper) {
+	};
 
-  /**
-  	 * Display the shortcuts of elements.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
+	/**
+	 * Provide content skippers.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixSkippers = function() {
+	};
 
+	/**
+	 * Provide a navigation by heading.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The heading element.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixHeading = function(element) {
+	};
 
-  AccessibleNavigation.prototype.fixShortcuts = function() {};
+	/**
+	 * Provide a navigation by headings.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixHeadings = function() {
+	};
 
-  /**
-  	 * Provide content skipper for element.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element.
-  	 * @param {hatemile.util.Skipper} skipper The skipper.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
-
-
-  AccessibleNavigation.prototype.fixSkipper = function(element, skipper) {};
-
-  /**
-  	 * Provide content skippers.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
-
-
-  AccessibleNavigation.prototype.fixSkippers = function() {};
-
-  /**
-  	 * Provide a navigation by heading.
-  	 * @param {hatemile.util.HTMLDOMElement} element The heading element.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
-
-
-  AccessibleNavigation.prototype.fixHeading = function(element) {};
-
-  /**
-  	 * Provide a navigation by headings.
-  	 * @memberof hatemile.AccessibleNavigation
-  */
-
-
-  AccessibleNavigation.prototype.fixHeadings = function() {};
-
-  return AccessibleNavigation;
+	return AccessibleNavigation;
 
 })();

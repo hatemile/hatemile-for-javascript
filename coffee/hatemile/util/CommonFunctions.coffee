@@ -41,7 +41,7 @@ exports.hatemile.util.CommonFunctions = {
 	
 	###*
 	 * Generate a id for a element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {String} prefix The prefix of id.
 	 * @memberof hatemile.util.CommonFunctions
 	###
@@ -61,9 +61,9 @@ exports.hatemile.util.CommonFunctions = {
 	
 	###*
 	 * Copy a list of attributes of a element for other element.
-	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have
+	 * @param {hatemile.util.html.HTMLDOMElement} element1 The element that have
 	 * attributes copied.
-	 * @param {hatemile.util.HTMLDOMElement} element2 The element that copy the
+	 * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
 	 * attributes.
 	 * @param {String[]} attributes The list of attributes that will be copied.
 	 * @memberof hatemile.util.CommonFunctions

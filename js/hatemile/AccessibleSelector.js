@@ -18,29 +18,25 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
  * @class AccessibleSelector
  * @classdesc The AccessibleSelector interface perform changes in selectors.
  * @memberof hatemile
-*/
-
-
+ */
 exports.hatemile.AccessibleSelector = (function() {
-  function AccessibleSelector() {}
+	function AccessibleSelector() {
+	}
 
-  /**
-  	 * Change the selectors.
-  	 * @memberof hatemile.AccessibleSelector
-  */
+	/**
+	 * Change the selectors.
+	 * @memberof hatemile.AccessibleSelector
+	 */
+	AccessibleSelector.prototype.fixSelectors = function() {
+	};
 
-
-  AccessibleSelector.prototype.fixSelectors = function() {};
-
-  return AccessibleSelector;
+	return AccessibleSelector;
 
 })();

@@ -18,9 +18,7 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
@@ -28,29 +26,26 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The AccessibleTable interface fixes accessibility problems
  * associated with tables.
  * @memberof hatemile
-*/
-
-
+ */
 exports.hatemile.AccessibleTable = (function() {
-  function AccessibleTable() {}
+	function AccessibleTable() {
+	}
 
-  /**
-  	 * Associate data cells with header cells of table.
-  	 * @param {hatemile.util.HTMLDOMElement} table The table.
-  	 * @memberof hatemile.AccessibleTable
-  */
+	/**
+	 * Associate data cells with header cells of table.
+	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
+	 * @memberof hatemile.AccessibleTable
+	 */
+	AccessibleTable.prototype.fixAssociationCellsTable = function(table) {
+	};
 
+	/**
+	 * Associate data cells with header cells of tables.
+	 * @memberof hatemile.AccessibleTable
+	 */
+	AccessibleTable.prototype.fixAssociationCellsTables = function() {
+	};
 
-  AccessibleTable.prototype.fixAssociationCellsTable = function(table) {};
-
-  /**
-  	 * Associate data cells with header cells of tables.
-  	 * @memberof hatemile.AccessibleTable
-  */
-
-
-  AccessibleTable.prototype.fixAssociationCellsTables = function() {};
-
-  return AccessibleTable;
+	return AccessibleTable;
 
 })();

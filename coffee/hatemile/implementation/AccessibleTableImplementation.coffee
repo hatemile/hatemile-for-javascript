@@ -33,23 +33,24 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleTableImplementation
 	
+	_dataIgnore = 'data-ignoreaccessibilityfix'
+	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the tables
 	 * of parser.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@dataIgnore = 'data-ignoreaccessibilityfix'
 	
 	###*
 	 * Returns a list that represents the table.
-	 * @param {hatemile.util.HTMLDOMElement} part The table header, table footer
+	 * @param {hatemile.util.html.HTMLDOMElement} part The table header, table footer
 	 * or table body.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @return {Array.<hatemile.util.html.HTMLDOMElement[]>} The list that represents
 	 * the table.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -62,9 +63,9 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Returns a list that represents the table with the rowspans.
-	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} rows The list that
+	 * @param {Array.<hatemile.util.html.HTMLDOMElement[]>} rows The list that
 	 * represents the table without the rowspans.
-	 * @return {Array.<hatemile.util.HTMLDOMElement[]>} The list that represents
+	 * @return {Array.<hatemile.util.html.HTMLDOMElement[]>} The list that represents
 	 * the table with the rowspans.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -101,9 +102,9 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Returns a list that represents the line of table with the colspans.
-	 * @param {hatemile.util.HTMLDOMElement[]} cells The list that represents the
+	 * @param {hatemile.util.html.HTMLDOMElement[]} cells The list that represents the
 	 * line of table without the colspans.
-	 * @return {hatemile.util.HTMLDOMElement[]} The list that represents the line
+	 * @return {hatemile.util.html.HTMLDOMElement[]} The list that represents the line
 	 * of table with the colspans.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -122,7 +123,7 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Validate the list that represents the table header.
-	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that
+	 * @param {Array.<hatemile.util.html.HTMLDOMElement[]>} header The list that
 	 * represents the table header.
 	 * @return {Boolean} True if the table header is valid or false if the table
 	 * header is not valid.
@@ -143,10 +144,10 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Returns a list with ids of rows of same column.
-	 * @param {Array.<hatemile.util.HTMLDOMElement[]>} header The list that
+	 * @param {Array.<hatemile.util.html.HTMLDOMElement[]>} header The list that
 	 * represents the table header.
 	 * @param {Number} index The index of columns.
-	 * @return {hatemile.util.HTMLDOMElement[]} The list with ids of rows of same
+	 * @return {hatemile.util.html.HTMLDOMElement[]} The list with ids of rows of same
 	 * column.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -159,9 +160,9 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Fix the table body or table footer.
-	 * @param {hatemile.util.HTMLDOMElement} element The table body or table
+	 * @param {hatemile.util.html.HTMLDOMElement} element The table body or table
 	 * footer.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} prefixId The prefix of generated id.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -186,8 +187,8 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	
 	###*
 	 * Fix the table header.
-	 * @param {hatemile.util.HTMLDOMElement} tableHeader The table header.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMElement} tableHeader The table header.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} prefixId The prefix of generated id.
 	 * @memberof hatemile.implementation.AccessibleTableImplementation
 	###
@@ -231,6 +232,6 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 	fixAssociationCellsTables: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
-			if not table.hasAttribute(@dataIgnore)
+			if not table.hasAttribute(_dataIgnore)
 				@fixAssociationCellsTable(table)
 		return

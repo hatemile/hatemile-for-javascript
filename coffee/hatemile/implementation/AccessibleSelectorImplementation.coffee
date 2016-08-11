@@ -33,21 +33,22 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleSelectorImplementation
 	
+	_dataIgnore = 'data-ignoreaccessibilityfix'
+	
 	###*
 	 * Initializes a new object that manipulate the accessibility through of the
 	 * selectors of the configuration file.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @memberof hatemile.implementation.AccessibleSelectorImplementation
 	###
 	constructor: (@parser, configure) ->
 		@changes = configure.getSelectorChanges()
-		@dataIgnore = 'data-ignoreaccessibilityfix'
 
 	fixSelectors: () ->
 		for change in @changes
 			elements = @parser.find(change.getSelector()).listResults()
 			for element in elements
-				if not element.hasAttribute(@dataIgnore)
+				if not element.hasAttribute(_dataIgnore)
 					element.setAttribute(change.getAttribute(), change.getValueForAttribute())
 		return

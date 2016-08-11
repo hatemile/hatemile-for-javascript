@@ -18,17 +18,13 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
  * @namespace util
  * @memberof hatemile
-*/
-
-
+ */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
@@ -36,99 +32,96 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
  * classes.
  * @memberof hatemile.util
-*/
-
-
+ */
 exports.hatemile.util.CommonFunctions = {
-  /**
-  	 * Count the number of ids created.
-  	 * @type {Number}
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  count: 0,
-  /**
-  	 * Generate a id for a element.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element.
-  	 * @param {String} prefix The prefix of id.
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  generateId: function(element, prefix) {
-    if (!element.hasAttribute('id')) {
-      element.setAttribute('id', prefix + this.count.toString());
-      this.count++;
-    }
-  },
-  /**
-  	 * Reset the count number of ids.
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  resetCount: function() {
-    this.count = 0;
-  },
-  /**
-  	 * Copy a list of attributes of a element for other element.
-  	 * @param {hatemile.util.HTMLDOMElement} element1 The element that have
-  	 * attributes copied.
-  	 * @param {hatemile.util.HTMLDOMElement} element2 The element that copy the
-  	 * attributes.
-  	 * @param {String[]} attributes The list of attributes that will be copied.
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  setListAttributes: function(element1, element2, attributes) {
-    var attribute, _i, _len;
-    for (_i = 0, _len = attributes.length; _i < _len; _i++) {
-      attribute = attributes[_i];
-      if (element1.hasAttribute(attribute)) {
-        element2.setAttribute(attribute, element1.getAttribute(attribute));
-      }
-    }
-  },
-  /**
-  	 * Increase a item in a HTML list.
-  	 * @param {String} list The list.
-  	 * @param {String} stringToIncrease The value of item.
-  	 * @return {String} The HTML list with the item added, if the item not was
-  	 * contained in list.
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  increaseInList: function(list, stringToIncrease) {
-    if (!(isEmpty(list) || isEmpty(stringToIncrease))) {
-      if (this.inList(list, stringToIncrease)) {
-        return list;
-      } else {
-        return "" + list + " " + stringToIncrease;
-      }
-    } else if (isEmpty(list)) {
-      return stringToIncrease;
-    } else {
-      return list;
-    }
-  },
-  /**
-  	 * Verify if the list contains the item.
-  	 * @param {String} list The list.
-  	 * @param {String} stringToSearch The value of item.
-  	 * @return {Boolean} True if the list contains the item or false is not
-  	 * contains.
-  	 * @memberof hatemile.util.CommonFunctions
-  */
-
-  inList: function(list, stringToSearch) {
-    var array, item, _i, _len;
-    if (!(isEmpty(list) || isEmpty(stringToSearch))) {
-      array = list.split(new RegExp('[ \n\t\r]+'));
-      for (_i = 0, _len = array.length; _i < _len; _i++) {
-        item = array[_i];
-        if (item === stringToSearch) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+	/**
+	 * Count the number of ids created.
+	 * @type {Number}
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	count: 0,
+	
+	/**
+	 * Generate a id for a element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {String} prefix The prefix of id.
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	generateId: function(element, prefix) {
+		if (!element.hasAttribute('id')) {
+			element.setAttribute('id', prefix + this.count.toString());
+			this.count++;
+		}
+	},
+	
+	/**
+	 * Reset the count number of ids.
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	resetCount: function() {
+		this.count = 0;
+	},
+	
+	/**
+	 * Copy a list of attributes of a element for other element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element1 The element that have
+	 * attributes copied.
+	 * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
+	 * attributes.
+	 * @param {String[]} attributes The list of attributes that will be copied.
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	setListAttributes: function(element1, element2, attributes) {
+		var attribute, _i, _len;
+		for (_i = 0, _len = attributes.length; _i < _len; _i++) {
+			attribute = attributes[_i];
+			if (element1.hasAttribute(attribute)) {
+				element2.setAttribute(attribute, element1.getAttribute(attribute));
+			}
+		}
+	},
+	
+	/**
+	 * Increase a item in a HTML list.
+	 * @param {String} list The list.
+	 * @param {String} stringToIncrease The value of item.
+	 * @return {String} The HTML list with the item added, if the item not was
+	 * contained in list.
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	increaseInList: function(list, stringToIncrease) {
+		if (!(isEmpty(list) || isEmpty(stringToIncrease))) {
+			if (this.inList(list, stringToIncrease)) {
+				return list;
+			} else {
+				return "" + list + " " + stringToIncrease;
+			}
+		} else if (isEmpty(list)) {
+			return stringToIncrease;
+		} else {
+			return list;
+		}
+	},
+	
+	/**
+	 * Verify if the list contains the item.
+	 * @param {String} list The list.
+	 * @param {String} stringToSearch The value of item.
+	 * @return {Boolean} True if the list contains the item or false is not
+	 * contains.
+	 * @memberof hatemile.util.CommonFunctions
+	 */
+	inList: function(list, stringToSearch) {
+		var array, item, _i, _len;
+		if (!(isEmpty(list) || isEmpty(stringToSearch))) {
+			array = list.split(new RegExp('[ \n\t\r]+'));
+			for (_i = 0, _len = array.length; _i < _len; _i++) {
+				item = array[_i];
+				if (item === stringToSearch) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 };

@@ -1,0 +1,86 @@
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	renamed:    coffee/config.coffee -> _locales/en_US/coffee/config.coffee
+	renamed:    js/config.js -> _locales/en_US/js/config.js
+	renamed:    coffee/hatemile/util/Configure.coffee -> coffee/hatemile/util/configuration/Configure.coffee
+	renamed:    coffee/hatemile/util/SelectorChange.coffee -> coffee/hatemile/util/configuration/SelectorChange.coffee
+	renamed:    coffee/hatemile/util/Skipper.coffee -> coffee/hatemile/util/configuration/Skipper.coffee
+	renamed:    coffee/hatemile/util/HTMLDOMElement.coffee -> coffee/hatemile/util/html/HTMLDOMElement.coffee
+	renamed:    coffee/hatemile/util/HTMLDOMParser.coffee -> coffee/hatemile/util/html/HTMLDOMParser.coffee
+	renamed:    coffee/hatemile/util/jqueryandvanilla/JQueryHTMLDOMParser.coffee -> coffee/hatemile/util/html/jquery/JQueryHTMLDOMParser.coffee
+	renamed:    coffee/hatemile/util/jqueryandvanilla/VanillaHTMLDOMElement.coffee -> coffee/hatemile/util/html/vanilla/VanillaHTMLDOMElement.coffee
+	renamed:    js/hatemile/util/Configure.js -> js/hatemile/util/configuration/Configure.js
+	renamed:    js/hatemile/util/SelectorChange.js -> js/hatemile/util/configuration/SelectorChange.js
+	renamed:    js/hatemile/util/Skipper.js -> js/hatemile/util/configuration/Skipper.js
+	renamed:    js/hatemile/util/HTMLDOMElement.js -> js/hatemile/util/html/HTMLDOMElement.js
+	renamed:    js/hatemile/util/HTMLDOMParser.js -> js/hatemile/util/html/HTMLDOMParser.js
+	renamed:    js/hatemile/util/jqueryandvanilla/JQueryHTMLDOMParser.js -> js/hatemile/util/html/jquery/JQueryHTMLDOMParser.js
+	renamed:    js/hatemile/util/jqueryandvanilla/VanillaHTMLDOMElement.js -> js/hatemile/util/html/vanilla/VanillaHTMLDOMElement.js
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   _locales/en_US/js/config.js
+	modified:   coffee/hatemile/AccessibleEvent.coffee
+	modified:   coffee/hatemile/AccessibleForm.coffee
+	modified:   coffee/hatemile/AccessibleImage.coffee
+	modified:   coffee/hatemile/AccessibleNavigation.coffee
+	modified:   coffee/hatemile/AccessibleTable.coffee
+	modified:   coffee/hatemile/implementation/AccessibleEventImplementation.coffee
+	modified:   coffee/hatemile/implementation/AccessibleFormImplementation.coffee
+	modified:   coffee/hatemile/implementation/AccessibleImageImplementation.coffee
+	modified:   coffee/hatemile/implementation/AccessibleNavigationImplementation.coffee
+	modified:   coffee/hatemile/implementation/AccessibleSelectorImplementation.coffee
+	modified:   coffee/hatemile/implementation/AccessibleTableImplementation.coffee
+	modified:   coffee/hatemile/util/CommonFunctions.coffee
+	modified:   coffee/hatemile/util/configuration/Configure.coffee
+	modified:   coffee/hatemile/util/configuration/SelectorChange.coffee
+	modified:   coffee/hatemile/util/configuration/Skipper.coffee
+	modified:   coffee/hatemile/util/html/HTMLDOMElement.coffee
+	modified:   coffee/hatemile/util/html/HTMLDOMParser.coffee
+	modified:   coffee/hatemile/util/html/jquery/JQueryHTMLDOMParser.coffee
+	modified:   coffee/hatemile/util/html/vanilla/VanillaHTMLDOMElement.coffee
+	modified:   css/hide_changes.css
+	modified:   js/common.js
+	modified:   js/eventlistener.js
+	modified:   js/hatemile/AccessibleEvent.js
+	modified:   js/hatemile/AccessibleForm.js
+	modified:   js/hatemile/AccessibleImage.js
+	modified:   js/hatemile/AccessibleNavigation.js
+	modified:   js/hatemile/AccessibleSelector.js
+	modified:   js/hatemile/AccessibleTable.js
+	modified:   js/hatemile/implementation/AccessibleEventImplementation.js
+	modified:   js/hatemile/implementation/AccessibleFormImplementation.js
+	modified:   js/hatemile/implementation/AccessibleImageImplementation.js
+	modified:   js/hatemile/implementation/AccessibleNavigationImplementation.js
+	modified:   js/hatemile/implementation/AccessibleSelectorImplementation.js
+	modified:   js/hatemile/implementation/AccessibleTableImplementation.js
+	modified:   js/hatemile/util/CommonFunctions.js
+	modified:   js/hatemile/util/configuration/Configure.js
+	modified:   js/hatemile/util/configuration/SelectorChange.js
+	modified:   js/hatemile/util/configuration/Skipper.js
+	modified:   js/hatemile/util/html/HTMLDOMElement.js
+	modified:   js/hatemile/util/html/HTMLDOMParser.js
+	modified:   js/hatemile/util/html/jquery/JQueryHTMLDOMParser.js
+	modified:   js/hatemile/util/html/vanilla/VanillaHTMLDOMElement.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	_locales/en_US/coffee/symbols.coffee
+	_locales/en_US/js/symbols.js
+	a.txt
+	coffee/hatemile/AccessibleCSSSpeechPolyfill.coffee
+	coffee/hatemile/implementation/AccessibleCSSSpeechPolyfillImplementation.coffee
+	coffee/hatemile/util/configuration/ConfigureSymbols.coffee
+	coffee/hatemile/util/css/
+	js/hatemile/AccessibleCSSSpeechPolyfill.js
+	js/hatemile/implementation/AccessibleCSSSpeechPolyfillImplementation.js
+	js/hatemile/util/configuration/ConfigureSymbols.js
+	js/hatemile/util/css/
+

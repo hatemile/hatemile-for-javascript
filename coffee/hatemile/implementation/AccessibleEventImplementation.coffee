@@ -33,25 +33,26 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleEventImplementation
 	
+	_dataIgnore = 'data-ignoreaccessibilityfix'
+	_dataKeyPressed = 'data-keypressed'
+	_dataKeyDownAdded = 'data-keydownadded'
+	_dataKeyPressAdded = 'data-keypressadded'
+	_dataKeyUpAdded = 'data-keyupadded'
+	_dataFocusAdded = 'data-focusadded'
+	_dataBlurAdded = 'data-bluradded'
+	_active = 'active'
+	_hover = 'hover'
+	_drag = 'drag'
+	_drop = 'drop'
+	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the
 	 * Javascript events of elements of parser.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
 	constructor: (@parser) ->
 		@cancelDragAdded = false
-		@dataIgnore = 'data-ignoreaccessibilityfix'
-		@dataKeyPressed = 'data-keypressed'
-		@dataKeyDownAdded = 'data-keydownadded'
-		@dataKeyPressAdded = 'data-keypressadded'
-		@dataKeyUpAdded = 'data-keyupadded'
-		@dataFocusAdded = 'data-focusadded'
-		@dataBlurAdded = 'data-bluradded'
-		@active = 'active'
-		@hover = 'hover'
-		@drag = 'drag'
-		@drop = 'drop'
 	
 	###*
 	 * Returns if the key pressed is enter.
@@ -67,7 +68,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	###*
 	 * Provide keyboard access for element, if it not has.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
 	keyboardAccess = (element) ->
@@ -81,7 +82,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	###*
 	 * Increase a function on event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {String} typeEvent The name of type of event fixed.
 	 * @param {String} typeDataEvent The name of attribute that store the type of
 	 * event fixed.
@@ -111,7 +112,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Returns if the element has the event added by developer or fixed by
 	 * HaTeMiLe.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {String} typeEvent The event.
 	 * @param {String} typeDataEvent The data type of event.
 	 * @param {String} typeFix The id of fix method.
@@ -129,15 +130,15 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	###*
 	 * Remove the information on attributes of drop effect.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
 	clearDropEffect = (parser) ->
 		droppedElements = parser.find('[aria-dropeffect]').listResults()
 		for droppedElement in droppedElements
-			dragEvents = (not hasEvent(droppedElement, 'keydown', @dataKeyDownAdded, @drag)) and (not hasEvent(droppedElement, 'keyup', @dataKeyUpAdded, @drag))
-			activeEvents = (not droppedElement.hasAttribute(@dataKeyPressAdded)) and (not hasEvent(droppedElement, 'keydown', @dataKeyDownAdded, @active)) and (not hasEvent(droppedElement, 'keyup', @dataKeyUpAdded, @active))
-			hoverEvents = (not hasEvent(droppedElement, 'focus', @dataFocusAdded, @hover)) and (not hasEvent(droppedElement, 'blur', @dataBlurAdded, @hover))
+			dragEvents = (not hasEvent(droppedElement, 'keydown', _dataKeyDownAdded, _drag)) and (not hasEvent(droppedElement, 'keyup', _dataKeyUpAdded, _drag))
+			activeEvents = (not droppedElement.hasAttribute(_dataKeyPressAdded)) and (not hasEvent(droppedElement, 'keydown', _dataKeyDownAdded, _active)) and (not hasEvent(droppedElement, 'keyup', _dataKeyUpAdded, _active))
+			hoverEvents = (not hasEvent(droppedElement, 'focus', _dataFocusAdded, _hover)) and (not hasEvent(droppedElement, 'blur', _dataBlurAdded, _hover))
 			
 			droppedElement.setAttribute('aria-dropeffect', 'none')
 			if droppedElement.hasAttribute('tabindex') and dragEvents and activeEvents and hoverEvents
@@ -146,7 +147,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	###*
 	 * Put in all droppable elements the information of the type of drop.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
 	generateDropEffect = (parser) ->
@@ -172,7 +173,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Execute the event as mouse event.
 	 * @param {String} type The type of event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {Function} event The original event.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
@@ -183,7 +184,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Execute the event as drag event.
 	 * @param {String} type The type of event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {Function} event The original event.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
@@ -217,7 +218,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	###*
 	 * Execute the event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {Function} event The original event.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	###
@@ -239,7 +240,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Create a proxy for original event, simulating the mouse event.
 	 * @param {String} type The type of event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {Function} event The original event.
 	 * @return {Object} The proxy of original event, simulating the mouse event.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
@@ -287,7 +288,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Create a proxy for original event, simulating the drag event.
 	 * @param {String} type The type of event.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {Function} event The original event.
 	 * @return {Object} The proxy of original event, simulating the drag event.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
@@ -302,7 +303,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		element.setAttribute('aria-dropeffect', 'none')
 		parser = @parser
 		
-		addEventHandler(element, 'focus', @dataFocusAdded, @drop, (event) ->
+		addEventHandler(element, 'focus', _dataFocusAdded, _drop, (event) ->
 			if not isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
 				executeDragEvent('dragenter', element, event)
 				executeDragEvent('dragover', element, event)
@@ -310,18 +311,17 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 				generateDropEffect(parser)
 			return
 		)
-		addEventHandler(element, 'blur', @dataBlurAdded, @drop, (event) ->
+		addEventHandler(element, 'blur', _dataBlurAdded, _drop, (event) ->
 			if not isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
 				executeDragEvent('dragleave', element, event)
 				
 				generateDropEffect(parser)
 			return
 		)
-		if (not hasEvent(element, 'keydown', @dataKeyDownAdded, @drop)) and (not hasEvent(element, 'keyup', @dataKeyUpAdded, @drop))
-			dataKeyPressed = @dataKeyPressed
-			addEventHandler(element, 'keydown', @dataKeyDownAdded, @drop, (event) ->
-				if (enterPressed(event.keyCode)) and (not element.hasAttribute(dataKeyPressed)) and (not isEmpty(parser.find('[aria-grabbed=true]').firstResult()))
-					element.setAttribute(dataKeyPressed, 'true')
+		if (not hasEvent(element, 'keydown', _dataKeyDownAdded, _drop)) and (not hasEvent(element, 'keyup', _dataKeyUpAdded, _drop))
+			addEventHandler(element, 'keydown', _dataKeyDownAdded, _drop, (event) ->
+				if (enterPressed(event.keyCode)) and (not element.hasAttribute(_dataKeyPressed)) and (not isEmpty(parser.find('[aria-grabbed=true]').firstResult()))
+					element.setAttribute(_dataKeyPressed, 'true')
 					
 					if hasEvent(element, 'drop')
 						grabbedElements = parser.find('[aria-grabbed="true"]').listResults()
@@ -334,8 +334,8 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 					executeDragEvent('drop', element, event)
 				return
 			)
-			addEventHandler(element, 'keyup', @dataKeyUpAdded, @drop, (event) ->
-				element.removeAttribute(dataKeyPressed)
+			addEventHandler(element, 'keyup', _dataKeyUpAdded, _drop, (event) ->
+				element.removeAttribute(_dataKeyPressed)
 				return
 			)
 		return
@@ -345,10 +345,9 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		
 		element.setAttribute('aria-grabbed', 'false')
 		parser = @parser
-		if (not hasEvent(element, 'keydown', @dataKeyDownAdded, @drag)) and (not hasEvent(element, 'keyup', @dataKeyUpAdded, @drag))
-			dataKeyPressed = @dataKeyPressed
-			addEventHandler(element, 'keydown', @dataKeyDownAdded, @drag, (event) ->
-				if (event.keyCode is ' '.charCodeAt(0)) and (not element.hasAttribute(dataKeyPressed))
+		if (not hasEvent(element, 'keydown', _dataKeyDownAdded, _drag)) and (not hasEvent(element, 'keyup', _dataKeyUpAdded, _drag))
+			addEventHandler(element, 'keydown', _dataKeyDownAdded, _drag, (event) ->
+				if (event.keyCode is ' '.charCodeAt(0)) and (not element.hasAttribute(_dataKeyPressed))
 					grabbedElements = parser.find('[aria-grabbed="true"]').listResults()
 					for grabbedElement in grabbedElements
 						grabbedElement.setAttribute('aria-grabbed', 'false')
@@ -356,7 +355,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 						executeDragEvent('dragend', grabbedElement, event)
 					
 					element.setAttribute('aria-grabbed', 'true')
-					element.setAttribute(dataKeyPressed, 'true')
+					element.setAttribute(_dataKeyPressed, 'true')
 					
 					executeDragEvent('dragstart', element, event)
 					executeDragEvent('drag', element, event)
@@ -364,13 +363,13 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 					generateDropEffect(parser)
 				return
 			)
-			addEventHandler(element, 'keyup', @dataKeyUpAdded, @drag, (event) ->
-				element.removeAttribute(dataKeyPressed)
+			addEventHandler(element, 'keyup', _dataKeyUpAdded, _drag, (event) ->
+				element.removeAttribute(_dataKeyPressed)
 				return
 			)
 		if not @cancelDragAdded
 			root = @parser.find('html').firstResult()
-			addEventHandler(root, 'keypress', @dataKeyPressAdded, @active, (event) ->
+			addEventHandler(root, 'keypress', _dataKeyPressAdded, _active, (event) ->
 				if event.keyCode is 27
 					grabbedElements = parser.find('[aria-grabbed="true"]').listResults()
 					for grabbedElement in grabbedElements
@@ -387,7 +386,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixDragsandDrops: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
-			if not element.hasAttribute(@dataIgnore)
+			if not element.hasAttribute(_dataIgnore)
 				if hasEvent(element, 'drag') or hasEvent(element, 'dragstart') or hasEvent(element, 'dragend')
 					@fixDrag(element)
 				if hasEvent(element, 'drop') or hasEvent(element, 'dragenter') or hasEvent(element, 'dragleave') or hasEvent(element, 'dragover')
@@ -397,11 +396,11 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixHover: (element) ->
 		keyboardAccess(element)
 		
-		addEventHandler(element, 'focus', @dataFocusAdded, @hover, (event) ->
+		addEventHandler(element, 'focus', _dataFocusAdded, _hover, (event) ->
 			executeMouseEvent('mouseover', element, event)
 			return
 		)
-		addEventHandler(element, 'blur', @dataBlurAdded, @hover, (event) ->
+		addEventHandler(element, 'blur', _dataBlurAdded, _hover, (event) ->
 			executeMouseEvent('mouseout', element, event)
 			return
 		)
@@ -410,7 +409,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixHovers: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
-			if (not element.hasAttribute(@dataIgnore)) and (hasEvent(element, 'mouseover') or hasEvent(element, 'mouseout'))
+			if (not element.hasAttribute(_dataIgnore)) and (hasEvent(element, 'mouseover') or hasEvent(element, 'mouseout'))
 				@fixHover(element)
 		return
 	
@@ -420,7 +419,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		tag = element.getTagName()
 		typeButtons = ['submit', 'button', 'reset']
 		if ((tag isnt 'INPUT') or (not element.hasAttribute('type')) or (typeButtons.indexOf(element.getAttribute('type').toLowerCase()) is -1)) and (tag isnt 'BUTTON') and (tag isnt 'A')
-			addEventHandler(element, 'keypress', @dataKeyPressAdded, @active, (event) ->
+			addEventHandler(element, 'keypress', _dataKeyPressAdded, _active, (event) ->
 				if enterPressed(event.keyCode)
 					if hasEvent(element, 'click')
 						executeMouseEvent('click', element, event)
@@ -428,12 +427,12 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 						executeMouseEvent('dblclick', element, event)
 				return
 			)
-		addEventHandler(element, 'keyup', @dataKeyUpAdded, @active, (event) ->
+		addEventHandler(element, 'keyup', _dataKeyUpAdded, _active, (event) ->
 			if enterPressed(event.keyCode)
 				executeMouseEvent('mouseup', element, event)
 			return
 		)
-		addEventHandler(element, 'keydown', @dataKeyDownAdded, @active, (event) ->
+		addEventHandler(element, 'keydown', _dataKeyDownAdded, _active, (event) ->
 			if enterPressed(event.keyCode)
 				executeMouseEvent('mousedown', element, event)
 			return
@@ -443,6 +442,6 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixActives: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
-			if (not element.hasAttribute(@dataIgnore)) and (hasEvent(element, 'click') or hasEvent(element, 'mousedown') or hasEvent(element, 'mouseup') or hasEvent(element, 'dblclick'))
+			if (not element.hasAttribute(_dataIgnore)) and (hasEvent(element, 'click') or hasEvent(element, 'mousedown') or hasEvent(element, 'mouseup') or hasEvent(element, 'dblclick'))
 				@fixActive(element)
 		return

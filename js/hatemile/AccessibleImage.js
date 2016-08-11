@@ -18,9 +18,7 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
@@ -28,30 +26,27 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The AccessibleImage interface fixes accessibility problems
  * associated with images.
  * @memberof hatemile
-*/
-
-
+ */
 exports.hatemile.AccessibleImage = (function() {
-  function AccessibleImage() {}
+	function AccessibleImage() {
+	}
 
-  /**
-  	 * Provide an alternative way to access the long description of element.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with long
-  	 * description.
-  	 * @memberof hatemile.AccessibleImage
-  */
+	/**
+	 * Provide an alternative way to access the long description of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with long
+	 * description.
+	 * @memberof hatemile.AccessibleImage
+	 */
+	AccessibleImage.prototype.fixLongDescription = function(element) {
+	};
 
+	/**
+	 * Provide an alternative way to access the longs descriptions of elements.
+	 * @memberof hatemile.AccessibleImage
+	 */
+	AccessibleImage.prototype.fixLongDescriptions = function() {
+	};
 
-  AccessibleImage.prototype.fixLongDescription = function(element) {};
-
-  /**
-  	 * Provide an alternative way to access the longs descriptions of elements.
-  	 * @memberof hatemile.AccessibleImage
-  */
-
-
-  AccessibleImage.prototype.fixLongDescriptions = function() {};
-
-  return AccessibleImage;
+	return AccessibleImage;
 
 })();

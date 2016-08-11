@@ -18,9 +18,7 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
@@ -28,73 +26,65 @@ exports.hatemile || (exports.hatemile = {});
  * @classdesc The AccessibleEvent interface fixes accessibility problems
  * associated with JavaScript events in elements.
  * @memberof hatemile
-*/
-
-
+ */
 exports.hatemile.AccessibleEvent = (function() {
-  function AccessibleEvent() {}
+	function AccessibleEvent() {
+	}
 
-  /**
-  	 * Provide a solution for the element that has drop events.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with drop event.
-  	 * @memberof hatemile.AccessibleEvent
-  */
+	/**
+	 * Provide a solution for the element that has drop events.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drop event.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixDrop = function(element) {
+	};
 
+	/**
+	 * Provide a solution for the element that has drag events.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag event.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixDrag = function(element) {
+	};
 
-  AccessibleEvent.prototype.fixDrop = function(element) {};
+	/**
+	 * Provide a solution for elements that has Drag-and-Drop events.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixDragsandDrops = function() {
+	};
 
-  /**
-  	 * Provide a solution for the element that has drag events.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with drag event.
-  	 * @memberof hatemile.AccessibleEvent
-  */
+	/**
+	 * Provide a solution for the element that has inaccessible hover events.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with hover event.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixHover = function(element) {
+	};
 
+	/**
+	 * Provide a solution for elements that has inaccessible hover events.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixHovers = function() {
+	};
 
-  AccessibleEvent.prototype.fixDrag = function(element) {};
+	/**
+	 * Provide a solution for the element that has inaccessible active events.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with active
+	 * event.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixActive = function(element) {
+	};
 
-  /**
-  	 * Provide a solution for elements that has Drag-and-Drop events.
-  	 * @memberof hatemile.AccessibleEvent
-  */
+	/**
+	 * Provide a solution for elements that has inaccessible active events.
+	 * @memberof hatemile.AccessibleEvent
+	 */
+	AccessibleEvent.prototype.fixActives = function() {
+	};
 
-
-  AccessibleEvent.prototype.fixDragsandDrops = function() {};
-
-  /**
-  	 * Provide a solution for the element that has inaccessible hover events.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with hover event.
-  	 * @memberof hatemile.AccessibleEvent
-  */
-
-
-  AccessibleEvent.prototype.fixHover = function(element) {};
-
-  /**
-  	 * Provide a solution for elements that has inaccessible hover events.
-  	 * @memberof hatemile.AccessibleEvent
-  */
-
-
-  AccessibleEvent.prototype.fixHovers = function() {};
-
-  /**
-  	 * Provide a solution for the element that has inaccessible active events.
-  	 * @param {hatemile.util.HTMLDOMElement} element The element with active
-  	 * event.
-  	 * @memberof hatemile.AccessibleEvent
-  */
-
-
-  AccessibleEvent.prototype.fixActive = function(element) {};
-
-  /**
-  	 * Provide a solution for elements that has inaccessible active events.
-  	 * @memberof hatemile.AccessibleEvent
-  */
-
-
-  AccessibleEvent.prototype.fixActives = function() {};
-
-  return AccessibleEvent;
+	return AccessibleEvent;
 
 })();

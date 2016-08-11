@@ -28,7 +28,7 @@ class exports.hatemile.AccessibleTable
 	
 	###*
 	 * Associate data cells with header cells of table.
-	 * @param {hatemile.util.HTMLDOMElement} table The table.
+	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
 	 * @memberof hatemile.AccessibleTable
 	###
 	fixAssociationCellsTable: (table) ->

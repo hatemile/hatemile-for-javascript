@@ -33,27 +33,28 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
+	_idContainerShortcuts = 'container-shortcuts'
+	_idContainerSkippers = 'container-skippers'
+	_idContainerHeading = 'container-heading'
+	_idTextShortcuts = 'text-shortcuts'
+	_idTextHeading = 'text-heading'
+	_classSkipperAnchor = 'skipper-anchor'
+	_classHeadingAnchor = 'heading-anchor'
+	_dataAccessKey = 'data-shortcutdescriptionfor'
+	_dataIgnore = 'data-ignoreaccessibilityfix'
+	_dataAnchorFor = 'data-anchorfor'
+	_dataHeadingAnchorFor = 'data-headinganchorfor'
+	_dataHeadingLevel = 'data-headinglevel'
+	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the
 	 * navigation of parser.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @param {String} userAgent The user agent of the user.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	constructor: (@parser, configure, userAgent) ->
-		@idContainerShortcuts = 'container-shortcuts'
-		@idContainerSkippers = 'container-skippers'
-		@idContainerHeading = 'container-heading'
-		@idTextShortcuts = 'text-shortcuts'
-		@idTextHeading = 'text-heading'
-		@classSkipperAnchor = 'skipper-anchor'
-		@classHeadingAnchor = 'heading-anchor'
-		@dataAccessKey = 'data-shortcutdescriptionfor'
-		@dataIgnore = 'data-ignoreaccessibilityfix'
-		@dataAnchorFor = 'data-anchorfor'
-		@dataHeadingAnchorFor = 'data-headinganchorfor'
-		@dataHeadingLevel = 'data-headinglevel'
 		@prefixId = configure.getParameter('prefix-generated-ids')
 		@textShortcuts = configure.getParameter('text-shortcuts')
 		@textHeading = configure.getParameter('text-heading')
@@ -97,8 +98,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Returns the description of element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element with description.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with description.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @return {String} The description of element.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
@@ -132,28 +133,24 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Generate the list of shortcuts of page.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} idContainerShortcuts The id of list element that contains
-	 * the description of shortcuts.
-	 * @param {String} idTextShortcuts The id of text of description of container
-	 * of shortcuts descriptions.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} textShortcuts The text of description of container of
 	 * shortcuts descriptions.
 	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
 	 * callback This class.
-	 * @return {hatemile.util.HTMLDOMElement} The list of shortcuts of page.
+	 * @return {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	generateListShortcuts = (parser, idContainerShortcuts, idTextShortcuts, textShortcuts, callback) ->
-		container = parser.find("##{idContainerShortcuts}").firstResult()
+	generateListShortcuts = (parser, textShortcuts, callback) ->
+		container = parser.find("##{_idContainerShortcuts}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', idContainerShortcuts)
+				container.setAttribute('id', _idContainerShortcuts)
 				
 				textContainer = parser.createElement('span')
-				textContainer.setAttribute('id', idTextShortcuts)
+				textContainer.setAttribute('id', _idTextShortcuts)
 				textContainer.appendText(textShortcuts)
 				
 				container.appendElement(textContainer)
@@ -172,19 +169,17 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Generate the list of skippers of page.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} idContainerSkippers The id of list element that contains
-	 * the skippers.
-	 * @return {hatemile.util.HTMLDOMElement} The list of skippers of page.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @return {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	generateListSkippers = (parser, idContainerSkippers) ->
-		container = parser.find("##{idContainerSkippers}").firstResult()
+	generateListSkippers = (parser) ->
+		container = parser.find("##{_idContainerSkippers}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', idContainerSkippers)
+				container.setAttribute('id', _idContainerSkippers)
 				local.getFirstElementChild().insertBefore(container)
 		list = undefined
 		if not isEmpty(container)
@@ -196,28 +191,24 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Generate the list of heading links of page.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} idContainerHeading The id of list element that contains the
-	 * links for the headings.
-	 * @param {String} idTextHeading The id of text of description of container of
-	 * heading links.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} textHeading The text of description of container of heading
 	 * links.
 	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
 	 * callback This class.
-	 * @return {hatemile.util.HTMLDOMElement} The list of heading links of page.
+	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	generateListHeading = (parser, idContainerHeading, idTextHeading, textHeading, callback) ->
-		container = parser.find("##{idContainerHeading}").firstResult()
+	generateListHeading = (parser, textHeading, callback) ->
+		container = parser.find("##{_idContainerHeading}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', idContainerHeading)
+				container.setAttribute('id', _idContainerHeading)
 				
 				textContainer = parser.createElement('span')
-				textContainer.setAttribute('id', idTextHeading)
+				textContainer.setAttribute('id', _idTextHeading)
 				textContainer.appendText(textHeading)
 				
 				container.appendElement(textContainer)
@@ -236,7 +227,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Returns the level of heading.
-	 * @param {hatemile.util.HTMLDOMElement} element The heading.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The heading.
 	 * @return {Number} The level of heading.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
@@ -259,7 +250,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Inform if the headings of page are sintatic correct.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @return {Boolean} True if the headings of page are sintatic correct or
 	 * false if not.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
@@ -282,13 +273,13 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Generate an anchor for the element.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {String} dataAttribute The name of attribute that links the element
 	 * with the anchor.
 	 * @param {String} anchorClass The HTML class of anchor.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} prefixId The prefix of generated ids.
-	 * @return {hatemile.util.HTMLDOMElement} The anchor.
+	 * @return {hatemile.util.html.HTMLDOMElement} The anchor.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
@@ -309,8 +300,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	###*
 	 * Replace the shortcut of elements, that has the shortcut passed.
-	 * @param {hatemile.util.HTMLDOMElement} shortcut The shortcut.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.html.HTMLDOMElement} shortcut The shortcut.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	freeShortcut = (shortcut, parser) ->
@@ -336,7 +327,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Call fixSkipper method for element, if the page has the container of
 	 * skippers.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
 	 * callback This class.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
@@ -351,7 +342,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Call fixShortcut method for element, if the page has the container of
 	 * shortcuts.
-	 * @param {hatemile.util.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
 	 * callback This class.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
@@ -368,16 +359,16 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 				element.setAttribute('title', description)
 			
 			if not @listShortcutsAdded
-				@listShortcuts = generateListShortcuts(@parser, @idContainerShortcuts, @idTextShortcuts, @textShortcuts, this)
+				@listShortcuts = generateListShortcuts(@parser, @textShortcuts, this)
 				@listShortcutsAdded = true
 			
 			if not isEmpty(@listShortcuts)
 				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
 				for key in keys
 					key = key.toUpperCase()
-					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{@dataAccessKey}=\"#{key}\"]").firstResult())
+					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{_dataAccessKey}=\"#{key}\"]").firstResult())
 						item = @parser.createElement('li')
-						item.setAttribute(@dataAccessKey, key)
+						item.setAttribute(_dataAccessKey, key)
 						item.appendText("#{@prefix} + #{key}: #{description}")
 						@listShortcuts.appendElement(item)
 		return
@@ -385,16 +376,16 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	fixShortcuts: () ->
 		elements = @parser.find('[accesskey]').listResults()
 		for element in elements
-			if not element.hasAttribute(@dataIgnore)
+			if not element.hasAttribute(_dataIgnore)
 				@fixShortcut(element)
 		return
 	
 	fixSkipper: (element, skipper) ->
 		if not @listSkippersAdded
-			@listSkippers = generateListSkippers(@parser, @idContainerSkippers)
+			@listSkippers = generateListSkippers(@parser)
 			@listSkippersAdded = true
 		if not isEmpty(@listSkippers)
-			anchor = generateAnchorFor(element, @dataAnchorFor, @classSkipperAnchor, @parser, @prefixId)
+			anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, @parser, @prefixId)
 			if not isEmpty(anchor)
 				itemLink = @parser.createElement('li')
 				link = @parser.createElement('a')
@@ -423,12 +414,12 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 				index = 1
 			shortcuts = skipper.getShortcuts()
 			for element in elements
-				if not element.hasAttribute(@dataIgnore)
+				if not element.hasAttribute(_dataIgnore)
 					if count
 						defaultText = "#{skipper.getDefaultText()} #{index++}"
 					else
 						defaultText = skipper.getDefaultText()
-					@fixSkipper(element, new exports.hatemile.util.Skipper(skipper.getSelector(), defaultText, shortcuts.pop()))
+					@fixSkipper(element, new exports.hatemile.util.configuration.Skipper(skipper.getSelector(), defaultText, shortcuts.pop()))
 		return
 	
 	fixHeading: (element) ->
@@ -436,13 +427,13 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 			@validHeading = isValidHeading(@parser)
 			@validateHeading = true
 		if @validHeading
-			anchor = generateAnchorFor(element, @dataHeadingAnchorFor, @classHeadingAnchor, @parser, @prefixId)
+			anchor = generateAnchorFor(element, _dataHeadingAnchorFor, _classHeadingAnchor, @parser, @prefixId)
 			if not isEmpty(anchor)
 				level = getHeadingLevel(element)
 				if level is 1
-					list = generateListHeading(@parser, @idContainerHeading, @idTextHeading, @textHeading, this)
+					list = generateListHeading(@parser, @textHeading, this)
 				else
-					superItem = @parser.find("##{@idContainerHeading}").findDescendants("[#{@dataHeadingLevel}=\"#{(level - 1).toString()}\"]").lastResult()
+					superItem = @parser.find("##{_idContainerHeading}").findDescendants("[#{_dataHeadingLevel}=\"#{(level - 1).toString()}\"]").lastResult()
 					if not isEmpty(superItem)
 						list = @parser.find(superItem).findChildren('ol').firstResult()
 						if isEmpty(list)
@@ -450,7 +441,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 							superItem.appendElement(list)
 				if not isEmpty(list)
 					item = @parser.createElement('li')
-					item.setAttribute(@dataHeadingLevel, level.toString())
+					item.setAttribute(_dataHeadingLevel, level.toString())
 					
 					link = @parser.createElement('a')
 					link.setAttribute('href', "##{anchor.getAttribute('name')}")
@@ -463,6 +454,6 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	fixHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
-			if not element.hasAttribute(@dataIgnore)
+			if not element.hasAttribute(_dataIgnore)
 				@fixHeading(element)
 		return

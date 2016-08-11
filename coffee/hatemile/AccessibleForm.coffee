@@ -28,7 +28,7 @@ class exports.hatemile.AccessibleForm
 	
 	###*
 	 * Display that the field is required.
-	 * @param {hatemile.util.HTMLDOMElement} requiredField The required field.
+	 * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixRequiredField: (requiredField) ->
@@ -41,7 +41,7 @@ class exports.hatemile.AccessibleForm
 	
 	###*
 	 * Display that the field have range.
-	 * @param {hatemile.util.HTMLDOMElement} rangeField The range field.
+	 * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixRangeField: (rangeField) ->
@@ -54,7 +54,7 @@ class exports.hatemile.AccessibleForm
 	
 	###*
 	 * Display that the field have autocomplete.
-	 * @param {hatemile.util.HTMLDOMElement} autoCompleteField The field with autocomplete.
+	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field with autocomplete.
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixAutoCompleteField: (autoCompleteField) ->
@@ -67,7 +67,7 @@ class exports.hatemile.AccessibleForm
 	
 	###*
 	 * Associate label with field.
-	 * @param {hatemile.util.HTMLDOMElement} label The label.
+	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixLabel: (label) ->

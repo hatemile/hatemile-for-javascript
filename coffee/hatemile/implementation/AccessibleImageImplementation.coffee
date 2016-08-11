@@ -33,26 +33,27 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleImageImplementation
 	
+	_classLongDescriptionLink = 'longdescription-link'
+	_dataLongDescriptionForImage = 'data-longdescriptionfor'
+	_dataIgnore = 'data-ignoreaccessibilityfix'
+	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the images of
 	 * parser.
-	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @memberof hatemile.implementation.AccessibleImageImplementation
 	###
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@classLongDescriptionLink = 'longdescription-link'
 		@prefixLongDescriptionLink = configure.getParameter('prefix-longdescription')
 		@suffixLongDescriptionLink = configure.getParameter('suffix-longdescription')
-		@dataLongDescriptionForImage = 'data-longdescriptionfor'
-		@dataIgnore = 'data-ignoreaccessibilityfix'
 	
 	fixLongDescription: (element) ->
 		if element.hasAttribute('longdesc')
 			exports.hatemile.util.CommonFunctions.generateId(element, @prefixId)
 			id = element.getAttribute('id')
-			if isEmpty(@parser.find("[#{@dataLongDescriptionForImage}=\"#{id}\"]").firstResult())
+			if isEmpty(@parser.find("[#{_dataLongDescriptionForImage}=\"#{id}\"]").firstResult())
 				if element.hasAttribute('alt')
 					text = "#{@prefixLongDescriptionLink} #{element.getAttribute('alt')} #{@suffixLongDescriptionLink}"
 				else
@@ -60,8 +61,8 @@ class exports.hatemile.implementation.AccessibleImageImplementation
 				anchor = @parser.createElement('a')
 				anchor.setAttribute('href', element.getAttribute('longdesc'))
 				anchor.setAttribute('target', '_blank')
-				anchor.setAttribute(@dataLongDescriptionForImage, id)
-				anchor.setAttribute('class', @classLongDescriptionLink)
+				anchor.setAttribute(_dataLongDescriptionForImage, id)
+				anchor.setAttribute('class', _classLongDescriptionLink)
 				anchor.appendText(text)
 				element.insertAfter(anchor)
 		return
@@ -69,6 +70,6 @@ class exports.hatemile.implementation.AccessibleImageImplementation
 	fixLongDescriptions: () ->
 		elements = @parser.find('[longdesc]').listResults()
 		for element in elements
-			if not element.hasAttribute(@dataIgnore)
+			if not element.hasAttribute(_dataIgnore)
 				@fixLongDescription(element)
 		return

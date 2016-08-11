@@ -25,46 +25,48 @@ exports.hatemile or= {}
 exports.hatemile.util or= {}
 
 ###*
- * @class Skipper
- * @classdesc The Skipper class store the selector that will be add a skipper.
+ * @namespace configuration
  * @memberof hatemile.util
 ###
-class exports.hatemile.util.Skipper
+exports.hatemile.util.configuration or= {}
+
+###*
+ * @class SelectorChange
+ * @classdesc The SelectorChange class store the selector that be attribute
+ * change.
+ * @memberof hatemile.util.configuration
+###
+class exports.hatemile.util.configuration.SelectorChange
 	
 	###*
 	 * Inicializes a new object with the values pre-defineds.
 	 * @param {String} selector The selector.
-	 * @param {String} defaultText The default text of skipper.
-	 * @param {String} shortcuts The shortcuts of skipper.
-	 * @memberof hatemile.util.Skipper
+	 * @param {String} attribute The attribute.
+	 * @param {String} valueForAttribute The value of the attribute.
+	 * @memberof hatemile.util.configuration.SelectorChange
 	###
-	constructor: (@selector, @defaultText, shortcuts) ->
-		if not isEmpty(shortcuts)
-			@shortcuts = shortcuts.split(new RegExp('[ \n\t\r]+'))
-		else
-			@shortcuts = []
+	constructor: (@selector, @attribute, @valueForAttribute) ->
 	
 	###*
 	 * Returns the selector.
 	 * @return {String} The selector.
-	 * @memberof hatemile.util.Skipper
+	 * @memberof hatemile.util.configuration.SelectorChange
 	###
 	getSelector: () ->
 		return @selector
 	
 	###*
-	 * Returns the default text of skipper.
-	 * @return {String} The default text of skipper.
-	 * @memberof hatemile.util.Skipper
+	 * Returns the attribute.
+	 * @return {String} The attribute.
+	 * @memberof hatemile.util.configuration.SelectorChange
 	###
-	getDefaultText: () ->
-		return @defaultText
+	getAttribute: () ->
+		return @attribute
 	
 	###*
-	 * Returns the shortcuts of skipper.
-	 * @return {String[]} The shortcuts of skipper.
-	 * @memberof hatemile.util.Skipper
+	 * Returns the value of the attribute.
+	 * @return {String} The value of the attribute.
+	 * @memberof hatemile.util.configuration.SelectorChange
 	###
-	getShortcuts: () ->
-		clonedShortcuts = []
-		return clonedShortcuts.concat(@shortcuts)
+	getValueForAttribute: () ->
+		return @valueForAttribute

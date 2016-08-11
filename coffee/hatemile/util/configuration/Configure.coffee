@@ -25,16 +25,22 @@ exports.hatemile or= {}
 exports.hatemile.util or= {}
 
 ###*
- * @class Configure
- * @classdesc The Configure class contains the configuration of HaTeMiLe.
+ * @namespace configuration
  * @memberof hatemile.util
 ###
-class exports.hatemile.util.Configure
+exports.hatemile.util.configuration or= {}
+
+###*
+ * @class Configure
+ * @classdesc The Configure class contains the configuration of HaTeMiLe.
+ * @memberof hatemile.util.configuration
+###
+class exports.hatemile.util.configuration.Configure
 	
 	###*
 	 * Initializes a new object that contains the configuration of HaTeMiLe.
 	 * @param {Object} config The JSON configuration.
-	 * @memberof hatemile.util.Configure
+	 * @memberof hatemile.util.configuration.Configure
 	###
 	constructor: (config) ->
 		@parameters = config['parameters']
@@ -43,14 +49,14 @@ class exports.hatemile.util.Configure
 		changes = config['selector-changes']
 		links = config['skippers']
 		for change in changes
-			@selectorChanges.push(new exports.hatemile.util.SelectorChange(change['selector'], change['attribute'], change['value-attribute']))
+			@selectorChanges.push(new exports.hatemile.util.configuration.SelectorChange(change['selector'], change['attribute'], change['value-attribute']))
 		for link in links
-			@skippers.push(new exports.hatemile.util.Skipper(link['selector'], link['default-text'], link['shortcut']))
+			@skippers.push(new exports.hatemile.util.configuration.Skipper(link['selector'], link['default-text'], link['shortcut']))
 	
 	###*
 	 * Returns the parameters of configuration.
 	 * @return {Object} The parameters of configuration.
-	 * @memberof hatemile.util.Configure
+	 * @memberof hatemile.util.configuration.Configure
 	###
 	getParameters: () ->
 		clonedParameters = {}
@@ -62,16 +68,16 @@ class exports.hatemile.util.Configure
 	 * Returns the value of a parameter of configuration.
 	 * @param {String} parameter The parameter.
 	 * @return {String} The value of the parameter.
-	 * @memberof hatemile.util.Configure
+	 * @memberof hatemile.util.configuration.Configure
 	###
 	getParameter: (name) ->
 		return @parameters[name]
 	
 	###*
 	 * Returns the changes that will be done in selectors.
-	 * @return {hatemile.util.SelectorChange[]} The changes that will be done in
+	 * @return {hatemile.util.configuration.SelectorChange[]} The changes that will be done in
 	 * selectors.
-	 * @memberof hatemile.util.Configure
+	 * @memberof hatemile.util.configuration.Configure
 	###
 	getSelectorChanges: () ->
 		clonedSelectorChanges = []
@@ -79,8 +85,8 @@ class exports.hatemile.util.Configure
 	
 	###*
 	 * Returns the skippers.
-	 * @return {hatemile.util.Skipper} The skippers.
-	 * @memberof hatemile.util.Configure
+	 * @return {hatemile.util.configuration.Skipper} The skippers.
+	 * @memberof hatemile.util.configuration.Configure
 	###
 	getSkippers: () ->
 		clonedSkippers = []

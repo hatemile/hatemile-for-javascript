@@ -25,24 +25,30 @@ exports.hatemile or= {}
 exports.hatemile.util or= {}
 
 ###*
- * @namespace jqueryandvanilla
+ * @namespace html
  * @memberof hatemile.util
 ###
-exports.hatemile.util.jqueryandvanilla or= {}
+exports.hatemile.util.html or= {}
+
+###*
+ * @namespace vanilla
+ * @memberof hatemile.util.html
+###
+exports.hatemile.util.html.vanilla or= {}
 
 ###*
  * @class VanillaHTMLDOMElement
  * @classdesc The VanillaHTMLDOMElement class is official implementation of
  * HTMLDOMElement interface for the Javascript.
- * @extends hatemile.util.HTMLDOMElement
- * @memberof hatemile.util.jqueryandvanilla
+ * @extends hatemile.util.html.HTMLDOMElement
+ * @memberof hatemile.util.html.vanilla
 ###
-class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
+class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLElement.
 	 * @param {HTMLElement} data The native element.
-	 * @memberof hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
+	 * @memberof hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	###
 	constructor: (@data) ->
 	
@@ -81,7 +87,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
 				text += child.nodeValue
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				elementChild = new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(child)
+				elementChild = new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
 				text += elementChild.getTextContent()
 		return text
 	
@@ -116,16 +122,32 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 		@data.appendChild(element.getData())
 		return element
 	
+	prependElement: (element) ->
+		if isEmpty(@data.childNodes)
+			@appendElement(element)
+		else
+			firstChildNode = @data.childNodes[0]
+			@data.insertBefore(element.getData(), firstChildNode)
+		return element
+	
 	getChildren: () ->
 		children = @data.children
 		array = []
 		for child in children
-			array.push(new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(child))
+			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
 	appendText: (text) ->
 		@data.appendChild(@data.ownerDocument.createTextNode(text))
 		return
+	
+	prependText: (text) ->
+		if isEmpty(@data.childNodes)
+			appendText(text)
+		else
+			firstChildNode = @data.childNodes[0]
+			@data.insertBefore(document.createTextNode(text), firstChildNode)
+		return element
 	
 	hasChildren: () ->
 		return not isEmpty(@data.children)
@@ -133,7 +155,7 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	getParentElement: () ->
 		if isEmpty(@data.parentNode)
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@data.parentNode)
+		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
 	getInnerHTML: () ->
 		return @data.innerHTML
@@ -155,14 +177,14 @@ class exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement
 	cloneElement: () ->
 		div = @data.ownerDocument.createElement('div')
 		div.innerHTML = @getOuterHTML()
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(div.firstElementChild)
+		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
 	
 	getFirstElementChild: () ->
 		if not @hasChildren
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@data.firstElementChild)
+		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
 	
 	getLastElementChild: () ->
 		if not @hasChildren
 			return undefined
-		return new exports.hatemile.util.jqueryandvanilla.VanillaHTMLDOMElement(@data.lastElementChild)
+		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)

@@ -18,17 +18,13 @@ exports = this;
 
 /**
  * @namespace hatemile
-*/
-
-
+ */
 exports.hatemile || (exports.hatemile = {});
 
 /**
  * @namespace implementation
  * @memberof hatemile
-*/
-
-
+ */
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 /**
@@ -37,61 +33,63 @@ exports.hatemile || (exports.hatemile = {});
  * of AccessibleImage interface.
  * @extends hatemile.AccessibleImage
  * @memberof hatemile.implementation
-*/
-
-
+ */
 exports.hatemile.implementation.AccessibleImageImplementation = (function() {
-  /**
-  	 * Initializes a new object that manipulate the accessibility of the images of
-  	 * parser.
-  	 * @param {hatemile.util.HTMLDOMParser} parser The HTML parser.
-  	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-  	 * @memberof hatemile.implementation.AccessibleImageImplementation
-  */
+	var _classLongDescriptionLink, _dataIgnore, _dataLongDescriptionForImage;
 
-  function AccessibleImageImplementation(parser, configure) {
-    this.parser = parser;
-    this.prefixId = configure.getParameter('prefix-generated-ids');
-    this.classLongDescriptionLink = 'longdescription-link';
-    this.prefixLongDescriptionLink = configure.getParameter('prefix-longdescription');
-    this.suffixLongDescriptionLink = configure.getParameter('suffix-longdescription');
-    this.dataLongDescriptionForImage = 'data-longdescriptionfor';
-    this.dataIgnore = 'data-ignoreaccessibilityfix';
-  }
+	_classLongDescriptionLink = 'longdescription-link';
 
-  AccessibleImageImplementation.prototype.fixLongDescription = function(element) {
-    var anchor, id, text;
-    if (element.hasAttribute('longdesc')) {
-      exports.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
-      id = element.getAttribute('id');
-      if (isEmpty(this.parser.find("[" + this.dataLongDescriptionForImage + "=\"" + id + "\"]").firstResult())) {
-        if (element.hasAttribute('alt')) {
-          text = "" + this.prefixLongDescriptionLink + " " + (element.getAttribute('alt')) + " " + this.suffixLongDescriptionLink;
-        } else {
-          text = "" + this.prefixLongDescriptionLink + " " + this.suffixLongDescriptionLink;
-        }
-        anchor = this.parser.createElement('a');
-        anchor.setAttribute('href', element.getAttribute('longdesc'));
-        anchor.setAttribute('target', '_blank');
-        anchor.setAttribute(this.dataLongDescriptionForImage, id);
-        anchor.setAttribute('class', this.classLongDescriptionLink);
-        anchor.appendText(text);
-        element.insertAfter(anchor);
-      }
-    }
-  };
+	_dataLongDescriptionForImage = 'data-longdescriptionfor';
 
-  AccessibleImageImplementation.prototype.fixLongDescriptions = function() {
-    var element, elements, _i, _len;
-    elements = this.parser.find('[longdesc]').listResults();
-    for (_i = 0, _len = elements.length; _i < _len; _i++) {
-      element = elements[_i];
-      if (!element.hasAttribute(this.dataIgnore)) {
-        this.fixLongDescription(element);
-      }
-    }
-  };
+	_dataIgnore = 'data-ignoreaccessibilityfix';
 
-  return AccessibleImageImplementation;
+	/**
+	 * Initializes a new object that manipulate the accessibility of the images of
+	 * parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
+	 * @memberof hatemile.implementation.AccessibleImageImplementation
+	 */
+	function AccessibleImageImplementation(parser, configure) {
+		this.parser = parser;
+		this.prefixId = configure.getParameter('prefix-generated-ids');
+		this.prefixLongDescriptionLink = configure.getParameter('prefix-longdescription');
+		this.suffixLongDescriptionLink = configure.getParameter('suffix-longdescription');
+	}
+
+	AccessibleImageImplementation.prototype.fixLongDescription = function(element) {
+		var anchor, id, text;
+		if (element.hasAttribute('longdesc')) {
+			exports.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
+			id = element.getAttribute('id');
+			if (isEmpty(this.parser.find("[" + _dataLongDescriptionForImage + "=\"" + id + "\"]").firstResult())) {
+				if (element.hasAttribute('alt')) {
+					text = "" + this.prefixLongDescriptionLink + " " + (element.getAttribute('alt')) + " " + this.suffixLongDescriptionLink;
+				} else {
+					text = "" + this.prefixLongDescriptionLink + " " + this.suffixLongDescriptionLink;
+				}
+				anchor = this.parser.createElement('a');
+				anchor.setAttribute('href', element.getAttribute('longdesc'));
+				anchor.setAttribute('target', '_blank');
+				anchor.setAttribute(_dataLongDescriptionForImage, id);
+				anchor.setAttribute('class', _classLongDescriptionLink);
+				anchor.appendText(text);
+				element.insertAfter(anchor);
+			}
+		}
+	};
+
+	AccessibleImageImplementation.prototype.fixLongDescriptions = function() {
+		var element, elements, _i, _len;
+		elements = this.parser.find('[longdesc]').listResults();
+		for (_i = 0, _len = elements.length; _i < _len; _i++) {
+			element = elements[_i];
+			if (!element.hasAttribute(_dataIgnore)) {
+				this.fixLongDescription(element);
+			}
+		}
+	};
+
+	return AccessibleImageImplementation;
 
 })();
