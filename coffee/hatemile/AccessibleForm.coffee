@@ -77,3 +77,7 @@ class exports.hatemile.AccessibleForm
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixLabels: () ->
+	
+	fixValidation: (field) ->
+	
+	fixValidations: () ->

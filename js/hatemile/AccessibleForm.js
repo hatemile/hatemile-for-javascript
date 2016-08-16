@@ -91,6 +91,12 @@ exports.hatemile.AccessibleForm = (function() {
 	AccessibleForm.prototype.fixLabels = function() {
 	};
 
+	AccessibleForm.prototype.fixValidation = function(field) {
+	};
+
+	AccessibleForm.prototype.fixValidations = function() {
+	};
+
 	return AccessibleForm;
 
 })();

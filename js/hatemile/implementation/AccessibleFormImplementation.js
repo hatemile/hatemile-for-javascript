@@ -35,7 +35,7 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleFormImplementation = (function() {
-	var addPrefixSuffix, fixLabelAutoCompleteField, fixLabelRangeField, fixLabelRequiredField, getARIAAutoComplete, getLabels, _dataIgnore, _dataLabelPrefixAutoCompleteField, _dataLabelPrefixRangeMaxField, _dataLabelPrefixRangeMinField, _dataLabelPrefixRequiredField, _dataLabelSuffixAutoCompleteField, _dataLabelSuffixRangeMaxField, _dataLabelSuffixRangeMinField, _dataLabelSuffixRequiredField;
+	var addEventHandler, addPrefixSuffix, fixLabelAutoCompleteField, fixLabelRangeField, fixLabelRequiredField, getARIAAutoComplete, getLabels, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow, _dataEventChangeAdded, _dataIgnore, _dataInvalidDate, _dataInvalidDateTime, _dataInvalidEmail, _dataInvalidLength, _dataInvalidMonth, _dataInvalidPattern, _dataInvalidRange, _dataInvalidRequired, _dataInvalidTime, _dataInvalidURL, _dataInvalidWeek, _dataLabelPrefixAutoCompleteField, _dataLabelPrefixRangeMaxField, _dataLabelPrefixRangeMinField, _dataLabelPrefixRequiredField, _dataLabelSuffixAutoCompleteField, _dataLabelSuffixRangeMaxField, _dataLabelSuffixRangeMinField, _dataLabelSuffixRequiredField, _validationLength, _validationPattern, _validationRequired, _validationType;
 
 	_dataLabelPrefixRequiredField = 'data-prefixrequiredfield';
 
@@ -54,6 +54,38 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 	_dataLabelSuffixAutoCompleteField = 'data-suffixautocompletefield';
 
 	_dataIgnore = 'data-ignoreaccessibilityfix';
+
+	_dataEventChangeAdded = 'data-changeadded';
+
+	_dataInvalidURL = 'data-invalidurl';
+
+	_dataInvalidEmail = 'data-invalidemail';
+
+	_dataInvalidRange = 'data-invalidrange';
+
+	_dataInvalidLength = 'data-invalidlength';
+
+	_dataInvalidPattern = 'data-invalidpattern';
+
+	_dataInvalidRequired = 'data-invalidrequired';
+
+	_dataInvalidDate = 'data-invaliddate';
+
+	_dataInvalidTime = 'data-invalidtime';
+
+	_dataInvalidDateTime = 'data-invaliddatetime';
+
+	_dataInvalidMonth = 'data-invalidmonth';
+
+	_dataInvalidWeek = 'data-invalidweek';
+
+	_validationType = 'type';
+
+	_validationRequired = 'required';
+
+	_validationPattern = 'pattern';
+
+	_validationLength = 'length';
 
 	/**
 	 * Initializes a new object that manipulate the accessibility of the forms
@@ -281,6 +313,185 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		return labels;
 	};
 
+	addEventHandler = function(element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {
+		var attribute, found, nativeElement;
+		if (!hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
+			found = false;
+			attribute = element.getAttribute(typeDataEvent);
+			nativeElement = element.getData();
+			if (!hasEvent(element, typeEvent)) {
+				nativeElement["liston" + typeEvent] = [];
+				nativeElement["on" + typeEvent] = function(event) {
+					var addedEvent, _i, _len, _ref;
+					_ref = nativeElement["liston" + typeEvent];
+					for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+						addedEvent = _ref[_i];
+						addedEvent(event);
+					}
+				};
+			} else {
+				found = exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+			}
+			if (!found) {
+				nativeElement["liston" + typeEvent].push(functionForEventHandler);
+				attribute = exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
+				element.setAttribute(typeDataEvent, attribute);
+			}
+		}
+	};
+
+	hasEvent = function(element, typeEvent, typeDataEvent, typeFix) {
+		var attribute, nativeElement;
+		nativeElement = element.getData();
+		if (isEmpty(typeDataEvent) || isEmpty(typeFix)) {
+			return (!isEmpty(nativeElement["on" + typeEvent])) || ((!isEmpty(nativeElement.eventListenerList)) && (!isEmpty(nativeElement.eventListenerList[typeEvent])));
+		} else {
+			attribute = element.getAttribute(typeDataEvent);
+			return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+		}
+	};
+
+	isValid = function(field) {
+		if (field.hasAttribute(_dataInvalidURL)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidEmail)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidRange)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidLength)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidPattern)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidRequired)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidDate)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidTime)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidDateTime)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidMonth)) {
+			return false;
+		} else if (field.hasAttribute(_dataInvalidWeek)) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+	validateNow = function(field, dataInvalid, validateFunction) {
+		if (validateFunction(field)) {
+			if (field.hasAttribute(dataInvalid)) {
+				field.removeAttribute(dataInvalid);
+				if ((field.hasAttribute('aria-invalid')) && (isValid(field))) {
+					field.removeAttribute('aria-invalid');
+				}
+			}
+		} else {
+			field.setAttribute(dataInvalid, 'true');
+			field.setAttribute('aria-invalid', 'true');
+		}
+	};
+
+	validate = function(field, dataInvalid, typeDataEvent, typeFix, validateFunction) {
+		validateNow(field, dataInvalid, validateFunction);
+		addEventHandler(field, 'change', typeDataEvent, typeFix, function(event) {
+			return validateNow(field, dataInvalid, validateFunction);
+		});
+	};
+
+	isValidRegularExpression = function(value, pattern) {
+		var regularExpression;
+		regularExpression = new RegExp(pattern);
+		return regularExpression.test(value);
+	};
+
+	isValidURL = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
+	};
+
+	isValidEmail = function(field) {
+		var regularExpression;
+		regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
+		if (field.hasAttribute('multiple')) {
+			regularExpression = "" + regularExpression + "( *, *" + regularExpression + ")*";
+		}
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
+	};
+
+	isValidRange = function(field) {
+		var maxValue, minValue, value;
+		if (!isEmpty(field.getData().value)) {
+			if (!isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')) {
+				return false;
+			}
+			value = parseFloat(field.getData().value);
+			if (field.hasAttribute('min') || field.hasAttribute('aria-valuemin')) {
+				if (field.hasAttribute('min')) {
+					minValue = parseFloat(field.getAttribute('min'));
+				} else if (field.hasAttribute('aria-valuemin')) {
+					minValue = parseFloat(field.getAttribute('aria-valuemin'));
+				}
+				if (value < minValue) {
+					return false;
+				}
+			}
+			if (field.hasAttribute('max') || field.hasAttribute('aria-valuemax')) {
+				if (field.hasAttribute('max')) {
+					maxValue = parseFloat(field.getAttribute('max'));
+				} else if (field.hasAttribute('aria-valuemax')) {
+					maxValue = parseFloat(field.getAttribute('aria-valuemax'));
+				}
+				if (value > maxValue) {
+					return false;
+				}
+			}
+		}
+		return true;
+	};
+
+	isValidDate = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$');
+	};
+
+	isValidTime = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$');
+	};
+
+	isValidDateTime = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$');
+	};
+
+	isValidMonth = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$');
+	};
+
+	isValidWeek = function(field) {
+		return isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
+	};
+
+	isValidLength = function(field) {
+		if (field.hasAttribute('minlength')) {
+			if (field.getData().value.length < parseInt(field.getAttribute('minlength'))) {
+				return false;
+			}
+		}
+		if (field.hasAttribute('maxlength')) {
+			if (field.getData().value.length > parseInt(field.getAttribute('maxlength'))) {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	isValidPattern = function(field) {
+		return isValidRegularExpression(field.getData().value, field.getAttribute('pattern'));
+	};
+
+	isValidRequired = function(field) {
+		return !isEmpty(field.getData().value);
+	};
+
 	AccessibleFormImplementation.prototype.fixRequiredField = function(requiredField) {
 		var label, labels, _i, _len;
 		if (requiredField.hasAttribute('required')) {
@@ -386,6 +597,53 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 			label = labels[_i];
 			if (!label.hasAttribute(_dataIgnore)) {
 				this.fixLabel(label);
+			}
+		}
+	};
+
+	AccessibleFormImplementation.prototype.fixValidation = function(field) {
+		var type;
+		if ((field.hasAttribute('required')) || ((field.hasAttribute('aria-required')) && (field.getAttribute('aria-required').toLowerCase() === 'true'))) {
+			validate(field, _dataInvalidRequired, _dataEventChangeAdded, _validationRequired, isValidRequired);
+		}
+		if (field.hasAttribute('pattern')) {
+			validate(field, _dataInvalidPattern, _dataEventChangeAdded, _validationPattern, isValidPattern);
+		}
+		if ((field.hasAttribute('minlength')) || (field.hasAttribute('maxlength'))) {
+			validate(field, _dataInvalidLength, _dataEventChangeAdded, _validationLength, isValidLength);
+		}
+		if ((field.hasAttribute('aria-valuemin')) || (field.hasAttribute('aria-valuemax'))) {
+			validate(field, _dataInvalidRange, _dataEventChangeAdded, _validationType, isValidRange);
+		}
+		if (field.hasAttribute('type')) {
+			type = field.getAttribute('type').toLowerCase();
+			if (type === 'week') {
+				validate(field, _dataInvalidWeek, _dataEventChangeAdded, _validationType, isValidWeek);
+			} else if (type === 'month') {
+				validate(field, _dataInvalidMonth, _dataEventChangeAdded, _validationType, isValidMonth);
+			} else if ((type === 'datetime-local') || (type === 'datetime')) {
+				validate(field, _dataInvalidDateTime, _dataEventChangeAdded, _validationType, isValidDateTime);
+			} else if (type === 'time') {
+				validate(field, _dataInvalidTime, _dataEventChangeAdded, _validationType, isValidTime);
+			} else if (type === 'date') {
+				validate(field, _dataInvalidDate, _dataEventChangeAdded, _validationType, isValidDate);
+			} else if ((type === 'number') || (type === 'range')) {
+				validate(field, _dataInvalidRange, _dataEventChangeAdded, _validationType, isValidRange);
+			} else if (type === 'email') {
+				validate(field, _dataInvalidEmail, _dataEventChangeAdded, _validationType, isValidEmail);
+			} else if (type === 'url') {
+				validate(field, _dataInvalidURL, _dataEventChangeAdded, _validationType, isValidURL);
+			}
+		}
+	};
+
+	AccessibleFormImplementation.prototype.fixValidations = function() {
+		var field, fields, _i, _len;
+		fields = this.parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults();
+		for (_i = 0, _len = fields.length; _i < _len; _i++) {
+			field = fields[_i];
+			if (!field.hasAttribute(_dataIgnore)) {
+				this.fixValidation(field);
 			}
 		}
 	};
