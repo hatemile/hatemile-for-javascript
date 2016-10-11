@@ -383,7 +383,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 			@cancelDragAdded = true
 		return
 	
-	fixDragsandDrops: () ->
+	fixAllDragsandDrops: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
 			if not element.hasAttribute(_dataIgnore)
@@ -406,7 +406,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		)
 		return
 	
-	fixHovers: () ->
+	fixAllHovers: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
 			if (not element.hasAttribute(_dataIgnore)) and (hasEvent(element, 'mouseover') or hasEvent(element, 'mouseout'))
@@ -439,7 +439,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		)
 		return
 	
-	fixActives: () ->
+	fixAllActives: () ->
 		elements = @parser.find('body *').listResults()
 		for element in elements
 			if (not element.hasAttribute(_dataIgnore)) and (hasEvent(element, 'click') or hasEvent(element, 'mousedown') or hasEvent(element, 'mouseup') or hasEvent(element, 'dblclick'))

@@ -1,4 +1,4 @@
-config_symbols = [
+hatemile_configuration_symbols = [
 	{'symbol': '!', 'description': 'Exclamation mark'}
 	{'symbol': '"', 'description': 'Double quotes'}
 	{'symbol': '#', 'description': 'Number'}

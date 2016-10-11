@@ -43,7 +43,7 @@ exports.hatemile.AccessibleTable = (function() {
 	 * Associate data cells with header cells of tables.
 	 * @memberof hatemile.AccessibleTable
 	 */
-	AccessibleTable.prototype.fixAssociationCellsTables = function() {
+	AccessibleTable.prototype.fixAllAssociationCellsTables = function() {
 	};
 
 	return AccessibleTable;

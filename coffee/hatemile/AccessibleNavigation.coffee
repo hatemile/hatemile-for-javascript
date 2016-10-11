@@ -27,41 +27,41 @@ exports.hatemile or= {}
 class exports.hatemile.AccessibleNavigation
 	
 	###*
-	 * Display the shortcuts of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with shortcuts.
-	 * @memberof hatemile.AccessibleNavigation
-	###
-	fixShortcut: (element) ->
-	
-	###*
-	 * Display the shortcuts of elements.
-	 * @memberof hatemile.AccessibleNavigation
-	###
-	fixShortcuts: () ->
-	
-	###*
 	 * Provide content skipper for element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.util.configuration.Skipper} skipper The skipper.
 	 * @memberof hatemile.AccessibleNavigation
 	###
-	fixSkipper: (element, skipper) ->
+	fixSkipper: (element) ->
 	
 	###*
 	 * Provide content skippers.
 	 * @memberof hatemile.AccessibleNavigation
 	###
-	fixSkippers: () ->
+	fixAllSkippers: () ->
 	
 	###*
 	 * Provide a navigation by heading.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The heading element.
+	 * @param {hatemile.util.html.HTMLDOMElement} heading The heading element.
 	 * @memberof hatemile.AccessibleNavigation
 	###
-	fixHeading: (element) ->
+	fixHeading: (heading) ->
 	
 	###*
 	 * Provide a navigation by headings.
 	 * @memberof hatemile.AccessibleNavigation
 	###
-	fixHeadings: () ->
+	fixAllHeadings: () ->
+	
+	###*
+	 * Provide an alternative way to access the long description of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} image The image with long
+	 * description.
+	 * @memberof hatemile.AccessibleNavigation
+	###
+	fixLongDescription: (image) ->
+	
+	###*
+	 * Provide an alternative way to access the longs descriptions of elements.
+	 * @memberof hatemile.AccessibleNavigation
+	###
+	fixAllLongDescriptions: () ->

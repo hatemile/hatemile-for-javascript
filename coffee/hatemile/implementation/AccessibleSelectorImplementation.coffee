@@ -42,13 +42,12 @@ class exports.hatemile.implementation.AccessibleSelectorImplementation
 	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @memberof hatemile.implementation.AccessibleSelectorImplementation
 	###
-	constructor: (@parser, configure) ->
-		@changes = configure.getSelectorChanges()
+	constructor: (@parser, configure, @selectorChanges) ->
 
 	fixSelectors: () ->
-		for change in @changes
-			elements = @parser.find(change.getSelector()).listResults()
+		for change in @selectorChanges
+			elements = @parser.find(change['selector']).listResults()
 			for element in elements
 				if not element.hasAttribute(_dataIgnore)
-					element.setAttribute(change.getAttribute(), change.getValueForAttribute())
+					element.setAttribute(change['attribute'], change['value-attribute'])
 		return

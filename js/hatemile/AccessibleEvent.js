@@ -51,7 +51,7 @@ exports.hatemile.AccessibleEvent = (function() {
 	 * Provide a solution for elements that has Drag-and-Drop events.
 	 * @memberof hatemile.AccessibleEvent
 	 */
-	AccessibleEvent.prototype.fixDragsandDrops = function() {
+	AccessibleEvent.prototype.fixAllDragsandDrops = function() {
 	};
 
 	/**
@@ -63,10 +63,10 @@ exports.hatemile.AccessibleEvent = (function() {
 	};
 
 	/**
-	 * Provide a solution for elements that has inaccessible hover events.
+	 * Provide a solution for elements that have inaccessible hover events.
 	 * @memberof hatemile.AccessibleEvent
 	 */
-	AccessibleEvent.prototype.fixHovers = function() {
+	AccessibleEvent.prototype.fixAllHovers = function() {
 	};
 
 	/**
@@ -79,10 +79,10 @@ exports.hatemile.AccessibleEvent = (function() {
 	};
 
 	/**
-	 * Provide a solution for elements that has inaccessible active events.
+	 * Provide a solution for elements that have inaccessible active events.
 	 * @memberof hatemile.AccessibleEvent
 	 */
-	AccessibleEvent.prototype.fixActives = function() {
+	AccessibleEvent.prototype.fixAllActives = function() {
 	};
 
 	return AccessibleEvent;

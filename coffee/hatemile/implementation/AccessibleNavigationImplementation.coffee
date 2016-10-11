@@ -33,18 +33,17 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
-	_idContainerShortcuts = 'container-shortcuts'
 	_idContainerSkippers = 'container-skippers'
 	_idContainerHeading = 'container-heading'
-	_idTextShortcuts = 'text-shortcuts'
 	_idTextHeading = 'text-heading'
 	_classSkipperAnchor = 'skipper-anchor'
 	_classHeadingAnchor = 'heading-anchor'
-	_dataAccessKey = 'data-shortcutdescriptionfor'
 	_dataIgnore = 'data-ignoreaccessibilityfix'
 	_dataAnchorFor = 'data-anchorfor'
 	_dataHeadingAnchorFor = 'data-headinganchorfor'
 	_dataHeadingLevel = 'data-headinglevel'
+	_classLongDescriptionLink = 'longdescription-link'
+	_dataLongDescriptionForImage = 'data-longdescriptionfor'
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the
@@ -54,118 +53,18 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * @param {String} userAgent The user agent of the user.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	constructor: (@parser, configure, userAgent) ->
+	constructor: (@parser, configure, @skippers) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@textShortcuts = configure.getParameter('text-shortcuts')
-		@textHeading = configure.getParameter('text-heading')
-		@standartPrefix = configure.getParameter('text-standart-shortcut-prefix')
-		@skippers = configure.getSkippers()
-		@listShortcutsAdded = false
+		@attributeLongDescriptionPrefixBegin = configure.getParameter('attribute-longdescription-prefix-begin')
+		@attributeLongDescriptionSuffixBegin = configure.getParameter('attribute-longdescription-suffix-begin')
+		@attributeLongDescriptionPrefixEnd = configure.getParameter('attribute-longdescription-prefix-end')
+		@attributeLongDescriptionSuffixEnd = configure.getParameter('attribute-longdescription-suffix-end')
+		@elementsHeadingBegin = configure.getParameter('elements-heading-begin')
+		@elementsHeadingEnd = configure.getParameter('elements-heading-end')
 		@listSkippersAdded = false
 		@validateHeading = false
 		@validHeading = false
-		@listShortcuts = undefined
 		@listSkippers = undefined
-		
-		if not isEmpty(userAgent)
-			userAgent = userAgent.toLowerCase()
-			opera = userAgent.indexOf('opera') > -1
-			mac = userAgent.indexOf('mac') > -1
-			konqueror = userAgent.indexOf('konqueror') > -1
-			spoofer = userAgent.indexOf('spoofer') > -1
-			safari = userAgent.indexOf('applewebkit') > -1
-			windows = userAgent.indexOf('windows') > -1
-			chrome = userAgent.indexOf('chrome') > -1
-			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent)
-			ie = (userAgent.indexOf('msie') > -1) or (userAgent.indexOf('trident') > -1)
-			
-			if opera
-				@prefix = 'SHIFT + ESC'
-			else if chrome and mac and (not spoofer)
-				@prefix = 'CTRL + OPTION'
-			else if safari and (not windows) and (not spoofer)
-				@prefix = 'CTRL + ALT'
-			else if (not windows) and (safari or mac or konqueror)
-				@prefix = 'CTRL'
-			else if firefox
-				@prefix = 'ALT + SHIFT'
-			else if chrome or ie
-				@prefix = 'ALT'
-			else
-				@prefix = @standartPrefix
-		else
-			@prefix = @standartPrefix
-	
-	###*
-	 * Returns the description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with description.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {String} The description of element.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	###
-	getDescription = (element, parser) ->
-		description = undefined
-		if element.hasAttribute('title')
-			description = element.getAttribute('title')
-		else if element.hasAttribute('aria-label')
-			description = element.getAttribute('aria-label')
-		else if element.hasAttribute('alt')
-			description = element.getAttribute('alt')
-		else if element.hasAttribute('label')
-			description = element.getAttribute('label')
-		else if element.hasAttribute('aria-labelledby') or element.hasAttribute('aria-describedby')
-			if element.hasAttribute('aria-labelledby')
-				descriptionIds = element.getAttribute('aria-labelledby').split(new RegExp('[ \n\t\r]+'))
-			else
-				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'))
-			for descriptionId in descriptionIds
-				elementDescription = parser.find("##{descriptionId}").firstResult()
-				if not isEmpty(elementDescription)
-					description = elementDescription.getTextContent()
-					break
-		else if (element.getTagName() is 'INPUT') and (element.hasAttribute('type'))
-			type = element.getAttribute('type').toLowerCase()
-			if ((type is 'button') or (type is 'submit') or (type is 'reset')) and (element.hasAttribute('value'))
-				description = element.getAttribute('value')
-		if isEmpty(description)
-			description = element.getTextContent()
-		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
-	
-	###*
-	 * Generate the list of shortcuts of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} textShortcuts The text of description of container of
-	 * shortcuts descriptions.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	###
-	generateListShortcuts = (parser, textShortcuts, callback) ->
-		container = parser.find("##{_idContainerShortcuts}").firstResult()
-		if isEmpty(container)
-			local = parser.find('body').firstResult()
-			if not isEmpty(local)
-				container = parser.createElement('div')
-				container.setAttribute('id', _idContainerShortcuts)
-				
-				textContainer = parser.createElement('span')
-				textContainer.setAttribute('id', _idTextShortcuts)
-				textContainer.appendText(textShortcuts)
-				
-				container.appendElement(textContainer)
-				local.appendElement(container)
-				
-				executeFixSkipper(container, callback)
-				executeFixSkipper(textContainer, callback)
-		list = undefined
-		if not isEmpty(container)
-			list = parser.find(container).findChildren('ul').firstResult()
-			if isEmpty(list)
-				list = parser.createElement('ul')
-				container.appendElement(list)
-			executeFixSkipper(list, callback)
-		return list
 	
 	###*
 	 * Generate the list of skippers of page.
@@ -194,12 +93,10 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} textHeading The text of description of container of heading
 	 * links.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
 	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	generateListHeading = (parser, textHeading, callback) ->
+	generateListHeading = (parser, textHeading) ->
 		container = parser.find("##{_idContainerHeading}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
@@ -213,16 +110,12 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 				
 				container.appendElement(textContainer)
 				local.appendElement(container)
-				
-				executeFixSkipper(container, callback)
-				executeFixSkipper(textContainer, callback)
 		list = undefined
 		if not isEmpty(container)
 			list = parser.find(container).findChildren('ol').firstResult()
 			if isEmpty(list)
 				list = parser.createElement('ol')
 				container.appendElement(list)
-			executeFixSkipper(list, callback)
 		return list
 	
 	###*
@@ -324,114 +217,58 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					break
 		return
 	
-	###*
-	 * Call fixSkipper method for element, if the page has the container of
-	 * skippers.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	###
-	executeFixSkipper = (element, callback) ->
-		if not isEmpty(callback.listSkippers)
-			for skipper in callback.skippers
-				if (callback.parser.find(skipper.getSelector()).listResults().indexOf(element) > -1)
-					callback.fixSkipper(element, skipper)
+	fixSkipper: (element) ->
+		skipper = undefined
+		for auxiliarSkipper in @skippers
+			auxiliarElements = @parser.find(auxiliarSkipper['selector']).listResults()
+			for auxiliarElement in auxiliarElements
+				if auxiliarElement.getData() is element.getData()
+					skipper = auxiliarSkipper
+					break
+			if skipper isnt undefined
+				break
+		if skipper isnt undefined
+			if not @listSkippersAdded
+				@listSkippers = generateListSkippers(@parser)
+				@listSkippersAdded = true
+			if not isEmpty(@listSkippers)
+				anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, @parser, @prefixId)
+				if not isEmpty(anchor)
+					itemLink = @parser.createElement('li')
+					link = @parser.createElement('a')
+					link.setAttribute('href', "##{anchor.getAttribute('name')}")
+					link.appendText(skipper['default-text'])
+
+					shortcuts = skipper['shortcut']
+					if not isEmpty(shortcuts)
+						shortcut = shortcuts[0]
+						if not isEmpty(shortcut)
+							freeShortcut(shortcut, @parser)
+							link.setAttribute('accesskey', shortcut)
+					exports.hatemile.util.CommonFunctions.generateId(link, @prefixId)
+
+					itemLink.appendElement(link)
+					@listSkippers.appendElement(itemLink)
 		return
 	
-	###*
-	 * Call fixShortcut method for element, if the page has the container of
-	 * shortcuts.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	###
-	executeFixShortcut = (element, callback) ->
-		if not isEmpty(callback.listShortcuts)
-			callback.fixShortcut(element)
-		return
-	
-	fixShortcut: (element) ->
-		if element.hasAttribute('accesskey')
-			description = getDescription(element, @parser)
-			if not element.hasAttribute('title')
-				element.setAttribute('title', description)
-			
-			if not @listShortcutsAdded
-				@listShortcuts = generateListShortcuts(@parser, @textShortcuts, this)
-				@listShortcutsAdded = true
-			
-			if not isEmpty(@listShortcuts)
-				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
-				for key in keys
-					key = key.toUpperCase()
-					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{_dataAccessKey}=\"#{key}\"]").firstResult())
-						item = @parser.createElement('li')
-						item.setAttribute(_dataAccessKey, key)
-						item.appendText("#{@prefix} + #{key}: #{description}")
-						@listShortcuts.appendElement(item)
-		return
-	
-	fixShortcuts: () ->
-		elements = @parser.find('[accesskey]').listResults()
-		for element in elements
-			if not element.hasAttribute(_dataIgnore)
-				@fixShortcut(element)
-		return
-	
-	fixSkipper: (element, skipper) ->
-		if not @listSkippersAdded
-			@listSkippers = generateListSkippers(@parser)
-			@listSkippersAdded = true
-		if not isEmpty(@listSkippers)
-			anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, @parser, @prefixId)
-			if not isEmpty(anchor)
-				itemLink = @parser.createElement('li')
-				link = @parser.createElement('a')
-				link.setAttribute('href', "##{anchor.getAttribute('name')}")
-				link.appendText(skipper.getDefaultText())
-				
-				shortcuts = skipper.getShortcuts()
-				if not isEmpty(shortcuts)
-					shortcut = shortcuts[0]
-					if not isEmpty(shortcut)
-						freeShortcut(shortcut, @parser)
-						link.setAttribute('accesskey', shortcut)
-				exports.hatemile.util.CommonFunctions.generateId(link, @prefixId)
-				
-				itemLink.appendElement(link)
-				@listSkippers.appendElement(itemLink)
-				
-				executeFixShortcut(link, this);
-		return
-	
-	fixSkippers: () ->
+	fixAllSkippers: () ->
 		for skipper in @skippers
-			elements = @parser.find(skipper.getSelector()).listResults()
-			count = elements.length > 1
-			if count
-				index = 1
-			shortcuts = skipper.getShortcuts()
+			elements = @parser.find(skipper['selector']).listResults()
 			for element in elements
 				if not element.hasAttribute(_dataIgnore)
-					if count
-						defaultText = "#{skipper.getDefaultText()} #{index++}"
-					else
-						defaultText = skipper.getDefaultText()
-					@fixSkipper(element, new exports.hatemile.util.configuration.Skipper(skipper.getSelector(), defaultText, shortcuts.pop()))
+					@fixSkipper(element)
 		return
 	
-	fixHeading: (element) ->
+	fixHeading: (heading) ->
 		if not @validateHeading
 			@validHeading = isValidHeading(@parser)
 			@validateHeading = true
 		if @validHeading
-			anchor = generateAnchorFor(element, _dataHeadingAnchorFor, _classHeadingAnchor, @parser, @prefixId)
+			anchor = generateAnchorFor(heading, _dataHeadingAnchorFor, _classHeadingAnchor, @parser, @prefixId)
 			if not isEmpty(anchor)
-				level = getHeadingLevel(element)
+				level = getHeadingLevel(heading)
 				if level is 1
-					list = generateListHeading(@parser, @textHeading, this)
+					list = generateListHeading(@parser, @textHeading)
 				else
 					superItem = @parser.find("##{_idContainerHeading}").findDescendants("[#{_dataHeadingLevel}=\"#{(level - 1).toString()}\"]").lastResult()
 					if not isEmpty(superItem)
@@ -445,15 +282,48 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					
 					link = @parser.createElement('a')
 					link.setAttribute('href', "##{anchor.getAttribute('name')}")
-					link.appendText(element.getTextContent())
+					link.appendText(heading.getTextContent())
 					
 					item.appendElement(link)
 					list.appendElement(item)
 		return
 	
-	fixHeadings: () ->
+	fixAllHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
 			if not element.hasAttribute(_dataIgnore)
 				@fixHeading(element)
+		return
+	
+	fixLongDescription: (image) ->
+		if image.hasAttribute('longdesc')
+			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+			id = image.getAttribute('id')
+			if isEmpty(@parser.find("[#{_dataLongDescriptionForImage}=\"#{id}\"]").firstResult())
+				if image.hasAttribute('alt')
+					if not (isEmpty(@attributeLongDescriptionPrefixBegin) and isEmpty(@attributeLongDescriptionSuffixBegin))
+						text = "#{@attributeLongDescriptionPrefixBegin} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixBegin}"
+						anchor = @parser.createElement('a')
+						anchor.setAttribute('href', image.getAttribute('longdesc'))
+						anchor.setAttribute('target', '_blank')
+						anchor.setAttribute(_dataLongDescriptionForImage, id)
+						anchor.setAttribute('class', _classLongDescriptionLink)
+						anchor.appendText(text)
+						image.insertBefore(anchor)
+					if not (isEmpty(@attributeLongDescriptionPrefixEnd) and isEmpty(@attributeLongDescriptionSuffixEnd))
+						text = "#{@attributeLongDescriptionPrefixEnd} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixEnd}"
+						anchor = @parser.createElement('a')
+						anchor.setAttribute('href', image.getAttribute('longdesc'))
+						anchor.setAttribute('target', '_blank')
+						anchor.setAttribute(_dataLongDescriptionForImage, id)
+						anchor.setAttribute('class', _classLongDescriptionLink)
+						anchor.appendText(text)
+						image.insertAfter(anchor)
+		return
+	
+	fixAllLongDescriptions: () ->
+		elements = @parser.find('[longdesc]').listResults()
+		for element in elements
+			if not element.hasAttribute(_dataIgnore)
+				@fixLongDescription(element)
 		return

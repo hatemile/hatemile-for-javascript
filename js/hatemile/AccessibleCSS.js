@@ -22,31 +22,31 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @class AccessibleImage
- * @classdesc The AccessibleImage interface fixes accessibility problems
- * associated with images.
+ * @class AccessibleCSS
+ * @classdesc The AccessibleCSS interface fixes accessibility problems
+ * associated with CSS.
  * @memberof hatemile
  */
-exports.hatemile.AccessibleImage = (function() {
-	function AccessibleImage() {
+exports.hatemile.AccessibleCSS = (function() {
+	function AccessibleCSS() {
 	}
 
 	/**
-	 * Provide an alternative way to access the long description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with long
-	 * description.
-	 * @memberof hatemile.AccessibleImage
+	 * Provide a solution to support stylesheet speak properties in element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with speak
+	 * properties.
+	 * @memberof hatemile.AccessibleCSS
 	 */
-	AccessibleImage.prototype.fixLongDescription = function(element) {
+	AccessibleCSS.prototype.fixSpeak = function(element) {
 	};
 
 	/**
-	 * Provide an alternative way to access the longs descriptions of elements.
-	 * @memberof hatemile.AccessibleImage
+	 * Provide a solution to support stylesheet speak properties.
+	 * @memberof hatemile.AccessibleCSS
 	 */
-	AccessibleImage.prototype.fixLongDescriptions = function() {
+	AccessibleCSS.prototype.fixAllSpeaks = function() {
 	};
 
-	return AccessibleImage;
+	return AccessibleCSS;
 
 })();

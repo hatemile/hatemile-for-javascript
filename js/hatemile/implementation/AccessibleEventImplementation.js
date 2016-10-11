@@ -438,7 +438,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		}
 	};
 
-	AccessibleEventImplementation.prototype.fixDragsandDrops = function() {
+	AccessibleEventImplementation.prototype.fixAllDragsandDrops = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -464,7 +464,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		});
 	};
 
-	AccessibleEventImplementation.prototype.fixHovers = function() {
+	AccessibleEventImplementation.prototype.fixAllHovers = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -503,7 +503,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		});
 	};
 
-	AccessibleEventImplementation.prototype.fixActives = function() {
+	AccessibleEventImplementation.prototype.fixAllActives = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {

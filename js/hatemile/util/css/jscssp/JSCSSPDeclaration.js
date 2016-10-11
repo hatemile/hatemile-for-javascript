@@ -33,9 +33,9 @@ exports.hatemile || (exports.hatemile = {});
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
-(_base2 = exports.hatemile.util.css).jsccssp || (_base2.jsccssp = {});
+(_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
-exports.hatemile.util.css.jsccssp.JSCSSPDeclaration = (function() {
+exports.hatemile.util.css.jscssp.JSCSSPDeclaration = (function() {
 	function JSCSSPDeclaration(declaration) {
 		this.declaration = declaration;
 	}

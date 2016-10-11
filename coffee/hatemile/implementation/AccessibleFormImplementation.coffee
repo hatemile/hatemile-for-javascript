@@ -33,14 +33,6 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleFormImplementation
 	
-	_dataLabelPrefixRequiredField = 'data-prefixrequiredfield'
-	_dataLabelSuffixRequiredField = 'data-suffixrequiredfield'
-	_dataLabelPrefixRangeMinField = 'data-prefixvalueminfield'
-	_dataLabelSuffixRangeMinField = 'data-suffixvalueminfield'
-	_dataLabelPrefixRangeMaxField = 'data-prefixvaluemaxfield'
-	_dataLabelSuffixRangeMaxField = 'data-suffixvaluemaxfield'
-	_dataLabelPrefixAutoCompleteField = 'data-prefixautocompletefield'
-	_dataLabelSuffixAutoCompleteField = 'data-suffixautocompletefield'
 	_dataIgnore = 'data-ignoreaccessibilityfix'
 	_dataEventChangeAdded = 'data-changeadded'
 	_dataInvalidURL = 'data-invalidurl'
@@ -68,141 +60,6 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	###
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@prefixRequiredField = configure.getParameter('prefix-required-field')
-		@suffixRequiredField = configure.getParameter('suffix-required-field')
-		@prefixRangeMinField = configure.getParameter('prefix-range-min-field')
-		@suffixRangeMinField = configure.getParameter('suffix-range-min-field')
-		@prefixRangeMaxField = configure.getParameter('prefix-range-max-field')
-		@suffixRangeMaxField = configure.getParameter('suffix-range-max-field')
-		@prefixAutoCompleteField = configure.getParameter('prefix-autocomplete-field')
-		@suffixAutoCompleteField = configure.getParameter('suffix-autocomplete-field')
-		@textAutoCompleteValueBoth = configure.getParameter('text-autocomplete-value-both')
-		@textAutoCompleteValueList = configure.getParameter('text-autocomplete-value-list')
-		@textAutoCompleteValueInline = configure.getParameter('text-autocomplete-value-inline')
-		@textAutoCompleteValueNone = configure.getParameter('text-autocomplete-value-none')
-	
-	###*
-	 * Display in label the information of field.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @param {String} prefix The prefix.
-	 * @param {String} suffix The suffix.
-	 * @param {String} dataPrefix The name of prefix attribute.
-	 * @param {String} dataSuffix The name of suffix attribute.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
-	###
-	addPrefixSuffix = (label, field, prefix, suffix, dataPrefix, dataSuffix) ->
-		content = field.getAttribute('aria-label')
-		if not isEmpty(prefix)
-			label.setAttribute(dataPrefix, prefix)
-			if content.indexOf(prefix) is -1
-				content = "#{prefix} #{content}"
-		if not isEmpty(suffix)
-			label.setAttribute(dataSuffix, suffix)
-			if content.indexOf(suffix) is -1
-				content += " #{suffix}"
-		field.setAttribute('aria-label', content)
-		return
-	
-	###*
-	 * Display in label the information if the field is required.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
-	 * @param {String} prefixRequiredField The description prefix of required
-	 * fields.
-	 * @param {String} suffixRequiredField The description suffix of required
-	 * fields.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
-	###
-	fixLabelRequiredField = (label, requiredField, prefixRequiredField, suffixRequiredField) ->
-		if (requiredField.hasAttribute('required') or (requiredField.hasAttribute('aria-required') and (requiredField.getAttribute('aria-required').toLowerCase() is 'true'))) and (not label.hasAttribute(_dataLabelPrefixRequiredField)) and (not label.hasAttribute(_dataLabelSuffixRequiredField)) and requiredField.hasAttribute('aria-label')
-			addPrefixSuffix(label, requiredField, prefixRequiredField, suffixRequiredField, _dataLabelPrefixRequiredField, _dataLabelSuffixRequiredField)
-		return
-	
-	###*
-	 * Display in label the information of range of field.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
-	 * @param {String} prefixRangeMinField The description prefix of range fields
-	 * for minimum value.
-	 * @param {String} suffixRangeMinField The description suffix of range fields
-	 * for minimum value.
-	 * @param {String} prefixRangeMaxField The description prefix of range fields
-	 * for maximum value.
-	 * @param {String} suffixRangeMaxField The description suffix of range fields
-	 * for maximum value.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
-	###
-	fixLabelRangeField = (label, rangeField, prefixRangeMinField, suffixRangeMinField, prefixRangeMaxField, suffixRangeMaxField) ->
-		prefixRangeMinFieldModified = undefined
-		suffixRangeMinFieldModified = undefined
-		prefixRangeMaxFieldModified = undefined
-		suffixRangeMaxFieldModified = undefined
-		if rangeField.hasAttribute('aria-label')
-			if (rangeField.hasAttribute('min') or rangeField.hasAttribute('aria-valuemin')) and (not label.hasAttribute(_dataLabelPrefixRangeMinField)) and (not label.hasAttribute(_dataLabelSuffixRangeMinField))
-				if rangeField.hasAttribute('min')
-					value = rangeField.getAttribute('min')
-				else
-					value = rangeField.getAttribute('aria-valuemin')
-				if not isEmpty(prefixRangeMinField)
-					prefixRangeMinFieldModified = prefixRangeMinField.replace('{{value}}', value)
-				if not isEmpty(suffixRangeMinField)
-					suffixRangeMinFieldModified = suffixRangeMinField.replace('{{value}}', value)
-				addPrefixSuffix(label, rangeField, prefixRangeMinFieldModified, suffixRangeMinFieldModified, _dataLabelPrefixRangeMinField, _dataLabelSuffixRangeMinField)
-			
-			if (rangeField.hasAttribute('max') or rangeField.hasAttribute('aria-valuemax')) and (not label.hasAttribute(_dataLabelPrefixRangeMaxField)) and (not label.hasAttribute(_dataLabelSuffixRangeMaxField))
-				if rangeField.hasAttribute('max')
-					value = rangeField.getAttribute('max')
-				else
-					value = rangeField.getAttribute('aria-valuemax')
-				if not isEmpty(prefixRangeMaxField)
-					prefixRangeMaxFieldModified = prefixRangeMaxField.replace('{{value}}', value)
-				if not isEmpty(suffixRangeMaxField)
-					suffixRangeMaxFieldModified = suffixRangeMaxField.replace('{{value}}', value)
-				addPrefixSuffix(label, rangeField, prefixRangeMaxFieldModified, suffixRangeMaxFieldModified, _dataLabelPrefixRangeMaxField, _dataLabelSuffixRangeMaxField)
-		return
-	
-	###*
-	 * Display in label the information if the field has autocomplete.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The autocomplete
-	 * field.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} prefixAutoCompleteField The description prefix of
-	 * autocomplete fields.
-	 * @param {String} suffixAutoCompleteField The description suffix of
-	 * autocomplete fields.
-	 * @param {String} textAutoCompleteValueBoth The value for description of
-	 * field, when it has inline and list autocomplete.
-	 * @param {String} textAutoCompleteValueList The value for description of
-	 * field, when it has list autocomplete.
-	 * @param {String} textAutoCompleteValueInline The value for description of
-	 * field, when it has inline autocomplete.
-	 * @param {String} textAutoCompleteValueNone The value for description of
-	 * field, when it not has autocomplete.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
-	###
-	fixLabelAutoCompleteField = (label, autoCompleteField, parser, prefixAutoCompleteField, suffixAutoCompleteField, textAutoCompleteValueBoth, textAutoCompleteValueList, textAutoCompleteValueInline, textAutoCompleteValueNone) ->
-		if autoCompleteField.hasAttribute('aria-label') and (not label.hasAttribute(_dataLabelPrefixAutoCompleteField)) and (not label.hasAttribute(_dataLabelSuffixAutoCompleteField))
-			ariaAutocomplete = getARIAAutoComplete(autoCompleteField, parser)
-			if not isEmpty(ariaAutocomplete)
-				if ariaAutocomplete is 'both'
-					if not isEmpty(prefixAutoCompleteField)
-						prefixAutoCompleteFieldModified = prefixAutoCompleteField.replace('{{value}}', textAutoCompleteValueBoth)
-					if not isEmpty(suffixAutoCompleteField)
-						suffixAutoCompleteFieldModified = suffixAutoCompleteField.replace('{{value}}', textAutoCompleteValueBoth)
-				else if ariaAutocomplete is 'none'
-					if not isEmpty(prefixAutoCompleteField)
-						prefixAutoCompleteFieldModified = prefixAutoCompleteField.replace('{{value}}', textAutoCompleteValueNone)
-					if not isEmpty(suffixAutoCompleteField)
-						suffixAutoCompleteFieldModified = suffixAutoCompleteField.replace('{{value}}', textAutoCompleteValueNone)
-				else if ariaAutocomplete is 'list'
-					if not isEmpty(prefixAutoCompleteField)
-						prefixAutoCompleteFieldModified = prefixAutoCompleteField.replace('{{value}}', textAutoCompleteValueList)
-					if not isEmpty(suffixAutoCompleteField)
-						suffixAutoCompleteFieldModified = suffixAutoCompleteField.replace('{{value}}', textAutoCompleteValueList)
-				addPrefixSuffix(label, autoCompleteField, prefixAutoCompleteFieldModified, suffixAutoCompleteFieldModified, _dataLabelPrefixAutoCompleteField, _dataLabelSuffixAutoCompleteField)
-		return
 	
 	###*
 	 * Returns the appropriate value for attribute aria-autocomplete of field.
@@ -384,13 +241,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixRequiredField: (requiredField) ->
 		if requiredField.hasAttribute('required')
 			requiredField.setAttribute('aria-required', 'true')
-			
-			labels = getLabels(requiredField, @parser)
-			for label in labels
-				fixLabelRequiredField(label, requiredField, @prefixRequiredField, @suffixRequiredField)
 		return
 	
-	fixRequiredFields: () ->
+	fixAllRequiredFields: () ->
 		requiredFields = @parser.find('[required]').listResults()
 		for requiredField in requiredFields
 			if not requiredField.hasAttribute(_dataIgnore)
@@ -402,13 +255,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			rangeField.setAttribute('aria-valuemin', rangeField.getAttribute('min'))
 		if rangeField.hasAttribute('max')
 			rangeField.setAttribute('aria-valuemax', rangeField.getAttribute('max'))
-		
-		labels = getLabels(rangeField, @parser)
-		for label in labels
-			fixLabelRangeField(label, rangeField, @prefixRangeMinField, @suffixRangeMinField, @prefixRangeMaxField, @suffixRangeMaxField)
 		return
 	
-	fixRangeFields: () ->
+	fixAllRangeFields: () ->
 		rangeFields = @parser.find('[min],[max]').listResults()
 		for rangeField in rangeFields
 			if not rangeField.hasAttribute(_dataIgnore)
@@ -419,13 +268,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 		ariaAutoComplete = getARIAAutoComplete(autoCompleteField, @parser)
 		if not isEmpty(ariaAutoComplete)
 			autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
-			
-			labels = getLabels(autoCompleteField, @parser)
-			for label in labels
-				fixLabelAutoCompleteField(label, autoCompleteField, @parser, @prefixAutoCompleteField, @suffixAutoCompleteField, @textAutoCompleteValueBoth, @textAutoCompleteValueList, @textAutoCompleteValueInline, @textAutoCompleteValueNone)
 		return
 	
-	fixAutoCompleteFields: () ->
+	fixAllAutoCompleteFields: () ->
 		elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
 		for element in elements
 			if not element.hasAttribute(_dataIgnore)
@@ -445,16 +290,11 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			if not isEmpty(field)
 				if not field.hasAttribute('aria-label')
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
-				
-				fixLabelRequiredField(label, field, @prefixRequiredField, @suffixRequiredField)
-				fixLabelRangeField(label, field, @prefixRangeMinField, @suffixRangeMinField, @prefixRangeMaxField, @suffixRangeMaxField)
-				fixLabelAutoCompleteField(label, field, @parser, @prefixAutoCompleteField, @suffixAutoCompleteField, @textAutoCompleteValueBoth, @textAutoCompleteValueList, @textAutoCompleteValueInline, @textAutoCompleteValueNone)
-				
 				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
 				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 	
-	fixLabels: () ->
+	fixAllLabels: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels
 			if not label.hasAttribute(_dataIgnore)
@@ -490,7 +330,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				validate(field, _dataInvalidURL, _dataEventChangeAdded, _validationType, isValidURL)
 		return
 	
-	fixValidations: () ->
+	fixAllValidations: () ->
 		fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
 		for field in fields
 			if not field.hasAttribute(_dataIgnore)

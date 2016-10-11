@@ -44,7 +44,7 @@ class exports.hatemile.AccessibleEvent
 	 * Provide a solution for elements that has Drag-and-Drop events.
 	 * @memberof hatemile.AccessibleEvent
 	###
-	fixDragsandDrops: () ->
+	fixAllDragsandDrops: () ->
 	
 	###*
 	 * Provide a solution for the element that has inaccessible hover events.
@@ -54,10 +54,10 @@ class exports.hatemile.AccessibleEvent
 	fixHover: (element) ->
 	
 	###*
-	 * Provide a solution for elements that has inaccessible hover events.
+	 * Provide a solution for elements that have inaccessible hover events.
 	 * @memberof hatemile.AccessibleEvent
 	###
-	fixHovers: () ->
+	fixAllHovers: () ->
 	
 	###*
 	 * Provide a solution for the element that has inaccessible active events.
@@ -68,7 +68,7 @@ class exports.hatemile.AccessibleEvent
 	fixActive: (element) ->
 	
 	###*
-	 * Provide a solution for elements that has inaccessible active events.
+	 * Provide a solution for elements that have inaccessible active events.
 	 * @memberof hatemile.AccessibleEvent
 	###
-	fixActives: () ->
+	fixAllActives: () ->

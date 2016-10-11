@@ -32,49 +32,49 @@ exports.hatemile.AccessibleNavigation = (function() {
 	}
 
 	/**
-	 * Display the shortcuts of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with shortcuts.
-	 * @memberof hatemile.AccessibleNavigation
-	 */
-	AccessibleNavigation.prototype.fixShortcut = function(element) {
-	};
-
-	/**
-	 * Display the shortcuts of elements.
-	 * @memberof hatemile.AccessibleNavigation
-	 */
-	AccessibleNavigation.prototype.fixShortcuts = function() {
-	};
-
-	/**
 	 * Provide content skipper for element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.util.configuration.Skipper} skipper The skipper.
 	 * @memberof hatemile.AccessibleNavigation
 	 */
-	AccessibleNavigation.prototype.fixSkipper = function(element, skipper) {
+	AccessibleNavigation.prototype.fixSkipper = function(element) {
 	};
 
 	/**
 	 * Provide content skippers.
 	 * @memberof hatemile.AccessibleNavigation
 	 */
-	AccessibleNavigation.prototype.fixSkippers = function() {
+	AccessibleNavigation.prototype.fixAllSkippers = function() {
 	};
 
 	/**
 	 * Provide a navigation by heading.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The heading element.
+	 * @param {hatemile.util.html.HTMLDOMElement} heading The heading element.
 	 * @memberof hatemile.AccessibleNavigation
 	 */
-	AccessibleNavigation.prototype.fixHeading = function(element) {
+	AccessibleNavigation.prototype.fixHeading = function(heading) {
 	};
 
 	/**
 	 * Provide a navigation by headings.
 	 * @memberof hatemile.AccessibleNavigation
 	 */
-	AccessibleNavigation.prototype.fixHeadings = function() {
+	AccessibleNavigation.prototype.fixAllHeadings = function() {
+	};
+
+	/**
+	 * Provide an alternative way to access the long description of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} image The image with long
+	 * description.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixLongDescription = function(image) {
+	};
+
+	/**
+	 * Provide an alternative way to access the longs descriptions of elements.
+	 * @memberof hatemile.AccessibleNavigation
+	 */
+	AccessibleNavigation.prototype.fixAllLongDescriptions = function() {
 	};
 
 	return AccessibleNavigation;

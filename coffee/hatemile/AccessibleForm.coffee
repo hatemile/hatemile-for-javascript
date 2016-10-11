@@ -37,7 +37,7 @@ class exports.hatemile.AccessibleForm
 	 * Display that the fields is required.
 	 * @memberof hatemile.AccessibleForm
 	###
-	fixRequiredFields: () ->
+	fixAllRequiredFields: () ->
 	
 	###*
 	 * Display that the field have range.
@@ -50,11 +50,12 @@ class exports.hatemile.AccessibleForm
 	 * Display that the fields have range.
 	 * @memberof hatemile.AccessibleForm
 	###
-	fixRangeFields: () ->
+	fixAllRangeFields: () ->
 	
 	###*
 	 * Display that the field have autocomplete.
-	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field with autocomplete.
+	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
+	 * with autocomplete.
 	 * @memberof hatemile.AccessibleForm
 	###
 	fixAutoCompleteField: (autoCompleteField) ->
@@ -63,7 +64,7 @@ class exports.hatemile.AccessibleForm
 	 * Display that the fields have autocomplete.
 	 * @memberof hatemile.AccessibleForm
 	###
-	fixAutoCompleteFields: () ->
+	fixAllAutoCompleteFields: () ->
 	
 	###*
 	 * Associate label with field.
@@ -76,8 +77,17 @@ class exports.hatemile.AccessibleForm
 	 * Associate labels with fields.
 	 * @memberof hatemile.AccessibleForm
 	###
-	fixLabels: () ->
+	fixAllLabels: () ->
 	
+	###*
+	 * Provide a solution to display when this field is invalid.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @memberof hatemile.AccessibleForm
+	###
 	fixValidation: (field) ->
 	
-	fixValidations: () ->
+	###*
+	 * Provide a solution to display when fields are invalid.
+	 * @memberof hatemile.AccessibleForm
+	###
+	fixAllValidations: () ->

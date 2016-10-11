@@ -294,7 +294,7 @@ exports.hatemile.implementation.AccessibleTableImplementation = (function() {
 		}
 	};
 
-	AccessibleTableImplementation.prototype.fixAssociationCellsTables = function() {
+	AccessibleTableImplementation.prototype.fixAllAssociationCellsTables = function() {
 		var table, tables, _i, _len;
 		tables = this.parser.find('table').listResults();
 		for (_i = 0, _len = tables.length; _i < _len; _i++) {

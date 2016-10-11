@@ -35,23 +35,17 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleNavigationImplementation = (function() {
-	var executeFixShortcut, executeFixSkipper, freeShortcut, generateAnchorFor, generateListHeading, generateListShortcuts, generateListSkippers, getDescription, getHeadingLevel, isValidHeading, _classHeadingAnchor, _classSkipperAnchor, _dataAccessKey, _dataAnchorFor, _dataHeadingAnchorFor, _dataHeadingLevel, _dataIgnore, _idContainerHeading, _idContainerShortcuts, _idContainerSkippers, _idTextHeading, _idTextShortcuts;
-
-	_idContainerShortcuts = 'container-shortcuts';
+	var freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading, _classHeadingAnchor, _classLongDescriptionLink, _classSkipperAnchor, _dataAnchorFor, _dataHeadingAnchorFor, _dataHeadingLevel, _dataIgnore, _dataLongDescriptionForImage, _idContainerHeading, _idContainerSkippers, _idTextHeading;
 
 	_idContainerSkippers = 'container-skippers';
 
 	_idContainerHeading = 'container-heading';
-
-	_idTextShortcuts = 'text-shortcuts';
 
 	_idTextHeading = 'text-heading';
 
 	_classSkipperAnchor = 'skipper-anchor';
 
 	_classHeadingAnchor = 'heading-anchor';
-
-	_dataAccessKey = 'data-shortcutdescriptionfor';
 
 	_dataIgnore = 'data-ignoreaccessibilityfix';
 
@@ -61,6 +55,10 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 
 	_dataHeadingLevel = 'data-headinglevel';
 
+	_classLongDescriptionLink = 'longdescription-link';
+
+	_dataLongDescriptionForImage = 'data-longdescriptionfor';
+
 	/**
 	 * Initializes a new object that manipulate the accessibility of the
 	 * navigation of parser.
@@ -69,133 +67,21 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 * @param {String} userAgent The user agent of the user.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	 */
-	function AccessibleNavigationImplementation(parser, configure, userAgent) {
-		var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
+	function AccessibleNavigationImplementation(parser, configure, skippers) {
 		this.parser = parser;
+		this.skippers = skippers;
 		this.prefixId = configure.getParameter('prefix-generated-ids');
-		this.textShortcuts = configure.getParameter('text-shortcuts');
-		this.textHeading = configure.getParameter('text-heading');
-		this.standartPrefix = configure.getParameter('text-standart-shortcut-prefix');
-		this.skippers = configure.getSkippers();
-		this.listShortcutsAdded = false;
+		this.attributeLongDescriptionPrefixBegin = configure.getParameter('attribute-longdescription-prefix-begin');
+		this.attributeLongDescriptionSuffixBegin = configure.getParameter('attribute-longdescription-suffix-begin');
+		this.attributeLongDescriptionPrefixEnd = configure.getParameter('attribute-longdescription-prefix-end');
+		this.attributeLongDescriptionSuffixEnd = configure.getParameter('attribute-longdescription-suffix-end');
+		this.elementsHeadingBegin = configure.getParameter('elements-heading-begin');
+		this.elementsHeadingEnd = configure.getParameter('elements-heading-end');
 		this.listSkippersAdded = false;
 		this.validateHeading = false;
 		this.validHeading = false;
-		this.listShortcuts = void 0;
 		this.listSkippers = void 0;
-		if (!isEmpty(userAgent)) {
-			userAgent = userAgent.toLowerCase();
-			opera = userAgent.indexOf('opera') > -1;
-			mac = userAgent.indexOf('mac') > -1;
-			konqueror = userAgent.indexOf('konqueror') > -1;
-			spoofer = userAgent.indexOf('spoofer') > -1;
-			safari = userAgent.indexOf('applewebkit') > -1;
-			windows = userAgent.indexOf('windows') > -1;
-			chrome = userAgent.indexOf('chrome') > -1;
-			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent);
-			ie = (userAgent.indexOf('msie') > -1) || (userAgent.indexOf('trident') > -1);
-			if (opera) {
-				this.prefix = 'SHIFT + ESC';
-			} else if (chrome && mac && (!spoofer)) {
-				this.prefix = 'CTRL + OPTION';
-			} else if (safari && (!windows) && (!spoofer)) {
-				this.prefix = 'CTRL + ALT';
-			} else if ((!windows) && (safari || mac || konqueror)) {
-				this.prefix = 'CTRL';
-			} else if (firefox) {
-				this.prefix = 'ALT + SHIFT';
-			} else if (chrome || ie) {
-				this.prefix = 'ALT';
-			} else {
-				this.prefix = this.standartPrefix;
-			}
-		} else {
-			this.prefix = this.standartPrefix;
-		}
 	}
-
-	/**
-	 * Returns the description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with description.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {String} The description of element.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	 */
-	getDescription = function(element, parser) {
-		var description, descriptionId, descriptionIds, elementDescription, type, _i, _len;
-		description = void 0;
-		if (element.hasAttribute('title')) {
-			description = element.getAttribute('title');
-		} else if (element.hasAttribute('aria-label')) {
-			description = element.getAttribute('aria-label');
-		} else if (element.hasAttribute('alt')) {
-			description = element.getAttribute('alt');
-		} else if (element.hasAttribute('label')) {
-			description = element.getAttribute('label');
-		} else if (element.hasAttribute('aria-labelledby') || element.hasAttribute('aria-describedby')) {
-			if (element.hasAttribute('aria-labelledby')) {
-				descriptionIds = element.getAttribute('aria-labelledby').split(new RegExp('[ \n\t\r]+'));
-			} else {
-				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'));
-			}
-			for (_i = 0, _len = descriptionIds.length; _i < _len; _i++) {
-				descriptionId = descriptionIds[_i];
-				elementDescription = parser.find("#" + descriptionId).firstResult();
-				if (!isEmpty(elementDescription)) {
-					description = elementDescription.getTextContent();
-					break;
-				}
-			}
-		} else if ((element.getTagName() === 'INPUT') && (element.hasAttribute('type'))) {
-			type = element.getAttribute('type').toLowerCase();
-			if (((type === 'button') || (type === 'submit') || (type === 'reset')) && (element.hasAttribute('value'))) {
-				description = element.getAttribute('value');
-			}
-		}
-		if (isEmpty(description)) {
-			description = element.getTextContent();
-		}
-		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
-	};
-
-	/**
-	 * Generate the list of shortcuts of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} textShortcuts The text of description of container of
-	 * shortcuts descriptions.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	 */
-	generateListShortcuts = function(parser, textShortcuts, callback) {
-		var container, list, local, textContainer;
-		container = parser.find("#" + _idContainerShortcuts).firstResult();
-		if (isEmpty(container)) {
-			local = parser.find('body').firstResult();
-			if (!isEmpty(local)) {
-				container = parser.createElement('div');
-				container.setAttribute('id', _idContainerShortcuts);
-				textContainer = parser.createElement('span');
-				textContainer.setAttribute('id', _idTextShortcuts);
-				textContainer.appendText(textShortcuts);
-				container.appendElement(textContainer);
-				local.appendElement(container);
-				executeFixSkipper(container, callback);
-				executeFixSkipper(textContainer, callback);
-			}
-		}
-		list = void 0;
-		if (!isEmpty(container)) {
-			list = parser.find(container).findChildren('ul').firstResult();
-			if (isEmpty(list)) {
-				list = parser.createElement('ul');
-				container.appendElement(list);
-			}
-			executeFixSkipper(list, callback);
-		}
-		return list;
-	};
 
 	/**
 	 * Generate the list of skippers of page.
@@ -230,12 +116,10 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {String} textHeading The text of description of container of heading
 	 * links.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
 	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	 */
-	generateListHeading = function(parser, textHeading, callback) {
+	generateListHeading = function(parser, textHeading) {
 		var container, list, local, textContainer;
 		container = parser.find("#" + _idContainerHeading).firstResult();
 		if (isEmpty(container)) {
@@ -248,8 +132,6 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 				textContainer.appendText(textHeading);
 				container.appendElement(textContainer);
 				local.appendElement(container);
-				executeFixSkipper(container, callback);
-				executeFixSkipper(textContainer, callback);
 			}
 		}
 		list = void 0;
@@ -259,7 +141,6 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 				list = parser.createElement('ol');
 				container.appendElement(list);
 			}
-			executeFixSkipper(list, callback);
 		}
 		return list;
 	};
@@ -389,145 +270,79 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	/**
-	 * Call fixSkipper method for element, if the page has the container of
-	 * skippers.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	 */
-	executeFixSkipper = function(element, callback) {
-		var skipper, _i, _len, _ref;
-		if (!isEmpty(callback.listSkippers)) {
-			_ref = callback.skippers;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				skipper = _ref[_i];
-				if (callback.parser.find(skipper.getSelector()).listResults().indexOf(element) > -1) {
-					callback.fixSkipper(element, skipper);
+	AccessibleNavigationImplementation.prototype.fixSkipper = function(element) {
+		var anchor, auxiliarElement, auxiliarElements, auxiliarSkipper, itemLink, link, shortcut, shortcuts, skipper, _i, _j, _len, _len1, _ref;
+		skipper = void 0;
+		_ref = this.skippers;
+		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+			auxiliarSkipper = _ref[_i];
+			auxiliarElements = this.parser.find(auxiliarSkipper['selector']).listResults();
+			for (_j = 0, _len1 = auxiliarElements.length; _j < _len1; _j++) {
+				auxiliarElement = auxiliarElements[_j];
+				if (auxiliarElement.getData() === element.getData()) {
+					skipper = auxiliarSkipper;
+					break;
 				}
 			}
-		}
-	};
-
-	/**
-	 * Call fixShortcut method for element, if the page has the container of
-	 * shortcuts.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	 */
-	executeFixShortcut = function(element, callback) {
-		if (!isEmpty(callback.listShortcuts)) {
-			callback.fixShortcut(element);
-		}
-	};
-
-	AccessibleNavigationImplementation.prototype.fixShortcut = function(element) {
-		var description, item, key, keys, _i, _len;
-		if (element.hasAttribute('accesskey')) {
-			description = getDescription(element, this.parser);
-			if (!element.hasAttribute('title')) {
-				element.setAttribute('title', description);
+			if (skipper !== void 0) {
+				break;
 			}
-			if (!this.listShortcutsAdded) {
-				this.listShortcuts = generateListShortcuts(this.parser, this.textShortcuts, this);
-				this.listShortcutsAdded = true;
+		}
+		if (skipper !== void 0) {
+			if (!this.listSkippersAdded) {
+				this.listSkippers = generateListSkippers(this.parser);
+				this.listSkippersAdded = true;
 			}
-			if (!isEmpty(this.listShortcuts)) {
-				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'));
-				for (_i = 0, _len = keys.length; _i < _len; _i++) {
-					key = keys[_i];
-					key = key.toUpperCase();
-					if (isEmpty(this.parser.find(this.listShortcuts).findChildren("[" + _dataAccessKey + "=\"" + key + "\"]").firstResult())) {
-						item = this.parser.createElement('li');
-						item.setAttribute(_dataAccessKey, key);
-						item.appendText("" + this.prefix + " + " + key + ": " + description);
-						this.listShortcuts.appendElement(item);
+			if (!isEmpty(this.listSkippers)) {
+				anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, this.parser, this.prefixId);
+				if (!isEmpty(anchor)) {
+					itemLink = this.parser.createElement('li');
+					link = this.parser.createElement('a');
+					link.setAttribute('href', "#" + (anchor.getAttribute('name')));
+					link.appendText(skipper['default-text']);
+					shortcuts = skipper['shortcut'];
+					if (!isEmpty(shortcuts)) {
+						shortcut = shortcuts[0];
+						if (!isEmpty(shortcut)) {
+							freeShortcut(shortcut, this.parser);
+							link.setAttribute('accesskey', shortcut);
+						}
 					}
+					exports.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
+					itemLink.appendElement(link);
+					this.listSkippers.appendElement(itemLink);
 				}
 			}
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixShortcuts = function() {
-		var element, elements, _i, _len;
-		elements = this.parser.find('[accesskey]').listResults();
-		for (_i = 0, _len = elements.length; _i < _len; _i++) {
-			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
-				this.fixShortcut(element);
-			}
-		}
-	};
-
-	AccessibleNavigationImplementation.prototype.fixSkipper = function(element, skipper) {
-		var anchor, itemLink, link, shortcut, shortcuts;
-		if (!this.listSkippersAdded) {
-			this.listSkippers = generateListSkippers(this.parser);
-			this.listSkippersAdded = true;
-		}
-		if (!isEmpty(this.listSkippers)) {
-			anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, this.parser, this.prefixId);
-			if (!isEmpty(anchor)) {
-				itemLink = this.parser.createElement('li');
-				link = this.parser.createElement('a');
-				link.setAttribute('href', "#" + (anchor.getAttribute('name')));
-				link.appendText(skipper.getDefaultText());
-				shortcuts = skipper.getShortcuts();
-				if (!isEmpty(shortcuts)) {
-					shortcut = shortcuts[0];
-					if (!isEmpty(shortcut)) {
-						freeShortcut(shortcut, this.parser);
-						link.setAttribute('accesskey', shortcut);
-					}
-				}
-				exports.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
-				itemLink.appendElement(link);
-				this.listSkippers.appendElement(itemLink);
-				executeFixShortcut(link, this);
-			}
-		}
-	};
-
-	AccessibleNavigationImplementation.prototype.fixSkippers = function() {
-		var count, defaultText, element, elements, index, shortcuts, skipper, _i, _j, _len, _len1, _ref;
+	AccessibleNavigationImplementation.prototype.fixAllSkippers = function() {
+		var element, elements, skipper, _i, _j, _len, _len1, _ref;
 		_ref = this.skippers;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 			skipper = _ref[_i];
-			elements = this.parser.find(skipper.getSelector()).listResults();
-			count = elements.length > 1;
-			if (count) {
-				index = 1;
-			}
-			shortcuts = skipper.getShortcuts();
+			elements = this.parser.find(skipper['selector']).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
 				if (!element.hasAttribute(_dataIgnore)) {
-					if (count) {
-						defaultText = "" + (skipper.getDefaultText()) + " " + (index++);
-					} else {
-						defaultText = skipper.getDefaultText();
-					}
-					this.fixSkipper(element, new exports.hatemile.util.configuration.Skipper(skipper.getSelector(), defaultText, shortcuts.pop()));
+					this.fixSkipper(element);
 				}
 			}
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixHeading = function(element) {
+	AccessibleNavigationImplementation.prototype.fixHeading = function(heading) {
 		var anchor, item, level, link, list, superItem;
 		if (!this.validateHeading) {
 			this.validHeading = isValidHeading(this.parser);
 			this.validateHeading = true;
 		}
 		if (this.validHeading) {
-			anchor = generateAnchorFor(element, _dataHeadingAnchorFor, _classHeadingAnchor, this.parser, this.prefixId);
+			anchor = generateAnchorFor(heading, _dataHeadingAnchorFor, _classHeadingAnchor, this.parser, this.prefixId);
 			if (!isEmpty(anchor)) {
-				level = getHeadingLevel(element);
+				level = getHeadingLevel(heading);
 				if (level === 1) {
-					list = generateListHeading(this.parser, this.textHeading, this);
+					list = generateListHeading(this.parser, this.textHeading);
 				} else {
 					superItem = this.parser.find("#" + _idContainerHeading).findDescendants("[" + _dataHeadingLevel + "=\"" + ((level - 1).toString()) + "\"]").lastResult();
 					if (!isEmpty(superItem)) {
@@ -543,7 +358,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 					item.setAttribute(_dataHeadingLevel, level.toString());
 					link = this.parser.createElement('a');
 					link.setAttribute('href', "#" + (anchor.getAttribute('name')));
-					link.appendText(element.getTextContent());
+					link.appendText(heading.getTextContent());
 					item.appendElement(link);
 					list.appendElement(item);
 				}
@@ -551,13 +366,56 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixHeadings = function() {
+	AccessibleNavigationImplementation.prototype.fixAllHeadings = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (!element.hasAttribute(_dataIgnore)) {
 				this.fixHeading(element);
+			}
+		}
+	};
+
+	AccessibleNavigationImplementation.prototype.fixLongDescription = function(image) {
+		var anchor, id, text;
+		if (image.hasAttribute('longdesc')) {
+			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+			id = image.getAttribute('id');
+			if (isEmpty(this.parser.find("[" + _dataLongDescriptionForImage + "=\"" + id + "\"]").firstResult())) {
+				if (image.hasAttribute('alt')) {
+					if (!(isEmpty(this.attributeLongDescriptionPrefixBegin) && isEmpty(this.attributeLongDescriptionSuffixBegin))) {
+						text = "" + this.attributeLongDescriptionPrefixBegin + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixBegin;
+						anchor = this.parser.createElement('a');
+						anchor.setAttribute('href', image.getAttribute('longdesc'));
+						anchor.setAttribute('target', '_blank');
+						anchor.setAttribute(_dataLongDescriptionForImage, id);
+						anchor.setAttribute('class', _classLongDescriptionLink);
+						anchor.appendText(text);
+						image.insertBefore(anchor);
+					}
+					if (!(isEmpty(this.attributeLongDescriptionPrefixEnd) && isEmpty(this.attributeLongDescriptionSuffixEnd))) {
+						text = "" + this.attributeLongDescriptionPrefixEnd + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixEnd;
+						anchor = this.parser.createElement('a');
+						anchor.setAttribute('href', image.getAttribute('longdesc'));
+						anchor.setAttribute('target', '_blank');
+						anchor.setAttribute(_dataLongDescriptionForImage, id);
+						anchor.setAttribute('class', _classLongDescriptionLink);
+						anchor.appendText(text);
+						image.insertAfter(anchor);
+					}
+				}
+			}
+		}
+	};
+
+	AccessibleNavigationImplementation.prototype.fixAllLongDescriptions = function() {
+		var element, elements, _i, _len;
+		elements = this.parser.find('[longdesc]').listResults();
+		for (_i = 0, _len = elements.length; _i < _len; _i++) {
+			element = elements[_i];
+			if (!element.hasAttribute(_dataIgnore)) {
+				this.fixLongDescription(element);
 			}
 		}
 	};

@@ -43,7 +43,7 @@ exports.hatemile.AccessibleForm = (function() {
 	 * Display that the fields is required.
 	 * @memberof hatemile.AccessibleForm
 	 */
-	AccessibleForm.prototype.fixRequiredFields = function() {
+	AccessibleForm.prototype.fixAllRequiredFields = function() {
 	};
 
 	/**
@@ -58,12 +58,13 @@ exports.hatemile.AccessibleForm = (function() {
 	 * Display that the fields have range.
 	 * @memberof hatemile.AccessibleForm
 	 */
-	AccessibleForm.prototype.fixRangeFields = function() {
+	AccessibleForm.prototype.fixAllRangeFields = function() {
 	};
 
 	/**
 	 * Display that the field have autocomplete.
-	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field with autocomplete.
+	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
+	 * with autocomplete.
 	 * @memberof hatemile.AccessibleForm
 	 */
 	AccessibleForm.prototype.fixAutoCompleteField = function(autoCompleteField) {
@@ -73,7 +74,7 @@ exports.hatemile.AccessibleForm = (function() {
 	 * Display that the fields have autocomplete.
 	 * @memberof hatemile.AccessibleForm
 	 */
-	AccessibleForm.prototype.fixAutoCompleteFields = function() {
+	AccessibleForm.prototype.fixAllAutoCompleteFields = function() {
 	};
 
 	/**
@@ -88,13 +89,22 @@ exports.hatemile.AccessibleForm = (function() {
 	 * Associate labels with fields.
 	 * @memberof hatemile.AccessibleForm
 	 */
-	AccessibleForm.prototype.fixLabels = function() {
+	AccessibleForm.prototype.fixAllLabels = function() {
 	};
 
+	/**
+	 * Provide a solution to display when this field is invalid.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @memberof hatemile.AccessibleForm
+	 */
 	AccessibleForm.prototype.fixValidation = function(field) {
 	};
 
-	AccessibleForm.prototype.fixValidations = function() {
+	/**
+	 * Provide a solution to display when fields are invalid.
+	 * @memberof hatemile.AccessibleForm
+	 */
+	AccessibleForm.prototype.fixAllValidations = function() {
 	};
 
 	return AccessibleForm;

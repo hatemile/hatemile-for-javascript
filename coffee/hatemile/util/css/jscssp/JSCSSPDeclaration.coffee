@@ -30,9 +30,9 @@ exports.hatemile.util or= {}
 ###
 exports.hatemile.util.css or= {}
 
-exports.hatemile.util.css.jsccssp or= {}
+exports.hatemile.util.css.jscssp or= {}
 
-class exports.hatemile.util.css.jsccssp.JSCSSPDeclaration
+class exports.hatemile.util.css.jscssp.JSCSSPDeclaration
 	
 	constructor: (@declaration) ->
 	

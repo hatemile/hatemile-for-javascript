@@ -229,7 +229,7 @@ class exports.hatemile.implementation.AccessibleTableImplementation
 			fixBodyOrFooter(footer, @parser, @prefixId)
 		return
 	
-	fixAssociationCellsTables: () ->
+	fixAllAssociationCellsTables: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
 			if not table.hasAttribute(_dataIgnore)

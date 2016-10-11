@@ -46,21 +46,21 @@ exports.hatemile.implementation.AccessibleSelectorImplementation = (function() {
 	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
 	 * @memberof hatemile.implementation.AccessibleSelectorImplementation
 	 */
-	function AccessibleSelectorImplementation(parser, configure) {
+	function AccessibleSelectorImplementation(parser, configure, selectorChanges) {
 		this.parser = parser;
-		this.changes = configure.getSelectorChanges();
+		this.selectorChanges = selectorChanges;
 	}
 
 	AccessibleSelectorImplementation.prototype.fixSelectors = function() {
 		var change, element, elements, _i, _j, _len, _len1, _ref;
-		_ref = this.changes;
+		_ref = this.selectorChanges;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 			change = _ref[_i];
-			elements = this.parser.find(change.getSelector()).listResults();
+			elements = this.parser.find(change['selector']).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
 				if (!element.hasAttribute(_dataIgnore)) {
-					element.setAttribute(change.getAttribute(), change.getValueForAttribute());
+					element.setAttribute(change['attribute'], change['value-attribute']);
 				}
 			}
 		}

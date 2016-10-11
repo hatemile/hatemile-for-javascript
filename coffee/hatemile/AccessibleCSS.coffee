@@ -18,8 +18,24 @@ exports = this
 ###
 exports.hatemile or= {}
 
-class exports.hatemile.AccessibleCSSSpeechPolyfill
+###*
+ * @class AccessibleCSS
+ * @classdesc The AccessibleCSS interface fixes accessibility problems
+ * associated with CSS.
+ * @memberof hatemile
+###
+class exports.hatemile.AccessibleCSS
 	
-	fixSpeak: (element, rule) ->
+	###*
+	 * Provide a solution to support stylesheet speak properties in element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with speak
+	 * properties.
+	 * @memberof hatemile.AccessibleCSS
+	###
+	fixSpeak: (element) ->
 	
-	fixSpeaks: () ->
+	###*
+	 * Provide a solution to support stylesheet speak properties.
+	 * @memberof hatemile.AccessibleCSS
+	###
+	fixAllSpeaks: () ->

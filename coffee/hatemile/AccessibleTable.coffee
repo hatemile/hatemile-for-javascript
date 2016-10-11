@@ -37,4 +37,4 @@ class exports.hatemile.AccessibleTable
 	 * Associate data cells with header cells of tables.
 	 * @memberof hatemile.AccessibleTable
 	###
-	fixAssociationCellsTables: () ->
+	fixAllAssociationCellsTables: () ->
