@@ -65,7 +65,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	 * Returns the appropriate value for attribute aria-autocomplete of field.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {String} The ARIA value of field.
+	 * @return {string} The ARIA value of field.
 	 * @memberof hatemile.implementation.AccessibleFormImplementation
 	###
 	getARIAAutoComplete = (field, parser) ->

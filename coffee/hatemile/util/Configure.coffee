@@ -33,14 +33,14 @@ class exports.hatemile.util.Configure
 	
 	###*
 	 * Initializes a new object that contains the configuration of HaTeMiLe.
-	 * @param {Object} config The JSON configuration.
+	 * @param {object} config The JSON configuration.
 	 * @memberof hatemile.util.Configure
 	###
 	constructor: (@parameters) ->
 	
 	###*
 	 * Returns the parameters of configuration.
-	 * @return {Object} The parameters of configuration.
+	 * @return {object} The parameters of configuration.
 	 * @memberof hatemile.util.Configure
 	###
 	getParameters: () ->
@@ -51,8 +51,8 @@ class exports.hatemile.util.Configure
 	
 	###*
 	 * Returns the value of a parameter of configuration.
-	 * @param {String} parameter The parameter.
-	 * @return {String} The value of the parameter.
+	 * @param {string} parameter The parameter.
+	 * @return {string} The value of the parameter.
 	 * @memberof hatemile.util.Configure
 	###
 	getParameter: (name) ->

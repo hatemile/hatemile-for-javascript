@@ -40,15 +40,15 @@ class exports.hatemile.util.html.HTMLDOMElement
 	
 	###*
 	 * Returns the tag name of element.
-	 * @return {String} The tag name of element in uppercase letters.
+	 * @return {string} The tag name of element in uppercase letters.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getTagName: () ->
 	
 	###*
 	 * Returns the value of a attribute.
-	 * @param {String} name The name of attribute.
-	 * @return {String} The value of the attribute, if the element not contains
+	 * @param {string} name The name of attribute.
+	 * @return {string} The value of the attribute, if the element not contains
 	 * the attribute returns null.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
@@ -56,23 +56,23 @@ class exports.hatemile.util.html.HTMLDOMElement
 	
 	###*
 	 * Create or modify a attribute.
-	 * @param {String} name The name of attribute.
-	 * @param {String} value The value of attribute.
+	 * @param {string} name The name of attribute.
+	 * @param {string} value The value of attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	setAttribute: (name, value) ->
 	
 	###*
 	 * Remove a attribute of element.
-	 * @param {String} name The name of attribute.
+	 * @param {string} name The name of attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	removeAttribute: (name) ->
 	
 	###*
 	 * Returns if the element has an attribute.
-	 * @param {String} name The name of attribute.
-	 * @return {Boolean} True if the element has the attribute or false if the
+	 * @param {string} name The name of attribute.
+	 * @return {boolean} True if the element has the attribute or false if the
 	 * element not has the attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
@@ -80,7 +80,7 @@ class exports.hatemile.util.html.HTMLDOMElement
 	
 	###*
 	 * Returns if the element has attributes.
-	 * @return {Boolean} True if the element has attributes or false if the
+	 * @return {boolean} True if the element has attributes or false if the
 	 * element not has attributes.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
@@ -88,7 +88,7 @@ class exports.hatemile.util.html.HTMLDOMElement
 	
 	###*
 	 * Returns the text of element.
-	 * @return {String} The text of element.
+	 * @return {string} The text of element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getTextContent: () ->
@@ -116,7 +116,7 @@ class exports.hatemile.util.html.HTMLDOMElement
 	 * @return {hatemile.util.html.HTMLDOMElement} The removed element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
-	removeElement: () ->
+	removeNode: () ->
 	
 	###*
 	 * Replace this element for other element.
@@ -125,7 +125,7 @@ class exports.hatemile.util.html.HTMLDOMElement
 	 * @return {hatemile.util.html.HTMLDOMElement} The element replaced.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
-	replaceElement: (newElement) ->
+	replaceNode: (newElement) ->
 	
 	###*
 	 * Append a element child.
@@ -148,25 +148,35 @@ class exports.hatemile.util.html.HTMLDOMElement
 	 * @return {hatemile.util.html.HTMLDOMElement[]} The children of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
-	getChildren: () ->
+	getChildrenElements: () ->
 	
 	###*
 	 * Append a text child.
-	 * @param {String} text The text.
+	 * @param {string} text The text.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	appendText: (text) ->
 	
 	###*
 	 * Prepend a text child.
-	 * @param {String} text The text.
+	 * @param {string} text The text.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	prependText: (text) ->
 	
+	normalize: () ->
+	
 	###*
 	 * Returns if the element has children.
-	 * @return {Boolean} True if the element has children or false if the element
+	 * @return {boolean} True if the element has children or false if the element
+	 * not has children.
+	 * @memberof hatemile.util.html.HTMLDOMElement
+	###
+	hasChildrenElements: () ->
+	
+	###*
+	 * Returns if the element has children.
+	 * @return {boolean} True if the element has children or false if the element
 	 * not has children.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
@@ -181,35 +191,35 @@ class exports.hatemile.util.html.HTMLDOMElement
 	
 	###*
 	 * Returns the inner HTML code of this element.
-	 * @return {String} The inner HTML code of this element.
+	 * @return {string} The inner HTML code of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getInnerHTML: () ->
 	
 	###*
 	 * Modify the inner HTML code of this element.
-	 * @param {String} html The HTML code.
+	 * @param {string} html The HTML code.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	setInnerHTML: (html) ->
 	
 	###*
 	 * Returns the HTML code of this element.
-	 * @return {String} The HTML code of this element.
+	 * @return {string} The HTML code of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getOuterHTML: () ->
 	
 	###*
 	 * Returns the native object of this element.
-	 * @return {Object} The native object of this element.
+	 * @return {object} The native object of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getData: () ->
 	
 	###*
 	 * Modify the native object of this element.
-	 * @param {Object} data The native object of this element.
+	 * @param {object} data The native object of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	setData: (data) ->
@@ -236,3 +246,5 @@ class exports.hatemile.util.html.HTMLDOMElement
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	###
 	getLastElementChild: () ->
+	
+	equals: (node) ->

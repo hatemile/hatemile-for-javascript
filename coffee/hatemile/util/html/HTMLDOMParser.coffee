@@ -95,7 +95,7 @@ class exports.hatemile.util.html.HTMLDOMParser
 	
 	###*
 	 * Create a element.
-	 * @param {String} tag The tag of element.
+	 * @param {string} tag The tag of element.
 	 * @return {hatemile.util.html.HTMLDOMElement} The element created.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	###
@@ -103,14 +103,14 @@ class exports.hatemile.util.html.HTMLDOMParser
 	
 	###*
 	 * Returns the HTML code of parser.
-	 * @return {String} The HTML code of parser.
+	 * @return {string} The HTML code of parser.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	###
 	getHTML: () ->
 	
 	###*
 	 * Returns the parser.
-	 * @return {Object} The parser or root element of the parser.
+	 * @return {object} The parser or root element of the parser.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	###
 	getParser: () ->

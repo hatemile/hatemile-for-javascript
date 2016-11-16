@@ -36,7 +36,7 @@ exports.hatemile || (exports.hatemile = {});
 exports.hatemile.util.CommonFunctions = {
 	/**
 	 * Count the number of ids created.
-	 * @type {Number}
+	 * @type {number}
 	 * @memberof hatemile.util.CommonFunctions
 	 */
 	count: 0,
@@ -44,7 +44,7 @@ exports.hatemile.util.CommonFunctions = {
 	/**
 	 * Generate a id for a element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {String} prefix The prefix of id.
+	 * @param {string} prefix The prefix of id.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
 	generateId: function(element, prefix) {
@@ -83,9 +83,9 @@ exports.hatemile.util.CommonFunctions = {
 	
 	/**
 	 * Increase a item in a HTML list.
-	 * @param {String} list The list.
-	 * @param {String} stringToIncrease The value of item.
-	 * @return {String} The HTML list with the item added, if the item not was
+	 * @param {string} list The list.
+	 * @param {string} stringToIncrease The value of item.
+	 * @return {string} The HTML list with the item added, if the item not was
 	 * contained in list.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
@@ -105,9 +105,9 @@ exports.hatemile.util.CommonFunctions = {
 	
 	/**
 	 * Verify if the list contains the item.
-	 * @param {String} list The list.
-	 * @param {String} stringToSearch The value of item.
-	 * @return {Boolean} True if the list contains the item or false is not
+	 * @param {string} list The list.
+	 * @param {string} stringToSearch The value of item.
+	 * @return {boolean} True if the list contains the item or false is not
 	 * contains.
 	 * @memberof hatemile.util.CommonFunctions
 	 */

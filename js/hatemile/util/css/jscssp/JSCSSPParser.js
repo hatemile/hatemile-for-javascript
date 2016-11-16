@@ -82,11 +82,11 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 			httpRequest = new XMLHttpRequest();
 		} else if (window.ActiveXObject) {
 			try {
-				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+				httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
 			} catch (_error) {
 				e = _error;
 				try {
-					httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+					httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
 				} catch (_error) {
 					e = _error;
 				}

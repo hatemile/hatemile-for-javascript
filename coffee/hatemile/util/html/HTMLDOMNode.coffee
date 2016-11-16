@@ -19,22 +19,37 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @class AccessibleTable
- * @classdesc The AccessibleTable interface fixes accessibility problems
- * associated with tables.
+ * @namespace util
  * @memberof hatemile
 ###
-class exports.hatemile.AccessibleTable
+exports.hatemile.util or= {}
+
+###*
+ * @namespace html
+ * @memberof hatemile.util
+###
+exports.hatemile.util.html or= {}
+
+class exports.hatemile.util.html.HTMLDOMNode
 	
-	###*
-	 * Associate data cells with header cells of table.
-	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
-	 * @memberof hatemile.AccessibleTable
-	###
-	fixAssociationCellsTable: (table) ->
+	getTextContent: () ->
 	
-	###*
-	 * Associate data cells with header cells of tables.
-	 * @memberof hatemile.AccessibleTable
-	###
-	fixAllAssociationCellsTables: () ->
+	insertBefore: (newNode) ->
+	
+	insertAfter: (newNode) ->
+	
+	removeNode: () ->
+	
+	replaceNode: (newElement) ->
+	
+	appendText: (text) ->
+	
+	prependText: (text) ->
+	
+	getParentElement: () ->
+	
+	getData: () ->
+	
+	setData: (data) ->
+	
+	equals: (node) ->

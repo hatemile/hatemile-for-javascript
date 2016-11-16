@@ -24,7 +24,13 @@ exports.hatemile or= {}
 ###
 exports.hatemile.implementation or= {}
 
-
+###*
+ * @class AccessibleCSSImplementation
+ * @classdesc The AccessibleCSSImplementation class is official implementation
+ * of AccessibleCSS interface.
+ * @extends hatemile.AccessibleCSS
+ * @memberof hatemile.implementation
+###
 class exports.hatemile.implementation.AccessibleCSSImplementation
 	
 	_dataIgnore = 'data-ignoreaccessibilityfix'
@@ -48,7 +54,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	
 	constructor: (@htmlParser, @cssParser, @symbols) ->
 	
-	formatSymbol = (symbol) ->
+	getFormatedSymbol = (symbol) ->
 		return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+')
 				.replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$')
 				.replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}')
@@ -65,7 +71,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	getRegularExpressionOfSymbols = (symbols) ->
 		regularExpression = undefined
 		for symbol in symbols
-			formatedSymbol = formatSymbol(symbol.symbol)
+			formatedSymbol = getFormatedSymbol(symbol.symbol)
 			if isEmpty(regularExpression)
 				regularExpression = "(#{formatedSymbol})"
 			else
@@ -78,43 +84,36 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	isValidElement = (element) ->
 		return _validTags.indexOf(element.getTagName()) isnt -1
 	
-	normalize = (element) ->
-		if (element.getData().normalize)
-			element.getData().normalize()
-		return
-	
 	isolateTextNode = (element, htmlParser) ->
-		if (element.hasChildren()) and (isValidElement(element))
+		if (element.hasChildrenElements()) and (isValidElement(element))
 			if isValidElement(element)
-				nativeElement = element.getData()
-				nativeChildren = nativeElement.childNodes
-				for child in nativeChildren
-					if child.nodeType is nativeElement.ownerDocument.TEXT_NODE
+				children = element.getChildren()
+				for child in children
+					if child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 						span = htmlParser.createElement('span')
 						span.setAttribute(_dataIsolatorElement, 'true')
-						span.appendText(child.nodeValue)
+						span.appendText(child.getTextContent())
 						
-						nativeElement.replaceChild(span.getData(), child)
-			children = element.getChildren()
+						child.replaceNode(span)
+			children = element.getChildrenElements()
 			for elementChild in children
 				isolateTextNode(elementChild, htmlParser)
 		return
 	
 	replaceElementByOwnContent = (element) ->
-		if element.hasChildren()
-			children = element.getChildren()
+		if element.hasChildrenElements()
+			children = element.getChildrenElements()
 			for child in children
 				element.insertBefore(child)
-			element.removeElement()
-		else
-			textNode = element.getData().ownerDocument.createTextNode(element.getTextContent())
-			element.getParentElement().getData().replaceChild(textNode, element.getData())
+			element.removeNode()
+		else if element.hasChildren()
+			element.replaceNode(element.getFirstNodeChild())
 		return
 	
 	visit = (element, dataPropertyValue, htmlParser, symbols, operation) ->
 		if isValidInheritElement(element)
-			if element.hasChildren()
-				children = element.getChildren()
+			if element.hasChildrenElements()
+				children = element.getChildrenElements()
 				for child in children
 					visit(child, dataPropertyValue, htmlParser, symbols, operation)
 			else if isValidElement(element)
@@ -153,7 +152,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	speakNormalInherit = (element, htmlParser) ->
 		visit(element, null, htmlParser, null, speakNormal)
 		
-		normalize(element)
+		element.normalize()
 		return
 	
 	speakNone = (element) ->
@@ -168,14 +167,14 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		visit(element, null, htmlParser, null, speakNone)
 		return
 	
-	speakAs = (element, regex, dataValue, htmlParser, callback) ->
+	speakAs = (element, regularExpression, dataPropertyValue, htmlParser, operation) ->
 		children = []
 		index = -1
 		content = element.getTextContent()
 		while (content.length > 0)
-			index = content.search(new RegExp(regex))
+			index = content.search(new RegExp(regularExpression))
 			if index != -1
-				callback(content, index, children)
+				operation(content, index, children)
 
 				index = index + 1
 				content = content.substr(index)
@@ -184,27 +183,25 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		
 		if children.length > 0
 			if content.length > 0
-				children.push(createContentElement(content, dataValue, htmlParser))
+				children.push(createContentElement(content, dataPropertyValue, htmlParser))
 			
-			nativeElement = element.getData()
-			while (nativeElement.childNodes.length > 0)
-				nativeElement.removeChild(nativeElement.childNodes[0])
+			while (element.hasChildren())
+				element.getFirstNodeChild().removeNode()
 			
 			for child in children
 				element.appendElement(child)
 		return
 	
-	reverseSpeakAs = (element, dataValue, htmlParser) ->
-		auxiliarElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataValue}\"][unselectable=\"on\"]").listResults()
+	reverseSpeakAs = (element, dataPropertyValue, htmlParser) ->
+		auxiliarElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataPropertyValue}\"][unselectable=\"on\"]").listResults()
 		for auxiliarElement in auxiliarElements
-			auxiliarElement.removeElement()
+			auxiliarElement.removeNode()
 		
-		contentElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataValue}\"][#{_dataIsolatorElement}=\"true\"]").listResults()
+		contentElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataPropertyValue}\"][#{_dataIsolatorElement}=\"true\"]").listResults()
 		for contentElement in contentElements
 			replaceElementByOwnContent(contentElement)
 		
-		if (element.getData().normalize)
-			element.getData().normalize()
+		element.normalize()
 		return
 	
 	speakAsNormal = (element, htmlParser) ->
@@ -313,7 +310,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	speakHeaderOnceInherit = (element, htmlParser) ->
 		headerElements = htmlParser.find(element).findDescendants("span[#{_dataSpeakAs}=\"always\"]").listResults()
 		for headerElement in headerElements
-			headerElement.removeElement()
+			headerElement.removeNode()
 		return
 	
 	fixSpeak: (element) ->
@@ -321,7 +318,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		for rule in rules
 			speakElements = @htmlParser.find(rule.getSelector()).listResults()
 			for speakElement in speakElements
-				if speakElement.getData() == element.getData()				
+				if speakElement.equals(element)
 					if rule.hasProperty('speak')
 						declarations = rule.getDeclarations('speak')
 						for declaration in declarations
@@ -336,11 +333,9 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 						declarations = rule.getDeclarations('speak-as')
 						for declaration in declarations
 							propertyValue = declaration.getValue()
-
 							pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)|((digits) ((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)))|(((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)) (digits))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|((digits) ((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((digits) (spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|(((literal\\-punctuation)|(no\\-punctuation)) (digits) (spell\\-out))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out) (digits))|((spell\\-out) (digits) ((literal\\-punctuation)|(no\\-punctuation)))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)) (digits)))$', 'g')
 							if pattern.test(propertyValue)
 								propertyValues = declaration.getValues()
-
 								speakAsNormal(element, @htmlParser)
 								for propertyValue in propertyValues
 									if propertyValue is 'spell-out'
@@ -351,8 +346,6 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 										speakAsNoPunctuationInherit(element, @htmlParser)
 									else if propertyValue is 'digits'
 										speakAsDigitsInherit(element, @htmlParser)
-									else if propertyValue is 'normal'
-										speakAsNormal(element, @htmlParser)
 					if rule.hasProperty('speak-punctuation')
 						declarations = rule.getDeclarations('speak-punctuation')
 						for declaration in declarations

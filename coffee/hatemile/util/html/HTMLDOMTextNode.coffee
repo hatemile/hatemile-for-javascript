@@ -1,4 +1,4 @@
-/*
+###
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -10,33 +10,48 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+###
+exports = this
 
-var exports;
-
-exports = this;
-
-/**
+###*
  * @namespace hatemile
- */
-exports.hatemile || (exports.hatemile = {});
+###
+exports.hatemile or= {}
 
-/**
- * @class AccessibleSelector
- * @classdesc The AccessibleSelector interface perform changes in selectors.
+###*
+ * @namespace util
  * @memberof hatemile
- */
-exports.hatemile.AccessibleSelector = (function() {
-	function AccessibleSelector() {
-	}
+###
+exports.hatemile.util or= {}
 
-	/**
-	 * Change the selectors.
-	 * @memberof hatemile.AccessibleSelector
-	 */
-	AccessibleSelector.prototype.fixSelectors = function() {
-	};
+###*
+ * @namespace html
+ * @memberof hatemile.util
+###
+exports.hatemile.util.html or= {}
 
-	return AccessibleSelector;
-
-})();
+class exports.hatemile.util.html.HTMLDOMTextNode
+	
+	setTextContent: (text) ->
+	
+	getTextContent: () ->
+	
+	insertBefore: (newNode) ->
+	
+	insertAfter: (newNode) ->
+	
+	removeNode: () ->
+	
+	replaceNode: (newElement) ->
+	
+	appendText: (text) ->
+	
+	prependText: (text) ->
+	
+	getParentElement: () ->
+	
+	getData: () ->
+	
+	setData: (data) ->
+	
+	equals: (node) ->

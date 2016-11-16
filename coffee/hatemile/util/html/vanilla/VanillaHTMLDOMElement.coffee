@@ -109,11 +109,11 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		parent.appendChild(newElement.getData())
 		return newElement
 	
-	removeElement: () ->
+	removeNode: () ->
 		@data.remove()
 		return this
 	
-	replaceElement: (newElement) ->
+	replaceNode: (newElement) ->
 		parent = @data.parentNode
 		parent.replaceChild(newElement.getData(), @data)
 		return newElement
@@ -130,27 +130,59 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			@data.insertBefore(element.getData(), firstChildNode)
 		return element
 	
-	getChildren: () ->
+	getChildrenElements: () ->
 		children = @data.children
 		array = []
 		for child in children
 			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
+	getChildren: () ->
+		children = @data.childNodes
+		array = []
+		for child in children
+			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
+				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
+			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
+				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+		return array
+	
 	appendText: (text) ->
-		@data.appendChild(@data.ownerDocument.createTextNode(text))
+		child = @getLastNodeChild()
+		if (child isnt undefined) and (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
+			child.appendText(text)
+		else
+			@data.appendChild(@data.ownerDocument.createTextNode(text))
 		return
 	
 	prependText: (text) ->
-		if isEmpty(@data.childNodes)
-			appendText(text)
+		if (not @hasChildren())
+			@appendText(text)
 		else
-			firstChildNode = @data.childNodes[0]
-			@data.insertBefore(document.createTextNode(text), firstChildNode)
+			child = @getFirstNodeChild()
+			if child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+				child.prependText(text)
+			else
+				@data.insertBefore(@data.ownerDocument.createTextNode(text), child.getData())
 		return element
 	
-	hasChildren: () ->
+	normalize: () ->
+		if (@data.normalize)
+			@data.normalize()
+		return
+	
+	hasChildrenElements: () ->
 		return not isEmpty(@data.children)
+	
+	hasChildren: () ->
+		if not @data.hasChildNodes()
+			return false
+		else
+			children = @data.childNodes
+			for child in children
+				if (child.nodeType is @data.ownerDocument.TEXT_NODE) or (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
+					return true
+			return false
 	
 	getParentElement: () ->
 		if isEmpty(@data.parentNode)
@@ -180,11 +212,43 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
 	
 	getFirstElementChild: () ->
-		if not @hasChildren
+		if not @hasChildrenElements()
 			return undefined
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
 	
 	getLastElementChild: () ->
-		if not @hasChildren
+		if not @hasChildrenElements()
 			return undefined
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
+	
+	getFirstNodeChild: () ->
+		if not @hasChildren()
+			return undefined
+		children = @data.childNodes
+		for child in children
+			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
+				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
+			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
+				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+		return undefined
+	
+	getLastNodeChild: () ->
+		if not @hasChildren()
+			return undefined
+		children = @data.childNodes
+		lastChild = undefined
+		for child in children
+			if ((child.nodeType is @data.ownerDocument.TEXT_NODE) or (child.nodeType is @data.ownerDocument.ELEMENT_NODE))
+				lastChild = child
+		if lastChild == undefined
+			return undefined
+		else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
+			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
+		else if (lastChild.nodeType is @data.ownerDocument.ELEMENT_NODE)
+			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
+	
+	equals: (node) ->
+		if node instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
+			if @data is node.getData()
+				return true
+		return false

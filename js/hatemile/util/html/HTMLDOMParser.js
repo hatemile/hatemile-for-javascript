@@ -107,7 +107,7 @@ exports.hatemile.util.html.HTMLDOMParser = (function() {
 
 	/**
 	 * Create a element.
-	 * @param {String} tag The tag of element.
+	 * @param {string} tag The tag of element.
 	 * @return {hatemile.util.html.HTMLDOMElement} The element created.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	 */
@@ -116,7 +116,7 @@ exports.hatemile.util.html.HTMLDOMParser = (function() {
 
 	/**
 	 * Returns the HTML code of parser.
-	 * @return {String} The HTML code of parser.
+	 * @return {string} The HTML code of parser.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	 */
 	HTMLDOMParser.prototype.getHTML = function() {
@@ -124,7 +124,7 @@ exports.hatemile.util.html.HTMLDOMParser = (function() {
 
 	/**
 	 * Returns the parser.
-	 * @return {Object} The parser or root element of the parser.
+	 * @return {object} The parser or root element of the parser.
 	 * @memberof hatemile.util.html.HTMLDOMParser
 	 */
 	HTMLDOMParser.prototype.getParser = function() {

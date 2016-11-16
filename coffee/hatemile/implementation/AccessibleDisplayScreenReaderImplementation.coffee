@@ -24,63 +24,94 @@ exports.hatemile or= {}
 ###
 exports.hatemile.implementation or= {}
 
+###*
+ * @class AccessibleDisplayScreenReaderImplementation
+ * @classdesc The AccessibleDisplayScreenReaderImplementation class is official
+ * implementation of AccessibleDisplay interface for screen readers.
+ * @extends hatemile.AccessibleDisplay
+ * @memberof hatemile.implementation
+###
 class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	
 	_idContainerShortcuts = 'container-shortcuts'
 	_idTextShortcuts = 'text-shortcuts'
 	_dataIgnore = 'data-ignoreaccessibilityfix'
-	_classForceReadBegin = 'force-read-begin'
-	_classForceReadEnd = 'force-read-end'
-	_dataAttributeRequiredBeginFor = 'data-attributerequiredbeginfor'
-	_dataAttributeRequiredEndFor = 'data-attributerequiredendfor'
-	_dataAttributeRangeMinBeginFor = 'data-attributevalueminbeginfor'
-	_dataAttributeRangeMinEndFor = 'data-attributevalueminendfor'
-	_dataAttributeRangeMaxBeginFor = 'data-attributevaluemaxbeginfor'
-	_dataAttributeRangeMaxEndFor = 'data-attributevaluemaxendfor'
-	_dataAttributeAutoCompleteBeginFor = 'data-attributeautocompletebeginfor'
-	_dataAttributeAutoCompleteEndFor = 'data-attributeautocompleteendfor'
-	_dataAttributeTitleBeginFor = 'data-attributetitlebeginfor'
-	_dataAttributeTitleEndFor = 'data-attributetitleendfor'
-	_dataAttributeHrefBeginFor = 'data-attributehrefbeginfor'
-	_dataAttributeHrefEndFor = 'data-attributehrefendfor'
-	_dataAttributeAccesskeyBeginFor = 'data-attributeaccesskeybeginfor'
-	_dataAttributeAccesskeyEndFor = 'data-attributeaccesskeyendfor'
-	_dataAttributeTargetBeginFor = 'data-attributetargetbeginfor'
-	_dataAttributeTargetEndFor = 'data-attributetargetendfor'
-	_dataAttributeDownloadBeginFor = 'data-attributedownloadbeginfor'
-	_dataAttributeDownloadEndFor = 'data-attributedownloadendfor'
-	_dataAttributeDraggableBeginFor = 'data-attributedraggablebeginfor'
-	_dataAttributeDraggableEndFor = 'data-attributedraggableendfor'
-	_dataAttributeDropzoneBeginFor = 'data-attributedropzonebeginfor'
-	_dataAttributeDropzoneEndFor = 'data-attributedropzoneendfor'
-	_dataAttributeLanguageBeginFor = 'data-languagebeginfor'
-	_dataAttributeLanguageEndFor = 'data-languageendfor'
-	_dataAttributeHeadersBeginFor = 'data-headersbeginfor'
-	_dataAttributeHeadersEndFor = 'data-headersendfor'
-	_dataAriaBusyBeginFor = 'data-ariabusybeginfor'
-	_dataAriaBusyEndFor = 'data-ariabusyendfor'
-	_dataAriaCheckedBeginFor = 'data-ariacheckedbeginfor'
-	_dataAriaCheckedEndFor = 'data-ariacheckedendfor'
-	_dataAriaDropeffectBeginFor = 'data-ariadropeffectbeginfor'
-	_dataAriaDropeffectEndFor = 'data-ariadropeffectendfor'
-	_dataAriaExpandedBeginFor = 'data-ariaexpandedbeginfor'
-	_dataAriaExpandedEndFor = 'data-ariaexpandedendfor'
-	_dataAriaGrabbedBeginFor = 'data-ariagrabbedbeginfor'
-	_dataAriaGrabbedEndFor = 'data-ariagrabbedendfor'
-	_dataAriaHaspopupBeginFor = 'data-ariahaspopupbeginfor'
-	_dataAriaHaspopupEndFor = 'data-ariahaspopupendfor'
-	_dataAriaLevelBeginFor = 'data-arialevelbeginfor'
-	_dataAriaLevelEndFor = 'data-arialevelendfor'
-	_dataAriaOrientationBeginFor = 'data-ariaorientationbeginfor'
-	_dataAriaOrientationEndFor = 'data-ariaorientationendfor'
-	_dataAriaPressedBeginFor = 'data-ariapressedbeginfor'
-	_dataAriaPressedEndFor = 'data-ariapressedendfor'
-	_dataAriaSelectedBeginFor = 'data-ariaselectedbeginfor'
-	_dataAriaSelectedEndFor = 'data-ariaselectedendfor'
-	_dataAriaSortBeginFor = 'data-ariasortbeginfor'
-	_dataAriaSortEndFor = 'data-ariasortendfor'
-	_dataRoleBeginFor = 'data-rolebeginfor'
-	_dataRoleEndFor = 'data-roleendfor'
+	_classForceReadBefore = 'force-read-before'
+	_classForceReadAfter = 'force-read-after'
+	_dataAttributeRequiredBeforeOf = 'data-attributerequiredbeforeof'
+	_dataAttributeRequiredAfterOf = 'data-attributerequiredafterof'
+	_dataAttributeRangeMinBeforeOf = 'data-attributevalueminbeforeof'
+	_dataAttributeRangeMinAfterOf = 'data-attributevalueminafterof'
+	_dataAttributeRangeMaxBeforeOf = 'data-attributevaluemaxbeforeof'
+	_dataAttributeRangeMaxAfterOf = 'data-attributevaluemaxafterof'
+	_dataAttributeAutoCompleteBeforeOf = 'data-attributeautocompletebeforeof'
+	_dataAttributeAutoCompleteAfterOf = 'data-attributeautocompleteafterof'
+	_dataAttributeTitleBeforeOf = 'data-attributetitlebeforeof'
+	_dataAttributeTitleAfterOf = 'data-attributetitleafterof'
+	_dataAttributeHrefBeforeOf = 'data-attributehrefbeforeof'
+	_dataAttributeHrefAfterOf = 'data-attributehrefafterof'
+	_dataAttributeAccesskeyBeforeOf = 'data-attributeaccesskeybeforeof'
+	_dataAttributeAccesskeyAfterOf = 'data-attributeaccesskeyafterof'
+	_dataAttributeTargetBeforeOf = 'data-attributetargetbeforeof'
+	_dataAttributeTargetAfterOf = 'data-attributetargetafterof'
+	_dataAttributeDownloadBeforeOf = 'data-attributedownloadbeforeof'
+	_dataAttributeDownloadAfterOf = 'data-attributedownloadafterof'
+	_dataAttributeDraggableBeforeOf = 'data-attributedraggablebeforeof'
+	_dataAttributeDraggableAfterOf = 'data-attributedraggableafterof'
+	_dataAttributeDropzoneBeforeOf = 'data-attributedropzonebeforeof'
+	_dataAttributeDropzoneAfterOf = 'data-attributedropzoneafterof'
+	_dataAttributeLanguageBeforeOf = 'data-languagebeforeof'
+	_dataAttributeLanguageAfterOf = 'data-languageafterof'
+	_dataAttributeHeadersBeforeOf = 'data-headersbeforeof'
+	_dataAttributeHeadersAfterOf = 'data-headersafterof'
+	_dataAriaBusyBeforeOf = 'data-ariabusybeforeof'
+	_dataAriaBusyAfterOf = 'data-ariabusyafterof'
+	_dataAriaCheckedBeforeOf = 'data-ariacheckedbeforeof'
+	_dataAriaCheckedAfterOf = 'data-ariacheckedafterof'
+	_dataAriaDropeffectBeforeOf = 'data-ariadropeffectbeforeof'
+	_dataAriaDropeffectAfterOf = 'data-ariadropeffectafterof'
+	_dataAriaExpandedBeforeOf = 'data-ariaexpandedbeforeof'
+	_dataAriaExpandedAfterOf = 'data-ariaexpandedafterof'
+	_dataAriaGrabbedBeforeOf = 'data-ariagrabbedbeforeof'
+	_dataAriaGrabbedAfterOf = 'data-ariagrabbedafterof'
+	_dataAriaHaspopupBeforeOf = 'data-ariahaspopupbeforeof'
+	_dataAriaHaspopupAfterOf = 'data-ariahaspopupafterof'
+	_dataAriaInvalidBeforeOf = 'data-ariainvalidbeforeof'
+	_dataAriaInvalidAfterOf = 'data-ariainvalidafterof'
+	_dataAriaLevelBeforeOf = 'data-arialevelbeforeof'
+	_dataAriaLevelAfterOf = 'data-arialevelafterof'
+	_dataAriaOrientationBeforeOf = 'data-ariaorientationbeforeof'
+	_dataAriaOrientationAfterOf = 'data-ariaorientationafterof'
+	_dataAriaPressedBeforeOf = 'data-ariapressedbeforeof'
+	_dataAriaPressedAfterOf = 'data-ariapressedafterof'
+	_dataAriaSelectedBeforeOf = 'data-ariaselectedbeforeof'
+	_dataAriaSelectedAfterOf = 'data-ariaselectedafterof'
+	_dataAriaSortBeforeOf = 'data-ariasortbeforeof'
+	_dataAriaSortAfterOf = 'data-ariasortafterof'
+	_dataRoleBeforeOf = 'data-rolebeforeof'
+	_dataRoleAfterOf = 'data-roleafterof'
+	_dataInvalidURLBeforeOf = 'data-invalidurlbeforeof'
+	_dataInvalidURLAfterOf = 'data-invalidurlafterof'
+	_dataInvalidEmailBeforeOf = 'data-invalidemailbeforeof'
+	_dataInvalidEmailAfterOf = 'data-invalidemailafterof'
+	_dataInvalidRangeBeforeOf = 'data-invalidrangebeforeof'
+	_dataInvalidRangeAfterOf = 'data-invalidrangeafterof'
+	_dataInvalidLengthBeforeOf = 'data-invalidlengthbeforeof'
+	_dataInvalidLengthAfterOf = 'data-invalidlengthafterof'
+	_dataInvalidPatternBeforeOf = 'data-invalidpatternbeforeof'
+	_dataInvalidPatternAfterOf = 'data-invalidpatternafterof'
+	_dataInvalidRequiredBeforeOf = 'data-invalidrequiredbeforeof'
+	_dataInvalidRequiredAfterOf = 'data-invalidrequiredafterof'
+	_dataInvalidDateBeforeOf = 'data-invaliddatebeforeof'
+	_dataInvalidDateAfterOf = 'data-invaliddateafterof'
+	_dataInvalidTimeBeforeOf = 'data-invalidtimebeforeof'
+	_dataInvalidTimeAfterOf = 'data-invalidtimeafterof'
+	_dataInvalidDateTimeBeforeOf = 'data-invaliddatetimebeforeof'
+	_dataInvalidDateTimeAfterOf = 'data-invaliddatetimeafterof'
+	_dataInvalidMonthBeforeOf = 'data-invalidmonthbeforeof'
+	_dataInvalidMonthAfterOf = 'data-invalidmonthafterof'
+	_dataInvalidWeekBeforeOf = 'data-invalidweekbeforeof'
+	_dataInvalidWeekAfterOf = 'data-invalidweekafterof'
 	_dataInvalidURL = 'data-invalidurl'
 	_dataInvalidEmail = 'data-invalidemail'
 	_dataInvalidRange = 'data-invalidrange'
@@ -93,120 +124,144 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	_dataInvalidMonth = 'data-invalidmonth'
 	_dataInvalidWeek = 'data-invalidweek'
 	
-	constructor: (@parser, configure, @shortcutPrefix) ->
-		if isEmpty(@shortcutPrefix)
-			@shortcutPrefix = ''
+	constructor: (@parser, configure, userAgent) ->
+		@shortcutPrefix = getShortcutPrefix(userAgent)
 		
 		@listShortcutsAdded = false
 		@listShortcuts = undefined
 		
 		@prefixId = configure.getParameter('prefix-generated-ids')
 		
-		@attributeTitlePrefixBegin = configure.getParameter('attribute-title-prefix-begin')
-		@attributeTitleSuffixBegin = configure.getParameter('attribute-title-suffix-begin')
-		@attributeTitlePrefixEnd = configure.getParameter('attribute-title-prefix-end')
-		@attributeTitleSuffixEnd = configure.getParameter('attribute-title-suffix-end')
-		@attributeHrefPrefixBegin = configure.getParameter('attribute-href-prefix-begin')
-		@attributeHrefSuffixBegin = configure.getParameter('attribute-href-suffix-begin')
-		@attributeHrefPrefixEnd = configure.getParameter('attribute-href-prefix-end')
-		@attributeHrefSuffixEnd = configure.getParameter('attribute-href-suffix-end')
-		@attributeAccesskeyPrefixBegin = configure.getParameter('attribute-accesskey-prefix-begin')
-		@attributeAccesskeySuffixBegin = configure.getParameter('attribute-accesskey-suffix-begin')
-		@attributeAccesskeyPrefixEnd = configure.getParameter('attribute-accesskey-prefix-end')
-		@attributeAccesskeySuffixEnd = configure.getParameter('attribute-accesskey-suffix-end')
-		@attributeTargetBlankBegin = configure.getParameter('attribute-target-blank-begin')
-		@attributeTargetBlankEnd = configure.getParameter('attribute-target-blank-end')
-		@attributeDownloadBegin = configure.getParameter('attribute-download-begin')
-		@attributeDownloadEnd = configure.getParameter('attribute-download-end')
-		@attributeDraggableBegin = configure.getParameter('attribute-draggable-begin')
-		@attributeDraggableEnd = configure.getParameter('attribute-draggable-end')
-		@attributeDropzoneCopyBegin = configure.getParameter('attribute-dropzone-copy-begin')
-		@attributeDropzoneCopyEnd = configure.getParameter('attribute-dropzone-copy-end')
-		@attributeDropzoneMoveBegin = configure.getParameter('attribute-dropzone-move-begin')
-		@attributeDropzoneMoveEnd = configure.getParameter('attribute-dropzone-move-end')
-		@attributeDropzoneLinkBegin = configure.getParameter('attribute-dropzone-link-begin')
-		@attributeDropzoneLinkEnd = configure.getParameter('attribute-dropzone-link-end')
-		@attributeHeadersPrefixBegin = configure.getParameter('attribute-headers-prefix-begin')
-		@attributeHeadersSuffixBegin = configure.getParameter('attribute-headers-suffix-begin')
-		@attributeHeadersPrefixEnd = configure.getParameter('attribute-headers-prefix-end')
-		@attributeHeadersSuffixEnd = configure.getParameter('attribute-headers-suffix-end')
-		@attributeLanguagePrefixBegin = configure.getParameter('attribute-language-prefix-begin')
-		@attributeLanguageSuffixBegin = configure.getParameter('attribute-language-suffix-begin')
-		@attributeLanguagePrefixEnd = configure.getParameter('attribute-language-prefix-end')
-		@attributeLanguageSuffixEnd = configure.getParameter('attribute-language-suffix-end')
-		@attributeRolePrefixBegin = configure.getParameter('attribute-role-prefix-begin')
-		@attributeRoleSuffixBegin = configure.getParameter('attribute-role-suffix-begin')
-		@attributeRolePrefixEnd = configure.getParameter('attribute-role-prefix-end')
-		@attributeRoleSuffixEnd = configure.getParameter('attribute-role-suffix-end')
+		@attributeTitlePrefixBefore = configure.getParameter('attribute-title-prefix-before')
+		@attributeTitleSuffixBefore = configure.getParameter('attribute-title-suffix-before')
+		@attributeTitlePrefixAfter = configure.getParameter('attribute-title-prefix-after')
+		@attributeTitleSuffixAfter = configure.getParameter('attribute-title-suffix-after')
+		@attributeHrefPrefixBefore = configure.getParameter('attribute-href-prefix-before')
+		@attributeHrefSuffixBefore = configure.getParameter('attribute-href-suffix-before')
+		@attributeHrefPrefixAfter = configure.getParameter('attribute-href-prefix-after')
+		@attributeHrefSuffixAfter = configure.getParameter('attribute-href-suffix-after')
+		@attributeAccesskeyPrefixBefore = configure.getParameter('attribute-accesskey-prefix-before')
+		@attributeAccesskeySuffixBefore = configure.getParameter('attribute-accesskey-suffix-before')
+		@attributeAccesskeyPrefixAfter = configure.getParameter('attribute-accesskey-prefix-after')
+		@attributeAccesskeySuffixAfter = configure.getParameter('attribute-accesskey-suffix-after')
+		@attributeTargetBlankBefore = configure.getParameter('attribute-target-blank-before')
+		@attributeTargetBlankAfter = configure.getParameter('attribute-target-blank-after')
+		@attributeDownloadBefore = configure.getParameter('attribute-download-before')
+		@attributeDownloadAfter = configure.getParameter('attribute-download-after')
+		@attributeDraggableBefore = configure.getParameter('attribute-draggable-before')
+		@attributeDraggableAfter = configure.getParameter('attribute-draggable-after')
+		@attributeDropzoneCopyBefore = configure.getParameter('attribute-dropzone-copy-before')
+		@attributeDropzoneCopyAfter = configure.getParameter('attribute-dropzone-copy-after')
+		@attributeDropzoneMoveBefore = configure.getParameter('attribute-dropzone-move-before')
+		@attributeDropzoneMoveAfter = configure.getParameter('attribute-dropzone-move-after')
+		@attributeDropzoneLinkBefore = configure.getParameter('attribute-dropzone-link-before')
+		@attributeDropzoneLinkAfter = configure.getParameter('attribute-dropzone-link-after')
+		@attributeHeadersPrefixBefore = configure.getParameter('attribute-headers-prefix-before')
+		@attributeHeadersSuffixBefore = configure.getParameter('attribute-headers-suffix-before')
+		@attributeHeadersPrefixAfter = configure.getParameter('attribute-headers-prefix-after')
+		@attributeHeadersSuffixAfter = configure.getParameter('attribute-headers-suffix-after')
+		@attributeLanguagePrefixBefore = configure.getParameter('attribute-language-prefix-before')
+		@attributeLanguageSuffixBefore = configure.getParameter('attribute-language-suffix-before')
+		@attributeLanguagePrefixAfter = configure.getParameter('attribute-language-prefix-after')
+		@attributeLanguageSuffixAfter = configure.getParameter('attribute-language-suffix-after')
+		@attributeRolePrefixBefore = configure.getParameter('attribute-role-prefix-before')
+		@attributeRoleSuffixBefore = configure.getParameter('attribute-role-suffix-before')
+		@attributeRolePrefixAfter = configure.getParameter('attribute-role-prefix-after')
+		@attributeRoleSuffixAfter = configure.getParameter('attribute-role-suffix-after')
 		
-		@ariaAutoCompleteBothBegin = configure.getParameter('aria-autocomplete-both-begin')
-		@ariaAutoCompleteBothEnd = configure.getParameter('aria-autocomplete-both-end')
-		@ariaAutoCompleteInlineBegin = configure.getParameter('aria-autocomplete-inline-begin')
-		@ariaAutoCompleteInlineEnd = configure.getParameter('aria-autocomplete-inline-end')
-		@ariaAutoCompleteListBegin = configure.getParameter('aria-autocomplete-list-begin')
-		@ariaAutoCompleteListEnd = configure.getParameter('aria-autocomplete-list-end')
-		@ariaBusyTrueBegin = configure.getParameter('aria-busy-true-begin')
-		@ariaBusyTrueEnd = configure.getParameter('aria-busy-true-end')
-		@ariaCheckedFalseBegin = configure.getParameter('aria-checked-false-begin')
-		@ariaCheckedFalseEnd = configure.getParameter('aria-checked-false-end')
-		@ariaCheckedMixedBegin = configure.getParameter('aria-checked-mixed-begin')
-		@ariaCheckedMixedEnd = configure.getParameter('aria-checked-mixed-end')
-		@ariaCheckedTrueBegin = configure.getParameter('aria-checked-true-begin')
-		@ariaCheckedTrueEnd = configure.getParameter('aria-checked-true-end')
-		@ariaDropeffectCopyBegin = configure.getParameter('aria-dropeffect-copy-begin')
-		@ariaDropeffectCopyEnd = configure.getParameter('aria-dropeffect-copy-end')
-		@ariaDropeffectExecuteBegin = configure.getParameter('aria-dropeffect-execute-begin')
-		@ariaDropeffectExecuteEnd = configure.getParameter('aria-dropeffect-execute-end')
-		@ariaDropeffectLinkBegin = configure.getParameter('aria-dropeffect-link-begin')
-		@ariaDropeffectLinkEnd = configure.getParameter('aria-dropeffect-link-end')
-		@ariaDropeffectMoveBegin = configure.getParameter('aria-dropeffect-move-begin')
-		@ariaDropeffectMoveEnd = configure.getParameter('aria-dropeffect-move-end')
-		@ariaDropeffectPopupBegin = configure.getParameter('aria-dropeffect-popup-begin')
-		@ariaDropeffectPopupEnd = configure.getParameter('aria-dropeffect-popup-end')
-		@ariaExpandedFalseBegin = configure.getParameter('aria-expanded-false-begin')
-		@ariaExpandedFalseEnd = configure.getParameter('aria-expanded-false-end')
-		@ariaExpandedTrueBegin = configure.getParameter('aria-expanded-true-begin')
-		@ariaExpandedTrueEnd = configure.getParameter('aria-expanded-true-end')
-		@ariaGrabbedFalseBegin = configure.getParameter('aria-grabbed-false-begin')
-		@ariaGrabbedFalseEnd = configure.getParameter('aria-grabbed-false-end')
-		@ariaGrabbedTrueBegin = configure.getParameter('aria-grabbed-true-begin')
-		@ariaGrabbedTrueEnd = configure.getParameter('aria-grabbed-true-end')
-		@ariaHaspopupTrueBegin = configure.getParameter('aria-haspopup-true-begin')
-		@ariaHaspopupTrueEnd = configure.getParameter('aria-haspopup-true-end')
-		@ariaLevelPrefixBegin = configure.getParameter('aria-level-prefix-begin')
-		@ariaLevelSuffixBegin = configure.getParameter('aria-level-suffix-begin')
-		@ariaLevelPrefixEnd = configure.getParameter('aria-level-prefix-end')
-		@ariaLevelSuffixEnd = configure.getParameter('aria-level-suffix-end')
-		@ariaValueMaximumPrefixBegin = configure.getParameter('aria-value-maximum-prefix-begin')
-		@ariaValueMaximumSuffixBegin = configure.getParameter('aria-value-maximum-suffix-begin')
-		@ariaValueMaximumPrefixEnd = configure.getParameter('aria-value-maximum-prefix-end')
-		@ariaValueMaximumSuffixEnd = configure.getParameter('aria-value-maximum-suffix-end')
-		@ariaValueMinimumPrefixBegin = configure.getParameter('aria-value-minimum-prefix-begin')
-		@ariaValueMinimumSuffixBegin = configure.getParameter('aria-value-minimum-suffix-begin')
-		@ariaValueMinimumPrefixEnd = configure.getParameter('aria-value-minimum-prefix-end')
-		@ariaValueMinimumSuffixEnd = configure.getParameter('aria-value-minimum-suffix-end')
-		@ariaOrientationHorizontalBegin = configure.getParameter('aria-orientation-horizontal-begin')
-		@ariaOrientationHorizontalEnd = configure.getParameter('aria-orientation-horizontal-end')
-		@ariaOrientationVerticalBegin = configure.getParameter('aria-orientation-vertical-begin')
-		@ariaOrientationVerticalEnd = configure.getParameter('aria-orientation-vertical-end')
-		@ariaPressedFalseBegin = configure.getParameter('aria-pressed-false-begin')
-		@ariaPressedFalseEnd = configure.getParameter('aria-pressed-false-end')
-		@ariaPressedMixedBegin = configure.getParameter('aria-pressed-mixed-begin')
-		@ariaPressedMixedEnd = configure.getParameter('aria-pressed-mixed-end')
-		@ariaPressedTrueBegin = configure.getParameter('aria-pressed-true-begin')
-		@ariaPressedTrueEnd = configure.getParameter('aria-pressed-true-end')
-		@ariaRequiredTrueBegin = configure.getParameter('aria-required-true-begin')
-		@ariaRequiredTrueEnd = configure.getParameter('aria-required-true-end')
-		@ariaSelectedFalseBegin = configure.getParameter('aria-selected-false-begin')
-		@ariaSelectedFalseEnd = configure.getParameter('aria-selected-false-end')
-		@ariaSelectedTrueBegin = configure.getParameter('aria-selected-true-begin')
-		@ariaSelectedTrueEnd = configure.getParameter('aria-selected-true-end')
-		@ariaSortAscendingBegin = configure.getParameter('aria-sort-ascending-begin')
-		@ariaSortAscendingEnd = configure.getParameter('aria-sort-ascending-end')
-		@ariaSortDescendingBegin = configure.getParameter('aria-sort-descending-begin')
-		@ariaSortDescendingEnd = configure.getParameter('aria-sort-descending-end')
-		@ariaSortOtherBegin = configure.getParameter('aria-sort-other-begin')
-		@ariaSortOtherEnd = configure.getParameter('aria-sort-other-end')
+		@ariaAutoCompleteBothBefore = configure.getParameter('aria-autocomplete-both-before')
+		@ariaAutoCompleteBothAfter = configure.getParameter('aria-autocomplete-both-after')
+		@ariaAutoCompleteInlineBefore = configure.getParameter('aria-autocomplete-inline-before')
+		@ariaAutoCompleteInlineAfter = configure.getParameter('aria-autocomplete-inline-after')
+		@ariaAutoCompleteListBefore = configure.getParameter('aria-autocomplete-list-before')
+		@ariaAutoCompleteListAfter = configure.getParameter('aria-autocomplete-list-after')
+		@ariaBusyTrueBefore = configure.getParameter('aria-busy-true-before')
+		@ariaBusyTrueAfter = configure.getParameter('aria-busy-true-after')
+		@ariaCheckedFalseBefore = configure.getParameter('aria-checked-false-before')
+		@ariaCheckedFalseAfter = configure.getParameter('aria-checked-false-after')
+		@ariaCheckedMixedBefore = configure.getParameter('aria-checked-mixed-before')
+		@ariaCheckedMixedAfter = configure.getParameter('aria-checked-mixed-after')
+		@ariaCheckedTrueBefore = configure.getParameter('aria-checked-true-before')
+		@ariaCheckedTrueAfter = configure.getParameter('aria-checked-true-after')
+		@ariaDropeffectCopyBefore = configure.getParameter('aria-dropeffect-copy-before')
+		@ariaDropeffectCopyAfter = configure.getParameter('aria-dropeffect-copy-after')
+		@ariaDropeffectExecuteBefore = configure.getParameter('aria-dropeffect-execute-before')
+		@ariaDropeffectExecuteAfter = configure.getParameter('aria-dropeffect-execute-after')
+		@ariaDropeffectLinkBefore = configure.getParameter('aria-dropeffect-link-before')
+		@ariaDropeffectLinkAfter = configure.getParameter('aria-dropeffect-link-after')
+		@ariaDropeffectMoveBefore = configure.getParameter('aria-dropeffect-move-before')
+		@ariaDropeffectMoveAfter = configure.getParameter('aria-dropeffect-move-after')
+		@ariaDropeffectPopupBefore = configure.getParameter('aria-dropeffect-popup-before')
+		@ariaDropeffectPopupAfter = configure.getParameter('aria-dropeffect-popup-after')
+		@ariaExpandedFalseBefore = configure.getParameter('aria-expanded-false-before')
+		@ariaExpandedFalseAfter = configure.getParameter('aria-expanded-false-after')
+		@ariaExpandedTrueBefore = configure.getParameter('aria-expanded-true-before')
+		@ariaExpandedTrueAfter = configure.getParameter('aria-expanded-true-after')
+		@ariaGrabbedFalseBefore = configure.getParameter('aria-grabbed-false-before')
+		@ariaGrabbedFalseAfter = configure.getParameter('aria-grabbed-false-after')
+		@ariaGrabbedTrueBefore = configure.getParameter('aria-grabbed-true-before')
+		@ariaGrabbedTrueAfter = configure.getParameter('aria-grabbed-true-after')
+		@ariaHaspopupTrueBefore = configure.getParameter('aria-haspopup-true-before')
+		@ariaHaspopupTrueAfter = configure.getParameter('aria-haspopup-true-after')
+		@ariaInvalidTrueBefore = configure.getParameter('aria-invalid-true-before')
+		@ariaInvalidTrueAfter = configure.getParameter('aria-invalid-true-after')
+		@ariaLevelPrefixBefore = configure.getParameter('aria-level-prefix-before')
+		@ariaLevelSuffixBefore = configure.getParameter('aria-level-suffix-before')
+		@ariaLevelPrefixAfter = configure.getParameter('aria-level-prefix-after')
+		@ariaLevelSuffixAfter = configure.getParameter('aria-level-suffix-after')
+		@ariaValueMaximumPrefixBefore = configure.getParameter('aria-value-maximum-prefix-before')
+		@ariaValueMaximumSuffixBefore = configure.getParameter('aria-value-maximum-suffix-before')
+		@ariaValueMaximumPrefixAfter = configure.getParameter('aria-value-maximum-prefix-after')
+		@ariaValueMaximumSuffixAfter = configure.getParameter('aria-value-maximum-suffix-after')
+		@ariaValueMinimumPrefixBefore = configure.getParameter('aria-value-minimum-prefix-before')
+		@ariaValueMinimumSuffixBefore = configure.getParameter('aria-value-minimum-suffix-before')
+		@ariaValueMinimumPrefixAfter = configure.getParameter('aria-value-minimum-prefix-after')
+		@ariaValueMinimumSuffixAfter = configure.getParameter('aria-value-minimum-suffix-after')
+		@ariaOrientationHorizontalBefore = configure.getParameter('aria-orientation-horizontal-before')
+		@ariaOrientationHorizontalAfter = configure.getParameter('aria-orientation-horizontal-after')
+		@ariaOrientationVerticalBefore = configure.getParameter('aria-orientation-vertical-before')
+		@ariaOrientationVerticalAfter = configure.getParameter('aria-orientation-vertical-after')
+		@ariaPressedFalseBefore = configure.getParameter('aria-pressed-false-before')
+		@ariaPressedFalseAfter = configure.getParameter('aria-pressed-false-after')
+		@ariaPressedMixedBefore = configure.getParameter('aria-pressed-mixed-before')
+		@ariaPressedMixedAfter = configure.getParameter('aria-pressed-mixed-after')
+		@ariaPressedTrueBefore = configure.getParameter('aria-pressed-true-before')
+		@ariaPressedTrueAfter = configure.getParameter('aria-pressed-true-after')
+		@ariaRequiredTrueBefore = configure.getParameter('aria-required-true-before')
+		@ariaRequiredTrueAfter = configure.getParameter('aria-required-true-after')
+		@ariaSelectedFalseBefore = configure.getParameter('aria-selected-false-before')
+		@ariaSelectedFalseAfter = configure.getParameter('aria-selected-false-after')
+		@ariaSelectedTrueBefore = configure.getParameter('aria-selected-true-before')
+		@ariaSelectedTrueAfter = configure.getParameter('aria-selected-true-after')
+		@ariaSortAscendingBefore = configure.getParameter('aria-sort-ascending-before')
+		@ariaSortAscendingAfter = configure.getParameter('aria-sort-ascending-after')
+		@ariaSortDescendingBefore = configure.getParameter('aria-sort-descending-before')
+		@ariaSortDescendingAfter = configure.getParameter('aria-sort-descending-after')
+		@ariaSortOtherBefore = configure.getParameter('aria-sort-other-before')
+		@ariaSortOtherAfter = configure.getParameter('aria-sort-other-after')
+		
+		@dataInvalidUrlBefore = configure.getParameter('data-invalid-url-before')
+		@dataInvalidUrlAfter = configure.getParameter('data-invalid-url-after')
+		@dataInvalidEmailBefore = configure.getParameter('data-invalid-email-before')
+		@dataInvalidEmailAfter = configure.getParameter('data-invalid-email-after')
+		@dataInvalidRangeBefore = configure.getParameter('data-invalid-range-before')
+		@dataInvalidRangeAfter = configure.getParameter('data-invalid-range-after')
+		@dataInvalidLengthBefore = configure.getParameter('data-invalid-length-before')
+		@dataInvalidLengthAfter = configure.getParameter('data-invalid-length-after')
+		@dataInvalidPatternBefore = configure.getParameter('data-invalid-pattern-before')
+		@dataInvalidPatternAfter = configure.getParameter('data-invalid-pattern-after')
+		@dataInvalidRequiredBefore = configure.getParameter('data-invalid-required-before')
+		@dataInvalidRequiredAfter = configure.getParameter('data-invalid-required-after')
+		@dataInvalidDateBefore = configure.getParameter('data-invalid-date-before')
+		@dataInvalidDateAfter = configure.getParameter('data-invalid-date-after')
+		@dataInvalidTimeBefore = configure.getParameter('data-invalid-time-before')
+		@dataInvalidTimeAfter = configure.getParameter('data-invalid-time-after')
+		@dataInvalidDateTimeBefore = configure.getParameter('data-invalid-datetime-before')
+		@dataInvalidDateTimeAfter = configure.getParameter('data-invalid-datetime-after')
+		@dataInvalidMonthBefore = configure.getParameter('data-invalid-month-before')
+		@dataInvalidMonthAfter = configure.getParameter('data-invalid-month-after')
+		@dataInvalidWeekBefore = configure.getParameter('data-invalid-week-before')
+		@dataInvalidWeekAfter = configure.getParameter('data-invalid-week-after')
 		
 		@roles = {
 			'alert': configure.getParameter('role-alert')
@@ -459,11 +514,39 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			'zu': configure.getParameter('language-zu')
 		}
 	
+	getShortcutPrefix = (userAgent) ->
+		if not isEmpty(userAgent)
+			userAgent = userAgent.toLowerCase()
+			opera = userAgent.indexOf('opera') > -1
+			mac = userAgent.indexOf('mac') > -1
+			konqueror = userAgent.indexOf('konqueror') > -1
+			spoofer = userAgent.indexOf('spoofer') > -1
+			safari = userAgent.indexOf('applewebkit') > -1
+			windows = userAgent.indexOf('windows') > -1
+			chrome = userAgent.indexOf('chrome') > -1
+			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent)
+			ie = (userAgent.indexOf('msie') > -1) or (userAgent.indexOf('trident') > -1)
+			
+			if opera
+				return 'SHIFT + ESC'
+			else if chrome and mac and (not spoofer)
+				return 'CTRL + OPTION'
+			else if chrome or ie
+				return 'ALT'
+			else if safari and (not windows) and (not spoofer)
+				return 'CTRL + ALT'
+			else if (not windows) and (safari or mac or konqueror)
+				return 'CTRL'
+			else if firefox
+				return 'ALT + SHIFT'
+		else
+			return 'ALT'
+	
 	###*
 	 * Returns the description of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element with description.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {String} The description of element.
+	 * @return {string} The description of element.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	getDescription = (element, parser) ->
@@ -497,14 +580,12 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	###*
 	 * Generate the list of shortcuts of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} textShortcuts The text of description of container of
+	 * @param {string} textShortcuts The text of description of container of
 	 * shortcuts descriptions.
-	 * @param {hatemile.implementation.AccessibleNavigationImplementation}
-	 * callback This class.
 	 * @return {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
-	generateListShortcuts = (parser, textShortcuts, callback) ->
+	generateListShortcuts = (parser, textShortcuts) ->
 		container = parser.find("##{_idContainerShortcuts}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
@@ -568,46 +649,46 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			element.insertAfter(insertedElement)
 		return
 	
-	forceReadSimple = (element, parser, prefixId, textBegin, textEnd, dataBeginFor, dataEndFor) ->
+	forceReadSimple = (element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) ->
 		exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		identifier = element.getAttribute('id')
 		
-		if not isEmpty(textBegin)
-			referenceBegin = parser.find(".#{_classForceReadBegin}[#{dataBeginFor}=\"#{identifier}\"]").firstResult()
+		if not isEmpty(textBefore)
+			referenceBefore = parser.find(".#{_classForceReadBefore}[#{dataBeforeOf}=\"#{identifier}\"]").firstResult()
 			
-			if not isEmpty(referenceBegin)
-				referenceBegin.removeElement()
-				referenceBegin = undefined
+			if not isEmpty(referenceBefore)
+				referenceBefore.removeNode()
+				referenceBefore = undefined
 			
 			span = parser.createElement('span')
-			span.setAttribute('class', _classForceReadBegin)
-			span.setAttribute(dataBeginFor, identifier)
-			span.appendText(textBegin)
+			span.setAttribute('class', _classForceReadBefore)
+			span.setAttribute(dataBeforeOf, identifier)
+			span.appendText(textBefore)
 			insertBefore(element, span, parser)
-		if not isEmpty(textEnd)
-			referenceEnd = parser.find(".#{_classForceReadEnd}[#{dataEndFor}=\"#{identifier}\"]").firstResult()
+		if not isEmpty(textAfter)
+			referenceAfter = parser.find(".#{_classForceReadAfter}[#{dataAfterOf}=\"#{identifier}\"]").firstResult()
 			
-			if not isEmpty(referenceEnd)
-				referenceEnd.removeElement()
-				referenceEnd = undefined
+			if not isEmpty(referenceAfter)
+				referenceAfter.removeNode()
+				referenceAfter = undefined
 			
 			span = parser.createElement('span')
-			span.setAttribute('class', _classForceReadEnd)
-			span.setAttribute(dataEndFor, identifier)
-			span.appendText(textEnd)
+			span.setAttribute('class', _classForceReadAfter)
+			span.setAttribute(dataAfterOf, identifier)
+			span.appendText(textAfter)
 			insertAfter(element, span, parser)
 		return
 	
-	forceRead = (element, value, parser, prefixId, textPrefixBegin, textSuffixBegin, textPrefixEnd, textSuffixEnd, dataBeginFor, dataEndFor) ->
-		if (not isEmpty(textPrefixBegin)) or (not isEmpty(textSuffixBegin))
-			textBegin = "#{textPrefixBegin}#{value}#{textSuffixBegin}"
+	forceRead = (element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) ->
+		if (not isEmpty(textPrefixBefore)) or (not isEmpty(textSuffixBefore))
+			textBefore = "#{textPrefixBefore}#{value}#{textSuffixBefore}"
 		else
-			textBegin = ''
-		if (not isEmpty(textPrefixEnd)) or (not isEmpty(textSuffixEnd))
-			textEnd = "#{textPrefixEnd}#{value}#{textSuffixEnd}"
+			textBefore = ''
+		if (not isEmpty(textPrefixAfter)) or (not isEmpty(textSuffixAfter))
+			textAfter = "#{textPrefixAfter}#{value}#{textSuffixAfter}"
 		else
-			textEnd = ''
-		forceReadSimple(element, parser, prefixId, textBegin, textEnd, dataBeginFor, dataEndFor)
+			textAfter = ''
+		forceReadSimple(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf)
 		return
 	
 	displayShortcut: (element) ->
@@ -617,17 +698,17 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 				element.setAttribute('title', description)
 			
 			if not @listShortcutsAdded
-				@listShortcuts = generateListShortcuts(@parser, "#{@attributeAccesskeyPrefixBegin}#{@attributeAccesskeySuffixBegin}", "#{@attributeAccesskeyPrefixEnd}#{@attributeAccesskeySuffixEnd}", this)
+				@listShortcuts = generateListShortcuts(@parser, "#{@attributeAccesskeyPrefixBefore}#{@attributeAccesskeySuffixBefore}")
 				@listShortcutsAdded = true
 			
 			if not isEmpty(@listShortcuts)
 				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
 				for key in keys
 					key = key.toUpperCase()
-					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{_dataAttributeAccesskeyBeginFor}=\"#{key}\"]").firstResult())
+					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{_dataAttributeAccesskeyBeforeOf}=\"#{key}\"]").firstResult())
 						item = @parser.createElement('li')
-						item.setAttribute(_dataAttributeAccesskeyBeginFor, key)
-						item.setAttribute(_dataAttributeAccesskeyEndFor, key)
+						item.setAttribute(_dataAttributeAccesskeyBeforeOf, key)
+						item.setAttribute(_dataAttributeAccesskeyAfterOf, key)
 						item.appendText("#{@shortcutPrefix} + #{key}: #{description}")
 						@listShortcuts.appendElement(item)
 		return
@@ -644,7 +725,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			role = element.getAttribute('role')
 			roleDescription = @roles[role]
 			if not isEmpty(roleDescription)
-				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBegin, @attributeRoleSuffixBegin, @attributeRolePrefixEnd, @attributeRoleSuffixEnd, _dataRoleBeginFor, _dataRoleEndFor)
+				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBefore, @attributeRoleSuffixBefore, @attributeRolePrefixAfter, @attributeRoleSuffixAfter, _dataRoleBeforeOf, _dataRoleAfterOf)
 		return
 	
 	displayAllRoles: () ->
@@ -656,14 +737,17 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayCellHeader: (tableCell) ->
 		if tableCell.hasAttribute('headers')
-			textHeader = ''
+			textHeader = undefined
 			idsHeaders = tableCell.getAttribute('headers').split(new RegExp('[ \n\t\r]+'))
 			for idHeader in idsHeaders
 				header = @parser.find("##{idHeader}").firstResult()
 				if not isEmpty(header)
-					textHeader = "#{textHeader} #{header.getTextContent()}"
+					if textHeader is undefined
+						textHeader = header.getTextContent()
+					else
+						textHeader = "#{textHeader} #{header.getTextContent()}"
 			if not isEmpty(textHeader)
-				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBegin, @attributeHeadersSuffixBegin, @attributeHeadersPrefixEnd, @attributeHeadersSuffixEnd, _dataAttributeHeadersBeginFor, _dataAttributeHeadersEndFor)
+				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBefore, @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, @attributeHeadersSuffixAfter, _dataAttributeHeadersBeforeOf, _dataAttributeHeadersAfterOf)
 		return
 	
 	displayAllCellHeaders: () ->
@@ -675,85 +759,109 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayWAIARIAStates: (element) ->
 		if (element.hasAttribute('aria-busy')) and (element.getAttribute('aria-busy') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaBusyTrueBegin, @ariaBusyTrueEnd, _dataAriaBusyBeginFor, _dataAriaBusyEndFor)
+			forceReadSimple(element, @parser, @prefixId, @ariaBusyTrueBefore, @ariaBusyTrueAfter, _dataAriaBusyBeforeOf, _dataAriaBusyAfterOf)
 		if element.hasAttribute('aria-checked')
 			attributeValue = element.getAttribute('aria-checked')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedTrueBegin, @ariaCheckedTrueEnd, _dataAriaCheckedBeginFor, _dataAriaCheckedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedTrueBefore, @ariaCheckedTrueAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedFalseBegin, @ariaCheckedFalseEnd, _dataAriaCheckedBeginFor, _dataAriaCheckedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedFalseBefore, @ariaCheckedFalseAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
 			else if attributeValue is 'mixed'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedMixedBegin, @ariaCheckedMixedEnd, _dataAriaCheckedBeginFor, _dataAriaCheckedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedMixedBefore, @ariaCheckedMixedAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
 		if element.hasAttribute('aria-dropeffect')
 			attributeValue = element.getAttribute('aria-dropeffect')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBegin, @ariaDropeffectCopyEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBegin, @ariaDropeffectMoveEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBegin, @ariaDropeffectLinkEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'execute'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBegin, @ariaDropeffectExecuteEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'popup'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBegin, @ariaDropeffectPopupEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 		if element.hasAttribute('aria-expanded')
 			attributeValue = element.getAttribute('aria-expanded')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaExpandedTrueBegin, @ariaExpandedTrueEnd, _dataAriaExpandedBeginFor, _dataAriaExpandedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaExpandedTrueBefore, @ariaExpandedTrueAfter, _dataAriaExpandedBeforeOf, _dataAriaExpandedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaExpandedFalseBegin, @ariaExpandedFalseEnd, _dataAriaExpandedBeginFor, _dataAriaExpandedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaExpandedFalseBefore, @ariaExpandedFalseAfter, _dataAriaExpandedBeforeOf, _dataAriaExpandedAfterOf)
 		if element.hasAttribute('aria-grabbed')
 			attributeValue = element.getAttribute('aria-grabbed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBegin, @ariaGrabbedTrueEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBegin, @ariaGrabbedFalseEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
 		if (element.hasAttribute('aria-haspopup')) and (element.getAttribute('aria-haspopup') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaHaspopupTrueBegin, @ariaHaspopupTrueEnd, _dataAriaHaspopupBeginFor, _dataAriaHaspopupEndFor)
+			forceReadSimple(element, @parser, @prefixId, @ariaHaspopupTrueBefore, @ariaHaspopupTrueAfter, _dataAriaHaspopupBeforeOf, _dataAriaHaspopupAfterOf)
+		if (element.hasAttribute('aria-invalid')) and (element.getAttribute('aria-invalid') is 'true')
+			forceReadSimple(element, @parser, @prefixId, @ariaInvalidTrueBefore, @ariaInvalidTrueAfter, _dataAriaInvalidBeforeOf, _dataAriaInvalidAfterOf)
+			if element.hasAttribute(_dataInvalidLength)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidLengthBefore, @dataInvalidLengthAfter, _dataInvalidLengthBeforeOf, _dataInvalidLengthAfterOf)
+			if element.hasAttribute(_dataInvalidPattern)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidPatternBefore, @dataInvalidPatternAfter, _dataInvalidPatternBeforeOf, _dataInvalidPatternAfterOf)
+			if element.hasAttribute(_dataInvalidRequired)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidRequiredBefore, @dataInvalidRequiredAfter, _dataInvalidRequiredBeforeOf, _dataInvalidRequiredAfterOf)
+			if element.hasAttribute(_dataInvalidURL)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidUrlBefore, @dataInvalidUrlAfter, _dataInvalidURLBeforeOf, _dataInvalidURLAfterOf)
+			else if element.hasAttribute(_dataInvalidEmail)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidEmailBefore, @dataInvalidEmailAfter, _dataInvalidEmailBeforeOf, _dataInvalidEmailAfterOf)
+			else if element.hasAttribute(_dataInvalidRange)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidRangeBefore, @dataInvalidRangeAfter, _dataInvalidRangeBeforeOf, _dataInvalidRangeAfterOf)
+			else if element.hasAttribute(_dataInvalidDate)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateBefore, @dataInvalidDateAfter, _dataInvalidDateBeforeOf, _dataInvalidDateAfterOf)
+			else if element.hasAttribute(_dataInvalidTime)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidTimeBefore, @dataInvalidTimeAfter, _dataInvalidTimeBeforeOf, _dataInvalidTimeAfterOf)
+			else if element.hasAttribute(_dataInvalidDateTime)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateTimeBefore, @dataInvalidDateTimeAfter, _dataInvalidDateTimeBeforeOf, _dataInvalidDateTimeAfterOf)
+			else if element.hasAttribute(_dataInvalidMonth)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidMonthBefore, @dataInvalidMonthAfter, _dataInvalidMonthBeforeOf, _dataInvalidMonthAfterOf)
+			else if element.hasAttribute(_dataInvalidWeek)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidWeekBefore, @dataInvalidWeekAfter, _dataInvalidWeekBeforeOf, _dataInvalidWeekAfterOf)
 		if element.hasAttribute('aria-level')
-			forceRead(element, element.getAttribute('aria-level'), @parser, @prefixId, @ariaLevelPrefixBegin, @ariaLevelSuffixBegin, @ariaLevelPrefixEnd, @ariaLevelSuffixEnd, _dataAriaLevelBeginFor, _dataAriaLevelEndFor)
+			forceRead(element, element.getAttribute('aria-level'), @parser, @prefixId, @ariaLevelPrefixBefore, @ariaLevelSuffixBefore, @ariaLevelPrefixAfter, @ariaLevelSuffixAfter, _dataAriaLevelBeforeOf, _dataAriaLevelAfterOf)
 		if element.hasAttribute('aria-orientation')
 			attributeValue = element.getAttribute('aria-orientation')
 			if attributeValue is 'vertical'
-				forceReadSimple(element, @parser, @prefixId, @ariaOrientationVerticalBegin, @ariaOrientationVerticalEnd, _dataAriaOrientationBeginFor, _dataAriaOrientationEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaOrientationVerticalBefore, @ariaOrientationVerticalAfter, _dataAriaOrientationBeforeOf, _dataAriaOrientationAfterOf)
 			else if attributeValue is 'horizontal'
-				forceReadSimple(element, @parser, @prefixId, @ariaOrientationHorizontalBegin, @ariaOrientationHorizontalEnd, _dataAriaOrientationBeginFor, _dataAriaOrientationEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaOrientationHorizontalBefore, @ariaOrientationHorizontalAfter, _dataAriaOrientationBeforeOf, _dataAriaOrientationAfterOf)
 		if element.hasAttribute('aria-pressed')
 			attributeValue = element.getAttribute('aria-pressed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedTrueBegin, @ariaPressedTrueEnd, _dataAriaPressedBeginFor, _dataAriaPressedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedTrueBefore, @ariaPressedTrueAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedFalseBegin, @ariaPressedFalseEnd, _dataAriaPressedBeginFor, _dataAriaPressedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedFalseBefore, @ariaPressedFalseAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
 			else if attributeValue is 'mixed'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedMixedBegin, @ariaPressedMixedEnd, _dataAriaPressedBeginFor, _dataAriaPressedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedMixedBefore, @ariaPressedMixedAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
 		if element.hasAttribute('aria-selected')
 			attributeValue = element.getAttribute('aria-selected')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaSelectedTrueBegin, @ariaSelectedTrueEnd, _dataAriaSelectedBeginFor, _dataAriaSelectedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaSelectedTrueBefore, @ariaSelectedTrueAfter, _dataAriaSelectedBeforeOf, _dataAriaSelectedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaSelectedFalseBegin, @ariaSelectedFalseEnd, _dataAriaSelectedBeginFor, _dataAriaSelectedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaSelectedFalseBefore, @ariaSelectedFalseAfter, _dataAriaSelectedBeforeOf, _dataAriaSelectedAfterOf)
 		if element.hasAttribute('aria-sort')
 			attributeValue = element.getAttribute('aria-sort')
 			if attributeValue is 'ascending'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortAscendingBegin, @ariaSortAscendingEnd, _dataAriaSortBeginFor, _dataAriaSortEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortAscendingBefore, @ariaSortAscendingAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
 			else if attributeValue is 'descending'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortDescendingBegin, @ariaSortDescendingEnd, _dataAriaSortBeginFor, _dataAriaSortEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortDescendingBefore, @ariaSortDescendingAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
 			else if attributeValue is 'other'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortOtherBegin, @ariaSortOtherEnd, _dataAriaSortBeginFor, _dataAriaSortEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortOtherBefore, @ariaSortOtherAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
 		if (element.hasAttribute('aria-required')) and (element.getAttribute('aria-required') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaRequiredTrueBegin, @ariaRequiredTrueEnd, _dataAttributeRequiredBeginFor, _dataAttributeRequiredEndFor)
+			forceReadSimple(element, @parser, @prefixId, @ariaRequiredTrueBefore, @ariaRequiredTrueAfter, _dataAttributeRequiredBeforeOf, _dataAttributeRequiredAfterOf)
 		if element.hasAttribute('aria-valuemin')
-			forceRead(element, element.getAttribute('aria-valuemin'), @parser, @prefixId, @ariaValueMinimumPrefixBegin, @ariaValueMinimumSuffixBegin, @ariaValueMinimumPrefixEnd, @ariaValueMinimumSuffixEnd, _dataAttributeRangeMinBeginFor, _dataAttributeRangeMinEndFor)
+			forceRead(element, element.getAttribute('aria-valuemin'), @parser, @prefixId, @ariaValueMinimumPrefixBefore, @ariaValueMinimumSuffixBefore, @ariaValueMinimumPrefixAfter, @ariaValueMinimumSuffixAfter, _dataAttributeRangeMinBeforeOf, _dataAttributeRangeMinAfterOf)
 		if element.hasAttribute('aria-valuemax')
-			forceRead(element, element.getAttribute('aria-valuemax'), @parser, @prefixId, @ariaValueMaximumPrefixBegin, @ariaValueMaximumSuffixBegin, @ariaValueMaximumPrefixEnd, @ariaValueMaximumSuffixEnd, _dataAttributeRangeMaxBeginFor, _dataAttributeRangeMaxEndFor)
+			forceRead(element, element.getAttribute('aria-valuemax'), @parser, @prefixId, @ariaValueMaximumPrefixBefore, @ariaValueMaximumSuffixBefore, @ariaValueMaximumPrefixAfter, @ariaValueMaximumSuffixAfter, _dataAttributeRangeMaxBeforeOf, _dataAttributeRangeMaxAfterOf)
 		if element.hasAttribute('aria-autocomplete')
 			attributeValue = element.getAttribute('aria-autocomplete')
 			if attributeValue is 'both'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteBothBegin, @ariaAutoCompleteBothEnd, _dataAttributeAutoCompleteEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteBothBefore, @ariaAutoCompleteBothAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
 			else if attributeValue is 'inline'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteListBegin, @ariaAutoCompleteListEnd, _dataAttributeAutoCompleteEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteListBefore, @ariaAutoCompleteListAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
 			else if attributeValue is 'list'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteInlineBegin, @ariaAutoCompleteInlineEnd, _dataAttributeAutoCompleteEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteInlineBefore, @ariaAutoCompleteInlineAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
 		return
 	
 	displayAllWAIARIAStates: () ->
@@ -765,15 +873,15 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayLinkAttributes: (link) ->
 		if link.hasAttribute('download')
-			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBegin, @attributeDownloadEnd, _dataAttributeDownloadBeginFor, _dataAttributeDownloadEndFor)
+			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, _dataAttributeDownloadBeforeOf, _dataAttributeDownloadAfterOf)
 		if (link.hasAttribute('target')) and (link.getAttribute('target') is '_blank')
-			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBegin, @attributeTargetBlankEnd, _dataAttributeTargetBeginFor, _dataAttributeTargetEndFor)
-		if link.hasAttribute('href')
-			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBegin, @attributeHrefSuffixBegin, @attributeHrefPrefixEnd, @attributeHrefSuffixEnd, _dataAttributeHrefBeginFor, _dataAttributeHrefEndFor)
+			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, _dataAttributeTargetBeforeOf, _dataAttributeTargetAfterOf)
+		if (link.hasAttribute('href')) and (not isEmpty(link.getAttribute('title')))
+			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBefore, @attributeHrefSuffixBefore, @attributeHrefPrefixAfter, @attributeHrefSuffixAfter, _dataAttributeHrefBeforeOf, _dataAttributeHrefAfterOf)
 		return
 	
 	displayAllLinksAttributes: () ->
-		elements = @parser.find('[download],[target="_blank"],[href]').listResults()
+		elements = @parser.find('a[download],a[target="_blank"],a[href]').listResults()
 		for element in elements
 			if not element.hasAttribute(_dataIgnore)
 				@displayLinkAttributes(element)
@@ -781,7 +889,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayTitle: (element) ->
 		if (element.hasAttribute('title')) and (not isEmpty(element.getAttribute('title')))
-			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBegin, @attributeTitleSuffixBegin, @attributeTitlePrefixEnd, @attributeTitleSuffixEnd, _dataAttributeTitleBeginFor, _dataAttributeTitleEndFor)
+			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, _dataAttributeTitleBeforeOf, _dataAttributeTitleAfterOf)
 		return
 	
 	displayAllTitles: () ->
@@ -793,33 +901,33 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayDragAndDrop: (element) ->
 		if element.hasAttribute('draggable')
-			forceReadSimple(element, @parser, @prefixId, @attributeDraggableBegin, @attributeDraggableEnd, _dataAttributeDraggableBeginFor, _dataAttributeDraggableEndFor)
+			forceReadSimple(element, @parser, @prefixId, @attributeDraggableBefore, @attributeDraggableAfter, _dataAttributeDraggableBeforeOf, _dataAttributeDraggableAfterOf)
 		if element.hasAttribute('dropzone')
 			attributeValue = element.getAttribute('dropzone')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneCopyBegin, @attributeDropzoneCopyEnd, _dataAttributeDropzoneBeginFor, _dataAttributeDropzoneEndFor)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneCopyBefore, @attributeDropzoneCopyAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneMoveBegin, @attributeDropzoneMoveEnd, _dataAttributeDropzoneBeginFor, _dataAttributeDropzoneEndFor)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneMoveBefore, @attributeDropzoneMoveAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneLinkBegin, @attributeDropzoneLinkEnd, _dataAttributeDropzoneBeginFor, _dataAttributeDropzoneEndFor)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneLinkBefore, @attributeDropzoneLinkAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
 		if element.hasAttribute('aria-dropeffect')
 			attributeValue = element.getAttribute('aria-dropeffect')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBegin, @ariaDropeffectCopyEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBegin, @ariaDropeffectMoveEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBegin, @ariaDropeffectLinkEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'execute'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBegin, @ariaDropeffectExecuteEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 			else if attributeValue is 'popup'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBegin, @ariaDropeffectPopupEnd, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
 		if element.hasAttribute('aria-grabbed')
 			attributeValue = element.getAttribute('aria-grabbed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBegin, @ariaGrabbedTrueEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBegin, @ariaGrabbedFalseEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
 		return
 	
 	displayAllDragsAndDrops: () ->
@@ -834,12 +942,12 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			languageCode = element.getAttribute('lang')
 			language = @languages[languageCode]
 			if not isEmpty(language)
-				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBegin, @attributeLanguageSuffixBegin, @attributeLanguagePrefixEnd, @attributeLanguageSuffixEnd, _dataAttributeLanguageBeginFor, _dataAttributeLanguageEndFor)
+				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, _dataAttributeLanguageBeforeOf, _dataAttributeLanguageAfterOf)
 		else if element.hasAttribute('hreflang')
 			languageCode = element.getAttribute('hreflang')
 			language = @languages[languageCode]
 			if not isEmpty(language)
-				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBegin, @attributeLanguageSuffixBegin, @attributeLanguagePrefixEnd, @attributeLanguageSuffixEnd, _dataAttributeLanguageBeginFor, _dataAttributeLanguageEndFor)
+				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, _dataAttributeLanguageBeforeOf, _dataAttributeLanguageAfterOf)
 		return
 	
 	displayAllLanguages: () ->

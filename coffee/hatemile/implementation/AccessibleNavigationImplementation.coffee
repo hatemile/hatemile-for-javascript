@@ -50,17 +50,17 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * navigation of parser.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
-	 * @param {String} userAgent The user agent of the user.
+	 * @param {string} userAgent The user agent of the user.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	constructor: (@parser, configure, @skippers) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
-		@attributeLongDescriptionPrefixBegin = configure.getParameter('attribute-longdescription-prefix-begin')
-		@attributeLongDescriptionSuffixBegin = configure.getParameter('attribute-longdescription-suffix-begin')
-		@attributeLongDescriptionPrefixEnd = configure.getParameter('attribute-longdescription-prefix-end')
-		@attributeLongDescriptionSuffixEnd = configure.getParameter('attribute-longdescription-suffix-end')
-		@elementsHeadingBegin = configure.getParameter('elements-heading-begin')
-		@elementsHeadingEnd = configure.getParameter('elements-heading-end')
+		@attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before')
+		@attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before')
+		@attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after')
+		@attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after')
+		@elementsHeadingBefore = configure.getParameter('elements-heading-before')
+		@elementsHeadingAfter = configure.getParameter('elements-heading-after')
 		@listSkippersAdded = false
 		@validateHeading = false
 		@validHeading = false
@@ -91,7 +91,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Generate the list of heading links of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} textHeading The text of description of container of heading
+	 * @param {string} textHeading The text of description of container of heading
 	 * links.
 	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
@@ -121,7 +121,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Returns the level of heading.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The heading.
-	 * @return {Number} The level of heading.
+	 * @return {number} The level of heading.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	getHeadingLevel = (element) ->
@@ -144,7 +144,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Inform if the headings of page are sintatic correct.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {Boolean} True if the headings of page are sintatic correct or
+	 * @return {boolean} True if the headings of page are sintatic correct or
 	 * false if not.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
@@ -167,11 +167,11 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Generate an anchor for the element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {String} dataAttribute The name of attribute that links the element
+	 * @param {string} dataAttribute The name of attribute that links the element
 	 * with the anchor.
-	 * @param {String} anchorClass The HTML class of anchor.
+	 * @param {string} anchorClass The HTML class of anchor.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} prefixId The prefix of generated ids.
+	 * @param {string} prefixId The prefix of generated ids.
 	 * @return {hatemile.util.html.HTMLDOMElement} The anchor.
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
@@ -268,7 +268,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 			if not isEmpty(anchor)
 				level = getHeadingLevel(heading)
 				if level is 1
-					list = generateListHeading(@parser, @textHeading)
+					list = generateListHeading(@parser, "#{@elementsHeadingBefore}#{@elementsHeadingAfter}")
 				else
 					superItem = @parser.find("##{_idContainerHeading}").findDescendants("[#{_dataHeadingLevel}=\"#{(level - 1).toString()}\"]").lastResult()
 					if not isEmpty(superItem)
@@ -301,8 +301,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 			id = image.getAttribute('id')
 			if isEmpty(@parser.find("[#{_dataLongDescriptionForImage}=\"#{id}\"]").firstResult())
 				if image.hasAttribute('alt')
-					if not (isEmpty(@attributeLongDescriptionPrefixBegin) and isEmpty(@attributeLongDescriptionSuffixBegin))
-						text = "#{@attributeLongDescriptionPrefixBegin} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixBegin}"
+					if not (isEmpty(@attributeLongDescriptionPrefixBefore) and isEmpty(@attributeLongDescriptionSuffixBefore))
+						text = "#{@attributeLongDescriptionPrefixBefore} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixBefore}"
 						anchor = @parser.createElement('a')
 						anchor.setAttribute('href', image.getAttribute('longdesc'))
 						anchor.setAttribute('target', '_blank')
@@ -310,8 +310,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 						anchor.setAttribute('class', _classLongDescriptionLink)
 						anchor.appendText(text)
 						image.insertBefore(anchor)
-					if not (isEmpty(@attributeLongDescriptionPrefixEnd) and isEmpty(@attributeLongDescriptionSuffixEnd))
-						text = "#{@attributeLongDescriptionPrefixEnd} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixEnd}"
+					if not (isEmpty(@attributeLongDescriptionPrefixAfter) and isEmpty(@attributeLongDescriptionSuffixAfter))
+						text = "#{@attributeLongDescriptionPrefixAfter} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixAfter}"
 						anchor = @parser.createElement('a')
 						anchor.setAttribute('href', image.getAttribute('longdesc'))
 						anchor.setAttribute('target', '_blank')

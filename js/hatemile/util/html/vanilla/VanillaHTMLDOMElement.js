@@ -133,12 +133,12 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		return newElement;
 	};
 
-	VanillaHTMLDOMElement.prototype.removeElement = function() {
+	VanillaHTMLDOMElement.prototype.removeNode = function() {
 		this.data.remove();
 		return this;
 	};
 
-	VanillaHTMLDOMElement.prototype.replaceElement = function(newElement) {
+	VanillaHTMLDOMElement.prototype.replaceNode = function(newElement) {
 		var parent;
 		parent = this.data.parentNode;
 		parent.replaceChild(newElement.getData(), this.data);
@@ -161,7 +161,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		return element;
 	};
 
-	VanillaHTMLDOMElement.prototype.getChildren = function() {
+	VanillaHTMLDOMElement.prototype.getChildrenElements = function() {
 		var array, child, children, _i, _len;
 		children = this.data.children;
 		array = [];
@@ -172,23 +172,70 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		return array;
 	};
 
+	VanillaHTMLDOMElement.prototype.getChildren = function() {
+		var array, child, children, _i, _len;
+		children = this.data.childNodes;
+		array = [];
+		for (_i = 0, _len = children.length; _i < _len; _i++) {
+			child = children[_i];
+			if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
+				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child));
+			} else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
+				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child));
+			}
+		}
+		return array;
+	};
+
 	VanillaHTMLDOMElement.prototype.appendText = function(text) {
-		this.data.appendChild(this.data.ownerDocument.createTextNode(text));
+		var child;
+		child = this.getLastNodeChild();
+		if ((child !== void 0) && (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)) {
+			child.appendText(text);
+		} else {
+			this.data.appendChild(this.data.ownerDocument.createTextNode(text));
+		}
 	};
 
 	VanillaHTMLDOMElement.prototype.prependText = function(text) {
-		var firstChildNode;
-		if (isEmpty(this.data.childNodes)) {
-			appendText(text);
+		var child;
+		if (!this.hasChildren()) {
+			this.appendText(text);
 		} else {
-			firstChildNode = this.data.childNodes[0];
-			this.data.insertBefore(document.createTextNode(text), firstChildNode);
+			child = this.getFirstNodeChild();
+			if (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
+				child.prependText(text);
+			} else {
+				this.data.insertBefore(this.data.ownerDocument.createTextNode(text), child.getData());
+			}
 		}
 		return element;
 	};
 
-	VanillaHTMLDOMElement.prototype.hasChildren = function() {
+	VanillaHTMLDOMElement.prototype.normalize = function() {
+		if (this.data.normalize) {
+			this.data.normalize();
+		}
+	};
+
+	VanillaHTMLDOMElement.prototype.hasChildrenElements = function() {
 		return !isEmpty(this.data.children);
+	};
+
+	VanillaHTMLDOMElement.prototype.hasChildren = function() {
+		var child, children, _i, _len;
+		if (!this.data.hasChildNodes()) {
+			return false;
+		} else {
+			children = this.data.childNodes;
+			for (_i = 0, _len = children.length; _i < _len; _i++) {
+				child = children[_i];
+				if ((child.nodeType === this.data.ownerDocument.TEXT_NODE) || (child.nodeType === this.data.ownerDocument.ELEMENT_NODE)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	};
 
 	VanillaHTMLDOMElement.prototype.getParentElement = function() {
@@ -226,17 +273,65 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 	};
 
 	VanillaHTMLDOMElement.prototype.getFirstElementChild = function() {
-		if (!this.hasChildren) {
+		if (!this.hasChildrenElements()) {
 			return void 0;
 		}
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.firstElementChild);
 	};
 
 	VanillaHTMLDOMElement.prototype.getLastElementChild = function() {
-		if (!this.hasChildren) {
+		if (!this.hasChildrenElements()) {
 			return void 0;
 		}
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.lastElementChild);
+	};
+
+	VanillaHTMLDOMElement.prototype.getFirstNodeChild = function() {
+		var child, children, _i, _len;
+		if (!this.hasChildren()) {
+			return void 0;
+		}
+		children = this.data.childNodes;
+		for (_i = 0, _len = children.length; _i < _len; _i++) {
+			child = children[_i];
+			if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
+				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child);
+			} else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
+				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
+			}
+		}
+		return void 0;
+	};
+
+	VanillaHTMLDOMElement.prototype.getLastNodeChild = function() {
+		var child, children, lastChild, _i, _len;
+		if (!this.hasChildren()) {
+			return void 0;
+		}
+		children = this.data.childNodes;
+		lastChild = void 0;
+		for (_i = 0, _len = children.length; _i < _len; _i++) {
+			child = children[_i];
+			if ((child.nodeType === this.data.ownerDocument.TEXT_NODE) || (child.nodeType === this.data.ownerDocument.ELEMENT_NODE)) {
+				lastChild = child;
+			}
+		}
+		if (lastChild === void 0) {
+			return void 0;
+		} else if (lastChild.nodeType === this.data.ownerDocument.TEXT_NODE) {
+			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild);
+		} else if (lastChild.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
+			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild);
+		}
+	};
+
+	VanillaHTMLDOMElement.prototype.equals = function(node) {
+		if (node instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+			if (this.data === node.getData()) {
+				return true;
+			}
+		}
+		return false;
 	};
 
 	return VanillaHTMLDOMElement;

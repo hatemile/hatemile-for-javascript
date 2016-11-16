@@ -45,7 +45,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the tag name of element.
-	 * @return {String} The tag name of element in uppercase letters.
+	 * @return {string} The tag name of element in uppercase letters.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getTagName = function() {
@@ -53,8 +53,8 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the value of a attribute.
-	 * @param {String} name The name of attribute.
-	 * @return {String} The value of the attribute, if the element not contains
+	 * @param {string} name The name of attribute.
+	 * @return {string} The value of the attribute, if the element not contains
 	 * the attribute returns null.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
@@ -63,8 +63,8 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Create or modify a attribute.
-	 * @param {String} name The name of attribute.
-	 * @param {String} value The value of attribute.
+	 * @param {string} name The name of attribute.
+	 * @param {string} value The value of attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.setAttribute = function(name, value) {
@@ -72,7 +72,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Remove a attribute of element.
-	 * @param {String} name The name of attribute.
+	 * @param {string} name The name of attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.removeAttribute = function(name) {
@@ -80,8 +80,8 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns if the element has an attribute.
-	 * @param {String} name The name of attribute.
-	 * @return {Boolean} True if the element has the attribute or false if the
+	 * @param {string} name The name of attribute.
+	 * @return {boolean} True if the element has the attribute or false if the
 	 * element not has the attribute.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
@@ -90,7 +90,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns if the element has attributes.
-	 * @return {Boolean} True if the element has attributes or false if the
+	 * @return {boolean} True if the element has attributes or false if the
 	 * element not has attributes.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
@@ -99,7 +99,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the text of element.
-	 * @return {String} The text of element.
+	 * @return {string} The text of element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getTextContent = function() {
@@ -130,7 +130,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 	 * @return {hatemile.util.html.HTMLDOMElement} The removed element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
-	HTMLDOMElement.prototype.removeElement = function() {
+	HTMLDOMElement.prototype.removeNode = function() {
 	};
 
 	/**
@@ -140,7 +140,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 	 * @return {hatemile.util.html.HTMLDOMElement} The element replaced.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
-	HTMLDOMElement.prototype.replaceElement = function(newElement) {
+	HTMLDOMElement.prototype.replaceNode = function(newElement) {
 	};
 
 	/**
@@ -166,12 +166,12 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 	 * @return {hatemile.util.html.HTMLDOMElement[]} The children of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
-	HTMLDOMElement.prototype.getChildren = function() {
+	HTMLDOMElement.prototype.getChildrenElements = function() {
 	};
 
 	/**
 	 * Append a text child.
-	 * @param {String} text The text.
+	 * @param {string} text The text.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.appendText = function(text) {
@@ -179,15 +179,27 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Prepend a text child.
-	 * @param {String} text The text.
+	 * @param {string} text The text.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.prependText = function(text) {
 	};
 
+	HTMLDOMElement.prototype.normalize = function() {
+	};
+
 	/**
 	 * Returns if the element has children.
-	 * @return {Boolean} True if the element has children or false if the element
+	 * @return {boolean} True if the element has children or false if the element
+	 * not has children.
+	 * @memberof hatemile.util.html.HTMLDOMElement
+	 */
+	HTMLDOMElement.prototype.hasChildrenElements = function() {
+	};
+
+	/**
+	 * Returns if the element has children.
+	 * @return {boolean} True if the element has children or false if the element
 	 * not has children.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
@@ -204,7 +216,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the inner HTML code of this element.
-	 * @return {String} The inner HTML code of this element.
+	 * @return {string} The inner HTML code of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getInnerHTML = function() {
@@ -212,7 +224,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Modify the inner HTML code of this element.
-	 * @param {String} html The HTML code.
+	 * @param {string} html The HTML code.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.setInnerHTML = function(html) {
@@ -220,7 +232,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the HTML code of this element.
-	 * @return {String} The HTML code of this element.
+	 * @return {string} The HTML code of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getOuterHTML = function() {
@@ -228,7 +240,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Returns the native object of this element.
-	 * @return {Object} The native object of this element.
+	 * @return {object} The native object of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getData = function() {
@@ -236,7 +248,7 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 
 	/**
 	 * Modify the native object of this element.
-	 * @param {Object} data The native object of this element.
+	 * @param {object} data The native object of this element.
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.setData = function(data) {
@@ -266,6 +278,9 @@ exports.hatemile.util.html.HTMLDOMElement = (function() {
 	 * @memberof hatemile.util.html.HTMLDOMElement
 	 */
 	HTMLDOMElement.prototype.getLastElementChild = function() {
+	};
+
+	HTMLDOMElement.prototype.equals = function(node) {
 	};
 
 	return HTMLDOMElement;
