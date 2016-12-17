@@ -36,22 +36,65 @@ exports.hatemile || (exports.hatemile = {});
 (_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
 exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
-	var getCSSContent, getContentFromElement, getContentFromURL;
+	var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
 
-	function JSCSSPParser(parser) {
+	function JSCSSPParser(parser, currentURL) {
 		this.parser = parser;
+		this.currentURL = currentURL;
 		if (!(this.parser instanceof jscsspStylesheet)) {
 			parser = new CSSParser();
 			if (this.parser instanceof exports.HTMLDocument) {
-				this.parser = getCSSContent(this.parser);
+				this.parser = getCSSContent(this.parser, this.currentURL);
 			}
 			if (typeof this.parser === typeof '') {
 				this.parser = parser.parse("body{}" + this.parser, false, false);
 			}
 		}
 	}
+	
+	/*
+	 * Returns the absolute path of a URL.
+	 * @param {string} currentURL The current URL of document.
+	 * @param {string} otherURL The other URL.
+	 * @returns {string} The absolute path of other URL.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getAbsolutePath
+	 */
+	getAbsolutePath = function(currentURL, otherURL) {
+		var relativePart, relativeParts, stackURL, urlRegularExpression, _i, _len;
+		if (otherURL.indexOf('//') === 0) {
+			if (currentURL.indexOf('https://') === 0) {
+				return "https:" + otherURL;
+			} else {
+				return "http:" + otherURL;
+			}
+		} else if (otherURL.indexOf('data:') === 0) {
+			return null;
+		} else {
+			urlRegularExpression = new RegExp('([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
+			if (urlRegularExpression.test(otherURL)) {
+				return otherURL;
+			} else {
+				if (currentURL.indexOf('/') === -1) {
+					currentURL += '/';
+				}
+				stackURL = currentURL.split('/');
+				stackURL.pop();
+				relativeParts = otherURL.split('/');
+				for (_i = 0, _len = relativeParts.length; _i < _len; _i++) {
+					relativePart = relativeParts[_i];
+					if (relativePart === '..') {
+						stackURL.pop();
+					} else if (relativePart !== '.') {
+						stackURL.push(relativePart);
+					}
+				}
+				return stackURL.join('/');
+			}
+		}
+	};
 
-	getCSSContent = function(doc) {
+	getCSSContent = function(doc, currentURL) {
 		var child, content, head, style, styles, tagName, _i, _j, _len, _len1, _ref;
 		content = '';
 		head = doc.getElementsByTagName('head')[0];
@@ -60,16 +103,16 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 			child = _ref[_i];
 			tagName = child.tagName.toUpperCase();
 			if ((tagName === 'LINK') && (child.hasAttribute('rel')) && (child.getAttribute('rel') === 'stylesheet')) {
-				content = "" + content + "\n" + (getContentFromURL(child.getAttribute('href')));
+				content += getContentFromURL(getAbsolutePath(currentURL, child.getAttribute('href')));
 			} else if (tagName === 'STYLE') {
-				content = "" + content + "\n" + (getContentFromElement(child));
+				content += getContentFromElement(child);
 			}
 		}
 		styles = doc.getElementsByTagName('style');
 		for (_j = 0, _len1 = styles.length; _j < _len1; _j++) {
 			style = styles[_j];
 			if (style.parentNode !== head) {
-				content = "" + content + "\n" + (getContentFromElement(style));
+				content += getContentFromElement(style);
 			}
 		}
 		return content;
@@ -77,29 +120,32 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 
 	getContentFromURL = function(url) {
 		var content, e, httpRequest;
-		content = null;
-		if (window.XMLHttpRequest) {
-			httpRequest = new XMLHttpRequest();
-		} else if (window.ActiveXObject) {
-			try {
-				httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
-			} catch (_error) {
-				e = _error;
+		content = '';
+		if (!isEmpty(url)) {
+			httpRequest = false;
+			if (window.XMLHttpRequest) {
+				httpRequest = new XMLHttpRequest();
+			} else if (window.ActiveXObject) {
 				try {
-					httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+					httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
 				} catch (_error) {
 					e = _error;
+					try {
+						httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+					} catch (_error) {
+						e = _error;
+					}
 				}
 			}
-		}
-		if (httpRequest) {
-			httpRequest.onreadystatechange = function() {
-				if ((this.readyState === 4) && (this.status === 200)) {
-					return content = httpRequest.responseText;
-				}
-			};
-			httpRequest.open('GET', url, false);
-			httpRequest.send();
+			if (httpRequest) {
+				httpRequest.onreadystatechange = function() {
+					if ((this.readyState === 4) && (this.status === 200)) {
+						return content = httpRequest.responseText;
+					}
+				};
+				httpRequest.open('GET', url, false);
+				httpRequest.send();
+			}
 		}
 		return content;
 	};
