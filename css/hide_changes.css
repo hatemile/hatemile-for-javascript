@@ -2,15 +2,11 @@
 
 .longdescription-link
 , #container-heading
-, #container-shortcuts
 , #container-skippers
-, [data-prefixautocompletefield]:before
-, [data-suffixautocompletefield]:after
-, [data-longdescriptionfor]
-, [data-prefixvalueminfield]:before, [data-prefixvaluemaxfield]:before
-, [data-suffixvalueminfield]:after, [data-suffixvaluemaxfield]:after
-, [data-prefixrequiredfield]:before
-, [data-suffixrequiredfield]:after {
+, #container-shortcuts
+, .force-read-before
+, .force-read-after
+, .screen-reader-only {
 	position: absolute;
 	width: 1px;
 	height: 1px;
