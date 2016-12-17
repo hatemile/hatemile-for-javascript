@@ -972,7 +972,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 
 	AccessibleDisplayScreenReaderImplementation.prototype.displayAllLinksAttributes = function() {
 		var element, elements, _i, _len;
-		elements = this.parser.find('[download],[target="_blank"],[href]').listResults();
+		elements = this.parser.find('a[download],a[target="_blank"],a[href]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
@@ -989,7 +989,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 
 	AccessibleDisplayScreenReaderImplementation.prototype.displayAllTitles = function() {
 		var element, elements, _i, _len;
-		elements = this.parser.find('[title]').listResults();
+		elements = this.parser.find('body [title]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
@@ -1067,7 +1067,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 
 	AccessibleDisplayScreenReaderImplementation.prototype.displayAllLanguages = function() {
 		var element, elements, _i, _len;
-		elements = this.parser.find('[lang],[hreflang]').listResults();
+		elements = this.parser.find('html[lang],body[lang],body [lang],body [hreflang]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {

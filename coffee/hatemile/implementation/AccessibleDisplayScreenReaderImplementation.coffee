@@ -893,7 +893,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		return
 	
 	displayAllTitles: () ->
-		elements = @parser.find('[title]').listResults()
+		elements = @parser.find('body [title]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayTitle(element)
@@ -951,7 +951,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		return
 	
 	displayAllLanguages: () ->
-		elements = @parser.find('[lang],[hreflang]').listResults()
+		elements = @parser.find('html[lang],body[lang],body [lang],body [hreflang]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLanguage(element)
