@@ -35,7 +35,6 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	_idContainerShortcuts = 'container-shortcuts'
 	_idTextShortcuts = 'text-shortcuts'
-	_dataIgnore = 'data-ignoreaccessibilityfix'
 	_classForceReadBefore = 'force-read-before'
 	_classForceReadAfter = 'force-read-after'
 	_dataAttributeRequiredBeforeOf = 'data-attributerequiredbeforeof'
@@ -716,7 +715,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllShortcuts: () ->
 		elements = @parser.find('[accesskey]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayShortcut(element)
 		return
 	
@@ -731,7 +730,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllRoles: () ->
 		elements = @parser.find('[role]').listResults()
 		for element in elements
-			if (not element.hasAttribute(_dataIgnore))
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayRole(element)
 		return
 	
@@ -753,7 +752,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllCellHeaders: () ->
 		elements = @parser.find('td[headers],th[headers]').listResults()
 		for element in elements
-			if (not element.hasAttribute(_dataIgnore))
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayCellHeader(element)
 		return
 	
@@ -867,7 +866,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllWAIARIAStates: () ->
 		elements = @parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayWAIARIAStates(element)
 		return
 	
@@ -883,7 +882,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllLinksAttributes: () ->
 		elements = @parser.find('a[download],a[target="_blank"],a[href]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLinkAttributes(element)
 		return
 	
@@ -895,7 +894,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllTitles: () ->
 		elements = @parser.find('[title]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayTitle(element)
 		return
 	
@@ -933,7 +932,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllDragsAndDrops: () ->
 		elements = @parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayDragAndDrop(element)
 		return
 	
@@ -953,6 +952,6 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	displayAllLanguages: () ->
 		elements = @parser.find('[lang],[hreflang]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLanguage(element)
 		return

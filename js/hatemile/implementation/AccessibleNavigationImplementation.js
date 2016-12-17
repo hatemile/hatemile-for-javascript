@@ -47,8 +47,6 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 
 	_classHeadingAnchor = 'heading-anchor';
 
-	_dataIgnore = 'data-ignoreaccessibilityfix';
-
 	_dataAnchorFor = 'data-anchorfor';
 
 	_dataHeadingAnchorFor = 'data-headinganchorfor';
@@ -324,7 +322,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			elements = this.parser.find(skipper['selector']).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
-				if (!element.hasAttribute(_dataIgnore)) {
+				if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 					this.fixSkipper(element);
 				}
 			}
@@ -371,7 +369,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.fixHeading(element);
 			}
 		}
@@ -414,7 +412,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		elements = this.parser.find('[longdesc]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.fixLongDescription(element);
 			}
 		}

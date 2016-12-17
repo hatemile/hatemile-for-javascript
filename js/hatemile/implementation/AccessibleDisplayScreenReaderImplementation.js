@@ -28,13 +28,11 @@ exports.hatemile || (exports.hatemile = {});
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function() {
-	var forceRead, forceReadSimple, generateListShortcuts, getDescription, insertAfter, insertBefore, _classForceReadBegin, _classForceReadEnd, _dataAriaBusyBeginFor, _dataAriaBusyEndFor, _dataAriaCheckedBeginFor, _dataAriaCheckedEndFor, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor, _dataAriaExpandedBeginFor, _dataAriaExpandedEndFor, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor, _dataAriaHaspopupBeginFor, _dataAriaHaspopupEndFor, _dataAriaLevelBeginFor, _dataAriaLevelEndFor, _dataAriaOrientationBeginFor, _dataAriaOrientationEndFor, _dataAriaPressedBeginFor, _dataAriaPressedEndFor, _dataAriaSelectedBeginFor, _dataAriaSelectedEndFor, _dataAriaSortBeginFor, _dataAriaSortEndFor, _dataAttributeAccesskeyBeginFor, _dataAttributeAccesskeyEndFor, _dataAttributeAutoCompleteBeginFor, _dataAttributeAutoCompleteEndFor, _dataAttributeDownloadBeginFor, _dataAttributeDownloadEndFor, _dataAttributeDraggableBeginFor, _dataAttributeDraggableEndFor, _dataAttributeDropzoneBeginFor, _dataAttributeDropzoneEndFor, _dataAttributeHeadersBeginFor, _dataAttributeHeadersEndFor, _dataAttributeHrefBeginFor, _dataAttributeHrefEndFor, _dataAttributeLanguageBeginFor, _dataAttributeLanguageEndFor, _dataAttributeRangeMaxBeginFor, _dataAttributeRangeMaxEndFor, _dataAttributeRangeMinBeginFor, _dataAttributeRangeMinEndFor, _dataAttributeRequiredBeginFor, _dataAttributeRequiredEndFor, _dataAttributeTargetBeginFor, _dataAttributeTargetEndFor, _dataAttributeTitleBeginFor, _dataAttributeTitleEndFor, _dataIgnore, _dataInvalidDate, _dataInvalidDateTime, _dataInvalidEmail, _dataInvalidLength, _dataInvalidMonth, _dataInvalidPattern, _dataInvalidRange, _dataInvalidRequired, _dataInvalidTime, _dataInvalidURL, _dataInvalidWeek, _dataRoleBeginFor, _dataRoleEndFor, _idContainerShortcuts, _idTextShortcuts;
+	var forceRead, forceReadSimple, generateListShortcuts, getDescription, insertAfter, insertBefore, _classForceReadBegin, _classForceReadEnd, _dataAriaBusyBeginFor, _dataAriaBusyEndFor, _dataAriaCheckedBeginFor, _dataAriaCheckedEndFor, _dataAriaDropeffectBeginFor, _dataAriaDropeffectEndFor, _dataAriaExpandedBeginFor, _dataAriaExpandedEndFor, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor, _dataAriaHaspopupBeginFor, _dataAriaHaspopupEndFor, _dataAriaLevelBeginFor, _dataAriaLevelEndFor, _dataAriaOrientationBeginFor, _dataAriaOrientationEndFor, _dataAriaPressedBeginFor, _dataAriaPressedEndFor, _dataAriaSelectedBeginFor, _dataAriaSelectedEndFor, _dataAriaSortBeginFor, _dataAriaSortEndFor, _dataAttributeAccesskeyBeginFor, _dataAttributeAccesskeyEndFor, _dataAttributeAutoCompleteBeginFor, _dataAttributeAutoCompleteEndFor, _dataAttributeDownloadBeginFor, _dataAttributeDownloadEndFor, _dataAttributeDraggableBeginFor, _dataAttributeDraggableEndFor, _dataAttributeDropzoneBeginFor, _dataAttributeDropzoneEndFor, _dataAttributeHeadersBeginFor, _dataAttributeHeadersEndFor, _dataAttributeHrefBeginFor, _dataAttributeHrefEndFor, _dataAttributeLanguageBeginFor, _dataAttributeLanguageEndFor, _dataAttributeRangeMaxBeginFor, _dataAttributeRangeMaxEndFor, _dataAttributeRangeMinBeginFor, _dataAttributeRangeMinEndFor, _dataAttributeRequiredBeginFor, _dataAttributeRequiredEndFor, _dataAttributeTargetBeginFor, _dataAttributeTargetEndFor, _dataAttributeTitleBeginFor, _dataAttributeTitleEndFor, _dataInvalidDate, _dataInvalidDateTime, _dataInvalidEmail, _dataInvalidLength, _dataInvalidMonth, _dataInvalidPattern, _dataInvalidRange, _dataInvalidRequired, _dataInvalidTime, _dataInvalidURL, _dataInvalidWeek, _dataRoleBeginFor, _dataRoleEndFor, _idContainerShortcuts, _idTextShortcuts;
 
 	_idContainerShortcuts = 'container-shortcuts';
 
 	_idTextShortcuts = 'text-shortcuts';
-
-	_dataIgnore = 'data-ignoreaccessibilityfix';
 
 	_classForceReadBegin = 'force-read-begin';
 
@@ -744,7 +742,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[accesskey]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayShortcut(element);
 			}
 		}
@@ -766,7 +764,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[role]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayRole(element);
 			}
 		}
@@ -795,7 +793,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('td[headers],th[headers]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayCellHeader(element);
 			}
 		}
@@ -914,7 +912,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayWAIARIAStates(element);
 			}
 		}
@@ -937,7 +935,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[download],[target="_blank"],[href]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayLinkAttributes(element);
 			}
 		}
@@ -954,7 +952,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[title]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayTitle(element);
 			}
 		}
@@ -1004,7 +1002,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayDragAndDrop(element);
 			}
 		}
@@ -1032,7 +1030,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[lang],[hreflang]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayLanguage(element);
 			}
 		}

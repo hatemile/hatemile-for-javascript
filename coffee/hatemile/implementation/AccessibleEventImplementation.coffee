@@ -33,7 +33,7 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleEventImplementation
 	
-	_dataIgnore = 'data-ignoreaccessibilityfix'
+	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_dataKeyPressed = 'data-keypressed'
 	_dataKeyDownAdded = 'data-keydownadded'
 	_dataKeyPressAdded = 'data-keypressadded'
@@ -300,7 +300,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		return dragEvent
 	
 	visit = (element, condition, operation) ->
-		if not element.hasAttribute(_dataIgnore)
+		if not element.hasAttribute(DATA_IGNORE)
 			if condition(element)
 				operation(element)
 			

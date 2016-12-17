@@ -35,9 +35,9 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleTableImplementation = (function() {
-	var fixBodyOrFooter, fixHeader, generateColspan, generatePart, generateRowspan, returnListIdsColumns, validateHeader, _dataIgnore;
+	var DATA_IGNORE, fixBodyOrFooter, fixHeader, generateColspan, generatePart, generateRowspan, returnListIdsColumns, validateHeader;
 
-	_dataIgnore = 'data-ignoreaccessibilityfix';
+	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
 	/**
 	 * Initializes a new object that manipulate the accessibility of the tables
@@ -299,8 +299,10 @@ exports.hatemile.implementation.AccessibleTableImplementation = (function() {
 		tables = this.parser.find('table').listResults();
 		for (_i = 0, _len = tables.length; _i < _len; _i++) {
 			table = tables[_i];
-			if (!table.hasAttribute(_dataIgnore)) {
-				this.fixAssociationCellsTable(table);
+			if (exports.hatemile.util.CommonFunctions.isValidElement(table)) {
+				if (isEmpty(this.parser.find(table).findDescendants("thead[" + DATA_IGNORE + "],tbody[" + DATA_IGNORE + "],tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],th[" + DATA_IGNORE + "],td[" + DATA_IGNORE + "]").firstResult())) {
+					this.associateDataCellsWithHeaderCells(table);
+				}
 			}
 		}
 	};

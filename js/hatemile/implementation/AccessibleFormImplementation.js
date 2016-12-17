@@ -35,9 +35,9 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleFormImplementation = (function() {
-	var addEventHandler, getARIAAutoComplete, getLabels, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow, _dataEventChangeAdded, _dataIgnore, _dataInvalidDate, _dataInvalidDateTime, _dataInvalidEmail, _dataInvalidLength, _dataInvalidMonth, _dataInvalidPattern, _dataInvalidRange, _dataInvalidRequired, _dataInvalidTime, _dataInvalidURL, _dataInvalidWeek, _validationLength, _validationPattern, _validationRequired, _validationType;
+	var DATA_IGNORE, addEventHandler, getARIAAutoComplete, getLabels, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow, _dataEventChangeAdded, _dataInvalidDate, _dataInvalidDateTime, _dataInvalidEmail, _dataInvalidLength, _dataInvalidMonth, _dataInvalidPattern, _dataInvalidRange, _dataInvalidRequired, _dataInvalidTime, _dataInvalidURL, _dataInvalidWeek, _validationLength, _validationPattern, _validationRequired, _validationType;
 
-	_dataIgnore = 'data-ignoreaccessibilityfix';
+	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
 	_dataEventChangeAdded = 'data-changeadded';
 
@@ -327,7 +327,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		requiredFields = this.parser.find('[required]').listResults();
 		for (_i = 0, _len = requiredFields.length; _i < _len; _i++) {
 			requiredField = requiredFields[_i];
-			if (!requiredField.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(requiredField)) {
 				this.fixRequiredField(requiredField);
 			}
 		}
@@ -347,7 +347,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		rangeFields = this.parser.find('[min],[max]').listResults();
 		for (_i = 0, _len = rangeFields.length; _i < _len; _i++) {
 			rangeField = rangeFields[_i];
-			if (!rangeField.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(rangeField)) {
 				this.fixRangeField(rangeField);
 			}
 		}
@@ -366,7 +366,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		elements = this.parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.fixAutoCompleteField(element);
 			}
 		}
@@ -384,7 +384,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 					label.setAttribute('for', field.getAttribute('id'));
 				}
 			}
-			if (!isEmpty(field)) {
+			if ((!isEmpty(field)) && (!field.hasAttribute(DATA_IGNORE))) {
 				if (!field.hasAttribute('aria-label')) {
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
 				}
@@ -399,7 +399,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		labels = this.parser.find('label').listResults();
 		for (_i = 0, _len = labels.length; _i < _len; _i++) {
 			label = labels[_i];
-			if (!label.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(label)) {
 				this.fixLabel(label);
 			}
 		}
@@ -446,7 +446,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		fields = this.parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults();
 		for (_i = 0, _len = fields.length; _i < _len; _i++) {
 			field = fields[_i];
-			if (!field.hasAttribute(_dataIgnore)) {
+			if (exports.hatemile.util.CommonFunctions.isValidElement(field)) {
 				this.fixValidation(field);
 			}
 		}

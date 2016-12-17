@@ -33,7 +33,7 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleCSSImplementation
 	
-	_dataIgnore = 'data-ignoreaccessibilityfix'
+	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_dataIsolatorElement = 'data-auxiliarspan'
 	_dataSpeak = 'data-cssspeak'
 	_dataSpeakAs = 'data-cssspeakas'
@@ -79,7 +79,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return regularExpression
 	
 	isValidInheritElement = (element) ->
-		return _validInheritTags.indexOf(element.getTagName()) isnt -1
+		return (_validInheritTags.indexOf(element.getTagName()) isnt -1) and (not element.hasAttribute(DATA_IGNORE))
 	
 	isValidElement = (element) ->
 		return _validTags.indexOf(element.getTagName()) isnt -1
@@ -383,6 +383,6 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		if selector isnt undefined
 			elements = @htmlParser.find(selector).listResults()
 			for element in elements
-				if not element.hasAttribute(_dataIgnore)
-					@fixSpeak(element)
+				if exports.hatemile.util.CommonFunctions.isValidElement(element)
+					@provideSpeakProperties(element)
 		return

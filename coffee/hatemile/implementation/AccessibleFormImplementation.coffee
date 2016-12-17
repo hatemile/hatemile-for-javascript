@@ -33,7 +33,7 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleFormImplementation
 	
-	_dataIgnore = 'data-ignoreaccessibilityfix'
+	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_dataEventChangeAdded = 'data-changeadded'
 	_dataInvalidURL = 'data-invalidurl'
 	_dataInvalidEmail = 'data-invalidemail'
@@ -246,7 +246,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixAllRequiredFields: () ->
 		requiredFields = @parser.find('[required]').listResults()
 		for requiredField in requiredFields
-			if not requiredField.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(requiredField)
 				@fixRequiredField(requiredField)
 		return
 	
@@ -260,7 +260,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixAllRangeFields: () ->
 		rangeFields = @parser.find('[min],[max]').listResults()
 		for rangeField in rangeFields
-			if not rangeField.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(rangeField)
 				@fixRangeField(rangeField)
 		return
 	
@@ -273,7 +273,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixAllAutoCompleteFields: () ->
 		elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@fixAutoCompleteField(element)
 		return
 	
@@ -287,7 +287,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				if not isEmpty(field)
 					exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
 					label.setAttribute('for', field.getAttribute('id'))
-			if not isEmpty(field)
+			if (not isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
 				if not field.hasAttribute('aria-label')
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
 				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
@@ -297,7 +297,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixAllLabels: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels
-			if not label.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(label)
 				@fixLabel(label)
 		return
 	
@@ -333,6 +333,6 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	fixAllValidations: () ->
 		fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
 		for field in fields
-			if not field.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(field)
 				@fixValidation(field)
 		return

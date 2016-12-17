@@ -38,7 +38,6 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	_idTextHeading = 'text-heading'
 	_classSkipperAnchor = 'skipper-anchor'
 	_classHeadingAnchor = 'heading-anchor'
-	_dataIgnore = 'data-ignoreaccessibilityfix'
 	_dataAnchorFor = 'data-anchorfor'
 	_dataHeadingAnchorFor = 'data-headinganchorfor'
 	_dataHeadingLevel = 'data-headinglevel'
@@ -255,7 +254,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 		for skipper in @skippers
 			elements = @parser.find(skipper['selector']).listResults()
 			for element in elements
-				if not element.hasAttribute(_dataIgnore)
+				if exports.hatemile.util.CommonFunctions.isValidElement(element)
 					@fixSkipper(element)
 		return
 	
@@ -291,7 +290,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	fixAllHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@fixHeading(element)
 		return
 	
@@ -324,6 +323,6 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	fixAllLongDescriptions: () ->
 		elements = @parser.find('[longdesc]').listResults()
 		for element in elements
-			if not element.hasAttribute(_dataIgnore)
+			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@fixLongDescription(element)
 		return

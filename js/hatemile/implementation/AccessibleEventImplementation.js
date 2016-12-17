@@ -35,9 +35,9 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleEventImplementation = (function() {
-	var addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, enterPressed, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, keyboardAccess, _active, _dataBlurAdded, _dataFocusAdded, _dataIgnore, _dataKeyDownAdded, _dataKeyPressAdded, _dataKeyPressed, _dataKeyUpAdded, _drag, _drop, _hover;
+	var DATA_IGNORE, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, enterPressed, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, keyboardAccess, _active, _dataBlurAdded, _dataFocusAdded, _dataKeyDownAdded, _dataKeyPressAdded, _dataKeyPressed, _dataKeyUpAdded, _drag, _drop, _hover;
 
-	_dataIgnore = 'data-ignoreaccessibilityfix';
+	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
 	_dataKeyPressed = 'data-keypressed';
 
@@ -443,7 +443,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (!element.hasAttribute(_dataIgnore)) {
+			if (!element.hasAttribute(DATA_IGNORE)) {
 				if (hasEvent(element, 'drag') || hasEvent(element, 'dragstart') || hasEvent(element, 'dragend')) {
 					this.fixDrag(element);
 				}
@@ -469,7 +469,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if ((!element.hasAttribute(_dataIgnore)) && (hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout'))) {
+			if ((!element.hasAttribute(_)) && (hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout'))) {
 				this.fixHover(element);
 			}
 		}
@@ -508,7 +508,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		elements = this.parser.find('body *').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if ((!element.hasAttribute(_dataIgnore)) && (hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick'))) {
+			if ((!element.hasAttribute(DATA_IGNORE)) && (hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick'))) {
 				this.fixActive(element);
 			}
 		}

@@ -34,6 +34,7 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.util
  */
 exports.hatemile.util.CommonFunctions = {
+	DATA_IGNORE: 'data-ignoreaccessibilityfix',
 	/**
 	 * Count the number of ids created.
 	 * @type {number}
@@ -123,5 +124,32 @@ exports.hatemile.util.CommonFunctions = {
 			}
 		}
 		return false;
+	},
+	
+	/**
+	 * Check that the element can be manipulated by HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element
+	 * @returns {boolean} True if element can be manipulated or false if element
+	 * and  element can be manipulated.
+	 * @public
+	 * @function hatemile.util.CommonFunctions.isValidElement
+	 */
+	isValidElement = function(element) {
+		var parentElement, tagName;
+		if (element.hasAttribute(DATA_IGNORE)) {
+			return false;
+		} else {
+			parentElement = element.getParentElement();
+			if (!isEmpty(parentElement)) {
+				tagName = parentElement.getTagName();
+				if ((tagName !== 'BODY') && (tagName !== 'HTML')) {
+					return exports.hatemile.util.CommonFunctions.isValidElement(parentElement);
+				} else {
+					return true;
+				}
+			} else {
+				return true;
+			}
+		}
 	}
 };

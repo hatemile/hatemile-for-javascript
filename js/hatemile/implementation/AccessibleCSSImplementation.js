@@ -28,9 +28,9 @@ exports.hatemile || (exports.hatemile = {});
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
-	var createAuralContentElement, createContentElement, createVisualContentElement, formatSymbol, getDescriptionOfSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, normalize, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit, _dataIgnore, _dataIsolatorElement, _dataSpeak, _dataSpeakAs, _validInheritTags, _validTags;
+	var DATA_IGNORE, createAuralContentElement, createContentElement, createVisualContentElement, formatSymbol, getDescriptionOfSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, normalize, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit, _dataIsolatorElement, _dataSpeak, _dataSpeakAs, _validInheritTags, _validTags;
 
-	_dataIgnore = 'data-ignoreaccessibilityfix';
+	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
 	_dataIsolatorElement = 'data-auxiliarspan';
 
@@ -79,7 +79,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	isValidInheritElement = function(element) {
-		return _validInheritTags.indexOf(element.getTagName()) !== -1;
+		return (_validInheritTags.indexOf(element.getTagName()) !== -1) && (!element.hasAttribute(DATA_IGNORE));
 	};
 
 	isValidElement = function(element) {
@@ -460,8 +460,8 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 			elements = this.htmlParser.find(selector).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
-				if (!element.hasAttribute(_dataIgnore)) {
-					this.fixSpeak(element);
+				if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+					this.provideSpeakProperties(element);
 				}
 			}
 		}

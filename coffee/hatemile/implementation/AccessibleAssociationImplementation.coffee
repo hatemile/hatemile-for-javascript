@@ -33,7 +33,7 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleAssociationImplementation
 	
-	_dataIgnore = 'data-ignoreaccessibilityfix'
+	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the tables
@@ -233,6 +233,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 	associateAllDataCellsWithHeaderCells: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
-			if not table.hasAttribute(_dataIgnore)
-				@associateDataCellsWithHeaderCells(table)
+			if exports.hatemile.util.CommonFunctions.isValidElement(table)
+				if isEmpty(@parser.find(table).findDescendants("thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult())
+					@associateDataCellsWithHeaderCells(table)
 		return
