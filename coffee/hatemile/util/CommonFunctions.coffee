@@ -30,15 +30,10 @@ exports.hatemile.util or= {}
  * classes.
  * @memberof hatemile.util
 ###
-exports.hatemile.util.CommonFunctions = {
+class exports.hatemile.util.CommonFunctions
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
-	###*
-	 * Count the number of ids created.
-	 * @type {number}
-	 * @memberof hatemile.util.CommonFunctions
-	###
-	count: 0,
+	_count = 0
 	
 	###*
 	 * Generate a id for a element.
@@ -46,18 +41,18 @@ exports.hatemile.util.CommonFunctions = {
 	 * @param {string} prefix The prefix of id.
 	 * @memberof hatemile.util.CommonFunctions
 	###
-	generateId: (element, prefix) ->
+	@generateId: (element, prefix) ->
 		if not element.hasAttribute('id')
-			element.setAttribute('id', prefix + @count.toString())
-			@count++
+			element.setAttribute('id', prefix + _count.toString())
+			_count++
 		return
 	
 	###*
 	 * Reset the count number of ids.
 	 * @memberof hatemile.util.CommonFunctions
 	###
-	resetCount: () ->
-		@count = 0
+	@resetCount: () ->
+		_count = 0
 		return
 	
 	###*
@@ -69,7 +64,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * @param {String[]} attributes The list of attributes that will be copied.
 	 * @memberof hatemile.util.CommonFunctions
 	###
-	setListAttributes: (element1, element2, attributes) ->
+	@setListAttributes: (element1, element2, attributes) ->
 		for attribute in attributes
 			if element1.hasAttribute(attribute)
 				element2.setAttribute(attribute, element1.getAttribute(attribute))
@@ -83,7 +78,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * contained in list.
 	 * @memberof hatemile.util.CommonFunctions
 	###
-	increaseInList: (list, stringToIncrease) ->
+	@increaseInList: (list, stringToIncrease) ->
 		if not (isEmpty(list) or isEmpty(stringToIncrease))
 			if @inList(list, stringToIncrease)
 				return list
@@ -102,7 +97,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * contains.
 	 * @memberof hatemile.util.CommonFunctions
 	###
-	inList: (list, stringToSearch) ->
+	@inList: (list, stringToSearch) ->
 		if not (isEmpty(list) or isEmpty(stringToSearch))
 			array = list.split(new RegExp('[ \n\t\r]+'))
 			for item in array
@@ -118,7 +113,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * @public
 	 * @function hatemile.util.CommonFunctions.isValidElement
 	###
-	isValidElement: (element) ->
+	@isValidElement: (element) ->
 		if element.hasAttribute(DATA_IGNORE)
 			return false
 		else
@@ -126,9 +121,8 @@ exports.hatemile.util.CommonFunctions = {
 			if not isEmpty(parentElement)
 				tagName = parentElement.getTagName()
 				if (tagName isnt 'BODY') and (tagName isnt 'HTML')
-					return exports.hatemile.util.CommonFunctions.isValidElement(parentElement)
+					return @isValidElement(parentElement)
 				else
 					return true
 			else
 				return true
-}

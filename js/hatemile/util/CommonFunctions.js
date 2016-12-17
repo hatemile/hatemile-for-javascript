@@ -33,36 +33,37 @@ exports.hatemile || (exports.hatemile = {});
  * classes.
  * @memberof hatemile.util
  */
-exports.hatemile.util.CommonFunctions = {
-	DATA_IGNORE: 'data-ignoreaccessibilityfix',
-	/**
-	 * Count the number of ids created.
-	 * @type {number}
-	 * @memberof hatemile.util.CommonFunctions
-	 */
-	count: 0,
-	
+exports.hatemile.util.CommonFunctions = (function() {
+	var DATA_IGNORE, _count;
+
+	function CommonFunctions() {
+	}
+
+	DATA_IGNORE = 'data-ignoreaccessibilityfix';
+
+	_count = 0;
+
 	/**
 	 * Generate a id for a element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {string} prefix The prefix of id.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
-	generateId: function(element, prefix) {
+	CommonFunctions.generateId = function(element, prefix) {
 		if (!element.hasAttribute('id')) {
-			element.setAttribute('id', prefix + this.count.toString());
-			this.count++;
+			element.setAttribute('id', prefix + _count.toString());
+			_count++;
 		}
-	},
-	
+	};
+
 	/**
 	 * Reset the count number of ids.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
-	resetCount: function() {
-		this.count = 0;
-	},
-	
+	CommonFunctions.resetCount = function() {
+		_count = 0;
+	};
+
 	/**
 	 * Copy a list of attributes of a element for other element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element1 The element that have
@@ -72,7 +73,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * @param {String[]} attributes The list of attributes that will be copied.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
-	setListAttributes: function(element1, element2, attributes) {
+	CommonFunctions.setListAttributes = function(element1, element2, attributes) {
 		var attribute, _i, _len;
 		for (_i = 0, _len = attributes.length; _i < _len; _i++) {
 			attribute = attributes[_i];
@@ -80,8 +81,8 @@ exports.hatemile.util.CommonFunctions = {
 				element2.setAttribute(attribute, element1.getAttribute(attribute));
 			}
 		}
-	},
-	
+	};
+
 	/**
 	 * Increase a item in a HTML list.
 	 * @param {string} list The list.
@@ -90,7 +91,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * contained in list.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
-	increaseInList: function(list, stringToIncrease) {
+	CommonFunctions.increaseInList = function(list, stringToIncrease) {
 		if (!(isEmpty(list) || isEmpty(stringToIncrease))) {
 			if (this.inList(list, stringToIncrease)) {
 				return list;
@@ -102,8 +103,8 @@ exports.hatemile.util.CommonFunctions = {
 		} else {
 			return list;
 		}
-	},
-	
+	};
+
 	/**
 	 * Verify if the list contains the item.
 	 * @param {string} list The list.
@@ -112,7 +113,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * contains.
 	 * @memberof hatemile.util.CommonFunctions
 	 */
-	inList: function(list, stringToSearch) {
+	CommonFunctions.inList = function(list, stringToSearch) {
 		var array, item, _i, _len;
 		if (!(isEmpty(list) || isEmpty(stringToSearch))) {
 			array = list.split(new RegExp('[ \n\t\r]+'));
@@ -124,8 +125,8 @@ exports.hatemile.util.CommonFunctions = {
 			}
 		}
 		return false;
-	},
-	
+	};
+
 	/**
 	 * Check that the element can be manipulated by HaTeMiLe.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element
@@ -134,7 +135,7 @@ exports.hatemile.util.CommonFunctions = {
 	 * @public
 	 * @function hatemile.util.CommonFunctions.isValidElement
 	 */
-	isValidElement = function(element) {
+	CommonFunctions.isValidElement = function(element) {
 		var parentElement, tagName;
 		if (element.hasAttribute(DATA_IGNORE)) {
 			return false;
@@ -143,7 +144,7 @@ exports.hatemile.util.CommonFunctions = {
 			if (!isEmpty(parentElement)) {
 				tagName = parentElement.getTagName();
 				if ((tagName !== 'BODY') && (tagName !== 'HTML')) {
-					return exports.hatemile.util.CommonFunctions.isValidElement(parentElement);
+					return this.isValidElement(parentElement);
 				} else {
 					return true;
 				}
@@ -151,5 +152,8 @@ exports.hatemile.util.CommonFunctions = {
 				return true;
 			}
 		}
-	}
-};
+	};
+
+	return CommonFunctions;
+
+})();
