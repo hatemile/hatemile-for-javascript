@@ -124,8 +124,6 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	DATA_INVALID_WEEK = 'data-invalidweek'
 	
 	constructor: (@parser, configure, userAgent) ->
-		@shortcutPrefix = getShortcutPrefix(userAgent)
-		
 		@listShortcutsAdded = false
 		@listShortcuts = undefined
 		
@@ -139,6 +137,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		@attributeHrefSuffixBefore = configure.getParameter('attribute-href-suffix-before')
 		@attributeHrefPrefixAfter = configure.getParameter('attribute-href-prefix-after')
 		@attributeHrefSuffixAfter = configure.getParameter('attribute-href-suffix-after')
+		@attributeAccesskeyDefault = configure.getParameter('attribute-accesskey-default')
 		@attributeAccesskeyPrefixBefore = configure.getParameter('attribute-accesskey-prefix-before')
 		@attributeAccesskeySuffixBefore = configure.getParameter('attribute-accesskey-suffix-before')
 		@attributeAccesskeyPrefixAfter = configure.getParameter('attribute-accesskey-prefix-after')
@@ -512,8 +511,10 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			'zh': configure.getParameter('language-zh')
 			'zu': configure.getParameter('language-zu')
 		}
+		
+		@shortcutPrefix = getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
 	
-	getShortcutPrefix = (userAgent) ->
+	getShortcutPrefix = (userAgent, defaultPrefix) ->
 		if not isEmpty(userAgent)
 			userAgent = userAgent.toLowerCase()
 			opera = userAgent.indexOf('opera') > -1
@@ -539,7 +540,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			else if firefox
 				return 'ALT + SHIFT'
 		else
-			return 'ALT'
+			return defaultPrefix
 	
 	###*
 	 * Returns the description of element.

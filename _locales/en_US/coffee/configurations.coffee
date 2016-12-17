@@ -84,6 +84,7 @@ hatemile_configuration =
 	'attribute-href-suffix-before': ''
 	'attribute-href-prefix-after': ' (Link address: '
 	'attribute-href-suffix-after': ')'
+	'attribute-accesskey-default': 'ACCESS KEY PREFIX'
 	'attribute-accesskey-prefix-before': 'List of keyboard shortcuts: '
 	'attribute-accesskey-suffix-before': ''
 	'attribute-accesskey-prefix-after': ' (Keyboard shortcut: '

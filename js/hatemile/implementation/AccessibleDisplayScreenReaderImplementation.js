@@ -503,9 +503,10 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 			, 'zh': configure.getParameter('language-zh')
 			, 'zu': configure.getParameter('language-zu')
 		};
+		this.shortcutPrefix = getShortcutPrefix(userAgent, this.attributeAccesskeyDefault);
 	}
 
-	getShortcutPrefix = function(userAgent) {
+	getShortcutPrefix = function(userAgent, defaultPrefix) {
 		var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
 		if (!isEmpty(userAgent)) {
 			userAgent = userAgent.toLowerCase();
@@ -532,7 +533,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 				return 'ALT + SHIFT';
 			}
 		} else {
-			return 'ALT';
+			return defaultPrefix;
 		}
 	};
 
