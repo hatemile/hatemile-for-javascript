@@ -331,7 +331,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			if (!isEmpty(anchor)) {
 				level = getHeadingLevel(heading);
 				if (level === 1) {
-					list = generateListHeading(this.parser, this.textHeading);
+					list = generateListHeading(this.parser, "" + this.elementsHeadingBefore + this.elementsHeadingAfter);
 				} else {
 					superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants("[" + DATA_HEADING_LEVEL + "=\"" + ((level - 1).toString()) + "\"]").lastResult();
 					if (!isEmpty(superItem)) {
@@ -373,8 +373,8 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			id = image.getAttribute('id');
 			if (isEmpty(this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult())) {
 				if (image.hasAttribute('alt')) {
-					if (!(isEmpty(this.attributeLongDescriptionPrefixBegin) && isEmpty(this.attributeLongDescriptionSuffixBegin))) {
-						text = "" + this.attributeLongDescriptionPrefixBegin + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixBegin;
+					if (!(isEmpty(this.attributeLongDescriptionPrefixBefore) && isEmpty(this.attributeLongDescriptionSuffixBefore))) {
+						text = "" + this.attributeLongDescriptionPrefixBefore + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixBefore;
 						anchor = this.parser.createElement('a');
 						anchor.setAttribute('href', image.getAttribute('longdesc'));
 						anchor.setAttribute('target', '_blank');
@@ -383,8 +383,8 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 						anchor.appendText(text);
 						image.insertBefore(anchor);
 					}
-					if (!(isEmpty(this.attributeLongDescriptionPrefixEnd) && isEmpty(this.attributeLongDescriptionSuffixEnd))) {
-						text = "" + this.attributeLongDescriptionPrefixEnd + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixEnd;
+					if (!(isEmpty(this.attributeLongDescriptionPrefixAfter) && isEmpty(this.attributeLongDescriptionSuffixAfter))) {
+						text = "" + this.attributeLongDescriptionPrefixAfter + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixAfter;
 						anchor = this.parser.createElement('a');
 						anchor.setAttribute('href', image.getAttribute('longdesc'));
 						anchor.setAttribute('target', '_blank');
