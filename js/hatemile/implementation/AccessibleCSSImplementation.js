@@ -43,7 +43,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		this.symbols = symbols;
 	}
 
-	formatSymbol = function(symbol) {
+	getFormatedSymbol = function(symbol) {
 		return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+').replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$').replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}').replace('(', '\\(').replace(')', '\\)').replace('|', '\\|').replace('/', '\\/').replace(',', '\\,').replace('!', '\\!').replace('=', '\\=').replace(':', '\\:').replace('-', '\\-');
 	};
 
@@ -63,7 +63,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		regularExpression = void 0;
 		for (_i = 0, _len = symbols.length; _i < _len; _i++) {
 			symbol = symbols[_i];
-			formatedSymbol = formatSymbol(symbol.symbol);
+			formatedSymbol = getFormatedSymbol(symbol.symbol);
 			if (isEmpty(regularExpression)) {
 				regularExpression = "(" + formatedSymbol + ")";
 			} else {
@@ -88,22 +88,21 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	isolateTextNode = function(element, htmlParser) {
-		var child, children, elementChild, nativeChildren, nativeElement, span, _i, _j, _len, _len1;
-		if ((element.hasChildren()) && (isValidElement(element))) {
+		var child, children, elementChild, span, _i, _j, _len, _len1;
+		if ((element.hasChildrenElements()) && (isValidElement(element))) {
 			if (isValidElement(element)) {
-				nativeElement = element.getData();
-				nativeChildren = nativeElement.childNodes;
-				for (_i = 0, _len = nativeChildren.length; _i < _len; _i++) {
-					child = nativeChildren[_i];
-					if (child.nodeType === nativeElement.ownerDocument.TEXT_NODE) {
+				children = element.getChildren();
+				for (_i = 0, _len = children.length; _i < _len; _i++) {
+					child = children[_i];
+					if (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
 						span = htmlParser.createElement('span');
-						span.setAttribute(_dataIsolatorElement, 'true');
-						span.appendText(child.nodeValue);
-						nativeElement.replaceChild(span.getData(), child);
+						span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
+						span.appendText(child.getTextContent());
+						child.replaceNode(span);
 					}
 				}
 			}
-			children = element.getChildren();
+			children = element.getChildrenElements();
 			for (_j = 0, _len1 = children.length; _j < _len1; _j++) {
 				elementChild = children[_j];
 				isolateTextNode(elementChild, htmlParser);
@@ -112,31 +111,30 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	replaceElementByOwnContent = function(element) {
-		var child, children, textNode, _i, _len;
-		if (element.hasChildren()) {
-			children = element.getChildren();
+		var child, children, _i, _len;
+		if (element.hasChildrenElements()) {
+			children = element.getChildrenElements();
 			for (_i = 0, _len = children.length; _i < _len; _i++) {
 				child = children[_i];
 				element.insertBefore(child);
 			}
-			element.removeElement();
-		} else {
-			textNode = element.getData().ownerDocument.createTextNode(element.getTextContent());
-			element.getParentElement().getData().replaceChild(textNode, element.getData());
+			element.removeNode();
+		} else if (element.hasChildren()) {
+			element.replaceNode(element.getFirstNodeChild());
 		}
 	};
 
-	visit = function(element, dataPropertyValue, htmlParser, symbols, operation) {
+	visit = function(element, htmlParser, symbols, operation) {
 		var child, children, _i, _len;
 		if (isValidInheritElement(element)) {
-			if (element.hasChildren()) {
-				children = element.getChildren();
+			if (element.hasChildrenElements()) {
+				children = element.getChildrenElements();
 				for (_i = 0, _len = children.length; _i < _len; _i++) {
 					child = children[_i];
-					visit(child, dataPropertyValue, htmlParser, symbols, operation);
+					visit(child, htmlParser, symbols, operation);
 				}
 			} else if (isValidElement(element)) {
-				operation(element, dataPropertyValue, htmlParser, symbols);
+				operation(element, htmlParser, symbols);
 			}
 		}
 	};
@@ -179,8 +177,8 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	speakNormalInherit = function(element, htmlParser) {
-		visit(element, null, htmlParser, null, speakNormal);
-		normalize(element);
+		visit(element, htmlParser, null, speakNormal);
+		element.normalize();
 	};
 
 	speakNone = function(element) {
@@ -191,18 +189,18 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 
 	speakNoneInherit = function(element, htmlParser) {
 		isolateTextNode(element, htmlParser);
-		visit(element, null, htmlParser, null, speakNone);
+		visit(element, htmlParser, null, speakNone);
 	};
 
-	speakAs = function(element, regex, dataValue, htmlParser, callback) {
-		var child, children, content, index, nativeElement, _i, _len;
+	speakAs = function(element, regularExpression, dataPropertyValue, htmlParser, operation) {
+		var child, children, content, index, _i, _len;
 		children = [];
 		index = -1;
 		content = element.getTextContent();
 		while (content.length > 0) {
-			index = content.search(new RegExp(regex));
+			index = content.search(new RegExp(regularExpression));
 			if (index !== -1) {
-				callback(content, index, children);
+				operation(content, index, children);
 				index = index + 1;
 				content = content.substr(index);
 			} else {
@@ -211,11 +209,10 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 		if (children.length > 0) {
 			if (content.length > 0) {
-				children.push(createContentElement(content, dataValue, htmlParser));
+				children.push(createContentElement(content, dataPropertyValue, htmlParser));
 			}
-			nativeElement = element.getData();
-			while (nativeElement.childNodes.length > 0) {
-				nativeElement.removeChild(nativeElement.childNodes[0]);
+			while (element.hasChildren()) {
+				element.getFirstNodeChild().removeNode();
 			}
 			for (_i = 0, _len = children.length; _i < _len; _i++) {
 				child = children[_i];
@@ -224,21 +221,19 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
-	reverseSpeakAs = function(element, dataValue, htmlParser) {
+	reverseSpeakAs = function(element, dataPropertyValue, htmlParser) {
 		var auxiliarElement, auxiliarElements, contentElement, contentElements, _i, _j, _len, _len1;
-		auxiliarElements = htmlParser.find(element).findDescendants("[" + _dataSpeakAs + "=\"" + dataValue + "\"][unselectable=\"on\"]").listResults();
+		auxiliarElements = htmlParser.find(element).findDescendants("[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"][unselectable=\"on\"]").listResults();
 		for (_i = 0, _len = auxiliarElements.length; _i < _len; _i++) {
 			auxiliarElement = auxiliarElements[_i];
-			auxiliarElement.removeElement();
+			auxiliarElement.removeNode();
 		}
-		contentElements = htmlParser.find(element).findDescendants("[" + _dataSpeakAs + "=\"" + dataValue + "\"][" + _dataIsolatorElement + "=\"true\"]").listResults();
+		contentElements = htmlParser.find(element).findDescendants("[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"][" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
 		for (_j = 0, _len1 = contentElements.length; _j < _len1; _j++) {
 			contentElement = contentElements[_j];
 			replaceElementByOwnContent(contentElement);
 		}
-		if ((element.getData().normalize)) {
-			element.getData().normalize();
-		}
+		element.normalize();
 	};
 
 	speakAsNormal = function(element, htmlParser) {
@@ -248,8 +243,8 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		reverseSpeakAs(element, 'digits', htmlParser);
 	};
 
-	speakAsSpellOut = function(element, dataPropertyValue, htmlParser) {
-		speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, function(content, index, children) {
+	speakAsSpellOut = function(element, htmlParser) {
+		speakAs(element, '[a-zA-Z]', 'spell-out', htmlParser, function(content, index, children) {
 			children.push(createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser));
 			return children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser));
 		});
@@ -258,11 +253,11 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	speakAsSpellOutInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'spell-out', htmlParser);
 		isolateTextNode(element, htmlParser);
-		visit(element, 'spell-out', htmlParser, null, speakAsSpellOut);
+		visit(element, htmlParser, null, speakAsSpellOut);
 	};
 
-	speakAsLiteralPunctuation = function(element, dataPropertyValue, htmlParser, symbols) {
-		speakAs(element, getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, function(content, index, children) {
+	speakAsLiteralPunctuation = function(element, htmlParser, symbols) {
+		speakAs(element, getRegularExpressionOfSymbols(symbols), 'literal-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
@@ -275,11 +270,11 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		reverseSpeakAs(element, 'literal-punctuation', htmlParser);
 		reverseSpeakAs(element, 'no-punctuation', htmlParser);
 		isolateTextNode(element, htmlParser);
-		visit(element, 'literal-punctuation', htmlParser, symbols, speakAsLiteralPunctuation);
+		visit(element, htmlParser, symbols, speakAsLiteralPunctuation);
 	};
 
-	speakAsNoPunctuation = function(element, dataPropertyValue, htmlParser) {
-		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, function(content, index, children) {
+	speakAsNoPunctuation = function(element, htmlParser) {
+		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', 'no-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
@@ -291,11 +286,11 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		reverseSpeakAs(element, 'literal-punctuation', htmlParser);
 		reverseSpeakAs(element, 'no-punctuation', htmlParser);
 		isolateTextNode(element, htmlParser);
-		visit(element, 'no-punctuation', htmlParser, null, speakAsNoPunctuation);
+		visit(element, htmlParser, null, speakAsNoPunctuation);
 	};
 
-	speakAsDigits = function(element, dataPropertyValue, htmlParser) {
-		speakAs(element, '[0-9]', dataPropertyValue, htmlParser, function(content, index, children) {
+	speakAsDigits = function(element, htmlParser) {
+		speakAs(element, '[0-9]', 'no-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
@@ -307,7 +302,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	speakAsDigitsInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'digits', htmlParser);
 		isolateTextNode(element, htmlParser);
-		visit(element, 'digits', htmlParser, null, speakAsDigits);
+		visit(element, htmlParser, null, speakAsDigits);
 	};
 
 	speakAsContinuousInherit = function(element, htmlParser) {
@@ -342,10 +337,10 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 
 	speakHeaderOnceInherit = function(element, htmlParser) {
 		var headerElement, headerElements, _i, _len;
-		headerElements = htmlParser.find(element).findDescendants("span[" + _dataSpeakAs + "=\"always\"]").listResults();
+		headerElements = htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
 		for (_i = 0, _len = headerElements.length; _i < _len; _i++) {
 			headerElement = headerElements[_i];
-			headerElement.removeElement();
+			headerElement.removeNode();
 		}
 	};
 
@@ -357,7 +352,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 			speakElements = this.htmlParser.find(rule.getSelector()).listResults();
 			for (_j = 0, _len1 = speakElements.length; _j < _len1; _j++) {
 				speakElement = speakElements[_j];
-				if (speakElement.getData() === element.getData()) {
+				if (speakElement.equals(element)) {
 					if (rule.hasProperty('speak')) {
 						declarations = rule.getDeclarations('speak');
 						for (_k = 0, _len2 = declarations.length; _k < _len2; _k++) {
@@ -391,8 +386,6 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 										speakAsNoPunctuationInherit(element, this.htmlParser);
 									} else if (propertyValue === 'digits') {
 										speakAsDigitsInherit(element, this.htmlParser);
-									} else if (propertyValue === 'normal') {
-										speakAsNormal(element, this.htmlParser);
 									}
 								}
 							}

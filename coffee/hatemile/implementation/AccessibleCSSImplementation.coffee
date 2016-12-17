@@ -110,14 +110,14 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 			element.replaceNode(element.getFirstNodeChild())
 		return
 	
-	visit = (element, dataPropertyValue, htmlParser, symbols, operation) ->
+	visit = (element, htmlParser, symbols, operation) ->
 		if isValidInheritElement(element)
 			if element.hasChildrenElements()
 				children = element.getChildrenElements()
 				for child in children
-					visit(child, dataPropertyValue, htmlParser, symbols, operation)
+					visit(child, htmlParser, symbols, operation)
 			else if isValidElement(element)
-				operation(element, dataPropertyValue, htmlParser, symbols)
+				operation(element, htmlParser, symbols)
 		return
 	
 	createContentElement = (content, dataPropertyValue, htmlParser) ->
@@ -150,7 +150,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return
 	
 	speakNormalInherit = (element, htmlParser) ->
-		visit(element, null, htmlParser, null, speakNormal)
+		visit(element, htmlParser, null, speakNormal)
 		
 		element.normalize()
 		return
@@ -164,7 +164,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	speakNoneInherit = (element, htmlParser) ->
 		isolateTextNode(element, htmlParser)
 		
-		visit(element, null, htmlParser, null, speakNone)
+		visit(element, htmlParser, null, speakNone)
 		return
 	
 	speakAs = (element, regularExpression, dataPropertyValue, htmlParser, operation) ->
@@ -211,8 +211,8 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		reverseSpeakAs(element, 'digits', htmlParser)
 		return
 	
-	speakAsSpellOut = (element, dataPropertyValue, htmlParser) ->
-		speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, (content, index, children) ->
+	speakAsSpellOut = (element, htmlParser) ->
+		speakAs(element, '[a-zA-Z]', 'spell-out', htmlParser, (content, index, children) ->
 			children.push(createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser))
 			
 			children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser))
@@ -224,11 +224,11 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		
 		isolateTextNode(element, htmlParser)
 		
-		visit(element, 'spell-out', htmlParser, null, speakAsSpellOut)
+		visit(element, htmlParser, null, speakAsSpellOut)
 		return
 	
-	speakAsLiteralPunctuation = (element, dataPropertyValue, htmlParser, symbols) ->
-		speakAs(element, getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, (content, index, children) ->
+	speakAsLiteralPunctuation = (element, htmlParser, symbols) ->
+		speakAs(element, getRegularExpressionOfSymbols(symbols), 'literal-punctuation', htmlParser, (content, index, children) ->
 			if index != 0
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
 			
@@ -244,11 +244,11 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		
 		isolateTextNode(element, htmlParser)
 		
-		visit(element, 'literal-punctuation', htmlParser, symbols, speakAsLiteralPunctuation)
+		visit(element, htmlParser, symbols, speakAsLiteralPunctuation)
 		return
 	
-	speakAsNoPunctuation = (element, dataPropertyValue, htmlParser) ->
-		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, (content, index, children) ->
+	speakAsNoPunctuation = (element, htmlParser) ->
+		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', 'no-punctuation', htmlParser, (content, index, children) ->
 			if index != 0
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
 			
@@ -262,11 +262,11 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		
 		isolateTextNode(element, htmlParser)
 		
-		visit(element, 'no-punctuation', htmlParser, null, speakAsNoPunctuation)
+		visit(element, htmlParser, null, speakAsNoPunctuation)
 		return
 	
-	speakAsDigits = (element, dataPropertyValue, htmlParser) ->
-		speakAs(element, '[0-9]', dataPropertyValue, htmlParser, (content, index, children) ->
+	speakAsDigits = (element, htmlParser) ->
+		speakAs(element, '[0-9]', 'no-punctuation', htmlParser, (content, index, children) ->
 			if index != 0
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
 			
@@ -281,7 +281,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		
 		isolateTextNode(element, htmlParser)
 		
-		visit(element, 'digits', htmlParser, null, speakAsDigits)
+		visit(element, htmlParser, null, speakAsDigits)
 		return
 	
 	speakAsContinuousInherit = (element, htmlParser) ->
