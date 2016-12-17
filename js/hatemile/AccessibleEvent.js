@@ -22,67 +22,76 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @class AccessibleEvent
- * @classdesc The AccessibleEvent interface fixes accessibility problems
- * associated with JavaScript events in elements.
- * @memberof hatemile
+ * The AccessibleEvent interface improve the accessibility, making elements
+ * events available from a keyboard.
+ * @interface hatemile.AccessibleEvent
  */
 exports.hatemile.AccessibleEvent = (function() {
 	function AccessibleEvent() {
 	}
 
 	/**
-	 * Provide a solution for the element that has drop events.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drop event.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make the drop events of element available from a keyboard.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drop
+	 * events.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleDropEvents
 	 */
-	AccessibleEvent.prototype.fixDrop = function(element) {
+	AccessibleEvent.prototype.makeAccessibleDropEvents = function(element) {
 	};
 
 	/**
-	 * Provide a solution for the element that has drag events.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag event.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make the drag events of element available from a keyboard.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag
+	 * events.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleDragEvents
 	 */
-	AccessibleEvent.prototype.fixDrag = function(element) {
+	AccessibleEvent.prototype.makeAccessibleDragEvents = function(element) {
 	};
 
 	/**
-	 * Provide a solution for elements that has Drag-and-Drop events.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make all Drag-and-Drop events of page available from a keyboard.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleAllDragandDropEvents
 	 */
-	AccessibleEvent.prototype.fixAllDragsandDrops = function() {
+	AccessibleEvent.prototype.makeAccessibleAllDragandDropEvents = function() {
 	};
 
 	/**
-	 * Provide a solution for the element that has inaccessible hover events.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with hover event.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make the hover events of element available from a keyboard.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with hover
+	 * events.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleHoverEvents
 	 */
-	AccessibleEvent.prototype.fixHover = function(element) {
+	AccessibleEvent.prototype.makeAccessibleHoverEvents = function(element) {
 	};
 
 	/**
-	 * Provide a solution for elements that have inaccessible hover events.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make all hover events of page available from a keyboard.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleAllHoverEvents
 	 */
-	AccessibleEvent.prototype.fixAllHovers = function() {
+	AccessibleEvent.prototype.makeAccessibleAllHoverEvents = function() {
 	};
 
 	/**
-	 * Provide a solution for the element that has inaccessible active events.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with active
-	 * event.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make the click events of element available from a keyboard.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element with click
+	 * events.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleClickEvent
 	 */
-	AccessibleEvent.prototype.fixActive = function(element) {
+	AccessibleEvent.prototype.makeAccessibleClickEvents = function(element) {
 	};
 
 	/**
-	 * Provide a solution for elements that have inaccessible active events.
-	 * @memberof hatemile.AccessibleEvent
+	 * Make all click events of page available from a keyboard.
+	 * @public
+	 * @function hatemile.AccessibleEvent#makeAccessibleAllClickEvents
 	 */
-	AccessibleEvent.prototype.fixAllActives = function() {
+	AccessibleEvent.prototype.makeAccessibleAllClickEvents = function() {
 	};
 
 	return AccessibleEvent;

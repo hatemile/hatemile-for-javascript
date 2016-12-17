@@ -19,23 +19,23 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @class AccessibleCSS
- * @classdesc The AccessibleCSS interface fixes accessibility problems
- * associated with CSS.
- * @memberof hatemile
+ * The AccessibleCSS interface improve accessibility of CSS.
+ * @interface hatemile.AccessibleCSS
 ###
 class exports.hatemile.AccessibleCSS
 	
 	###*
-	 * Provide a solution to support stylesheet speak properties in element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with speak
-	 * properties.
-	 * @memberof hatemile.AccessibleCSS
+	 * Provide the CSS features of speaking and speech properties in element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @public
+	 * @function hatemile.AccessibleCSS#provideSpeakProperties
 	###
-	fixSpeak: (element) ->
+	provideSpeakProperties: (element) ->
 	
 	###*
-	 * Provide a solution to support stylesheet speak properties.
-	 * @memberof hatemile.AccessibleCSS
+	 * Provide the CSS features of speaking and speech properties in all elements
+	 * of page.
+	 * @public
+	 * @function hatemile.AccessibleCSS#provideAllSpeakProperties
 	###
-	fixAllSpeaks: () ->
+	provideAllSpeakProperties: () ->

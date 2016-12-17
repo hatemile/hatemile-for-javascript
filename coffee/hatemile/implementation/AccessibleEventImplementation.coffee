@@ -19,18 +19,10 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
 ###
 exports.hatemile.implementation or= {}
 
-###*
- * @class AccessibleEventImplementation
- * @classdesc The AccessibleEventImplementation class is official implementation
- * of AccessibleEvent interface.
- * @extends hatemile.AccessibleEvent
- * @memberof hatemile.implementation
-###
 class exports.hatemile.implementation.AccessibleEventImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
@@ -46,20 +38,12 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	DROP_EVENT = 'drop'
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the
-	 * Javascript events of elements of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
-	###
-	constructor: (@parser) ->
-		@cancelDragAdded = false
-	
-	###*
-	 * Returns if the key pressed is enter.
+	 * Check that the key pressed is enter.
 	 * @param {number} keyCode The code of key pressed.
-	 * @return {boolean} True if the key pressed is enter or false if the key
+	 * @returns {boolean} True if the key pressed is enter or false if the key
 	 * pressed isn't enter.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.isEnter
 	###
 	isEnter = (keyCode) ->
 		enter1 = '\n'.charCodeAt(0)
@@ -69,7 +53,8 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Provide keyboard access for element, if it not has.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.keyboardAccess
 	###
 	keyboardAccess = (element) ->
 		if not element.hasAttribute('tabindex')
@@ -83,12 +68,13 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	###*
 	 * Increase a function on event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {string} typeEvent The name of type of event fixed.
+	 * @param {string} typeEvent The type of event.
 	 * @param {string} typeDataEvent The name of attribute that store the type of
 	 * event fixed.
 	 * @param {string} typeFix The id of fix method.
 	 * @param {function} functionForEventHandler The function.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.addEventHandler
 	###
 	addEventHandler = (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) ->
 		if not hasEvent(element, typeEvent, typeDataEvent, typeFix)
@@ -110,15 +96,16 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		return
 	
 	###*
-	 * Returns if the element has the event added by developer or fixed by
+	 * Check that the element has the event added by developer or fixed by
 	 * HaTeMiLe.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {string} typeEvent The event.
-	 * @param {string} typeDataEvent The data type of event.
+	 * @param {string} typeEvent The type of event.
+	 * @param {string} typeDataEvent The custom attribute of type of event.
 	 * @param {string} typeFix The id of fix method.
-	 * @return {boolean} True if the element has the event added by developer or
+	 * @returns {boolean} True if the element has the event added by developer or
 	 * fixed by HaTeMiLe or false if the element not has the event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.hasEvent
 	###
 	hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
 		nativeElement = element.getData()
@@ -129,9 +116,10 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 	
 	###*
-	 * Remove the information on attributes of drop effect.
+	 * Remove the information on attributes of drop effect of all elements.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.clearDropEffect
 	###
 	clearDropEffect = (parser) ->
 		droppedElements = parser.find('[aria-dropeffect]').listResults()
@@ -146,9 +134,10 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		return
 	
 	###*
-	 * Put in all droppable elements the information of the type of drop.
+	 * Set in all droppable elements the information of the type of drop.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.generateDropEffect
 	###
 	generateDropEffect = (parser) ->
 		dropEffect = exports.__dragEventDataTransfer__.dropEffect
@@ -171,22 +160,24 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		return
 	
 	###*
-	 * Execute the event as mouse event.
+	 * Execute the event as mouse event in element.
 	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeMouseEvent
 	###
 	executeMouseEvent = (type, element, event) ->
 		executeEvent(element, createMouseEvent(type, element, event))
 		return
 	
 	###*
-	 * Execute the event as drag event.
+	 * Execute the event as drag event in element.
 	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeDragEvent
 	###
 	executeDragEvent = (type, element, event) ->
 		if isEmpty(exports.__dragEventDataTransfer__)
@@ -217,10 +208,11 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		return
 	
 	###*
-	 * Execute the event.
+	 * Execute the event in element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeEvent
 	###
 	executeEvent = (element, event) ->
 		nativeElement = element.getData()
@@ -242,8 +234,9 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {function} event The original event.
-	 * @return {object} The proxy of original event, simulating the mouse event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @returns {object} The proxy of original event, simulating the mouse event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.createMouseEvent
 	###
 	createMouseEvent = (type, element, event) ->
 		data = {
@@ -290,8 +283,9 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {function} event The original event.
-	 * @return {object} The proxy of original event, simulating the drag event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @returns {object} The proxy of original event, simulating the drag event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.createDragEvent
 	###
 	createDragEvent = (type, element, event) ->
 		dragEvent = createMouseEvent(type, element, event)
@@ -299,6 +293,17 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		dragEvent.dataTransfer = exports.__dragEventDataTransfer__
 		return dragEvent
 	
+	###*
+	 * Visit and execute a operation in element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {function} condition The condition to execute operation in element
+	 * and descendants.
+	 * @param {hatemile.implementation.AccessibleEventImplementation} obj The
+	 * object that be execute the operation.
+	 * @param {function} operation The operation.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.visit
+	###
 	visit = (element, condition, obj, operation) ->
 		if not element.hasAttribute(DATA_IGNORE)
 			if condition(element)
@@ -309,7 +314,19 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 				visit(child, condition, obj, operation)
 		return
 	
-	fixDrop: (element) ->
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * Javascript events of elements of parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @class The AccessibleEventImplementation class is official implementation
+	 * of AccessibleEvent interface.
+	 * @implements {hatemile.AccessibleEvent}
+	 * @constructs hatemile.implementation.AccessibleEventImplementation
+	###
+	constructor: (@parser) ->
+		@cancelDragAdded = false
+	
+	makeAccessibleDropEvents: (element) ->
 		element.setAttribute('aria-dropeffect', 'none')
 		parser = @parser
 		
@@ -350,7 +367,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 			)
 		return
 	
-	fixDrag: (element) ->
+	makeAccessibleDragEvents: (element) ->
 		keyboardAccess(element)
 		
 		element.setAttribute('aria-grabbed', 'false')
@@ -393,17 +410,17 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 			@cancelDragAdded = true
 		return
 	
-	fixAllDragsandDrops: () ->
+	makeAccessibleAllDragandDropEvents: () ->
 		body = @parser.find('body').firstResult()
 		visit(body, (element) ->
 			return (hasEvent(element, 'drag') or hasEvent(element, 'dragstart') or hasEvent(element, 'dragend'))
-		, this, @fixDrag)
+		, this, @makeAccessibleDragEvents)
 		visit(body, (element) -> 
 			return (hasEvent(element, 'drop') or hasEvent(element, 'dragenter') or hasEvent(element, 'dragleave') or hasEvent(element, 'dragover'))
-		, this, @fixDrop)
+		, this, @makeAccessibleDropEvents)
 		return
 	
-	fixHover: (element) ->
+	makeAccessibleHoverEvents: (element) ->
 		keyboardAccess(element)
 		
 		addEventHandler(element, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT, (event) ->
@@ -416,13 +433,13 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		)
 		return
 	
-	fixAllHovers: () ->
+	makeAccessibleAllHoverEvents: () ->
 		visit(@parser.find('body').firstResult(), (element) ->
 			return (hasEvent(element, 'mouseover') or hasEvent(element, 'mouseout'))
-		, this, @fixHover)
+		, this, @makeAccessibleHoverEvents)
 		return
 	
-	fixActive: (element) ->
+	makeAccessibleClickEvents: (element) ->
 		keyboardAccess(element)
 		
 		tag = element.getTagName()
@@ -448,8 +465,8 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		)
 		return
 	
-	fixAllActives: () ->
+	makeAccessibleAllClickEvents: () ->
 		visit(@parser.find('body').firstResult(), (element) ->
 			return (hasEvent(element, 'click') or hasEvent(element, 'mousedown') or hasEvent(element, 'mouseup') or hasEvent(element, 'dblclick'))
-		, this, @fixActive)
+		, this, @makeAccessibleClickEvents)
 		return

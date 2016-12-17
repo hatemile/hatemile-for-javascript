@@ -22,20 +22,29 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
+/**
+ * @namespace hatemile.util.css.jscssp
+ */
 (_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
 exports.hatemile.util.css.jscssp.JSCSSPRule = (function() {
+	/**
+	 * Initializes a new object that encapsulate the CSS rule.
+	 * @param {jscsspStyleRule} rule The JSCSSP rule.
+	 * @class The JSCSSPRule class is official implementation of StyleSheetRule
+	 * interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetRule}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPRule
+	 */
 	function JSCSSPRule(rule) {
 		this.rule = rule;
 	}

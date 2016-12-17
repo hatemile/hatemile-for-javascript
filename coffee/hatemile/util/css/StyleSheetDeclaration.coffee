@@ -19,21 +19,42 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
-class exports.hatemile.util.css.StyleSheetRule
+###*
+ * The StyleSheetDeclaration interface contains the methods for access the CSS
+ * declaration.
+ * @interface hatemile.util.css.StyleSheetDeclaration
+###
+class exports.hatemile.util.css.StyleSheetDeclaration
 	
+	###*
+	 * Returns the value of declaration.
+	 * @returns {string} The value of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getValue
+	###
 	getValue: () ->
 	
+	###*
+	 * Returns a array with the values of declaration.
+	 * @returns {string[]} The array with the values of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getValues
+	###
 	getValues: () ->
 	
+	###*
+	 * Returns the property of declaration.
+	 * @returns {string} The property of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getProperty
+	###
 	getProperty: () ->

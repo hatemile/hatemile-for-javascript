@@ -19,38 +19,37 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
 ###
 exports.hatemile.util.html or= {}
 
 ###*
- * @class HTMLDOMElement
- * @classdesc The HTMLDOMElement interface contains the methods for access of
- * the HTML element.
- * @memberof hatemile.util.html
+ * The HTMLDOMElement interface contains the methods for access the HTML
+ * element.
+ * @interface hatemile.util.html.HTMLDOMElement
+ * @extends hatemile.util.html.HTMLDOMNode
 ###
-class exports.hatemile.util.html.HTMLDOMElement
+class exports.hatemile.util.html.HTMLDOMElement extends exports.hatemile.util.html.HTMLDOMNode
 	
 	###*
 	 * Returns the tag name of element.
-	 * @return {string} The tag name of element in uppercase letters.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {string} The tag name of element in uppercase letters.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getTagName
 	###
 	getTagName: () ->
 	
 	###*
 	 * Returns the value of a attribute.
 	 * @param {string} name The name of attribute.
-	 * @return {string} The value of the attribute, if the element not contains
-	 * the attribute returns null.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {string} The value of the attribute.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getAttribute
 	###
 	getAttribute: (name) ->
 	
@@ -58,193 +57,165 @@ class exports.hatemile.util.html.HTMLDOMElement
 	 * Create or modify a attribute.
 	 * @param {string} name The name of attribute.
 	 * @param {string} value The value of attribute.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#setAttribute
 	###
 	setAttribute: (name, value) ->
 	
 	###*
 	 * Remove a attribute of element.
 	 * @param {string} name The name of attribute.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#removeAttribute
 	###
 	removeAttribute: (name) ->
 	
 	###*
-	 * Returns if the element has an attribute.
+	 * Check that the element has an attribute.
 	 * @param {string} name The name of attribute.
-	 * @return {boolean} True if the element has the attribute or false if the
+	 * @returns {boolean} True if the element has the attribute or false if the
 	 * element not has the attribute.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#hasAttribute
 	###
 	hasAttribute: (name) ->
 	
 	###*
-	 * Returns if the element has attributes.
-	 * @return {boolean} True if the element has attributes or false if the
+	 * Check that the element has attributes.
+	 * @returns {boolean} True if the element has attributes or false if the
 	 * element not has attributes.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#hasAttributes
 	###
 	hasAttributes: () ->
 	
 	###*
-	 * Returns the text of element.
-	 * @return {string} The text of element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	getTextContent: () ->
-	
-	###*
-	 * Insert a element before this element.
-	 * @param {hatemile.util.html.HTMLDOMElement} newElement The element that be
-	 * inserted.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element inserted.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	insertBefore: (newElement) ->
-	
-	###*
-	 * Insert a element after this element.
-	 * @param {hatemile.util.html.HTMLDOMElement} newElement The element that be
-	 * inserted.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element inserted.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	insertAfter: (newElement) ->
-	
-	###*
-	 * Remove this element of the parser.
-	 * @return {hatemile.util.html.HTMLDOMElement} The removed element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	removeNode: () ->
-	
-	###*
-	 * Replace this element for other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} newElement The element that replace
-	 * this element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element replaced.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	replaceNode: (newElement) ->
-	
-	###*
 	 * Append a element child.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element that be inserted.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element inserted.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element that be
+	 * inserted.
+	 * @returns {hatemile.util.html.HTMLDOMElement} This element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#appendElement
 	###
 	appendElement: (element) ->
 	
 	###*
 	 * Prepend a element child.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element that be inserted.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element inserted.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element that be
+	 * inserted.
+	 * @returns {hatemile.util.html.HTMLDOMElement} This element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#prependElement
 	###
 	prependElement: (element) ->
 	
 	###*
-	 * Returns the children of this element.
-	 * @return {hatemile.util.html.HTMLDOMElement[]} The children of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * Returns the elements children of this element.
+	 * @returns {hatemile.util.html.HTMLDOMElement[]} The elements children of
+	 * this element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getChildrenElements
 	###
 	getChildrenElements: () ->
 	
 	###*
-	 * Append a text child.
-	 * @param {string} text The text.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * Returns the children of this element.
+	 * @returns {hatemile.util.html.HTMLDOMNode[]} The children of this element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getChildren
 	###
-	appendText: (text) ->
-	
+	getChildren: () ->
+		
 	###*
-	 * Prepend a text child.
-	 * @param {string} text The text.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * Joins adjacent Text nodes.
+	 * @returns {hatemile.util.html.HTMLDOMElement} This element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#normalize
 	###
-	prependText: (text) ->
-	
 	normalize: () ->
 	
 	###*
-	 * Returns if the element has children.
-	 * @return {boolean} True if the element has children or false if the element
-	 * not has children.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * Check that the element has elements children.
+	 * @returns {boolean} True if the element has elements children or false if
+	 * the element not has elements children.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#hasChildrenElements
 	###
 	hasChildrenElements: () ->
 	
 	###*
-	 * Returns if the element has children.
-	 * @return {boolean} True if the element has children or false if the element
+	 * Check that the element has children.
+	 * @returns {boolean} True if the element has children or false if the element
 	 * not has children.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#hasChildren
 	###
 	hasChildren: () ->
 	
 	###*
-	 * Returns the parent element of this element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The parent element of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	getParentElement: () ->
-	
-	###*
 	 * Returns the inner HTML code of this element.
-	 * @return {string} The inner HTML code of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {string} The inner HTML code of this element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getInnerHTML
 	###
 	getInnerHTML: () ->
 	
 	###*
 	 * Modify the inner HTML code of this element.
 	 * @param {string} html The HTML code.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#setInnerHTML
 	###
 	setInnerHTML: (html) ->
 	
 	###*
 	 * Returns the HTML code of this element.
-	 * @return {string} The HTML code of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {string} The HTML code of this element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getOuterHTML
 	###
 	getOuterHTML: () ->
 	
 	###*
-	 * Returns the native object of this element.
-	 * @return {object} The native object of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	getData: () ->
-	
-	###*
-	 * Modify the native object of this element.
-	 * @param {object} data The native object of this element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
-	###
-	setData: (data) ->
-	
-	###*
 	 * Clone this element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The clone.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {hatemile.util.html.HTMLDOMElement} The clone.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#cloneElement
 	###
 	cloneElement: () ->
 	
 	###*
 	 * Returns the first element child of this element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The first element child of this
-	 * element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @returns {hatemile.util.html.HTMLDOMElement} The first element child of
+	 * this element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getFirstElementChild
 	###
 	getFirstElementChild: () ->
 	
 	###*
 	 * Returns the last element child of this element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The last element child of this
+	 * @returns {hatemile.util.html.HTMLDOMElement} The last element child of this
 	 * element.
-	 * @memberof hatemile.util.html.HTMLDOMElement
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getLastElementChild
 	###
 	getLastElementChild: () ->
 	
-	equals: (node) ->
+	###*
+	 * Returns the first node child of this element.
+	 * @returns {hatemile.util.html.HTMLDOMNode} The first node child of this
+	 * element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getFirstNodeChild
+	###
+	getFirstNodeChild: () ->
+	
+	###*
+	 * Returns the last node child of this element.
+	 * @returns {hatemile.util.html.HTMLDOMNode} The last node child of this
+	 * element.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMElement#getLastNodeChild
+	###
+	getLastNodeChild: () ->

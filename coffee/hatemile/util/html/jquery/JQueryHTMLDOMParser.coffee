@@ -19,35 +19,30 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
 ###
 exports.hatemile.util.html or= {}
 
 ###*
- * @namespace jquery
- * @memberof hatemile.util
+ * @namespace hatemile.util.html.jquery
 ###
 exports.hatemile.util.html.jquery or= {}
 
-###*
- * @class JQueryHTMLDOMParser
- * @classdesc The class JQueryHTMLDOMParser is official implementation of
- * HTMLDOMParser interface for the jQuery library.
- * @extends hatemile.util.html.HTMLDOMParser
- * @memberof hatemile.util.html.jquery
-###
 class exports.hatemile.util.html.jquery.JQueryHTMLDOMParser
 	
 	###*
 	 * Initializes a new object that encapsulate the jQuery.
-	 * @memberof hatemile.util.html.jquery.JQueryHTMLDOMParser
+	 * @param {string|HTMLDocument} html The html code or owner document.
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class JQueryHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for the jQuery library.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.jquery.JQueryHTMLDOMParser
 	###
 	constructor: (html, ownerDocument) ->
 		@root = jQuery(html)

@@ -19,23 +19,54 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
+###*
+ * The StyleSheetRule interface contains the methods for access the CSS rule.
+ * @interface hatemile.util.css.StyleSheetRule
+###
 class exports.hatemile.util.css.StyleSheetRule
 	
-	hasDeclaration: (propertyName) ->
+	###*
+	 * Returns that the rule has a declaration with the property.
+	 * @param {string} propertyName The name of property.
+	 * @returns {boolean} True if the rule has a declaration with the property or
+	 * false if the rule not has a declaration with the property.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetRule#hasProperty
+	###
+	hasProperty: (propertyName) ->
 	
+	###*
+	 * Returns that the rule has declarations.
+	 * @returns {boolean} True if the rule has the property or false if the rule
+	 * not has declarations.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetRule#hasDeclarations
+	###
 	hasDeclarations: () ->
 	
-	getDeclarationValue: (propertyName) ->
+	###*
+	 * Returns the declarations with the property.
+	 * @param {string} propertyName The property.
+	 * @returns {hatemile.util.css.StyleSheetDeclaration[]} The declarations with
+	 * the property.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetRule#getDeclarations
+	###
+	getDeclarations: (propertyName) ->
 	
+	###*
+	 * Returns the selector of rule.
+	 * @returns {string} The selector of rule.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetRule#getSelector
+	###
 	getSelector: () ->

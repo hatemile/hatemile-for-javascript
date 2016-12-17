@@ -19,21 +19,30 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
+###*
+ * @namespace hatemile.util.css.jscssp
+###
 exports.hatemile.util.css.jscssp or= {}
 
 class exports.hatemile.util.css.jscssp.JSCSSPRule
 	
+	###*
+	 * Initializes a new object that encapsulate the CSS rule.
+	 * @param {jscsspStyleRule} rule The JSCSSP rule.
+	 * @class The JSCSSPRule class is official implementation of StyleSheetRule
+	 * interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetRule}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPRule
+	###
 	constructor: (@rule) ->
 	
 	hasProperty: (propertyName) ->

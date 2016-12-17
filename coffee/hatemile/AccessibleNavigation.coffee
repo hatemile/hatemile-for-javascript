@@ -19,49 +19,54 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @class AccessibleNavigation
- * @classdesc The AccessibleNavigation interface fixes accessibility problems
- * associated with navigation.
- * @memberof hatemile
+ * The AccessibleNavigation interface improve the accessibility of navigation.
+ * @interface hatemile.AccessibleNavigation
 ###
 class exports.hatemile.AccessibleNavigation
 	
 	###*
-	 * Provide content skipper for element.
+	 * Provide a content skipper for element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationBySkipper
 	###
-	fixSkipper: (element) ->
+	provideNavigationBySkipper: (element) ->
 	
 	###*
-	 * Provide content skippers.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide navigation by content skippers.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByAllSkippers
 	###
-	fixAllSkippers: () ->
+	provideNavigationByAllSkippers: () ->
 	
 	###*
-	 * Provide a navigation by heading.
+	 * Provide navigation by heading.
 	 * @param {hatemile.util.html.HTMLDOMElement} heading The heading element.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByHeading
 	###
-	fixHeading: (heading) ->
+	provideNavigationByHeading: (heading) ->
 	
 	###*
-	 * Provide a navigation by headings.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide navigation by headings of page.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByAllHeadings
 	###
-	fixAllHeadings: () ->
+	provideNavigationByAllHeadings: () ->
 	
 	###*
 	 * Provide an alternative way to access the long description of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} image The image with long
 	 * description.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationToLongDescription
 	###
-	fixLongDescription: (image) ->
+	provideNavigationToLongDescription: (image) ->
 	
 	###*
-	 * Provide an alternative way to access the longs descriptions of elements.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide an alternative way to access the longs descriptions of all elements
+	 * of page.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationToAllLongDescriptions
 	###
-	fixAllLongDescriptions: () ->
+	provideNavigationToAllLongDescriptions: () ->

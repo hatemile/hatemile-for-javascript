@@ -12,7 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1;
+var exports, _base, _base1, _ref
+		, __hasProp = {}.hasOwnProperty
+		, __extends = function(child, parent) {
+			for (var key in parent) {
+				if (__hasProp.call(parent, key))
+					child[key] = parent[key];
+			}
+			function ctor() {
+				this.constructor = child;
+			}
+			ctor.prototype = parent.prototype;
+			child.prototype = new ctor();
+			child.__super__ = parent.prototype;
+			return child;
+		};
 
 exports = this;
 
@@ -22,57 +36,37 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
-exports.hatemile.util.html.HTMLDOMTextNode = (function() {
+/**
+ * The HTMLDOMTextNode interface contains the methods for access of the Text.
+ * @interface hatemile.util.html.HTMLDOMTextNode
+ * @extends hatemile.util.html.HTMLDOMNode
+ */
+exports.hatemile.util.html.HTMLDOMTextNode = (function(_super) {
+	__extends(HTMLDOMTextNode, _super);
+
 	function HTMLDOMTextNode() {
+		_ref = HTMLDOMTextNode.__super__.constructor.apply(this, arguments);
+		return _ref;
 	}
 
+	/**
+	 * Change the text content of text node.
+	 * @param {string} text The new text content.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
+	 */
 	HTMLDOMTextNode.prototype.setTextContent = function(text) {
-	};
-
-	HTMLDOMTextNode.prototype.getTextContent = function() {
-	};
-
-	HTMLDOMTextNode.prototype.insertBefore = function(newNode) {
-	};
-
-	HTMLDOMTextNode.prototype.insertAfter = function(newNode) {
-	};
-
-	HTMLDOMTextNode.prototype.removeNode = function() {
-	};
-
-	HTMLDOMTextNode.prototype.replaceNode = function(newElement) {
-	};
-
-	HTMLDOMTextNode.prototype.appendText = function(text) {
-	};
-
-	HTMLDOMTextNode.prototype.prependText = function(text) {
-	};
-
-	HTMLDOMTextNode.prototype.getParentElement = function() {
-	};
-
-	HTMLDOMTextNode.prototype.getData = function() {
-	};
-
-	HTMLDOMTextNode.prototype.setData = function(data) {
-	};
-
-	HTMLDOMTextNode.prototype.equals = function(node) {
 	};
 
 	return HTMLDOMTextNode;
 
-})();
+})(exports.hatemile.util.html.HTMLDOMNode);

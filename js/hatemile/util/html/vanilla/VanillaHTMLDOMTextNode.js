@@ -22,35 +22,28 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
 /**
- * @namespace vanilla
- * @memberof hatemile.util.html
+ * @namespace hatemile.util.html.vanilla
  */
 (_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-/**
- * @class VanillaHTMLDOMTextNode
- * @classdesc The VanillaHTMLDOMTextNode class is official implementation of
- * HTMLDOMElement interface for the Javascript.
- * @extends hatemile.util.html.HTMLDOMElement
- * @memberof hatemile.util.html.vanilla
- */
 exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 	/**
-	 * Initializes a new object that encapsulate the HTMLElement.
-	 * @param {HTMLElement} data The native element.
-	 * @memberof hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+	 * Initializes a new object that encapsulate the text node.
+	 * @param {Text} data The native text node.
+	 * @class The VanillaHTMLDOMTextNode class is official implementation of
+	 * HTMLDOMTextNode interface for the Javascript.
+	 * @implements {hatemile.util.html.HTMLDOMTextNode}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 	 */
 	function VanillaHTMLDOMTextNode(data) {
 		this.data = data;

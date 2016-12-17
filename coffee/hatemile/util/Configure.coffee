@@ -19,29 +19,25 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
-###*
- * @class Configure
- * @classdesc The Configure class contains the configuration of HaTeMiLe.
- * @memberof hatemile.util
-###
 class exports.hatemile.util.Configure
 	
 	###*
 	 * Initializes a new object that contains the configuration of HaTeMiLe.
-	 * @param {object} config The JSON configuration.
-	 * @memberof hatemile.util.Configure
+	 * @param {object.<string, string>} parameters The JSON configuration.
+	 * @class The Configure class contains the configuration of HaTeMiLe.
+	 * @constructs hatemile.util.Configure
 	###
 	constructor: (@parameters) ->
 	
 	###*
 	 * Returns the parameters of configuration.
-	 * @return {object} The parameters of configuration.
-	 * @memberof hatemile.util.Configure
+	 * @returns {object.<string, string>} The parameters of configuration.
+	 * @public
+	 * @function hatemile.util.Configure#getParameters
 	###
 	getParameters: () ->
 		clonedParameters = {}
@@ -51,9 +47,10 @@ class exports.hatemile.util.Configure
 	
 	###*
 	 * Returns the value of a parameter of configuration.
-	 * @param {string} parameter The parameter.
-	 * @return {string} The value of the parameter.
-	 * @memberof hatemile.util.Configure
+	 * @param {string} name The parameter.
+	 * @returns {string} The value of the parameter.
+	 * @public
+	 * @function hatemile.util.Configure#getParameter
 	###
 	getParameter: (name) ->
 		return @parameters[name]

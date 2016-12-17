@@ -19,17 +19,27 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
+###*
+ * The StyleSheetParser interface contains the methods for access the CSS
+ * parser.
+ * @interface hatemile.util.css.StyleSheetParser
+###
 class exports.hatemile.util.css.StyleSheetParser
 	
+	###*
+	 * Returns the rules of parser by properties.
+	 * @param {string[]} properties The properties.
+	 * @returns {hatemile.util.css.StyleSheetRule[]} The rules.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetParser#getRules
+	###
 	getRules: (properties) ->

@@ -22,89 +22,97 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @class AccessibleForm
- * @classdesc The AccessibleForm interface fixes accessibility problems
- * associated with forms.
- * @memberof hatemile
+ * The AccessibleForm interface improve the accessibility of forms.
+ * @interface hatemile.AccessibleForm
  */
 exports.hatemile.AccessibleForm = (function() {
 	function AccessibleForm() {
 	}
 
 	/**
-	 * Display that the field is required.
+	 * Mark that the field is required.
 	 * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
-	 * @memberof hatemile.AccessibleForm
+	 * @public
+	 * @function hatemile.AccessibleForm#markRequiredField
 	 */
-	AccessibleForm.prototype.fixRequiredField = function(requiredField) {
+	AccessibleForm.prototype.markRequiredField = function(requiredField) {
 	};
 
 	/**
-	 * Display that the fields is required.
-	 * @memberof hatemile.AccessibleForm
+	 * Mark that the fields is required.
+	 * @public
+	 * @function hatemile.AccessibleForm#markAllRequiredFields
 	 */
-	AccessibleForm.prototype.fixAllRequiredFields = function() {
+	AccessibleForm.prototype.markAllRequiredFields = function() {
 	};
 
 	/**
-	 * Display that the field have range.
+	 * Mark that the field have range.
 	 * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
-	 * @memberof hatemile.AccessibleForm
+	 * @public
+	 * @function hatemile.AccessibleForm#markRangeField
 	 */
-	AccessibleForm.prototype.fixRangeField = function(rangeField) {
+	AccessibleForm.prototype.markRangeField = function(rangeField) {
 	};
 
 	/**
-	 * Display that the fields have range.
-	 * @memberof hatemile.AccessibleForm
+	 * Mark that the fields have range.
+	 * @public
+	 * @function hatemile.AccessibleForm#markAllRangeFields
 	 */
-	AccessibleForm.prototype.fixAllRangeFields = function() {
+	AccessibleForm.prototype.markAllRangeFields = function() {
 	};
 
 	/**
-	 * Display that the field have autocomplete.
+	 * Mark that the field have autocomplete.
 	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
 	 * with autocomplete.
-	 * @memberof hatemile.AccessibleForm
+	 * @public
+	 * @function hatemile.AccessibleForm#markAutoCompleteField
 	 */
-	AccessibleForm.prototype.fixAutoCompleteField = function(autoCompleteField) {
+	AccessibleForm.prototype.markAutoCompleteField = function(autoCompleteField) {
 	};
 
 	/**
-	 * Display that the fields have autocomplete.
-	 * @memberof hatemile.AccessibleForm
+	 * Mark that the fields have autocomplete.
+	 * @public
+	 * @function hatemile.AccessibleForm#markAllAutoCompleteFields
 	 */
-	AccessibleForm.prototype.fixAllAutoCompleteFields = function() {
+	AccessibleForm.prototype.markAllAutoCompleteFields = function() {
 	};
 
 	/**
 	 * Associate label with field.
 	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @memberof hatemile.AccessibleForm
+	 * @public
+	 * @function hatemile.AccessibleForm#associateLabelWithField
 	 */
-	AccessibleForm.prototype.fixLabel = function(label) {
+	AccessibleForm.prototype.associateLabelWithField = function(label) {
 	};
 
 	/**
-	 * Associate labels with fields.
-	 * @memberof hatemile.AccessibleForm
+	 * Associate all labels of page with fields.
+	 * @public
+	 * @function hatemile.AccessibleForm#associateAllLabelsWithFields
 	 */
-	AccessibleForm.prototype.fixAllLabels = function() {
+	AccessibleForm.prototype.associateAllLabelsWithFields = function() {
 	};
 
 	/**
-	 * Provide a solution to display when this field is invalid.
+	 * Mark a solution to display that this field is invalid.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @memberof hatemile.AccessibleForm
+	 * @public
+	 * @function hatemile.AccessibleForm#markInvalidField
 	 */
-	AccessibleForm.prototype.fixValidation = function(field) {
+	AccessibleForm.prototype.markInvalidField = function(field) {
 	};
 
 	/**
-	 * Provide a solution to display when fields are invalid.
-	 * @memberof hatemile.AccessibleForm
+	 * Mark a solution to display that a fields are invalid.
+	 * @public
+	 * @function hatemile.AccessibleForm#markAllInvalidFields
 	 */
-	AccessibleForm.prototype.fixAllValidations = function() {
+	AccessibleForm.prototype.markAllInvalidFields = function() {
 	};
 
 	return AccessibleForm;

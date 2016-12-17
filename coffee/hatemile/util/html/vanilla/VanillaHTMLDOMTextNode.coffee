@@ -19,25 +19,30 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
 ###
 exports.hatemile.util.html or= {}
 
 ###*
- * @namespace vanilla
- * @memberof hatemile.util.html
+ * @namespace hatemile.util.html.vanilla
 ###
 exports.hatemile.util.html.vanilla or= {}
 
 class exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 	
+	###*
+	 * Initializes a new object that encapsulate the text node.
+	 * @param {Text} data The native text node.
+	 * @class The VanillaHTMLDOMTextNode class is official implementation of
+	 * HTMLDOMTextNode interface for the Javascript.
+	 * @implements {hatemile.util.html.HTMLDOMTextNode}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+	###
 	constructor: (@data) ->
 	
 	setTextContent: (text) ->

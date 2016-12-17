@@ -22,34 +22,29 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
 /**
- * @namespace jquery
- * @memberof hatemile.util
+ * @namespace hatemile.util.html.jquery
  */
 (_base2 = exports.hatemile.util.html).jquery || (_base2.jquery = {});
 
-/**
- * @class JQueryHTMLDOMParser
- * @classdesc The class JQueryHTMLDOMParser is official implementation of
- * HTMLDOMParser interface for the jQuery library.
- * @extends hatemile.util.html.HTMLDOMParser
- * @memberof hatemile.util.html.jquery
- */
 exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	/**
 	 * Initializes a new object that encapsulate the jQuery.
-	 * @memberof hatemile.util.html.jquery.JQueryHTMLDOMParser
+	 * @param {string|HTMLDocument} html The html code or owner document.
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class JQueryHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for the jQuery library.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.jquery.JQueryHTMLDOMParser
 	 */
 	function JQueryHTMLDOMParser(html, ownerDocument) {
 		this.root = jQuery(html);

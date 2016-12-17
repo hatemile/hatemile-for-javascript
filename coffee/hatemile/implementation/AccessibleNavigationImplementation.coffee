@@ -19,18 +19,10 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
 ###
 exports.hatemile.implementation or= {}
 
-###*
- * @class AccessibleNavigationImplementation
- * @classdesc The AccessibleNavigationImplementation class is official
- * implementation of AccessibleNavigation interface.
- * @extends hatemile.AccessibleNavigation
- * @memberof hatemile.implementation
-###
 class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	ID_CONTAINER_SKIPPERS = 'container-skippers'
@@ -45,31 +37,11 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor'
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the
-	 * navigation of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
-	 * @param {string} userAgent The user agent of the user.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	###
-	constructor: (@parser, configure, @skippers) ->
-		@prefixId = configure.getParameter('prefix-generated-ids')
-		@attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before')
-		@attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before')
-		@attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after')
-		@attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after')
-		@elementsHeadingBefore = configure.getParameter('elements-heading-before')
-		@elementsHeadingAfter = configure.getParameter('elements-heading-after')
-		@listSkippersAdded = false
-		@validateHeading = false
-		@validHeading = false
-		@listSkippers = undefined
-	
-	###*
 	 * Generate the list of skippers of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListSkippers
 	###
 	generateListSkippers = (parser) ->
 		container = parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
@@ -90,10 +62,11 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Generate the list of heading links of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} textHeading The text of description of container of heading
-	 * links.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @param {string} textHeading The description of container of heading links.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of heading links of
+	 * page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListHeading
 	###
 	generateListHeading = (parser, textHeading) ->
 		container = parser.find("##{ID_CONTAINER_HEADING}").firstResult()
@@ -120,8 +93,9 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Returns the level of heading.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The heading.
-	 * @return {number} The level of heading.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {number} The level of heading.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.getHeadingLevel
 	###
 	getHeadingLevel = (element) ->
 		tag = element.getTagName()
@@ -141,11 +115,12 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 			return -1
 	
 	###*
-	 * Inform if the headings of page are sintatic correct.
+	 * Check that the headings of page are sintatic correct.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {boolean} True if the headings of page are sintatic correct or
+	 * @returns {boolean} True if the headings of page are sintatic correct or
 	 * false if not.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.isValidHeading
 	###
 	isValidHeading = (parser) ->
 		elements = parser.find('h1,h2,h3,h4,h5,h6').listResults()
@@ -166,13 +141,14 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	###*
 	 * Generate an anchor for the element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {string} dataAttribute The name of attribute that links the element
+	 * @param {string} dataAttribute The custom attribute that links the element
 	 * with the anchor.
 	 * @param {string} anchorClass The HTML class of anchor.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
 	 * @param {string} prefixId The prefix of generated ids.
-	 * @return {hatemile.util.html.HTMLDOMElement} The anchor.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {hatemile.util.html.HTMLDOMElement} The anchor.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateAnchorFor
 	###
 	generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
 		exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
@@ -194,7 +170,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * Replace the shortcut of elements, that has the shortcut passed.
 	 * @param {hatemile.util.html.HTMLDOMElement} shortcut The shortcut.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.freeShortcut
 	###
 	freeShortcut = (shortcut, parser) ->
 		alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz'
@@ -216,7 +193,34 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					break
 		return
 	
-	fixSkipper: (element) ->
+	###*
+	 * Initializes a new object that manipulate the accessibility of the
+	 * navigation of parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {object[]} skippers The skippers.
+	 * @param {string} skippers[].selector The skipper selector.
+	 * @param {string} skippers[].description The description of skipper.
+	 * @param {string} skippers[].shortcut The skipper shortcut.
+	 * @class The AccessibleNavigationImplementation class is official
+	 * implementation of AccessibleNavigation interface.
+	 * @implements {hatemile.AccessibleNavigation}
+	 * @constructs hatemile.implementation.AccessibleNavigationImplementation
+	###
+	constructor: (@parser, configure, @skippers) ->
+		@prefixId = configure.getParameter('prefix-generated-ids')
+		@attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before')
+		@attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before')
+		@attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after')
+		@attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after')
+		@elementsHeadingBefore = configure.getParameter('elements-heading-before')
+		@elementsHeadingAfter = configure.getParameter('elements-heading-after')
+		@listSkippersAdded = false
+		@validateHeading = false
+		@validHeading = false
+		@listSkippers = undefined
+	
+	provideNavigationBySkipper: (element) ->
 		skipper = undefined
 		for auxiliarSkipper in @skippers
 			auxiliarElements = @parser.find(auxiliarSkipper['selector']).listResults()
@@ -250,15 +254,15 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					@listSkippers.appendElement(itemLink)
 		return
 	
-	fixAllSkippers: () ->
+	provideNavigationByAllSkippers: () ->
 		for skipper in @skippers
 			elements = @parser.find(skipper['selector']).listResults()
 			for element in elements
 				if exports.hatemile.util.CommonFunctions.isValidElement(element)
-					@fixSkipper(element)
+					@provideNavigationBySkipper(element)
 		return
 	
-	fixHeading: (heading) ->
+	provideNavigationByHeading: (heading) ->
 		if not @validateHeading
 			@validHeading = isValidHeading(@parser)
 			@validateHeading = true
@@ -287,14 +291,14 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					list.appendElement(item)
 		return
 	
-	fixAllHeadings: () ->
+	provideNavigationByAllHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
-				@fixHeading(element)
+				@provideNavigationByHeading(element)
 		return
 	
-	fixLongDescription: (image) ->
+	provideNavigationToLongDescription: (image) ->
 		if image.hasAttribute('longdesc')
 			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
 			id = image.getAttribute('id')
@@ -320,9 +324,9 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 						image.insertAfter(anchor)
 		return
 	
-	fixAllLongDescriptions: () ->
+	provideNavigationToAllLongDescriptions: () ->
 		elements = @parser.find('[longdesc]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
-				@fixLongDescription(element)
+				@provideNavigationToLongDescription(element)
 		return

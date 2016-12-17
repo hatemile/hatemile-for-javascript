@@ -19,21 +19,30 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
+###*
+ * @namespace hatemile.util.css.jscssp
+###
 exports.hatemile.util.css.jscssp or= {}
 
 class exports.hatemile.util.css.jscssp.JSCSSPDeclaration
 	
+	###*
+	 * Initializes a new object that encapsulate the CSS declaration.
+	 * @param {jscsspDeclaration} declaration The declaration CSS of rule.
+	 * @class The JSCSSPDeclaration class is official implementation of
+	 * StyleSheetDeclaration interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetDeclaration}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPDeclaration
+	###
 	constructor: (@declaration) ->
 	
 	getValue: () ->

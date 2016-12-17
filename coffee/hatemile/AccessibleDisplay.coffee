@@ -19,48 +19,53 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @class AccessibleDisplay
- * @classdesc The AccessibleDisplay interface show more informations of page.
- * @memberof hatemile
+ * The AccessibleDisplay interface improve accessibility, showing informations.
+ * @interface hatemile.AccessibleDisplay
 ###
 class exports.hatemile.AccessibleDisplay
 
 	###*
 	 * Display the shortcut of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayShortcut
 	###
 	displayShortcut: (element) ->
 	
 	###*
-	 * Display the shortcuts of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display all shortcuts of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllShortcuts
 	###
 	displayAllShortcuts: () ->
 	
 	###*
 	 * Display the WAI-ARIA role of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayRole
 	###
 	displayRole: (element) ->
 	
 	###*
-	 * Display the WAI-ARIA roles of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the WAI-ARIA roles of all elements of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllRoles
 	###
 	displayAllRoles: () ->
 	
 	###*
-	 * Display the headers in each data cell of table.
+	 * Display the headers of each data cell of table.
 	 * @param {hatemile.util.html.HTMLDOMElement} tableCell The table cell.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayCellHeader
 	###
 	displayCellHeader: (tableCell) ->
 	
 	###*
-	 * Display the headers in each data cell of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the headers of each data cell of all tables of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllCellHeaders
 	###
 	displayAllCellHeaders: () ->
 	
@@ -68,65 +73,75 @@ class exports.hatemile.AccessibleDisplay
 	 * Display the WAI-ARIA attributes of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element with
 	 * WAI-ARIA attributes.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayWAIARIAStates
 	###
 	displayWAIARIAStates: (element) ->
 	
 	###*
-	 * Display the WAI-ARIA attributes of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the WAI-ARIA attributes of all elements of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllWAIARIAStates
 	###
 	displayAllWAIARIAStates: () ->
 	
 	###*
 	 * Display the attributes of link.
 	 * @param {hatemile.util.html.HTMLDOMElement} link The link element.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayLinkAttributes
 	###
 	displayLinkAttributes: (link) ->
 	
 	###*
-	 * Display the attributes of links of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the attributes of all links of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllLinksAttributes
 	###
 	displayAllLinksAttributes: () ->
 	
 	###*
 	 * Display the title of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element with title.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayTitle
 	###
 	displayTitle: (element) ->
 	
 	###*
-	 * Display the titles of elements of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the titles of all elements of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllTitles
 	###
 	displayAllTitles: () ->
 	
 	###*
-	 * Display if the element has drag-and-drop event.
+	 * Display that the element has drag-and-drop event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag
 	 * or drop events.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayDragAndDrop
 	###
 	displayDragAndDrop: (element) ->
 	
 	###*
-	 * Display if the elements have drag-and-drop events.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display that an elements of page have drag-and-drop events.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllDragsAndDrops
 	###
 	displayAllDragsAndDrops: () ->
 	
 	###*
 	 * Display the language of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.AccessibleDisplay
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayLanguage
 	###
 	displayLanguage: (element) ->
 	
 	###*
-	 * Display the language of elements of page.
-	 * @memberof hatemile.AccessibleDisplay
+	 * Display the language of all elements of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllLanguages
 	###
 	displayAllLanguages: () ->

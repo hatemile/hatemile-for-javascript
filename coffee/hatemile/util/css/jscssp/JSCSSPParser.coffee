@@ -19,21 +19,32 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
 ###
 exports.hatemile.util.css or= {}
 
+###*
+ * @namespace hatemile.util.css.jscssp
+###
 exports.hatemile.util.css.jscssp or= {}
 
 class exports.hatemile.util.css.jscssp.JSCSSPParser
 	
+	###*
+	 * Initializes a new object that encapsulate the CSS parser.
+	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
+	 * document object or a string with CSS rules.
+	 * @param {string} currentURL The current URL of page.
+	 * @class The JSCSSPParser class is official implementation of
+	 * StyleSheetParser interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetParser}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
+	###
 	constructor: (@parser, @currentURL) ->
 		if not (@parser instanceof jscsspStylesheet)
 			parser = new CSSParser()
@@ -75,6 +86,13 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 						stackURL.push(relativePart)
 				return stackURL.join('/')
 	
+	###
+	 * Returns the text content of document.
+	 * @param {HTMLDocument} doc The document.
+	 * @returns {string} The text content of document.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getCSSContent
+	###
 	getCSSContent = (doc, currentURL) ->
 		content = ''
 		head = doc.getElementsByTagName('head')[0]
@@ -89,7 +107,14 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 			if style.parentNode isnt head
 				content += getContentFromElement(style)
 		return content
-
+	
+	###
+	 * Returns the text content of URL.
+	 * @param {string} url The URL.
+	 * @returns {string} The text content of URL.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromURL
+	###
 	getContentFromURL = (url) ->
 		content = ''
 		if not isEmpty(url)
@@ -110,7 +135,14 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 				httpRequest.open('GET', url, false);
 				httpRequest.send()
 		return content
-
+	
+	###
+	 * Returns the text content of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @returns {string} The text content of element.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromElement
+	###
 	getContentFromElement = (element) ->
 		if not isEmpty(element.textContent)
 			return element.textContent

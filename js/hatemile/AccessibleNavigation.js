@@ -22,59 +22,64 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @class AccessibleNavigation
- * @classdesc The AccessibleNavigation interface fixes accessibility problems
- * associated with navigation.
- * @memberof hatemile
+ * The AccessibleNavigation interface improve the accessibility of navigation.
+ * @interface hatemile.AccessibleNavigation
  */
 exports.hatemile.AccessibleNavigation = (function() {
 	function AccessibleNavigation() {
 	}
 
 	/**
-	 * Provide content skipper for element.
+	 * Provide a content skipper for element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationBySkipper
 	 */
-	AccessibleNavigation.prototype.fixSkipper = function(element) {
+	AccessibleNavigation.prototype.provideNavigationBySkipper = function(element) {
 	};
 
 	/**
-	 * Provide content skippers.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide navigation by content skippers.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByAllSkippers
 	 */
-	AccessibleNavigation.prototype.fixAllSkippers = function() {
+	AccessibleNavigation.prototype.provideNavigationByAllSkippers = function() {
 	};
 
 	/**
-	 * Provide a navigation by heading.
+	 * Provide navigation by heading.
 	 * @param {hatemile.util.html.HTMLDOMElement} heading The heading element.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByHeading
 	 */
-	AccessibleNavigation.prototype.fixHeading = function(heading) {
+	AccessibleNavigation.prototype.provideNavigationByHeading = function(heading) {
 	};
 
 	/**
-	 * Provide a navigation by headings.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide navigation by headings of page.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationByAllHeadings
 	 */
-	AccessibleNavigation.prototype.fixAllHeadings = function() {
+	AccessibleNavigation.prototype.provideNavigationByAllHeadings = function() {
 	};
 
 	/**
 	 * Provide an alternative way to access the long description of element.
 	 * @param {hatemile.util.html.HTMLDOMElement} image The image with long
 	 * description.
-	 * @memberof hatemile.AccessibleNavigation
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationToLongDescription
 	 */
-	AccessibleNavigation.prototype.fixLongDescription = function(image) {
+	AccessibleNavigation.prototype.provideNavigationToLongDescription = function(image) {
 	};
 
 	/**
-	 * Provide an alternative way to access the longs descriptions of elements.
-	 * @memberof hatemile.AccessibleNavigation
+	 * Provide an alternative way to access the longs descriptions of all elements
+	 * of page.
+	 * @public
+	 * @function hatemile.AccessibleNavigation#provideNavigationToAllLongDescriptions
 	 */
-	AccessibleNavigation.prototype.fixAllLongDescriptions = function() {
+	AccessibleNavigation.prototype.provideNavigationToAllLongDescriptions = function() {
 	};
 
 	return AccessibleNavigation;

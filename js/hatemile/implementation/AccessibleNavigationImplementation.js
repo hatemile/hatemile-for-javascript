@@ -22,18 +22,10 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
  */
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-/**
- * @class AccessibleNavigationImplementation
- * @classdesc The AccessibleNavigationImplementation class is official
- * implementation of AccessibleNavigation interface.
- * @extends hatemile.AccessibleNavigation
- * @memberof hatemile.implementation
- */
 exports.hatemile.implementation.AccessibleNavigationImplementation = (function() {
 	var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING, freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading;
 
@@ -49,34 +41,11 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
 	/**
-	 * Initializes a new object that manipulate the accessibility of the
-	 * navigation of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
-	 * @param {String} userAgent The user agent of the user.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
-	 */
-	function AccessibleNavigationImplementation(parser, configure, skippers) {
-		this.parser = parser;
-		this.skippers = skippers;
-		this.prefixId = configure.getParameter('prefix-generated-ids');
-		this.attributeLongDescriptionPrefixBegin = configure.getParameter('attribute-longdescription-prefix-begin');
-		this.attributeLongDescriptionSuffixBegin = configure.getParameter('attribute-longdescription-suffix-begin');
-		this.attributeLongDescriptionPrefixEnd = configure.getParameter('attribute-longdescription-prefix-end');
-		this.attributeLongDescriptionSuffixEnd = configure.getParameter('attribute-longdescription-suffix-end');
-		this.elementsHeadingBegin = configure.getParameter('elements-heading-begin');
-		this.elementsHeadingEnd = configure.getParameter('elements-heading-end');
-		this.listSkippersAdded = false;
-		this.validateHeading = false;
-		this.validHeading = false;
-		this.listSkippers = void 0;
-	}
-
-	/**
 	 * Generate the list of skippers of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListSkippers
 	 */
 	generateListSkippers = function(parser) {
 		var container, list, local;
@@ -103,10 +72,11 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	/**
 	 * Generate the list of heading links of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} textHeading The text of description of container of heading
-	 * links.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of heading links of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @param {string} textHeading The description of container of heading links.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of heading links of
+	 * page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListHeading
 	 */
 	generateListHeading = function(parser, textHeading) {
 		var container, list, local, textContainer;
@@ -137,8 +107,9 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	/**
 	 * Returns the level of heading.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The heading.
-	 * @return {Number} The level of heading.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {number} The level of heading.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.getHeadingLevel
 	 */
 	getHeadingLevel = function(element) {
 		var tag;
@@ -161,11 +132,12 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	};
 
 	/**
-	 * Inform if the headings of page are sintatic correct.
+	 * Check that the headings of page are sintatic correct.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {Boolean} True if the headings of page are sintatic correct or
+	 * @returns {boolean} True if the headings of page are sintatic correct or
 	 * false if not.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.isValidHeading
 	 */
 	isValidHeading = function(parser) {
 		var countMainHeading, element, elements, lastLevel, level, _i, _len;
@@ -193,13 +165,14 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	/**
 	 * Generate an anchor for the element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {String} dataAttribute The name of attribute that links the element
+	 * @param {string} dataAttribute The custom attribute that links the element
 	 * with the anchor.
-	 * @param {String} anchorClass The HTML class of anchor.
+	 * @param {string} anchorClass The HTML class of anchor.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {String} prefixId The prefix of generated ids.
-	 * @return {hatemile.util.html.HTMLDOMElement} The anchor.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @param {string} prefixId The prefix of generated ids.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The anchor.
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateAnchorFor
 	 */
 	generateAnchorFor = function(element, dataAttribute, anchorClass, parser, prefixId) {
 		var anchor;
@@ -226,7 +199,8 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 * Replace the shortcut of elements, that has the shortcut passed.
 	 * @param {hatemile.util.html.HTMLDOMElement} shortcut The shortcut.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleNavigationImplementation.freeShortcut
 	 */
 	freeShortcut = function(shortcut, parser) {
 		var alphaNumbers, element, elementWithShortcuts, elements, found, key, shortcuts, _i, _j, _k, _len, _len1, _len2;
@@ -259,7 +233,37 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixSkipper = function(element) {
+	/**
+	 * Initializes a new object that manipulate the accessibility of the
+	 * navigation of parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {object[]} skippers The skippers.
+	 * @param {string} skippers[].selector The skipper selector.
+	 * @param {string} skippers[].description The description of skipper.
+	 * @param {string} skippers[].shortcut The skipper shortcut.
+	 * @class The AccessibleNavigationImplementation class is official
+	 * implementation of AccessibleNavigation interface.
+	 * @implements {hatemile.AccessibleNavigation}
+	 * @constructs hatemile.implementation.AccessibleNavigationImplementation
+	 */
+	function AccessibleNavigationImplementation(parser, configure, skippers) {
+		this.parser = parser;
+		this.skippers = skippers;
+		this.prefixId = configure.getParameter('prefix-generated-ids');
+		this.attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before');
+		this.attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before');
+		this.attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after');
+		this.attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after');
+		this.elementsHeadingBefore = configure.getParameter('elements-heading-before');
+		this.elementsHeadingAfter = configure.getParameter('elements-heading-after');
+		this.listSkippersAdded = false;
+		this.validateHeading = false;
+		this.validHeading = false;
+		this.listSkippers = void 0;
+	}
+
+	AccessibleNavigationImplementation.prototype.provideNavigationBySkipper = function(element) {
 		var anchor, auxiliarElement, auxiliarElements, auxiliarSkipper, itemLink, link, shortcut, shortcuts, skipper, _i, _j, _len, _len1, _ref;
 		skipper = void 0;
 		_ref = this.skippers;
@@ -305,7 +309,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixAllSkippers = function() {
+	AccessibleNavigationImplementation.prototype.provideNavigationByAllSkippers = function() {
 		var element, elements, skipper, _i, _j, _len, _len1, _ref;
 		_ref = this.skippers;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -314,13 +318,13 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
 				if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
-					this.fixSkipper(element);
+					this.provideNavigationBySkipper(element);
 				}
 			}
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixHeading = function(heading) {
+	AccessibleNavigationImplementation.prototype.provideNavigationByHeading = function(heading) {
 		var anchor, item, level, link, list, superItem;
 		if (!this.validateHeading) {
 			this.validHeading = isValidHeading(this.parser);
@@ -355,18 +359,18 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixAllHeadings = function() {
+	AccessibleNavigationImplementation.prototype.provideNavigationByAllHeadings = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
-				this.fixHeading(element);
+				this.provideNavigationByHeading(element);
 			}
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixLongDescription = function(image) {
+	AccessibleNavigationImplementation.prototype.provideNavigationToLongDescription = function(image) {
 		var anchor, id, text;
 		if (image.hasAttribute('longdesc')) {
 			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
@@ -398,13 +402,13 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		}
 	};
 
-	AccessibleNavigationImplementation.prototype.fixAllLongDescriptions = function() {
+	AccessibleNavigationImplementation.prototype.provideNavigationToAllLongDescriptions = function() {
 		var element, elements, _i, _len;
 		elements = this.parser.find('[longdesc]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
-				this.fixLongDescription(element);
+				this.provideNavigationToLongDescription(element);
 			}
 		}
 	};

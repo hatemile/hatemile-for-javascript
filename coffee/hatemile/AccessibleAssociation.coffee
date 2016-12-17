@@ -19,22 +19,23 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @class AccessibleAssociation
- * @classdesc The AccessibleAssociation interface fixes accessibility problems
- * of association.
- * @memberof hatemile
+ * The AccessibleAssociation interface improve accessibility, associating
+ * elements.
+ * @interface hatemile.AccessibleAssociation
 ###
 class exports.hatemile.AccessibleAssociation
 	
 	###*
-	 * Associate data cells with header cells of table.
+	 * Associate all data cells with header cells of table.
 	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
-	 * @memberof hatemile.AccessibleAssociation
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateDataCellsWithHeaderCells
 	###
 	associateDataCellsWithHeaderCells: (table) ->
 	
 	###*
-	 * Associate data cells with header cells of tables.
-	 * @memberof hatemile.AccessibleAssociation
+	 * Associate all data cells with header cells of all tables of page.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
 	###
 	associateAllDataCellsWithHeaderCells: () ->

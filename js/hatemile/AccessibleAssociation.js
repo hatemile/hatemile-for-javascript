@@ -22,26 +22,27 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @class AccessibleAssociation
- * @classdesc The AccessibleAssociation interface fixes accessibility problems
- * of association.
- * @memberof hatemile
+ * The AccessibleAssociation interface improve accessibility, associating
+ * elements.
+ * @interface hatemile.AccessibleAssociation
  */
 exports.hatemile.AccessibleAssociation = (function() {
 	function AccessibleAssociation() {
 	}
 
 	/**
-	 * Associate data cells with header cells of table.
+	 * Associate all data cells with header cells of table.
 	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
-	 * @memberof hatemile.AccessibleAssociation
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateDataCellsWithHeaderCells
 	 */
 	AccessibleAssociation.prototype.associateDataCellsWithHeaderCells = function(table) {
 	};
 
 	/**
-	 * Associate data cells with header cells of tables.
-	 * @memberof hatemile.AccessibleAssociation
+	 * Associate all data cells with header cells of all tables of page.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
 	 */
 	AccessibleAssociation.prototype.associateAllDataCellsWithHeaderCells = function() {
 	};

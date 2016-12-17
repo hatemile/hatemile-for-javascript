@@ -22,35 +22,28 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
 /**
- * @namespace vanilla
- * @memberof hatemile.util.html
+ * @namespace hatemile.util.html.vanilla
  */
 (_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-/**
- * @class VanillaHTMLDOMElement
- * @classdesc The VanillaHTMLDOMElement class is official implementation of
- * HTMLDOMElement interface for the Javascript.
- * @extends hatemile.util.html.HTMLDOMElement
- * @memberof hatemile.util.html.vanilla
- */
 exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 	/**
 	 * Initializes a new object that encapsulate the HTMLElement.
-	 * @param {HTMLElement} data The native element.
-	 * @memberof hatemile.util.html.vanilla.VanillaHTMLDOMElement
+	 * @param {HTMLElement} data The HTMLElement instance.
+	 * @class The VanillaHTMLDOMElement class is official implementation of
+	 * HTMLDOMElement interface for the Javascript.
+	 * @implements {hatemile.util.html.HTMLDOMElement}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	 */
 	function VanillaHTMLDOMElement(data) {
 		this.data = data;

@@ -22,20 +22,29 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
+/**
+ * @namespace hatemile.util.css.jscssp
+ */
 (_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
 exports.hatemile.util.css.jscssp.JSCSSPDeclaration = (function() {
+	/**
+	 * Initializes a new object that encapsulate the CSS declaration.
+	 * @param {jscsspDeclaration} declaration The declaration CSS of rule.
+	 * @class The JSCSSPDeclaration class is official implementation of
+	 * StyleSheetDeclaration interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetDeclaration}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPDeclaration
+	 */
 	function JSCSSPDeclaration(declaration) {
 		this.declaration = declaration;
 	}

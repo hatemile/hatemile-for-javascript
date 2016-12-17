@@ -19,39 +19,26 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
 ###
 exports.hatemile.util.html or= {}
 
-class exports.hatemile.util.html.HTMLDOMTextNode
+###*
+ * The HTMLDOMTextNode interface contains the methods for access of the Text.
+ * @interface hatemile.util.html.HTMLDOMTextNode
+ * @extends hatemile.util.html.HTMLDOMNode
+###
+class exports.hatemile.util.html.HTMLDOMTextNode extends exports.hatemile.util.html.HTMLDOMNode
 	
+	###*
+	 * Change the text content of text node.
+	 * @param {string} text The new text content.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
+	###
 	setTextContent: (text) ->
-	
-	getTextContent: () ->
-	
-	insertBefore: (newNode) ->
-	
-	insertAfter: (newNode) ->
-	
-	removeNode: () ->
-	
-	replaceNode: (newElement) ->
-	
-	appendText: (text) ->
-	
-	prependText: (text) ->
-	
-	getParentElement: () ->
-	
-	getData: () ->
-	
-	setData: (data) ->
-	
-	equals: (node) ->

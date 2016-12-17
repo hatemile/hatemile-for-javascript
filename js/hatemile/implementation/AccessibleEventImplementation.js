@@ -22,20 +22,12 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
  */
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
-/**
- * @class AccessibleEventImplementation
- * @classdesc The AccessibleEventImplementation class is official implementation
- * of AccessibleEvent interface.
- * @extends hatemile.AccessibleEvent
- * @memberof hatemile.implementation
- */
 exports.hatemile.implementation.AccessibleEventImplementation = (function() {
-	var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, enterPressed, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, keyboardAccess;
+	var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, isEnter, keyboardAccess, visit;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 	DATA_KEY_PRESSED = 'data-keypressed';
@@ -50,22 +42,12 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	DROP_EVENT = 'drop';
 
 	/**
-	 * Initializes a new object that manipulate the accessibility of the
-	 * Javascript events of elements of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
-	 */
-	function AccessibleEventImplementation(parser) {
-		this.parser = parser;
-		this.cancelDragAdded = false;
-	}
-
-	/**
-	 * Returns if the key pressed is enter.
-	 * @param {Number} keyCode The code of key pressed.
-	 * @return {Boolean} True if the key pressed is enter or false if the key
+	 * Check that the key pressed is enter.
+	 * @param {number} keyCode The code of key pressed.
+	 * @returns {boolean} True if the key pressed is enter or false if the key
 	 * pressed isn't enter.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.isEnter
 	 */
 	isEnter = function(keyCode) {
 		var enter1, enter2;
@@ -77,7 +59,8 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	/**
 	 * Provide keyboard access for element, if it not has.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.keyboardAccess
 	 */
 	keyboardAccess = function(element) {
 		var tag;
@@ -94,12 +77,13 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	/**
 	 * Increase a function on event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {String} typeEvent The name of type of event fixed.
-	 * @param {String} typeDataEvent The name of attribute that store the type of
+	 * @param {string} typeEvent The type of event.
+	 * @param {string} typeDataEvent The name of attribute that store the type of
 	 * event fixed.
-	 * @param {String} typeFix The id of fix method.
-	 * @param {Function} functionForEventHandler The function.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {string} typeFix The id of fix method.
+	 * @param {function} functionForEventHandler The function.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.addEventHandler
 	 */
 	addEventHandler = function(element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {
 		var attribute, found, nativeElement;
@@ -129,15 +113,16 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	/**
-	 * Returns if the element has the event added by developer or fixed by
+	 * Check that the element has the event added by developer or fixed by
 	 * HaTeMiLe.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {String} typeEvent The event.
-	 * @param {String} typeDataEvent The data type of event.
-	 * @param {String} typeFix The id of fix method.
-	 * @return {Boolean} True if the element has the event added by developer or
+	 * @param {string} typeEvent The type of event.
+	 * @param {string} typeDataEvent The custom attribute of type of event.
+	 * @param {string} typeFix The id of fix method.
+	 * @returns {boolean} True if the element has the event added by developer or
 	 * fixed by HaTeMiLe or false if the element not has the event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.hasEvent
 	 */
 	hasEvent = function(element, typeEvent, typeDataEvent, typeFix) {
 		var attribute, nativeElement;
@@ -151,9 +136,10 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	/**
-	 * Remove the information on attributes of drop effect.
+	 * Remove the information on attributes of drop effect of all elements.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.clearDropEffect
 	 */
 	clearDropEffect = function(parser) {
 		var activeEvents, dragEvents, droppedElement, droppedElements, hoverEvents, _i, _len;
@@ -171,9 +157,10 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	/**
-	 * Put in all droppable elements the information of the type of drop.
+	 * Set in all droppable elements the information of the type of drop.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.generateDropEffect
 	 */
 	generateDropEffect = function(parser) {
 		var ariaDropEffect, dropEffect, droppedElement, droppedElements, effectAllowed, _i, _len;
@@ -201,22 +188,24 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	/**
-	 * Execute the event as mouse event.
-	 * @param {String} type The type of event.
+	 * Execute the event as mouse event in element.
+	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {Function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {function} event The original event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeMouseEvent
 	 */
 	executeMouseEvent = function(type, element, event) {
 		executeEvent(element, createMouseEvent(type, element, event));
 	};
 
 	/**
-	 * Execute the event as drag event.
-	 * @param {String} type The type of event.
+	 * Execute the event as drag event in element.
+	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {Function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {function} event The original event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeDragEvent
 	 */
 	executeDragEvent = function(type, element, event) {
 		if (isEmpty(exports.__dragEventDataTransfer__)) {
@@ -249,10 +238,11 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	/**
-	 * Execute the event.
+	 * Execute the event in element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {Function} event The original event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {function} event The original event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.executeEvent
 	 */
 	executeEvent = function(element, event) {
 		var error, handlerEvent, listenerEvent, nativeElement, _i, _len, _ref;
@@ -282,11 +272,12 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 
 	/**
 	 * Create a proxy for original event, simulating the mouse event.
-	 * @param {String} type The type of event.
+	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {Function} event The original event.
-	 * @return {Object} The proxy of original event, simulating the mouse event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {function} event The original event.
+	 * @returns {object} The proxy of original event, simulating the mouse event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.createMouseEvent
 	 */
 	createMouseEvent = function(type, element, event) {
 		var data;
@@ -331,11 +322,12 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 
 	/**
 	 * Create a proxy for original event, simulating the drag event.
-	 * @param {String} type The type of event.
+	 * @param {string} type The type of event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {Function} event The original event.
-	 * @return {Object} The proxy of original event, simulating the drag event.
-	 * @memberof hatemile.implementation.AccessibleEventImplementation
+	 * @param {function} event The original event.
+	 * @returns {object} The proxy of original event, simulating the drag event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.createDragEvent
 	 */
 	createDragEvent = function(type, element, event) {
 		var dragEvent;
@@ -344,6 +336,17 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		return dragEvent;
 	};
 
+	/**
+	 * Visit and execute a operation in element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {function} condition The condition to execute operation in element
+	 * and descendants.
+	 * @param {hatemile.implementation.AccessibleEventImplementation} obj The
+	 * object that be execute the operation.
+	 * @param {function} operation The operation.
+	 * @private
+	 * @function hatemile.implementation.AccessibleEventImplementation.visit
+	 */
 	visit = function(element, condition, obj, operation) {
 		var child, children, _i, _len;
 		if (!element.hasAttribute(DATA_IGNORE)) {
@@ -358,7 +361,21 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		}
 	};
 
-	AccessibleEventImplementation.prototype.fixDrop = function(element) {
+	/**
+	 * Initializes a new object that manipulate the accessibility of the
+	 * Javascript events of elements of parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @class The AccessibleEventImplementation class is official implementation
+	 * of AccessibleEvent interface.
+	 * @implements {hatemile.AccessibleEvent}
+	 * @constructs hatemile.implementation.AccessibleEventImplementation
+	 */
+	function AccessibleEventImplementation(parser) {
+		this.parser = parser;
+		this.cancelDragAdded = false;
+	}
+
+	AccessibleEventImplementation.prototype.makeAccessibleDropEvents = function(element) {
 		var parser;
 		element.setAttribute('aria-dropeffect', 'none');
 		parser = this.parser;
@@ -398,7 +415,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		}
 	};
 
-	AccessibleEventImplementation.prototype.fixDrag = function(element) {
+	AccessibleEventImplementation.prototype.makeAccessibleDragEvents = function(element) {
 		var parser, root;
 		keyboardAccess(element);
 		element.setAttribute('aria-grabbed', 'false');
@@ -442,7 +459,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		}
 	};
 
-	AccessibleEventImplementation.prototype.fixAllDragsandDrops = function() {
+	AccessibleEventImplementation.prototype.makeAccessibleAllDragandDropEvents = function() {
 		var body;
 		body = this.parser.find('body').firstResult();
 		visit(body, function(element) {
@@ -453,7 +470,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		}, this, this.makeAccessibleDropEvents);
 	};
 
-	AccessibleEventImplementation.prototype.fixHover = function(element) {
+	AccessibleEventImplementation.prototype.makeAccessibleHoverEvents = function(element) {
 		keyboardAccess(element);
 		addEventHandler(element, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT, function(event) {
 			executeMouseEvent('mouseover', element, event);
@@ -463,13 +480,13 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		});
 	};
 
-	AccessibleEventImplementation.prototype.fixAllHovers = function() {
+	AccessibleEventImplementation.prototype.makeAccessibleAllHoverEvents = function() {
 		visit(this.parser.find('body').firstResult(), function(element) {
 			return hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout');
 		}, this, this.makeAccessibleHoverEvents);
 	};
 
-	AccessibleEventImplementation.prototype.fixActive = function(element) {
+	AccessibleEventImplementation.prototype.makeAccessibleClickEvents = function(element) {
 		var tag, typeButtons;
 		keyboardAccess(element);
 		tag = element.getTagName();
@@ -497,7 +514,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		});
 	};
 
-	AccessibleEventImplementation.prototype.fixAllActives = function() {
+	AccessibleEventImplementation.prototype.makeAccessibleAllClickEvents = function() {
 		visit(this.parser.find('body').firstResult(), function(element) {
 			return hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick');
 		}, this, this.makeAccessibleClickEvents);

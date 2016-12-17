@@ -19,18 +19,10 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
 ###
 exports.hatemile.implementation or= {}
 
-###*
- * @class AccessibleDisplayScreenReaderImplementation
- * @classdesc The AccessibleDisplayScreenReaderImplementation class is official
- * implementation of AccessibleDisplay interface for screen readers.
- * @extends hatemile.AccessibleDisplay
- * @memberof hatemile.implementation
-###
 class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	
 	ID_CONTAINER_SHORTCUTS = 'container-shortcuts'
@@ -123,6 +115,17 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	DATA_INVALID_MONTH = 'data-invalidmonth'
 	DATA_INVALID_WEEK = 'data-invalidweek'
 	
+	###*
+	 * Initializes a new object that manipulate the display for screen readers of
+	 * parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @param {string} userAgent The user agent of browser.
+	 * @class The AccessibleDisplayScreenReaderImplementation class is official
+	 * implementation of AccessibleDisplay interface for screen readers.
+	 * @implements {hatemile.AccessibleDisplay}
+	 * @constructs hatemile.implementation.AccessibleDisplayScreenReaderImplementation
+	###
 	constructor: (@parser, configure, userAgent) ->
 		@listShortcutsAdded = false
 		@listShortcuts = undefined
@@ -514,6 +517,14 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		
 		@shortcutPrefix = getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
 	
+	###*
+	 * Returns the shortcut prefix of browser.
+	 * @param {string} userAgent The user agent of browser.
+	 * @param {string} defaultPrefix The default prefix.
+	 * @returns {string} The shortcut prefix of browser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
+	###
 	getShortcutPrefix = (userAgent, defaultPrefix) ->
 		if not isEmpty(userAgent)
 			userAgent = userAgent.toLowerCase()
@@ -544,10 +555,11 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	###*
 	 * Returns the description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with description.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {string} The description of element.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @returns {string} The description of element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getDescription
 	###
 	getDescription = (element, parser) ->
 		description = undefined
@@ -580,10 +592,10 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	###*
 	 * Generate the list of shortcuts of page.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} textShortcuts The text of description of container of
-	 * shortcuts descriptions.
-	 * @return {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
+	 * @param {string} textShortcuts The description of container of shortcuts.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.generateListShortcuts
 	###
 	generateListShortcuts = (parser, textShortcuts) ->
 		container = parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
@@ -607,6 +619,15 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 				container.appendElement(list)
 		return list
 	
+	###*
+	 * Insert a element before other element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
+	 * be inserted.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertBefore
+	###
 	insertBefore = (element, insertedElement, parser) ->
 		tagName = element.getTagName()
 		tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH']
@@ -628,6 +649,15 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			element.insertBefore(insertedElement)
 		return
 	
+	###*
+	 * Insert a element after other element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
+	 * be inserted.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertAfter
+	###
 	insertAfter = (element, insertedElement, parser) ->
 		tagName = element.getTagName()
 		appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH']
@@ -649,6 +679,20 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			element.insertAfter(insertedElement)
 		return
 	
+	###*
+	 * Force the screen reader display an information of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {string} prefixId The prefix of generated ids.
+	 * @param {string} textBefore The text content to show before the element.
+	 * @param {string} textAfter The text content to show after the element.
+	 * @param {string} dataBeforeOf The name of attribute that links the before
+	 * content with element.
+	 * @param {string} dataAfterOf The name of attribute that links the after
+	 * content with element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
+	###
 	forceReadSimple = (element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) ->
 		exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		identifier = element.getAttribute('id')
@@ -679,6 +723,28 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			insertAfter(element, span, parser)
 		return
 	
+	###*
+	 * Force the screen reader display an information of element with prefixes or
+	 * suffixes.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {string} value The value to be show.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {string} prefixId The prefix of generated ids.
+	 * @param {string} textPrefixBefore The prefix of value to show before the
+	 * element.
+	 * @param {string} textSuffixBefore The suffix of value to show before the
+	 * element.
+	 * @param {string} textPrefixAfter The prefix of value to show after the
+	 * element.
+	 * @param {string} textSuffixAfter The suffix of value to show after the
+	 * element.
+	 * @param {string} dataBeforeOf The name of attribute that links the before
+	 * content with element.
+	 * @param {string} dataAfterOf The name of attribute that links the after
+	 * content with element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
+	###
 	forceRead = (element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) ->
 		if (not isEmpty(textPrefixBefore)) or (not isEmpty(textSuffixBefore))
 			textBefore = "#{textPrefixBefore}#{value}#{textSuffixBefore}"

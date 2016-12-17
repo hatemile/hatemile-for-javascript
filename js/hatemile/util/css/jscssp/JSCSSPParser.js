@@ -22,22 +22,33 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
+/**
+ * @namespace hatemile.util.css.jscssp
+ */
 (_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
 exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 	var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
 
+	/**
+	 * Initializes a new object that encapsulate the CSS parser.
+	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
+	 * document object or a string with CSS rules.
+	 * @param {string} currentURL The current URL of page.
+	 * @class The JSCSSPParser class is official implementation of
+	 * StyleSheetParser interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetParser}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
+	 */
 	function JSCSSPParser(parser, currentURL) {
 		this.parser = parser;
 		this.currentURL = currentURL;
@@ -94,6 +105,13 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 		}
 	};
 
+	/*
+	 * Returns the text content of document.
+	 * @param {HTMLDocument} doc The document.
+	 * @returns {string} The text content of document.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getCSSContent
+	 */
 	getCSSContent = function(doc, currentURL) {
 		var child, content, head, style, styles, tagName, _i, _j, _len, _len1, _ref;
 		content = '';
@@ -118,6 +136,13 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 		return content;
 	};
 
+	/*
+	 * Returns the text content of URL.
+	 * @param {string} url The URL.
+	 * @returns {string} The text content of URL.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromURL
+	 */
 	getContentFromURL = function(url) {
 		var content, e, httpRequest;
 		content = '';
@@ -150,6 +175,13 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 		return content;
 	};
 
+	/*
+	 * Returns the text content of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @returns {string} The text content of element.
+	 * @private
+	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromElement
+	 */
 	getContentFromElement = function(element) {
 		var child, childs, text, _i, _len;
 		if (!isEmpty(element.textContent)) {

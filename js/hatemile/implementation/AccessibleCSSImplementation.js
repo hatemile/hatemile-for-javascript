@@ -22,13 +22,12 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
  */
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
-	var DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS, createAuralContentElement, createContentElement, createVisualContentElement, formatSymbol, getDescriptionOfSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, normalize, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit;
+	var DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS, createAuralContentElement, createContentElement, createVisualContentElement, getDescriptionOfSymbol, getFormatedSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 	DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan';
@@ -37,16 +36,28 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	VALID_INHERIT_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'HGROUP', 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', 'TR', 'TD', 'TH', 'TBODY', 'THEAD', 'TFOOT'];
 	VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI', 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', 'SUMMARY', 'DETAILS', 'TD', 'TH'];
 
-	function AccessibleCSSImplementation(htmlParser, cssParser, symbols) {
-		this.htmlParser = htmlParser;
-		this.cssParser = cssParser;
-		this.symbols = symbols;
-	}
-
+	/**
+	 * Returns the symbol formated to be searched by regular expression.
+	 * @param {string} symbol The symbol.
+	 * @returns {string} The symbol formated.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.getFormatedSymbol
+	 */
 	getFormatedSymbol = function(symbol) {
 		return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+').replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$').replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}').replace('(', '\\(').replace(')', '\\)').replace('|', '\\|').replace('/', '\\/').replace(',', '\\,').replace('!', '\\!').replace('=', '\\=').replace(':', '\\:').replace('-', '\\-');
 	};
 
+	/**
+	 * Returns the description of symbol.
+	 * @param {object[]} symbols The list of symbols and its respective
+	 * descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @param {string} symbol The symbol.
+	 * @returns {string} The description of symbol.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.getDescriptionOfSymbol
+	 */
 	getDescriptionOfSymbol = function(symbols, symbol) {
 		var _i, _len, _symbol;
 		for (_i = 0, _len = symbols.length; _i < _len; _i++) {
@@ -58,6 +69,16 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		return null;
 	};
 
+	/**
+	 * Returns the regular expression to search all symbols.
+	 * @param {object[]} symbols The list of symbols and its respective
+	 * descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @returns {string} The regular expression to search all symbols.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.getRegularExpressionOfSymbols
+	 */
 	getRegularExpressionOfSymbols = function(symbols) {
 		var formatedSymbol, regularExpression, symbol, _i, _len;
 		regularExpression = void 0;
@@ -73,20 +94,40 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		return regularExpression;
 	};
 
+	/**
+	 * Check that the children of element can be manipulated to apply the CSS
+	 * properties.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @returns {boolean} True if the children of element can be manipulated to
+	 * apply the CSS properties or false if the children of element can be
+	 * manipulated to apply the CSS properties.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.isValidInheritElement
+	 */
 	isValidInheritElement = function(element) {
 		return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) !== -1) && (!element.hasAttribute(DATA_IGNORE));
 	};
 
+	/**
+	 * Check that the element can be manipulated to apply the CSS properties.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @returns {boolean} True if the element can be manipulated to apply the CSS
+	 * properties or false if the element cannot be manipulated to apply the CSS
+	 * properties.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.isValidElement
+	 */
 	isValidElement = function(element) {
 		return VALID_TAGS.indexOf(element.getTagName()) !== -1;
 	};
 
-	normalize = function(element) {
-		if ((element.getData().normalize)) {
-			element.getData().normalize();
-		}
-	};
-
+	/**
+	 * Isolate text nodes of element nodes.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.isolateTextNode
+	 */
 	isolateTextNode = function(element, htmlParser) {
 		var child, children, elementChild, span, _i, _j, _len, _len1;
 		if ((element.hasChildrenElements()) && (isValidElement(element))) {
@@ -110,6 +151,12 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * Replace the element by own text content.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.replaceElementByOwnContent
+	 */
 	replaceElementByOwnContent = function(element) {
 		var child, children, _i, _len;
 		if (element.hasChildrenElements()) {
@@ -124,6 +171,18 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * Visit and execute a operation in element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @param {object[]} symbols The list of symbols and its respective
+	 * descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @param {function} operation The operation to be executed.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.visit
+	 */
 	visit = function(element, htmlParser, symbols, operation) {
 		var child, children, _i, _len;
 		if (isValidInheritElement(element)) {
@@ -139,6 +198,17 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * Create a element to show the content.
+	 * @param {string} content The text content of element.
+	 * @param {string} dataPropertyValue The value of custom attribute used to
+	 * identify the fix.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The element to show the
+	 * content.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.createContentElement
+	 */
 	createContentElement = function(content, dataPropertyValue, htmlParser) {
 		var contentElement;
 		contentElement = htmlParser.createElement('span');
@@ -148,6 +218,17 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		return contentElement;
 	};
 
+	/**
+	 * Create a element to show the content, only to aural displays.
+	 * @param {string} content The text content of element.
+	 * @param {string} dataPropertyValue The value of custom attribute used to
+	 * identify the fix.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The element to show the
+	 * content.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.createAuralContentElement
+	 */
 	createAuralContentElement = function(content, dataPropertyValue, htmlParser) {
 		var contentElement;
 		contentElement = createContentElement(content, dataPropertyValue, htmlParser);
@@ -156,6 +237,17 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		return contentElement;
 	};
 
+	/**
+	 * Create a element to show the content, only to visual displays.
+	 * @param {string} content The text content of element.
+	 * @param {string} dataPropertyValue The value of custom attribute used to
+	 * identify the fix.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The element to show the
+	 * content.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.createVisualContentElement
+	 */
 	createVisualContentElement = function(content, dataPropertyValue, htmlParser) {
 		var contentElement;
 		contentElement = createContentElement(content, dataPropertyValue, htmlParser);
@@ -164,6 +256,12 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		return contentElement;
 	};
 
+	/**
+	 * Speak the content of element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakNormal
+	 */
 	speakNormal = function(element) {
 		if (element.hasAttribute(DATA_SPEAK)) {
 			if ((element.getAttribute(DATA_SPEAK) === 'none') && (!element.hasAttribute(DATA_ISOLATOR_ELEMENT))) {
@@ -176,22 +274,53 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * Speak the content of element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakNormalInherit
+	 */
 	speakNormalInherit = function(element, htmlParser) {
 		visit(element, htmlParser, null, speakNormal);
 		element.normalize();
 	};
 
+	/**
+	 * No speak any content of element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakNone
+	 */
 	speakNone = function(element) {
 		element.setAttribute('role', 'presentation');
 		element.setAttribute('aria-hidden', 'true');
 		element.setAttribute(DATA_SPEAK, 'none');
 	};
 
+	/**
+	 * No speak any content of element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakNoneInherit
+	 */
 	speakNoneInherit = function(element, htmlParser) {
 		isolateTextNode(element, htmlParser);
 		visit(element, htmlParser, null, speakNone);
 	};
 
+	/**
+	 * Execute a operation by regular expression for element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {string} regularExpression The regular expression.
+	 * @param {string} dataPropertyValue The value of custom attribute used to
+	 * identify the fix.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @param {function} operation The operation to be executed.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAs
+	 */
 	speakAs = function(element, regularExpression, dataPropertyValue, htmlParser, operation) {
 		var child, children, content, index, _i, _len;
 		children = [];
@@ -221,6 +350,15 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * Revert changes of a speakAs method for element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {string} dataPropertyValue The value of custom attribute used to
+	 * identify the fix.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.reverseSpeakAs
+	 */
 	reverseSpeakAs = function(element, dataPropertyValue, htmlParser) {
 		var auxiliarElement, auxiliarElements, contentElement, contentElements, _i, _j, _len, _len1;
 		auxiliarElements = htmlParser.find(element).findDescendants("[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"][unselectable=\"on\"]").listResults();
@@ -236,6 +374,14 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		element.normalize();
 	};
 
+	/**
+	 * Use the default speak configuration of user agent for element and
+	 * descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsNormal
+	 */
 	speakAsNormal = function(element, htmlParser) {
 		reverseSpeakAs(element, 'spell-out', htmlParser);
 		reverseSpeakAs(element, 'literal-punctuation', htmlParser);
@@ -243,6 +389,13 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		reverseSpeakAs(element, 'digits', htmlParser);
 	};
 
+	/**
+	 * Speak one letter at a time for each word for element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsSpellOut
+	 */
 	speakAsSpellOut = function(element, htmlParser) {
 		speakAs(element, '[a-zA-Z]', 'spell-out', htmlParser, function(content, index, children) {
 			children.push(createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser));
@@ -250,12 +403,30 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		});
 	};
 
+	/**
+	 * Speak one letter at a time for each word for elements and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsSpellOutInherit
+	 */
 	speakAsSpellOutInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'spell-out', htmlParser);
 		isolateTextNode(element, htmlParser);
 		visit(element, htmlParser, null, speakAsSpellOut);
 	};
 
+	/**
+	 * Speak the punctuation for elements only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @param {object[]} symbols The list of symbols and its respective
+	 * descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsLiteralPunctuation
+	 */
 	speakAsLiteralPunctuation = function(element, htmlParser, symbols) {
 		speakAs(element, getRegularExpressionOfSymbols(symbols), 'literal-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
@@ -266,6 +437,17 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		});
 	};
 
+	/**
+	 * Speak the punctuation for elements and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @param {object[]} symbols The list of symbols and its respective
+	 * descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsLiteralPunctuationInherit
+	 */
 	speakAsLiteralPunctuationInherit = function(element, htmlParser, symbols) {
 		reverseSpeakAs(element, 'literal-punctuation', htmlParser);
 		reverseSpeakAs(element, 'no-punctuation', htmlParser);
@@ -273,6 +455,13 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		visit(element, htmlParser, symbols, speakAsLiteralPunctuation);
 	};
 
+	/**
+	 * No speak the punctuation for element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsNoPunctuation
+	 */
 	speakAsNoPunctuation = function(element, htmlParser) {
 		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', 'no-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
@@ -282,6 +471,13 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		});
 	};
 
+	/**
+	 * No speak the punctuation for element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsNoPunctuationInherit
+	 */
 	speakAsNoPunctuationInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'literal-punctuation', htmlParser);
 		reverseSpeakAs(element, 'no-punctuation', htmlParser);
@@ -289,6 +485,13 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		visit(element, htmlParser, null, speakAsNoPunctuation);
 	};
 
+	/**
+	 * Speak the digit at a time for each number for element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsDigits
+	 */
 	speakAsDigits = function(element, htmlParser) {
 		speakAs(element, '[0-9]', 'no-punctuation', htmlParser, function(content, index, children) {
 			if (index !== 0) {
@@ -299,16 +502,37 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		});
 	};
 
+	/**
+	 * Speak the digit at a time for each number for element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsDigitsInherit
+	 */
 	speakAsDigitsInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'digits', htmlParser);
 		isolateTextNode(element, htmlParser);
 		visit(element, htmlParser, null, speakAsDigits);
 	};
 
+	/**
+	 * Speaks the numbers for element and descendants as a word number.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsContinuousInherit
+	 */
 	speakAsContinuousInherit = function(element, htmlParser) {
 		reverseSpeakAs(element, 'digits', htmlParser);
 	};
 
+	/**
+	 * The cells headers of data cell will be spoken for element only.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakHeaderAlways
+	 */
 	speakHeaderAlways = function(element, htmlParser) {
 		var header, idHeader, idsHeaders, textHeader, _i, _len;
 		idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'));
@@ -325,6 +549,14 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * The cells headers will be spoken for every data cell for element and
+	 * descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakHeaderAlwaysInherit
+	 */
 	speakHeaderAlwaysInherit = function(element, htmlParser) {
 		var cellElement, cellElements, _i, _len;
 		speakHeaderOnceInherit(element, htmlParser);
@@ -335,6 +567,13 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
+	/**
+	 * The cells headers will be spoken one time for element and descendants.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleCSSImplementation.speakHeaderOnceInherit
+	 */
 	speakHeaderOnceInherit = function(element, htmlParser) {
 		var headerElement, headerElements, _i, _len;
 		headerElements = htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
@@ -344,7 +583,26 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
-	AccessibleCSSImplementation.prototype.fixSpeak = function(element) {
+	/**
+	 * Initializes a new object that manipulate the accessibility of the CSS of
+	 * parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} htmlParser The HTML parser.
+	 * @param {hatemile.util.css.StyleSheetParser} cssParser The CSS parser.
+	 * @param {object[]} symbols The symbols with descriptions.
+	 * @param {string} symbols[].symbol The symbol.
+	 * @param {string} symbols[].description The description of symbol.
+	 * @class The AccessibleCSSImplementation class is official implementation of
+	 * AccessibleCSS interface.
+	 * @implements {hatemile.AccessibleCSS}
+	 * @constructs hatemile.implementation.AccessibleCSSImplementation
+	 */
+	function AccessibleCSSImplementation(htmlParser, cssParser, symbols) {
+		this.htmlParser = htmlParser;
+		this.cssParser = cssParser;
+		this.symbols = symbols;
+	}
+
+	AccessibleCSSImplementation.prototype.provideSpeakProperties = function(element) {
 		var declaration, declarations, pattern, propertyValue, propertyValues, rule, rules, speakElement, speakElements, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _len7, _m, _n, _o, _p;
 		rules = this.cssParser.getRules(['speak', 'speak-punctuation', 'speak-numeral', 'speak-header', 'speak-as']);
 		for (_i = 0, _len = rules.length; _i < _len; _i++) {
@@ -432,7 +690,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 		}
 	};
 
-	AccessibleCSSImplementation.prototype.fixAllSpeaks = function() {
+	AccessibleCSSImplementation.prototype.provideAllSpeakProperties = function() {
 		var element, elements, rule, rules, selector, _i, _j, _len, _len1;
 		selector = void 0;
 		rules = this.cssParser.getRules(['speak', 'speak-punctuation', 'speak-numeral', 'speak-header', 'speak-as']);

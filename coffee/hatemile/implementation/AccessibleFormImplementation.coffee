@@ -19,18 +19,10 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace implementation
- * @memberof hatemile
+ * @namespace hatemile.implementation
 ###
 exports.hatemile.implementation or= {}
 
-###*
- * @class AccessibleFormImplementation
- * @classdesc The AccessibleFormImplementation class is official implementation
- * of AccessibleForm interface.
- * @extends hatemile.AccessibleForm
- * @memberof hatemile.implementation
-###
 class exports.hatemile.implementation.AccessibleFormImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
@@ -52,21 +44,12 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	VALIDATION_LENGTH = 'length'
 	
 	###*
-	 * Initializes a new object that manipulate the accessibility of the forms
-	 * of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.configuration.Configure} configure The configuration of HaTeMiLe.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
-	###
-	constructor: (@parser, configure) ->
-		@prefixId = configure.getParameter('prefix-generated-ids')
-	
-	###*
 	 * Returns the appropriate value for attribute aria-autocomplete of field.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {string} The ARIA value of field.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
+	 * @returns {string} The ARIA value of field.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.getARIAAutoComplete
 	###
 	getARIAAutoComplete = (field, parser) ->
 		tagName = field.getTagName()
@@ -93,8 +76,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	 * Returns the labels of field.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @return {hatemile.util.html.HTMLDOMElement[]} The labels of field.
-	 * @memberof hatemile.implementation.AccessibleFormImplementation
+	 * @returns {hatemile.util.html.HTMLDOMElement[]} The labels of field.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.getLabels
 	###
 	getLabels = (field, parser) ->
 		if field.hasAttribute('id')
@@ -103,6 +87,17 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			labels = parser.find(field).findAncestors('label').listResults()
 		return labels
 	
+	###*
+	 * Increase a function on event.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {string} typeEvent The type of event.
+	 * @param {string} typeDataEvent The name of attribute that store the type of
+	 * event fixed.
+	 * @param {string} typeFix The id of fix method.
+	 * @param {function} functionForEventHandler The function.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.addEventHandler
+	###
 	addEventHandler = (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) ->
 		if not hasEvent(element, typeEvent, typeDataEvent, typeFix)
 			found = false
@@ -122,6 +117,18 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				element.setAttribute(typeDataEvent, attribute)
 		return
 	
+	###*
+	 * Check that the element has the event added by developer or fixed by
+	 * HaTeMiLe.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {string} typeEvent The type event.
+	 * @param {string} typeDataEvent The custom attribute of type of event.
+	 * @param {string} typeFix The id of fix method.
+	 * @returns {boolean} True if the element has the event added by developer or
+	 * fixed by HaTeMiLe or false if the element not has the event.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.hasEvent
+	###
 	hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
 		nativeElement = element.getData()
 		if isEmpty(typeDataEvent) or isEmpty(typeFix)
@@ -130,6 +137,13 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			attribute = element.getAttribute(typeDataEvent)
 			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 	
+	###*
+	 * Check that the field is valid.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field is valid or if the field is not valid.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValid
+	###
 	isValid = (field) ->
 		if field.hasAttribute(DATA_INVALID_URL)
 			return false
@@ -156,6 +170,15 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 		else
 			return true
 	
+	###*
+	 * Validate the field.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @param {string} dataInvalid The custom attribute used if the element is not
+	 * valid.
+	 * @param {function} validateFunction The validate function.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.validateNow
+	###
 	validateNow = (field, dataInvalid, validateFunction) ->
 		if validateFunction(field)
 			if field.hasAttribute(dataInvalid)
@@ -167,6 +190,16 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			field.setAttribute('aria-invalid', 'true')
 		return
 	
+	###*
+	 * Validate the field when its value change.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @param {string} dataInvalid The custom attribute used if the element is not
+	 * valid.
+	 * @param {string} typeFix The id of fix method.
+	 * @param {function} validateFunction The validate function.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.validate
+	###
 	validate = (field, dataInvalid, typeFix, validateFunction) ->
 		validateNow(field, dataInvalid, validateFunction)
 		addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, (event) ->
@@ -174,19 +207,107 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 		)
 		return
 	
+	###*
+	 * Check that the value match with regular expression.
+	 * @param {string} value The value.
+	 * @param {string} pattern The regular expression.
+	 * @returns {boolean} True if the value match with regular expression or
+	 * false if the value not match with regular expression.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidRegularExpression
+	###
 	isValidRegularExpression = (value, pattern) ->
 		regularExpression = new RegExp(pattern)
 		return regularExpression.test(value)
 	
+	###*
+	 * Check that the field has a valid URL value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid URL value or false if the
+	 * field have not a valid URL value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidURL
+	###
 	isValidURL = (field) ->
 		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
 	
+	###*
+	 * Check that the field has a valid e-mail address value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid e-mail address value or
+	 * false if the field have not a valid e-mail address value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidEmail
+	###
 	isValidEmail = (field) ->
 		regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])'
 		if field.hasAttribute('multiple')
 			regularExpression = "#{regularExpression}( *, *#{regularExpression})*"
 		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, "^(#{regularExpression})?$")
 	
+	###*
+	 * Check that the field has a valid date value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid date value or false if
+	 * the field have not a valid date value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidDate
+	###
+	isValidDate = (field) ->
+		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$')
+	
+	###*
+	 * Check that the field has a valid time value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid time value or false if
+	 * the field have not a valid time value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidTime
+	###
+	isValidTime = (field) ->
+		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$')
+	
+	###*
+	 * Check that the field has a valid date and time value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid date and time value or
+	 * false if the field have not a valid date and time value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidDateTime
+	###
+	isValidDateTime = (field) ->
+		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$')
+	
+	###*
+	 * Check that the field has a valid month value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid month value or false if
+	 * the field have not a valid month value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidMonth
+	###
+	isValidMonth = (field) ->
+		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$')
+	
+	###*
+	 * Check that the field has a valid week value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a valid week value or false if
+	 * the field have not a valid week value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidWeek
+	###
+	isValidWeek = (field) ->
+		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
+	
+	###
+	 * Check that the value in field is between its range.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the value in field is between its range or false
+	 * if the value in field is not between its range.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidRange
+	###
 	isValidRange = (field) ->
 		if not isEmpty(field.getData().value)
 			if not isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')
@@ -208,21 +329,14 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 					return false
 		return true
 	
-	isValidDate = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$')
-	
-	isValidTime = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$')
-	
-	isValidDateTime = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$')
-	
-	isValidMonth = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$')
-	
-	isValidWeek = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
-	
+	###*
+	 * Check that the length of the value in field is between its range.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the length of the value in field is between its
+	 * range or false if the length of the value in field is not between its range.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidLength
+	###
 	isValidLength = (field) ->
 		if field.hasAttribute('minlength')
 			if field.getData().value.length < parseInt(field.getAttribute('minlength'))
@@ -232,52 +346,81 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				return false
 		return true
 	
+	###*
+	 * Check that the value in field match with its pattern.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the value in field match with its pattern or
+	 * false if the value in field not match with its pattern.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidPattern
+	###
 	isValidPattern = (field) ->
 		return isValidRegularExpression(field.getData().value, field.getAttribute('pattern'))
 	
+	###*
+	 * Check that the field has a value.
+	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
+	 * @returns {boolean} True if the field has a value or false if the field not
+	 * has a value.
+	 * @private
+	 * @function hatemile.implementation.AccessibleFormImplementation.isValidRequired
+	###
 	isValidRequired = (field) ->
 		return not isEmpty(field.getData().value)
 	
-	fixRequiredField: (requiredField) ->
+	###*
+	 * Initializes a new object that manipulate the accessibility of the forms of
+	 * parser.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
+	 * @class The AccessibleFormImplementation class is official implementation of
+	 * AccessibleForm interface.
+	 * @implements {hatemile.AccessibleForm}
+	 * @constructs hatemile.implementation.AccessibleFormImplementation
+	###
+	constructor: (@parser, configure) ->
+		@prefixId = configure.getParameter('prefix-generated-ids')
+	
+	markRequiredField: (requiredField) ->
 		if requiredField.hasAttribute('required')
 			requiredField.setAttribute('aria-required', 'true')
 		return
 	
-	fixAllRequiredFields: () ->
+	markAllRequiredFields: () ->
 		requiredFields = @parser.find('[required]').listResults()
 		for requiredField in requiredFields
 			if exports.hatemile.util.CommonFunctions.isValidElement(requiredField)
-				@fixRequiredField(requiredField)
+				@markRequiredField(requiredField)
 		return
 	
-	fixRangeField: (rangeField) ->
+	markRangeField: (rangeField) ->
 		if rangeField.hasAttribute('min')
 			rangeField.setAttribute('aria-valuemin', rangeField.getAttribute('min'))
 		if rangeField.hasAttribute('max')
 			rangeField.setAttribute('aria-valuemax', rangeField.getAttribute('max'))
 		return
 	
-	fixAllRangeFields: () ->
+	markAllRangeFields: () ->
 		rangeFields = @parser.find('[min],[max]').listResults()
 		for rangeField in rangeFields
 			if exports.hatemile.util.CommonFunctions.isValidElement(rangeField)
-				@fixRangeField(rangeField)
+				@markRangeField(rangeField)
 		return
 	
-	fixAutoCompleteField: (autoCompleteField) ->
+	markAutoCompleteField: (autoCompleteField) ->
 		ariaAutoComplete = getARIAAutoComplete(autoCompleteField, @parser)
 		if not isEmpty(ariaAutoComplete)
 			autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
 		return
 	
-	fixAllAutoCompleteFields: () ->
+	markAllAutoCompleteFields: () ->
 		elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
-				@fixAutoCompleteField(element)
+				@markAutoCompleteField(element)
 		return
 	
-	fixLabel: (label) ->
+	associateLabelWithField: (label) ->
 		if label.getTagName() is 'LABEL'
 			if label.hasAttribute('for')
 				field = @parser.find("##{label.getAttribute('for')}").firstResult()
@@ -294,14 +437,14 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 	
-	fixAllLabels: () ->
+	associateAllLabelsWithFields: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels
 			if exports.hatemile.util.CommonFunctions.isValidElement(label)
-				@fixLabel(label)
+				@associateLabelWithField(label)
 		return
 	
-	fixValidation: (field) ->
+	markInvalidField: (field) ->
 		if (field.hasAttribute('required')) or ((field.hasAttribute('aria-required')) and (field.getAttribute('aria-required').toLowerCase() is 'true'))
 			validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired)
 		if field.hasAttribute('pattern')
@@ -330,9 +473,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 				validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL)
 		return
 	
-	fixAllValidations: () ->
+	markAllInvalidFields: () ->
 		fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
 		for field in fields
 			if exports.hatemile.util.CommonFunctions.isValidElement(field)
-				@fixValidation(field)
+				@markInvalidField(field)
 		return

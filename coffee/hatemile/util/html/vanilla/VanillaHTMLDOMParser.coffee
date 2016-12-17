@@ -19,39 +19,44 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
 ###
 exports.hatemile.util.html or= {}
 
 ###*
- * @namespace jquery
- * @memberof hatemile.util
+ * @namespace hatemile.util.html.vanilla
 ###
 exports.hatemile.util.html.vanilla or= {}
 
-###*
- * @class VanillaHTMLDOMParser
- * @classdesc The class VanillaHTMLDOMParser is official implementation of
- * HTMLDOMParser interface for JavaScript.
- * @extends hatemile.util.html.HTMLDOMParser
- * @memberof hatemile.util.html.vanilla
-###
 class exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLDocument.
-	 * @memberof hatemile.util.html.vanilla.VanillaHTMLDOMParser
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class VanillaHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for JavaScript.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	###
 	constructor: (@ownerDocument) ->
 		@results = []
 	
+	###*
+	 * Check that the element is descendant of other.
+	 * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
+	 * ancestor.
+	 * @param {hatemile.util.html.HTMLDOMElement} possibleDescendant The possible
+	 * descendant.
+	 * @returns {boolean} True if the element is descendant of other or false if
+	 * the element is not descendant of other.
+	 * @private
+	 * @function hatemile.util.html.vanilla.VanillaHTMLDOMParser.isDescendant
+	###
 	isDescendant = (possibleAncestor, possibleDescendant) ->
 		ancestor = possibleDescendant.parentNode
 		while not isEmpty(ancestor)

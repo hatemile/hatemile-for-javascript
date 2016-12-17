@@ -19,16 +19,13 @@ exports = this
 exports.hatemile or= {}
 
 ###*
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
 ###
 exports.hatemile.util or= {}
 
 ###*
- * @class CommonFunctions
- * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
- * classes.
- * @memberof hatemile.util
+ * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
+ * @class hatemile.util.CommonFunctions
 ###
 class exports.hatemile.util.CommonFunctions
 	
@@ -39,7 +36,8 @@ class exports.hatemile.util.CommonFunctions
 	 * Generate a id for a element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {string} prefix The prefix of id.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.generateId
 	###
 	@generateId: (element, prefix) ->
 		if not element.hasAttribute('id')
@@ -49,7 +47,8 @@ class exports.hatemile.util.CommonFunctions
 	
 	###*
 	 * Reset the count number of ids.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.resetCount
 	###
 	@resetCount: () ->
 		_count = 0
@@ -61,8 +60,9 @@ class exports.hatemile.util.CommonFunctions
 	 * attributes copied.
 	 * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
 	 * attributes.
-	 * @param {String[]} attributes The list of attributes that will be copied.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @param {string[]} attributes The list of attributes that will be copied.
+	 * @public
+	 * @function hatemile.util.CommonFunctions.setListAttributes
 	###
 	@setListAttributes: (element1, element2, attributes) ->
 		for attribute in attributes
@@ -74,9 +74,10 @@ class exports.hatemile.util.CommonFunctions
 	 * Increase a item in a HTML list.
 	 * @param {string} list The list.
 	 * @param {string} stringToIncrease The value of item.
-	 * @return {string} The HTML list with the item added, if the item not was
+	 * @returns {string} The HTML list with the item added, if the item not was
 	 * contained in list.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.increaseInList
 	###
 	@increaseInList: (list, stringToIncrease) ->
 		if not (isEmpty(list) or isEmpty(stringToIncrease))
@@ -93,9 +94,10 @@ class exports.hatemile.util.CommonFunctions
 	 * Verify if the list contains the item.
 	 * @param {string} list The list.
 	 * @param {string} stringToSearch The value of item.
-	 * @return {boolean} True if the list contains the item or false is not
+	 * @returns {boolean} True if the list contains the item or false is not
 	 * contains.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.inList
 	###
 	@inList: (list, stringToSearch) ->
 		if not (isEmpty(list) or isEmpty(stringToSearch))

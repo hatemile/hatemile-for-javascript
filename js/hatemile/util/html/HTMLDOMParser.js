@@ -22,22 +22,18 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
 /**
- * @class HTMLDOMParser
- * @classdesc The HTMLDOMParser interface contains the methods for access a
- * native parser.
- * @memberof hatemile.util.html
+ * The HTMLDOMParser interface contains the methods for access a native parser.
+ * @interface hatemile.util.html.HTMLDOMParser
  */
 exports.hatemile.util.html.HTMLDOMParser = (function() {
 	function HTMLDOMParser() {
@@ -45,62 +41,74 @@ exports.hatemile.util.html.HTMLDOMParser = (function() {
 
 	/**
 	 * Find all elements in the parser by selector.
-	 * @param {(String|hatemile.util.html.HTMLDOMElement)} selector The selector.
-	 * @return {hatemile.util.html.HTMLDOMParser} The parser with the elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @param {(string|hatemile.util.html.HTMLDOMElement)} selector The selector.
+	 * @returns {hatemile.util.html.HTMLDOMParser} The parser with the elements
+	 * found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#find
 	 */
 	HTMLDOMParser.prototype.find = function(selector) {
 	};
 
 	/**
 	 * Find all elements in the parser by selector, children of found elements.
-	 * @param {(String|hatemile.util.html.HTMLDOMElement)} selector The selector.
-	 * @return {hatemile.util.html.HTMLDOMParser} The parser with the elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @param {(string|hatemile.util.html.HTMLDOMElement)} selector The selector.
+	 * @returns {hatemile.util.html.HTMLDOMParser} The parser with the elements
+	 * found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#findChildren
 	 */
 	HTMLDOMParser.prototype.findChildren = function(selector) {
 	};
 
 	/**
 	 * Find all elements in the parser by selector, descendants of found elements.
-	 * @param {(String|hatemile.util.html.HTMLDOMElement)} selector The selector.
-	 * @return {hatemile.util.html.HTMLDOMParser} The parser with the elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @param {(string|hatemile.util.html.HTMLDOMElement)} selector The selector.
+	 * @returns {hatemile.util.html.HTMLDOMParser} The parser with the elements
+	 * found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#findDescendants
 	 */
 	HTMLDOMParser.prototype.findDescendants = function(selector) {
 	};
 
 	/**
 	 * Find all elements in the parser by selector, ancestors of found elements.
-	 * @param {(String|hatemile.util.html.HTMLDOMElement)} selector The selector.
-	 * @return {hatemile.util.html.HTMLDOMParser} The parser with the elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @param {(string|hatemile.util.html.HTMLDOMElement)} selector The selector.
+	 * @returns {hatemile.util.html.HTMLDOMParser} The parser with the elements
+	 * found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#findAncestors
 	 */
 	HTMLDOMParser.prototype.findAncestors = function(selector) {
 	};
 
 	/**
 	 * Returns the first element found.
-	 * @return {hatemile.util.html.HTMLDOMElement} The first element found or undefined
-	 * if not have elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {hatemile.util.html.HTMLDOMElement} The first element found or
+	 * undefined if not have elements found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#firstResult
 	 */
 	HTMLDOMParser.prototype.firstResult = function() {
 	};
 
 	/**
 	 * Returns the last element found.
-	 * @return {hatemile.util.html.HTMLDOMElement} The last element found or undefined
-	 * if not have elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {hatemile.util.html.HTMLDOMElement} The last element found or
+	 * undefined if not have elements found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#lastResult
 	 */
 	HTMLDOMParser.prototype.lastResult = function() {
 	};
 
 	/**
 	 * Returns a list with all elements found.
-	 * @return {hatemile.util.html.HTMLDOMElement[]} The list with all elements found.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {hatemile.util.html.HTMLDOMElement[]} The list with all elements
+	 * found.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#listResults
 	 */
 	HTMLDOMParser.prototype.listResults = function() {
 	};
@@ -108,31 +116,35 @@ exports.hatemile.util.html.HTMLDOMParser = (function() {
 	/**
 	 * Create a element.
 	 * @param {string} tag The tag of element.
-	 * @return {hatemile.util.html.HTMLDOMElement} The element created.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {hatemile.util.html.HTMLDOMElement} The element created.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#createElement
 	 */
 	HTMLDOMParser.prototype.createElement = function(tag) {
 	};
 
 	/**
 	 * Returns the HTML code of parser.
-	 * @return {string} The HTML code of parser.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {string} The HTML code of parser.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#getHTML
 	 */
 	HTMLDOMParser.prototype.getHTML = function() {
 	};
 
 	/**
 	 * Returns the parser.
-	 * @return {object} The parser or root element of the parser.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @returns {object} The parser or root element of the parser.
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#getParser
 	 */
 	HTMLDOMParser.prototype.getParser = function() {
 	};
 
 	/**
 	 * Clear the memory of this object.
-	 * @memberof hatemile.util.html.HTMLDOMParser
+	 * @public
+	 * @function hatemile.util.html.HTMLDOMParser#clearParser
 	 */
 	HTMLDOMParser.prototype.clearParser = function() {
 	};

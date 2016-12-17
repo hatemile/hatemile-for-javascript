@@ -22,21 +22,31 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
+/**
+ * The StyleSheetParser interface contains the methods for access the CSS
+ * parser.
+ * @interface hatemile.util.css.StyleSheetParser
+ */
 exports.hatemile.util.css.StyleSheetParser = (function() {
 	function StyleSheetParser() {
 	}
 
+	/**
+	 * Returns the rules of parser by properties.
+	 * @param {string[]} properties The properties.
+	 * @returns {hatemile.util.css.StyleSheetRule[]} The rules.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetParser#getRules
+	 */
 	StyleSheetParser.prototype.getRules = function(properties) {
 	};
 

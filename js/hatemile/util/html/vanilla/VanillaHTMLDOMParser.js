@@ -1,16 +1,16 @@
 /*
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 var exports, _base, _base1, _base2;
 
@@ -22,42 +22,47 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace html
- * @memberof hatemile.util
+ * @namespace hatemile.util.html
  */
 (_base1 = exports.hatemile.util).html || (_base1.html = {});
 
 /**
- * @namespace jquery
- * @memberof hatemile.util
+ * @namespace hatemile.util.html.vanilla
  */
 (_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-/**
- * @class VanillaHTMLDOMParser
- * @classdesc The class VanillaHTMLDOMParser is official implementation of
- * HTMLDOMParser interface for JavaScript.
- * @extends hatemile.util.html.HTMLDOMParser
- * @memberof hatemile.util.html.vanilla
- */
 exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	var isDescendant;
-	
+
 	/**
 	 * Initializes a new object that encapsulate the HTMLDocument.
-	 * @memberof hatemile.util.html.vanilla.VanillaHTMLDOMParser
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class VanillaHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for JavaScript.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	 */
 	function VanillaHTMLDOMParser(ownerDocument) {
 		this.ownerDocument = ownerDocument;
 		this.results = [];
 	}
-
+	
+	/**
+	 * Check that the element is descendant of other.
+	 * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
+	 * ancestor.
+	 * @param {hatemile.util.html.HTMLDOMElement} possibleDescendant The possible
+	 * descendant.
+	 * @returns {boolean} True if the element is descendant of other or false if
+	 * the element is not descendant of other.
+	 * @private
+	 * @function hatemile.util.html.vanilla.VanillaHTMLDOMParser.isDescendant
+	 */
 	isDescendant = function(possibleAncestor, possibleDescendant) {
 		var ancestor;
 		ancestor = possibleDescendant.parentNode;

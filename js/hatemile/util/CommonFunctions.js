@@ -22,16 +22,13 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @class CommonFunctions
- * @classdesc The CommonFuncionts class contains the used methods by HaTeMiLe
- * classes.
- * @memberof hatemile.util
+ * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
+ * @class hatemile.util.CommonFunctions
  */
 exports.hatemile.util.CommonFunctions = (function() {
 	var DATA_IGNORE, _count;
@@ -47,7 +44,8 @@ exports.hatemile.util.CommonFunctions = (function() {
 	 * Generate a id for a element.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {string} prefix The prefix of id.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.generateId
 	 */
 	CommonFunctions.generateId = function(element, prefix) {
 		if (!element.hasAttribute('id')) {
@@ -58,7 +56,8 @@ exports.hatemile.util.CommonFunctions = (function() {
 
 	/**
 	 * Reset the count number of ids.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.resetCount
 	 */
 	CommonFunctions.resetCount = function() {
 		_count = 0;
@@ -70,8 +69,9 @@ exports.hatemile.util.CommonFunctions = (function() {
 	 * attributes copied.
 	 * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
 	 * attributes.
-	 * @param {String[]} attributes The list of attributes that will be copied.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @param {string[]} attributes The list of attributes that will be copied.
+	 * @public
+	 * @function hatemile.util.CommonFunctions.setListAttributes
 	 */
 	CommonFunctions.setListAttributes = function(element1, element2, attributes) {
 		var attribute, _i, _len;
@@ -87,9 +87,10 @@ exports.hatemile.util.CommonFunctions = (function() {
 	 * Increase a item in a HTML list.
 	 * @param {string} list The list.
 	 * @param {string} stringToIncrease The value of item.
-	 * @return {string} The HTML list with the item added, if the item not was
+	 * @returns {string} The HTML list with the item added, if the item not was
 	 * contained in list.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.increaseInList
 	 */
 	CommonFunctions.increaseInList = function(list, stringToIncrease) {
 		if (!(isEmpty(list) || isEmpty(stringToIncrease))) {
@@ -109,9 +110,10 @@ exports.hatemile.util.CommonFunctions = (function() {
 	 * Verify if the list contains the item.
 	 * @param {string} list The list.
 	 * @param {string} stringToSearch The value of item.
-	 * @return {boolean} True if the list contains the item or false is not
+	 * @returns {boolean} True if the list contains the item or false is not
 	 * contains.
-	 * @memberof hatemile.util.CommonFunctions
+	 * @public
+	 * @function hatemile.util.CommonFunctions.inList
 	 */
 	CommonFunctions.inList = function(list, stringToSearch) {
 		var array, item, _i, _len;

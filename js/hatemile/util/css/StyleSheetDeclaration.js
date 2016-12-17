@@ -22,30 +22,51 @@ exports = this;
 exports.hatemile || (exports.hatemile = {});
 
 /**
- * @namespace util
- * @memberof hatemile
+ * @namespace hatemile.util
  */
 (_base = exports.hatemile).util || (_base.util = {});
 
 /**
- * @namespace css
- * @memberof hatemile.util
+ * @namespace hatemile.util.css
  */
 (_base1 = exports.hatemile.util).css || (_base1.css = {});
 
-exports.hatemile.util.css.StyleSheetRule = (function() {
-	function StyleSheetRule() {
+/**
+ * The StyleSheetDeclaration interface contains the methods for access the CSS
+ * declaration.
+ * @interface hatemile.util.css.StyleSheetDeclaration
+ */
+exports.hatemile.util.css.StyleSheetDeclaration = (function() {
+	function StyleSheetDeclaration() {
 	}
 
-	StyleSheetRule.prototype.getValue = function() {
+	/**
+	 * Returns the value of declaration.
+	 * @returns {string} The value of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getValue
+	 */
+	StyleSheetDeclaration.prototype.getValue = function() {
 	};
 
-	StyleSheetRule.prototype.getValues = function() {
+	/**
+	 * Returns a array with the values of declaration.
+	 * @returns {string[]} The array with the values of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getValues
+	 */
+	StyleSheetDeclaration.prototype.getValues = function() {
 	};
 
-	StyleSheetRule.prototype.getProperty = function() {
+	/**
+	 * Returns the property of declaration.
+	 * @returns {string} The property of declaration.
+	 * @public
+	 * @function hatemile.util.css.StyleSheetDeclaration#getProperty
+	 */
+	StyleSheetDeclaration.prototype.getProperty = function() {
 	};
 
-	return StyleSheetRule;
+	return StyleSheetDeclaration;
 
 })();
