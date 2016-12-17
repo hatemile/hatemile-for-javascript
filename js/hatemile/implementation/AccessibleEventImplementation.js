@@ -35,29 +35,19 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleEventImplementation = (function() {
-	var DATA_IGNORE, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, enterPressed, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, keyboardAccess, _active, _dataBlurAdded, _dataFocusAdded, _dataKeyDownAdded, _dataKeyPressAdded, _dataKeyPressed, _dataKeyUpAdded, _drag, _drop, _hover;
+	var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, enterPressed, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, keyboardAccess;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
-
-	_dataKeyPressed = 'data-keypressed';
-
-	_dataKeyDownAdded = 'data-keydownadded';
-
-	_dataKeyPressAdded = 'data-keypressadded';
-
-	_dataKeyUpAdded = 'data-keyupadded';
-
-	_dataFocusAdded = 'data-focusadded';
-
-	_dataBlurAdded = 'data-bluradded';
-
-	_active = 'active';
-
-	_hover = 'hover';
-
-	_drag = 'drag';
-
-	_drop = 'drop';
+	DATA_KEY_PRESSED = 'data-keypressed';
+	DATA_KEY_DOWN_ADDED = 'data-keydownadded';
+	DATA_KEY_PRESS_ADDED = 'data-keypressadded';
+	DATA_KEY_UP_ADDED = 'data-keyupadded';
+	DATA_FOCUS_ADDED = 'data-focusadded';
+	DATA_BLUR_ADDED = 'data-bluradded';
+	CLICK_EVENT = 'click';
+	HOVER_EVENT = 'hover';
+	DRAG_EVENT = 'drag';
+	DROP_EVENT = 'drop';
 
 	/**
 	 * Initializes a new object that manipulate the accessibility of the
@@ -170,9 +160,9 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		droppedElements = parser.find('[aria-dropeffect]').listResults();
 		for (_i = 0, _len = droppedElements.length; _i < _len; _i++) {
 			droppedElement = droppedElements[_i];
-			dragEvents = (!hasEvent(droppedElement, 'keydown', _dataKeyDownAdded, _drag)) && (!hasEvent(droppedElement, 'keyup', _dataKeyUpAdded, _drag));
-			activeEvents = (!droppedElement.hasAttribute(_dataKeyPressAdded)) && (!hasEvent(droppedElement, 'keydown', _dataKeyDownAdded, _active)) && (!hasEvent(droppedElement, 'keyup', _dataKeyUpAdded, _active));
-			hoverEvents = (!hasEvent(droppedElement, 'focus', _dataFocusAdded, _hover)) && (!hasEvent(droppedElement, 'blur', _dataBlurAdded, _hover));
+			dragEvents = (!hasEvent(droppedElement, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT)) && (!hasEvent(droppedElement, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT));
+			activeEvents = (!droppedElement.hasAttribute(DATA_KEY_PRESS_ADDED)) && (!hasEvent(droppedElement, 'keydown', DATA_KEY_DOWN_ADDED, CLICK_EVENT)) && (!hasEvent(droppedElement, 'keyup', DATA_KEY_UP_ADDED, CLICK_EVENT));
+			hoverEvents = (!hasEvent(droppedElement, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT)) && (!hasEvent(droppedElement, 'blur', DATA_BLUR_ADDED, HOVER_EVENT));
 			droppedElement.setAttribute('aria-dropeffect', 'none');
 			if (droppedElement.hasAttribute('tabindex') && dragEvents && activeEvents && hoverEvents) {
 				droppedElement.removeAttribute('tabindex');
@@ -358,24 +348,24 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		var parser;
 		element.setAttribute('aria-dropeffect', 'none');
 		parser = this.parser;
-		addEventHandler(element, 'focus', _dataFocusAdded, _drop, function(event) {
+		addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, function(event) {
 			if (!isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
 				executeDragEvent('dragenter', element, event);
 				executeDragEvent('dragover', element, event);
 				generateDropEffect(parser);
 			}
 		});
-		addEventHandler(element, 'blur', _dataBlurAdded, _drop, function(event) {
+		addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, function(event) {
 			if (!isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
 				executeDragEvent('dragleave', element, event);
 				generateDropEffect(parser);
 			}
 		});
-		if ((!hasEvent(element, 'keydown', _dataKeyDownAdded, _drop)) && (!hasEvent(element, 'keyup', _dataKeyUpAdded, _drop))) {
-			addEventHandler(element, 'keydown', _dataKeyDownAdded, _drop, function(event) {
+		if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT))) {
+			addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, function(event) {
 				var grabbedElement, grabbedElements, _i, _len;
-				if ((enterPressed(event.keyCode)) && (!element.hasAttribute(_dataKeyPressed)) && (!isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
-					element.setAttribute(_dataKeyPressed, 'true');
+				if ((enterPressed(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (!isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
+					element.setAttribute(DATA_KEY_PRESSED, 'true');
 					if (hasEvent(element, 'drop')) {
 						grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
 						for (_i = 0, _len = grabbedElements.length; _i < _len; _i++) {
@@ -388,8 +378,8 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 					executeDragEvent('drop', element, event);
 				}
 			});
-			addEventHandler(element, 'keyup', _dataKeyUpAdded, _drop, function(event) {
-				element.removeAttribute(_dataKeyPressed);
+			addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT, function(event) {
+				element.removeAttribute(DATA_KEY_PRESSED);
 			});
 		}
 	};
@@ -399,10 +389,10 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		keyboardAccess(element);
 		element.setAttribute('aria-grabbed', 'false');
 		parser = this.parser;
-		if ((!hasEvent(element, 'keydown', _dataKeyDownAdded, _drag)) && (!hasEvent(element, 'keyup', _dataKeyUpAdded, _drag))) {
-			addEventHandler(element, 'keydown', _dataKeyDownAdded, _drag, function(event) {
+		if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT))) {
+			addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT, function(event) {
 				var grabbedElement, grabbedElements, _i, _len;
-				if ((event.keyCode === ' '.charCodeAt(0)) && (!element.hasAttribute(_dataKeyPressed))) {
+				if ((event.keyCode === ' '.charCodeAt(0)) && (!element.hasAttribute(DATA_KEY_PRESSED))) {
 					grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
 					for (_i = 0, _len = grabbedElements.length; _i < _len; _i++) {
 						grabbedElement = grabbedElements[_i];
@@ -410,19 +400,19 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 						executeDragEvent('dragend', grabbedElement, event);
 					}
 					element.setAttribute('aria-grabbed', 'true');
-					element.setAttribute(_dataKeyPressed, 'true');
+					element.setAttribute(DATA_KEY_PRESSED, 'true');
 					executeDragEvent('dragstart', element, event);
 					executeDragEvent('drag', element, event);
 					generateDropEffect(parser);
 				}
 			});
-			addEventHandler(element, 'keyup', _dataKeyUpAdded, _drag, function(event) {
-				element.removeAttribute(_dataKeyPressed);
+			addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT, function(event) {
+				element.removeAttribute(DATA_KEY_PRESSED);
 			});
 		}
 		if (!this.cancelDragAdded) {
 			root = this.parser.find('html').firstResult();
-			addEventHandler(root, 'keypress', _dataKeyPressAdded, _active, function(event) {
+			addEventHandler(root, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function(event) {
 				var grabbedElement, grabbedElements, _i, _len;
 				if (event.keyCode === 27) {
 					grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
@@ -456,10 +446,10 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 
 	AccessibleEventImplementation.prototype.fixHover = function(element) {
 		keyboardAccess(element);
-		addEventHandler(element, 'focus', _dataFocusAdded, _hover, function(event) {
+		addEventHandler(element, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT, function(event) {
 			executeMouseEvent('mouseover', element, event);
 		});
-		addEventHandler(element, 'blur', _dataBlurAdded, _hover, function(event) {
+		addEventHandler(element, 'blur', DATA_BLUR_ADDED, HOVER_EVENT, function(event) {
 			executeMouseEvent('mouseout', element, event);
 		});
 	};
@@ -481,7 +471,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		tag = element.getTagName();
 		typeButtons = ['submit', 'button', 'reset'];
 		if (((tag !== 'INPUT') || (!element.hasAttribute('type')) || (typeButtons.indexOf(element.getAttribute('type').toLowerCase()) === -1)) && (tag !== 'BUTTON') && (tag !== 'A')) {
-			addEventHandler(element, 'keypress', _dataKeyPressAdded, _active, function(event) {
+			addEventHandler(element, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function(event) {
 				if (enterPressed(event.keyCode)) {
 					if (hasEvent(element, 'click')) {
 						executeMouseEvent('click', element, event);
@@ -491,12 +481,12 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 				}
 			});
 		}
-		addEventHandler(element, 'keyup', _dataKeyUpAdded, _active, function(event) {
+		addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, CLICK_EVENT, function(event) {
 			if (enterPressed(event.keyCode)) {
 				executeMouseEvent('mouseup', element, event);
 			}
 		});
-		addEventHandler(element, 'keydown', _dataKeyDownAdded, _active, function(event) {
+		addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, CLICK_EVENT, function(event) {
 			if (enterPressed(event.keyCode)) {
 				executeMouseEvent('mousedown', element, event);
 			}

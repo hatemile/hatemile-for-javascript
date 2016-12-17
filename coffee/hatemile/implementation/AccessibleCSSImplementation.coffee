@@ -34,10 +34,10 @@ exports.hatemile.implementation or= {}
 class exports.hatemile.implementation.AccessibleCSSImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
-	_dataIsolatorElement = 'data-auxiliarspan'
-	_dataSpeak = 'data-cssspeak'
-	_dataSpeakAs = 'data-cssspeakas'
-	_validInheritTags = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME'
+	DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
+	DATA_SPEAK = 'data-cssspeak'
+	DATA_SPEAK_AS = 'data-cssspeakas'
+	VALID_INHERIT_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME'
 			, 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY'
 			, 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE'
 			, 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', 'DD', 'FIELDSET'
@@ -45,7 +45,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 			, 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'HGROUP'
 			, 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', 'TR', 'TD', 'TH', 'TBODY', 'THEAD'
 			, 'TFOOT']
-	_validTags = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR'
+	VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR'
 			, 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS'
 			, 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI'
 			, 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY'
@@ -79,10 +79,10 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return regularExpression
 	
 	isValidInheritElement = (element) ->
-		return (_validInheritTags.indexOf(element.getTagName()) isnt -1) and (not element.hasAttribute(DATA_IGNORE))
+		return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) isnt -1) and (not element.hasAttribute(DATA_IGNORE))
 	
 	isValidElement = (element) ->
-		return _validTags.indexOf(element.getTagName()) isnt -1
+		return VALID_TAGS.indexOf(element.getTagName()) isnt -1
 	
 	isolateTextNode = (element, htmlParser) ->
 		if (element.hasChildrenElements()) and (isValidElement(element))
@@ -91,7 +91,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 				for child in children
 					if child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 						span = htmlParser.createElement('span')
-						span.setAttribute(_dataIsolatorElement, 'true')
+						span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
 						span.appendText(child.getTextContent())
 						
 						child.replaceNode(span)
@@ -122,8 +122,8 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	
 	createContentElement = (content, dataPropertyValue, htmlParser) ->
 		contentElement = htmlParser.createElement('span')
-		contentElement.setAttribute(_dataIsolatorElement, 'true')
-		contentElement.setAttribute(_dataSpeakAs, dataPropertyValue)
+		contentElement.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
+		contentElement.setAttribute(DATA_SPEAK_AS, dataPropertyValue)
 		contentElement.appendText(content)
 		return contentElement
 	
@@ -140,11 +140,11 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return contentElement
 	
 	speakNormal = (element) ->
-		if element.hasAttribute(_dataSpeak)
-			if (element.getAttribute(_dataSpeak) is 'none') and (not element.hasAttribute(_dataIsolatorElement))
+		if element.hasAttribute(DATA_SPEAK)
+			if (element.getAttribute(DATA_SPEAK) is 'none') and (not element.hasAttribute(DATA_ISOLATOR_ELEMENT))
 				element.removeAttribute('role')
 				element.removeAttribute('aria-hidden')
-				element.removeAttribute(_dataSpeak)
+				element.removeAttribute(DATA_SPEAK)
 			else
 				replaceElementByOwnContent(element)
 		return
@@ -158,7 +158,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 	speakNone = (element) ->
 		element.setAttribute('role', 'presentation')
 		element.setAttribute('aria-hidden', 'true')
-		element.setAttribute(_dataSpeak, 'none')
+		element.setAttribute(DATA_SPEAK, 'none')
 		return
 	
 	speakNoneInherit = (element, htmlParser) ->
@@ -193,11 +193,11 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return
 	
 	reverseSpeakAs = (element, dataPropertyValue, htmlParser) ->
-		auxiliarElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataPropertyValue}\"][unselectable=\"on\"]").listResults()
+		auxiliarElements = htmlParser.find(element).findDescendants("[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"][unselectable=\"on\"]").listResults()
 		for auxiliarElement in auxiliarElements
 			auxiliarElement.removeNode()
 		
-		contentElements = htmlParser.find(element).findDescendants("[#{_dataSpeakAs}=\"#{dataPropertyValue}\"][#{_dataIsolatorElement}=\"true\"]").listResults()
+		contentElements = htmlParser.find(element).findDescendants("[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"][#{DATA_ISOLATOR_ELEMENT}=\"true\"]").listResults()
 		for contentElement in contentElements
 			replaceElementByOwnContent(contentElement)
 		
@@ -308,7 +308,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		return
 	
 	speakHeaderOnceInherit = (element, htmlParser) ->
-		headerElements = htmlParser.find(element).findDescendants("span[#{_dataSpeakAs}=\"always\"]").listResults()
+		headerElements = htmlParser.find(element).findDescendants("span[#{DATA_SPEAK_AS}=\"always\"]").listResults()
 		for headerElement in headerElements
 			headerElement.removeNode()
 		return

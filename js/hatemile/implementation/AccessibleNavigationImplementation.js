@@ -35,27 +35,18 @@ exports.hatemile || (exports.hatemile = {});
  * @memberof hatemile.implementation
  */
 exports.hatemile.implementation.AccessibleNavigationImplementation = (function() {
-	var freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading, _classHeadingAnchor, _classLongDescriptionLink, _classSkipperAnchor, _dataAnchorFor, _dataHeadingAnchorFor, _dataHeadingLevel, _dataIgnore, _dataLongDescriptionForImage, _idContainerHeading, _idContainerSkippers, _idTextHeading;
+	var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING, freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading;
 
-	_idContainerSkippers = 'container-skippers';
-
-	_idContainerHeading = 'container-heading';
-
-	_idTextHeading = 'text-heading';
-
-	_classSkipperAnchor = 'skipper-anchor';
-
-	_classHeadingAnchor = 'heading-anchor';
-
-	_dataAnchorFor = 'data-anchorfor';
-
-	_dataHeadingAnchorFor = 'data-headinganchorfor';
-
-	_dataHeadingLevel = 'data-headinglevel';
-
-	_classLongDescriptionLink = 'longdescription-link';
-
-	_dataLongDescriptionForImage = 'data-longdescriptionfor';
+	ID_CONTAINER_SKIPPERS = 'container-skippers';
+	ID_CONTAINER_HEADING = 'container-heading';
+	ID_TEXT_HEADING = 'text-heading';
+	CLASS_SKIPPER_ANCHOR = 'skipper-anchor';
+	CLASS_HEADING_ANCHOR = 'heading-anchor';
+	DATA_ANCHOR_FOR = 'data-anchorfor';
+	DATA_HEADING_ANCHOR_FOR = 'data-headinganchorfor';
+	DATA_HEADING_LEVEL = 'data-headinglevel';
+	CLASS_LONG_DESCRIPTION_LINK = 'longdescription-link';
+	DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
 	/**
 	 * Initializes a new object that manipulate the accessibility of the
@@ -89,12 +80,12 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 */
 	generateListSkippers = function(parser) {
 		var container, list, local;
-		container = parser.find("#" + _idContainerSkippers).firstResult();
+		container = parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
 		if (isEmpty(container)) {
 			local = parser.find('body').firstResult();
 			if (!isEmpty(local)) {
 				container = parser.createElement('div');
-				container.setAttribute('id', _idContainerSkippers);
+				container.setAttribute('id', ID_CONTAINER_SKIPPERS);
 				local.getFirstElementChild().insertBefore(container);
 			}
 		}
@@ -119,14 +110,14 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 */
 	generateListHeading = function(parser, textHeading) {
 		var container, list, local, textContainer;
-		container = parser.find("#" + _idContainerHeading).firstResult();
+		container = parser.find("#" + ID_CONTAINER_HEADING).firstResult();
 		if (isEmpty(container)) {
 			local = parser.find('body').firstResult();
 			if (!isEmpty(local)) {
 				container = parser.createElement('div');
-				container.setAttribute('id', _idContainerHeading);
+				container.setAttribute('id', ID_CONTAINER_HEADING);
 				textContainer = parser.createElement('span');
-				textContainer.setAttribute('id', _idTextHeading);
+				textContainer.setAttribute('id', ID_TEXT_HEADING);
 				textContainer.appendText(textHeading);
 				container.appendElement(textContainer);
 				local.appendElement(container);
@@ -292,7 +283,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 				this.listSkippersAdded = true;
 			}
 			if (!isEmpty(this.listSkippers)) {
-				anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, this.parser, this.prefixId);
+				anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, this.parser, this.prefixId);
 				if (!isEmpty(anchor)) {
 					itemLink = this.parser.createElement('li');
 					link = this.parser.createElement('a');
@@ -336,13 +327,13 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			this.validateHeading = true;
 		}
 		if (this.validHeading) {
-			anchor = generateAnchorFor(heading, _dataHeadingAnchorFor, _classHeadingAnchor, this.parser, this.prefixId);
+			anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, this.parser, this.prefixId);
 			if (!isEmpty(anchor)) {
 				level = getHeadingLevel(heading);
 				if (level === 1) {
 					list = generateListHeading(this.parser, this.textHeading);
 				} else {
-					superItem = this.parser.find("#" + _idContainerHeading).findDescendants("[" + _dataHeadingLevel + "=\"" + ((level - 1).toString()) + "\"]").lastResult();
+					superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants("[" + DATA_HEADING_LEVEL + "=\"" + ((level - 1).toString()) + "\"]").lastResult();
 					if (!isEmpty(superItem)) {
 						list = this.parser.find(superItem).findChildren('ol').firstResult();
 						if (isEmpty(list)) {
@@ -353,7 +344,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 				}
 				if (!isEmpty(list)) {
 					item = this.parser.createElement('li');
-					item.setAttribute(_dataHeadingLevel, level.toString());
+					item.setAttribute(DATA_HEADING_LEVEL, level.toString());
 					link = this.parser.createElement('a');
 					link.setAttribute('href', "#" + (anchor.getAttribute('name')));
 					link.appendText(heading.getTextContent());
@@ -380,15 +371,15 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		if (image.hasAttribute('longdesc')) {
 			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
 			id = image.getAttribute('id');
-			if (isEmpty(this.parser.find("[" + _dataLongDescriptionForImage + "=\"" + id + "\"]").firstResult())) {
+			if (isEmpty(this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult())) {
 				if (image.hasAttribute('alt')) {
 					if (!(isEmpty(this.attributeLongDescriptionPrefixBegin) && isEmpty(this.attributeLongDescriptionSuffixBegin))) {
 						text = "" + this.attributeLongDescriptionPrefixBegin + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixBegin;
 						anchor = this.parser.createElement('a');
 						anchor.setAttribute('href', image.getAttribute('longdesc'));
 						anchor.setAttribute('target', '_blank');
-						anchor.setAttribute(_dataLongDescriptionForImage, id);
-						anchor.setAttribute('class', _classLongDescriptionLink);
+						anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id);
+						anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK);
 						anchor.appendText(text);
 						image.insertBefore(anchor);
 					}
@@ -397,8 +388,8 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 						anchor = this.parser.createElement('a');
 						anchor.setAttribute('href', image.getAttribute('longdesc'));
 						anchor.setAttribute('target', '_blank');
-						anchor.setAttribute(_dataLongDescriptionForImage, id);
-						anchor.setAttribute('class', _classLongDescriptionLink);
+						anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id);
+						anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK);
 						anchor.appendText(text);
 						image.insertAfter(anchor);
 					}

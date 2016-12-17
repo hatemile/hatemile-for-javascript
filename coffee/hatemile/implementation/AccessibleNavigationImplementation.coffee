@@ -33,16 +33,16 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleNavigationImplementation
 	
-	_idContainerSkippers = 'container-skippers'
-	_idContainerHeading = 'container-heading'
-	_idTextHeading = 'text-heading'
-	_classSkipperAnchor = 'skipper-anchor'
-	_classHeadingAnchor = 'heading-anchor'
-	_dataAnchorFor = 'data-anchorfor'
-	_dataHeadingAnchorFor = 'data-headinganchorfor'
-	_dataHeadingLevel = 'data-headinglevel'
-	_classLongDescriptionLink = 'longdescription-link'
-	_dataLongDescriptionForImage = 'data-longdescriptionfor'
+	ID_CONTAINER_SKIPPERS = 'container-skippers'
+	ID_CONTAINER_HEADING = 'container-heading'
+	ID_TEXT_HEADING = 'text-heading'
+	CLASS_SKIPPER_ANCHOR = 'skipper-anchor'
+	CLASS_HEADING_ANCHOR = 'heading-anchor'
+	DATA_ANCHOR_FOR = 'data-anchorfor'
+	DATA_HEADING_ANCHOR_FOR = 'data-headinganchorfor'
+	DATA_HEADING_LEVEL = 'data-headinglevel'
+	CLASS_LONG_DESCRIPTION_LINK = 'longdescription-link'
+	DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor'
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the
@@ -72,12 +72,12 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	generateListSkippers = (parser) ->
-		container = parser.find("##{_idContainerSkippers}").firstResult()
+		container = parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', _idContainerSkippers)
+				container.setAttribute('id', ID_CONTAINER_SKIPPERS)
 				local.getFirstElementChild().insertBefore(container)
 		list = undefined
 		if not isEmpty(container)
@@ -96,15 +96,15 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	generateListHeading = (parser, textHeading) ->
-		container = parser.find("##{_idContainerHeading}").firstResult()
+		container = parser.find("##{ID_CONTAINER_HEADING}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', _idContainerHeading)
+				container.setAttribute('id', ID_CONTAINER_HEADING)
 				
 				textContainer = parser.createElement('span')
-				textContainer.setAttribute('id', _idTextHeading)
+				textContainer.setAttribute('id', ID_TEXT_HEADING)
 				textContainer.appendText(textHeading)
 				
 				container.appendElement(textContainer)
@@ -231,7 +231,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 				@listSkippers = generateListSkippers(@parser)
 				@listSkippersAdded = true
 			if not isEmpty(@listSkippers)
-				anchor = generateAnchorFor(element, _dataAnchorFor, _classSkipperAnchor, @parser, @prefixId)
+				anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, @parser, @prefixId)
 				if not isEmpty(anchor)
 					itemLink = @parser.createElement('li')
 					link = @parser.createElement('a')
@@ -263,13 +263,13 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 			@validHeading = isValidHeading(@parser)
 			@validateHeading = true
 		if @validHeading
-			anchor = generateAnchorFor(heading, _dataHeadingAnchorFor, _classHeadingAnchor, @parser, @prefixId)
+			anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, @parser, @prefixId)
 			if not isEmpty(anchor)
 				level = getHeadingLevel(heading)
 				if level is 1
 					list = generateListHeading(@parser, "#{@elementsHeadingBefore}#{@elementsHeadingAfter}")
 				else
-					superItem = @parser.find("##{_idContainerHeading}").findDescendants("[#{_dataHeadingLevel}=\"#{(level - 1).toString()}\"]").lastResult()
+					superItem = @parser.find("##{ID_CONTAINER_HEADING}").findDescendants("[#{DATA_HEADING_LEVEL}=\"#{(level - 1).toString()}\"]").lastResult()
 					if not isEmpty(superItem)
 						list = @parser.find(superItem).findChildren('ol').firstResult()
 						if isEmpty(list)
@@ -277,7 +277,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 							superItem.appendElement(list)
 				if not isEmpty(list)
 					item = @parser.createElement('li')
-					item.setAttribute(_dataHeadingLevel, level.toString())
+					item.setAttribute(DATA_HEADING_LEVEL, level.toString())
 					
 					link = @parser.createElement('a')
 					link.setAttribute('href', "##{anchor.getAttribute('name')}")
@@ -298,15 +298,15 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 		if image.hasAttribute('longdesc')
 			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
 			id = image.getAttribute('id')
-			if isEmpty(@parser.find("[#{_dataLongDescriptionForImage}=\"#{id}\"]").firstResult())
+			if isEmpty(@parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]").firstResult())
 				if image.hasAttribute('alt')
 					if not (isEmpty(@attributeLongDescriptionPrefixBefore) and isEmpty(@attributeLongDescriptionSuffixBefore))
 						text = "#{@attributeLongDescriptionPrefixBefore} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixBefore}"
 						anchor = @parser.createElement('a')
 						anchor.setAttribute('href', image.getAttribute('longdesc'))
 						anchor.setAttribute('target', '_blank')
-						anchor.setAttribute(_dataLongDescriptionForImage, id)
-						anchor.setAttribute('class', _classLongDescriptionLink)
+						anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id)
+						anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
 						anchor.appendText(text)
 						image.insertBefore(anchor)
 					if not (isEmpty(@attributeLongDescriptionPrefixAfter) and isEmpty(@attributeLongDescriptionSuffixAfter))
@@ -314,8 +314,8 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 						anchor = @parser.createElement('a')
 						anchor.setAttribute('href', image.getAttribute('longdesc'))
 						anchor.setAttribute('target', '_blank')
-						anchor.setAttribute(_dataLongDescriptionForImage, id)
-						anchor.setAttribute('class', _classLongDescriptionLink)
+						anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id)
+						anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
 						anchor.appendText(text)
 						image.insertAfter(anchor)
 		return

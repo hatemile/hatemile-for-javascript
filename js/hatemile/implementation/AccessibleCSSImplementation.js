@@ -28,19 +28,14 @@ exports.hatemile || (exports.hatemile = {});
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
-	var DATA_IGNORE, createAuralContentElement, createContentElement, createVisualContentElement, formatSymbol, getDescriptionOfSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, normalize, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit, _dataIsolatorElement, _dataSpeak, _dataSpeakAs, _validInheritTags, _validTags;
+	var DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS, createAuralContentElement, createContentElement, createVisualContentElement, formatSymbol, getDescriptionOfSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, normalize, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
-
-	_dataIsolatorElement = 'data-auxiliarspan';
-
-	_dataSpeak = 'data-cssspeak';
-
-	_dataSpeakAs = 'data-cssspeakas';
-
-	_validInheritTags = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'HGROUP', 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', 'TR', 'TD', 'TH', 'TBODY', 'THEAD', 'TFOOT'];
-
-	_validTags = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI', 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', 'SUMMARY', 'DETAILS', 'TD', 'TH'];
+	DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan';
+	DATA_SPEAK = 'data-cssspeak';
+	DATA_SPEAK_AS = 'data-cssspeakas';
+	VALID_INHERIT_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'HGROUP', 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', 'TR', 'TD', 'TH', 'TBODY', 'THEAD', 'TFOOT'];
+	VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI', 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', 'SUMMARY', 'DETAILS', 'TD', 'TH'];
 
 	function AccessibleCSSImplementation(htmlParser, cssParser, symbols) {
 		this.htmlParser = htmlParser;
@@ -79,11 +74,11 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	isValidInheritElement = function(element) {
-		return (_validInheritTags.indexOf(element.getTagName()) !== -1) && (!element.hasAttribute(DATA_IGNORE));
+		return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) !== -1) && (!element.hasAttribute(DATA_IGNORE));
 	};
 
 	isValidElement = function(element) {
-		return _validTags.indexOf(element.getTagName()) !== -1;
+		return VALID_TAGS.indexOf(element.getTagName()) !== -1;
 	};
 
 	normalize = function(element) {
@@ -149,8 +144,8 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	createContentElement = function(content, dataPropertyValue, htmlParser) {
 		var contentElement;
 		contentElement = htmlParser.createElement('span');
-		contentElement.setAttribute(_dataIsolatorElement, 'true');
-		contentElement.setAttribute(_dataSpeakAs, dataPropertyValue);
+		contentElement.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
+		contentElement.setAttribute(DATA_SPEAK_AS, dataPropertyValue);
 		contentElement.appendText(content);
 		return contentElement;
 	};
@@ -172,11 +167,11 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	};
 
 	speakNormal = function(element) {
-		if (element.hasAttribute(_dataSpeak)) {
-			if ((element.getAttribute(_dataSpeak) === 'none') && (!element.hasAttribute(_dataIsolatorElement))) {
+		if (element.hasAttribute(DATA_SPEAK)) {
+			if ((element.getAttribute(DATA_SPEAK) === 'none') && (!element.hasAttribute(DATA_ISOLATOR_ELEMENT))) {
 				element.removeAttribute('role');
 				element.removeAttribute('aria-hidden');
-				element.removeAttribute(_dataSpeak);
+				element.removeAttribute(DATA_SPEAK);
 			} else {
 				replaceElementByOwnContent(element);
 			}
@@ -191,7 +186,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	speakNone = function(element) {
 		element.setAttribute('role', 'presentation');
 		element.setAttribute('aria-hidden', 'true');
-		element.setAttribute(_dataSpeak, 'none');
+		element.setAttribute(DATA_SPEAK, 'none');
 	};
 
 	speakNoneInherit = function(element, htmlParser) {

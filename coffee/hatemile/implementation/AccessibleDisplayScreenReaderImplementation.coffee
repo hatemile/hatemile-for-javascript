@@ -33,95 +33,95 @@ exports.hatemile.implementation or= {}
 ###
 class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	
-	_idContainerShortcuts = 'container-shortcuts'
-	_idTextShortcuts = 'text-shortcuts'
-	_classForceReadBefore = 'force-read-before'
-	_classForceReadAfter = 'force-read-after'
-	_dataAttributeRequiredBeforeOf = 'data-attributerequiredbeforeof'
-	_dataAttributeRequiredAfterOf = 'data-attributerequiredafterof'
-	_dataAttributeRangeMinBeforeOf = 'data-attributevalueminbeforeof'
-	_dataAttributeRangeMinAfterOf = 'data-attributevalueminafterof'
-	_dataAttributeRangeMaxBeforeOf = 'data-attributevaluemaxbeforeof'
-	_dataAttributeRangeMaxAfterOf = 'data-attributevaluemaxafterof'
-	_dataAttributeAutoCompleteBeforeOf = 'data-attributeautocompletebeforeof'
-	_dataAttributeAutoCompleteAfterOf = 'data-attributeautocompleteafterof'
-	_dataAttributeTitleBeforeOf = 'data-attributetitlebeforeof'
-	_dataAttributeTitleAfterOf = 'data-attributetitleafterof'
-	_dataAttributeHrefBeforeOf = 'data-attributehrefbeforeof'
-	_dataAttributeHrefAfterOf = 'data-attributehrefafterof'
-	_dataAttributeAccesskeyBeforeOf = 'data-attributeaccesskeybeforeof'
-	_dataAttributeAccesskeyAfterOf = 'data-attributeaccesskeyafterof'
-	_dataAttributeTargetBeforeOf = 'data-attributetargetbeforeof'
-	_dataAttributeTargetAfterOf = 'data-attributetargetafterof'
-	_dataAttributeDownloadBeforeOf = 'data-attributedownloadbeforeof'
-	_dataAttributeDownloadAfterOf = 'data-attributedownloadafterof'
-	_dataAttributeDraggableBeforeOf = 'data-attributedraggablebeforeof'
-	_dataAttributeDraggableAfterOf = 'data-attributedraggableafterof'
-	_dataAttributeDropzoneBeforeOf = 'data-attributedropzonebeforeof'
-	_dataAttributeDropzoneAfterOf = 'data-attributedropzoneafterof'
-	_dataAttributeLanguageBeforeOf = 'data-languagebeforeof'
-	_dataAttributeLanguageAfterOf = 'data-languageafterof'
-	_dataAttributeHeadersBeforeOf = 'data-headersbeforeof'
-	_dataAttributeHeadersAfterOf = 'data-headersafterof'
-	_dataAriaBusyBeforeOf = 'data-ariabusybeforeof'
-	_dataAriaBusyAfterOf = 'data-ariabusyafterof'
-	_dataAriaCheckedBeforeOf = 'data-ariacheckedbeforeof'
-	_dataAriaCheckedAfterOf = 'data-ariacheckedafterof'
-	_dataAriaDropeffectBeforeOf = 'data-ariadropeffectbeforeof'
-	_dataAriaDropeffectAfterOf = 'data-ariadropeffectafterof'
-	_dataAriaExpandedBeforeOf = 'data-ariaexpandedbeforeof'
-	_dataAriaExpandedAfterOf = 'data-ariaexpandedafterof'
-	_dataAriaGrabbedBeforeOf = 'data-ariagrabbedbeforeof'
-	_dataAriaGrabbedAfterOf = 'data-ariagrabbedafterof'
-	_dataAriaHaspopupBeforeOf = 'data-ariahaspopupbeforeof'
-	_dataAriaHaspopupAfterOf = 'data-ariahaspopupafterof'
-	_dataAriaInvalidBeforeOf = 'data-ariainvalidbeforeof'
-	_dataAriaInvalidAfterOf = 'data-ariainvalidafterof'
-	_dataAriaLevelBeforeOf = 'data-arialevelbeforeof'
-	_dataAriaLevelAfterOf = 'data-arialevelafterof'
-	_dataAriaOrientationBeforeOf = 'data-ariaorientationbeforeof'
-	_dataAriaOrientationAfterOf = 'data-ariaorientationafterof'
-	_dataAriaPressedBeforeOf = 'data-ariapressedbeforeof'
-	_dataAriaPressedAfterOf = 'data-ariapressedafterof'
-	_dataAriaSelectedBeforeOf = 'data-ariaselectedbeforeof'
-	_dataAriaSelectedAfterOf = 'data-ariaselectedafterof'
-	_dataAriaSortBeforeOf = 'data-ariasortbeforeof'
-	_dataAriaSortAfterOf = 'data-ariasortafterof'
-	_dataRoleBeforeOf = 'data-rolebeforeof'
-	_dataRoleAfterOf = 'data-roleafterof'
-	_dataInvalidURLBeforeOf = 'data-invalidurlbeforeof'
-	_dataInvalidURLAfterOf = 'data-invalidurlafterof'
-	_dataInvalidEmailBeforeOf = 'data-invalidemailbeforeof'
-	_dataInvalidEmailAfterOf = 'data-invalidemailafterof'
-	_dataInvalidRangeBeforeOf = 'data-invalidrangebeforeof'
-	_dataInvalidRangeAfterOf = 'data-invalidrangeafterof'
-	_dataInvalidLengthBeforeOf = 'data-invalidlengthbeforeof'
-	_dataInvalidLengthAfterOf = 'data-invalidlengthafterof'
-	_dataInvalidPatternBeforeOf = 'data-invalidpatternbeforeof'
-	_dataInvalidPatternAfterOf = 'data-invalidpatternafterof'
-	_dataInvalidRequiredBeforeOf = 'data-invalidrequiredbeforeof'
-	_dataInvalidRequiredAfterOf = 'data-invalidrequiredafterof'
-	_dataInvalidDateBeforeOf = 'data-invaliddatebeforeof'
-	_dataInvalidDateAfterOf = 'data-invaliddateafterof'
-	_dataInvalidTimeBeforeOf = 'data-invalidtimebeforeof'
-	_dataInvalidTimeAfterOf = 'data-invalidtimeafterof'
-	_dataInvalidDateTimeBeforeOf = 'data-invaliddatetimebeforeof'
-	_dataInvalidDateTimeAfterOf = 'data-invaliddatetimeafterof'
-	_dataInvalidMonthBeforeOf = 'data-invalidmonthbeforeof'
-	_dataInvalidMonthAfterOf = 'data-invalidmonthafterof'
-	_dataInvalidWeekBeforeOf = 'data-invalidweekbeforeof'
-	_dataInvalidWeekAfterOf = 'data-invalidweekafterof'
-	_dataInvalidURL = 'data-invalidurl'
-	_dataInvalidEmail = 'data-invalidemail'
-	_dataInvalidRange = 'data-invalidrange'
-	_dataInvalidLength = 'data-invalidlength'
-	_dataInvalidPattern = 'data-invalidpattern'
-	_dataInvalidRequired = 'data-invalidrequired'
-	_dataInvalidDate = 'data-invaliddate'
-	_dataInvalidTime = 'data-invalidtime'
-	_dataInvalidDateTime = 'data-invaliddatetime'
-	_dataInvalidMonth = 'data-invalidmonth'
-	_dataInvalidWeek = 'data-invalidweek'
+	ID_CONTAINER_SHORTCUTS = 'container-shortcuts'
+	ID_TEXT_SHORTCUTS = 'text-shortcuts'
+	CLASS_FORCE_READ_BEFORE = 'force-read-before'
+	CLASS_FORCE_READ_AFTER = 'force-read-after'
+	DATA_ATTRIBUTE_REQUIRED_BEFORE_OF = 'data-attributerequiredbeforeof'
+	DATA_ATTRIBUTE_REQUIRED_AFTER_OF = 'data-attributerequiredafterof'
+	DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF = 'data-attributevalueminbeforeof'
+	DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF = 'data-attributevalueminafterof'
+	DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF = 'data-attributevaluemaxbeforeof'
+	DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF = 'data-attributevaluemaxafterof'
+	DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF = 'data-attributeautocompletebeforeof'
+	DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF = 'data-attributeautocompleteafterof'
+	DATA_ATTRIBUTE_TITLE_BEFORE_OF = 'data-attributetitlebeforeof'
+	DATA_ATTRIBUTE_TITLE_AFTER_OF = 'data-attributetitleafterof'
+	DATA_ATTRIBUTE_HREF_BEFORE_OF = 'data-attributehrefbeforeof'
+	DATA_ATTRIBUTE_HREF_AFTER_OF = 'data-attributehrefafterof'
+	DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF = 'data-attributeaccesskeybeforeof'
+	DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF = 'data-attributeaccesskeyafterof'
+	DATA_ATTRIBUTE_TARGET_BEFORE_OF = 'data-attributetargetbeforeof'
+	DATA_ATTRIBUTE_TARGET_AFTER_OF = 'data-attributetargetafterof'
+	DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF = 'data-attributedownloadbeforeof'
+	DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF = 'data-attributedownloadafterof'
+	DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF = 'data-attributedraggablebeforeof'
+	DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF = 'data-attributedraggableafterof'
+	DATA_ATTRIBUTE_DROPZONE_BEFORE_OF = 'data-attributedropzonebeforeof'
+	DATA_ATTRIBUTE_DROPZONE_AFTER_OF = 'data-attributedropzoneafterof'
+	DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF = 'data-languagebeforeof'
+	DATA_ATTRIBUTE_LANGUAGE_AFTER_OF = 'data-languageafterof'
+	DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof'
+	DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof'
+	DATA_ARIA_BUSY_BEFORE_OF = 'data-ariabusybeforeof'
+	DATA_ARIA_BUSY_AFTER_OF = 'data-ariabusyafterof'
+	DATA_ARIA_CHECKED_BEFORE_OF = 'data-ariacheckedbeforeof'
+	DATA_ARIA_CHECKED_AFTER_OF = 'data-ariacheckedafterof'
+	DATA_ARIA_DROPEFFECT_BEFORE_OF = 'data-ariadropeffectbeforeof'
+	DATA_ARIA_DROPEFFECT_AFTER_OF = 'data-ariadropeffectafterof'
+	DATA_ARIA_EXPANDED_BEFORE_OF = 'data-ariaexpandedbeforeof'
+	DATA_ARIA_EXPANDED_AFTER_OF = 'data-ariaexpandedafterof'
+	DATA_ARIA_GRABBED_BEFORE_OF = 'data-ariagrabbedbeforeof'
+	DATA_ARIA_GRABBED_AFTER_OF = 'data-ariagrabbedafterof'
+	DATA_ARIA_HASPOPUP_BEFORE_OF = 'data-ariahaspopupbeforeof'
+	DATA_ARIA_HASPOPUP_AFTER_OF = 'data-ariahaspopupafterof'
+	DATA_ARIA_INVALID_BEFORE_OF = 'data-ariainvalidbeforeof'
+	DATA_ARIA_INVALID_AFTER_OF = 'data-ariainvalidafterof'
+	DATA_ARIA_LEVEL_BEFORE_OF = 'data-arialevelbeforeof'
+	DATA_ARIA_LEVEL_AFTER_OF = 'data-arialevelafterof'
+	DATA_ARIA_ORIENTATION_BEFORE_OF = 'data-ariaorientationbeforeof'
+	DATA_ARIA_ORIENTATION_AFTER_OF = 'data-ariaorientationafterof'
+	DATA_ARIA_PRESSED_BEFORE_OF = 'data-ariapressedbeforeof'
+	DATA_ARIA_PRESSED_AFTER_OF = 'data-ariapressedafterof'
+	DATA_ARIA_SELECTED_BEFORE_OF = 'data-ariaselectedbeforeof'
+	DATA_ARIA_SELECTED_AFTER_OF = 'data-ariaselectedafterof'
+	DATA_ARIA_SORT_BEFORE_OF = 'data-ariasortbeforeof'
+	DATA_ARIA_SORT_AFTER_OF = 'data-ariasortafterof'
+	DATA_ROLE_BEFORE_OF = 'data-rolebeforeof'
+	DATA_ROLE_AFTER_OF = 'data-roleafterof'
+	DATA_INVALID_URL_BEFORE_OF = 'data-invalidurlbeforeof'
+	DATA_INVALID_URL_AFTER_OF = 'data-invalidurlafterof'
+	DATA_INVALID_EMAIL_BEFORE_OF = 'data-invalidemailbeforeof'
+	DATA_INVALID_EMAIL_AFTER_OF = 'data-invalidemailafterof'
+	DATA_INVALID_RANGE_BEFORE_OF = 'data-invalidrangebeforeof'
+	DATA_INVALID_RANGE_AFTER_OF = 'data-invalidrangeafterof'
+	DATA_INVALID_LENGTH_BEFORE_OF = 'data-invalidlengthbeforeof'
+	DATA_INVALID_LENGTH_AFTER_OF = 'data-invalidlengthafterof'
+	DATA_INVALID_PATTERN_BEFORE_OF = 'data-invalidpatternbeforeof'
+	DATA_INVALID_PATTERN_AFTER_OF = 'data-invalidpatternafterof'
+	DATA_INVALID_REQUIRED_BEFORE_OF = 'data-invalidrequiredbeforeof'
+	DATA_INVALID_REQUIRED_AFTER_OF = 'data-invalidrequiredafterof'
+	DATA_INVALID_DATE_BEFORE_OF = 'data-invaliddatebeforeof'
+	DATA_INVALID_DATE_AFTER_OF = 'data-invaliddateafterof'
+	DATA_INVALID_TIME_BEFORE_OF = 'data-invalidtimebeforeof'
+	DATA_INVALID_TIME_AFTER_OF = 'data-invalidtimeafterof'
+	DATA_INVALID_DATETIME_BEFORE_OF = 'data-invaliddatetimebeforeof'
+	DATA_INVALID_DATETIME_AFTER_OF = 'data-invaliddatetimeafterof'
+	DATA_INVALID_MONTH_BEFORE_OF = 'data-invalidmonthbeforeof'
+	DATA_INVALID_MONTH_AFTER_OF = 'data-invalidmonthafterof'
+	DATA_INVALID_WEEK_BEFORE_OF = 'data-invalidweekbeforeof'
+	DATA_INVALID_WEEK_AFTER_OF = 'data-invalidweekafterof'
+	DATA_INVALID_URL = 'data-invalidurl'
+	DATA_INVALID_EMAIL = 'data-invalidemail'
+	DATA_INVALID_RANGE = 'data-invalidrange'
+	DATA_INVALID_LENGTH = 'data-invalidlength'
+	DATA_INVALID_PATTERN = 'data-invalidpattern'
+	DATA_INVALID_REQUIRED = 'data-invalidrequired'
+	DATA_INVALID_DATE = 'data-invaliddate'
+	DATA_INVALID_TIME = 'data-invalidtime'
+	DATA_INVALID_DATETIME = 'data-invaliddatetime'
+	DATA_INVALID_MONTH = 'data-invalidmonth'
+	DATA_INVALID_WEEK = 'data-invalidweek'
 	
 	constructor: (@parser, configure, userAgent) ->
 		@shortcutPrefix = getShortcutPrefix(userAgent)
@@ -585,15 +585,15 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	 * @memberof hatemile.implementation.AccessibleNavigationImplementation
 	###
 	generateListShortcuts = (parser, textShortcuts) ->
-		container = parser.find("##{_idContainerShortcuts}").firstResult()
+		container = parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
 		if isEmpty(container)
 			local = parser.find('body').firstResult()
 			if not isEmpty(local)
 				container = parser.createElement('div')
-				container.setAttribute('id', _idContainerShortcuts)
+				container.setAttribute('id', ID_CONTAINER_SHORTCUTS)
 				
 				textContainer = parser.createElement('span')
-				textContainer.setAttribute('id', _idTextShortcuts)
+				textContainer.setAttribute('id', ID_TEXT_SHORTCUTS)
 				textContainer.appendText(textShortcuts)
 				
 				container.appendElement(textContainer)
@@ -653,26 +653,26 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		identifier = element.getAttribute('id')
 		
 		if not isEmpty(textBefore)
-			referenceBefore = parser.find(".#{_classForceReadBefore}[#{dataBeforeOf}=\"#{identifier}\"]").firstResult()
+			referenceBefore = parser.find(".#{CLASS_FORCE_READ_BEFORE}[#{dataBeforeOf}=\"#{identifier}\"]").firstResult()
 			
 			if not isEmpty(referenceBefore)
 				referenceBefore.removeNode()
 				referenceBefore = undefined
 			
 			span = parser.createElement('span')
-			span.setAttribute('class', _classForceReadBefore)
+			span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
 			span.setAttribute(dataBeforeOf, identifier)
 			span.appendText(textBefore)
 			insertBefore(element, span, parser)
 		if not isEmpty(textAfter)
-			referenceAfter = parser.find(".#{_classForceReadAfter}[#{dataAfterOf}=\"#{identifier}\"]").firstResult()
+			referenceAfter = parser.find(".#{CLASS_FORCE_READ_AFTER}[#{dataAfterOf}=\"#{identifier}\"]").firstResult()
 			
 			if not isEmpty(referenceAfter)
 				referenceAfter.removeNode()
 				referenceAfter = undefined
 			
 			span = parser.createElement('span')
-			span.setAttribute('class', _classForceReadAfter)
+			span.setAttribute('class', CLASS_FORCE_READ_AFTER)
 			span.setAttribute(dataAfterOf, identifier)
 			span.appendText(textAfter)
 			insertAfter(element, span, parser)
@@ -704,10 +704,10 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
 				for key in keys
 					key = key.toUpperCase()
-					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{_dataAttributeAccesskeyBeforeOf}=\"#{key}\"]").firstResult())
+					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}\"]").firstResult())
 						item = @parser.createElement('li')
-						item.setAttribute(_dataAttributeAccesskeyBeforeOf, key)
-						item.setAttribute(_dataAttributeAccesskeyAfterOf, key)
+						item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key)
+						item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key)
 						item.appendText("#{@shortcutPrefix} + #{key}: #{description}")
 						@listShortcuts.appendElement(item)
 		return
@@ -724,7 +724,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			role = element.getAttribute('role')
 			roleDescription = @roles[role]
 			if not isEmpty(roleDescription)
-				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBefore, @attributeRoleSuffixBefore, @attributeRolePrefixAfter, @attributeRoleSuffixAfter, _dataRoleBeforeOf, _dataRoleAfterOf)
+				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBefore, @attributeRoleSuffixBefore, @attributeRolePrefixAfter, @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
 		return
 	
 	displayAllRoles: () ->
@@ -746,7 +746,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 					else
 						textHeader = "#{textHeader} #{header.getTextContent()}"
 			if not isEmpty(textHeader)
-				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBefore, @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, @attributeHeadersSuffixAfter, _dataAttributeHeadersBeforeOf, _dataAttributeHeadersAfterOf)
+				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBefore, @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, @attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF)
 		return
 	
 	displayAllCellHeaders: () ->
@@ -758,109 +758,109 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayWAIARIAStates: (element) ->
 		if (element.hasAttribute('aria-busy')) and (element.getAttribute('aria-busy') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaBusyTrueBefore, @ariaBusyTrueAfter, _dataAriaBusyBeforeOf, _dataAriaBusyAfterOf)
+			forceReadSimple(element, @parser, @prefixId, @ariaBusyTrueBefore, @ariaBusyTrueAfter, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF)
 		if element.hasAttribute('aria-checked')
 			attributeValue = element.getAttribute('aria-checked')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedTrueBefore, @ariaCheckedTrueAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedTrueBefore, @ariaCheckedTrueAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedFalseBefore, @ariaCheckedFalseAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedFalseBefore, @ariaCheckedFalseAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF)
 			else if attributeValue is 'mixed'
-				forceReadSimple(element, @parser, @prefixId, @ariaCheckedMixedBefore, @ariaCheckedMixedAfter, _dataAriaCheckedBeforeOf, _dataAriaCheckedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaCheckedMixedBefore, @ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF)
 		if element.hasAttribute('aria-dropeffect')
 			attributeValue = element.getAttribute('aria-dropeffect')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'execute'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'popup'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 		if element.hasAttribute('aria-expanded')
 			attributeValue = element.getAttribute('aria-expanded')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaExpandedTrueBefore, @ariaExpandedTrueAfter, _dataAriaExpandedBeforeOf, _dataAriaExpandedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaExpandedTrueBefore, @ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaExpandedFalseBefore, @ariaExpandedFalseAfter, _dataAriaExpandedBeforeOf, _dataAriaExpandedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaExpandedFalseBefore, @ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF)
 		if element.hasAttribute('aria-grabbed')
 			attributeValue = element.getAttribute('aria-grabbed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF)
 		if (element.hasAttribute('aria-haspopup')) and (element.getAttribute('aria-haspopup') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaHaspopupTrueBefore, @ariaHaspopupTrueAfter, _dataAriaHaspopupBeforeOf, _dataAriaHaspopupAfterOf)
+			forceReadSimple(element, @parser, @prefixId, @ariaHaspopupTrueBefore, @ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF)
 		if (element.hasAttribute('aria-invalid')) and (element.getAttribute('aria-invalid') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaInvalidTrueBefore, @ariaInvalidTrueAfter, _dataAriaInvalidBeforeOf, _dataAriaInvalidAfterOf)
-			if element.hasAttribute(_dataInvalidLength)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidLengthBefore, @dataInvalidLengthAfter, _dataInvalidLengthBeforeOf, _dataInvalidLengthAfterOf)
-			if element.hasAttribute(_dataInvalidPattern)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidPatternBefore, @dataInvalidPatternAfter, _dataInvalidPatternBeforeOf, _dataInvalidPatternAfterOf)
-			if element.hasAttribute(_dataInvalidRequired)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidRequiredBefore, @dataInvalidRequiredAfter, _dataInvalidRequiredBeforeOf, _dataInvalidRequiredAfterOf)
-			if element.hasAttribute(_dataInvalidURL)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidUrlBefore, @dataInvalidUrlAfter, _dataInvalidURLBeforeOf, _dataInvalidURLAfterOf)
-			else if element.hasAttribute(_dataInvalidEmail)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidEmailBefore, @dataInvalidEmailAfter, _dataInvalidEmailBeforeOf, _dataInvalidEmailAfterOf)
-			else if element.hasAttribute(_dataInvalidRange)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidRangeBefore, @dataInvalidRangeAfter, _dataInvalidRangeBeforeOf, _dataInvalidRangeAfterOf)
-			else if element.hasAttribute(_dataInvalidDate)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateBefore, @dataInvalidDateAfter, _dataInvalidDateBeforeOf, _dataInvalidDateAfterOf)
-			else if element.hasAttribute(_dataInvalidTime)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidTimeBefore, @dataInvalidTimeAfter, _dataInvalidTimeBeforeOf, _dataInvalidTimeAfterOf)
-			else if element.hasAttribute(_dataInvalidDateTime)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateTimeBefore, @dataInvalidDateTimeAfter, _dataInvalidDateTimeBeforeOf, _dataInvalidDateTimeAfterOf)
-			else if element.hasAttribute(_dataInvalidMonth)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidMonthBefore, @dataInvalidMonthAfter, _dataInvalidMonthBeforeOf, _dataInvalidMonthAfterOf)
-			else if element.hasAttribute(_dataInvalidWeek)
-				forceReadSimple(element, @parser, @prefixId, @dataInvalidWeekBefore, @dataInvalidWeekAfter, _dataInvalidWeekBeforeOf, _dataInvalidWeekAfterOf)
+			forceReadSimple(element, @parser, @prefixId, @ariaInvalidTrueBefore, @ariaInvalidTrueAfter, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF)
+			if element.hasAttribute(DATA_INVALID_LENGTH)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidLengthBefore, @dataInvalidLengthAfter, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_LENGTH_AFTER_OF)
+			if element.hasAttribute(DATA_INVALID_PATTERN)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidPatternBefore, @dataInvalidPatternAfter, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_PATTERN_AFTER_OF)
+			if element.hasAttribute(DATA_INVALID_REQUIRED)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidRequiredBefore, @dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_REQUIRED_AFTER_OF)
+			if element.hasAttribute(DATA_INVALID_URL)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidUrlBefore, @dataInvalidUrlAfter, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_URL_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_EMAIL)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidEmailBefore, @dataInvalidEmailAfter, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_EMAIL_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_RANGE)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidRangeBefore, @dataInvalidRangeAfter, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_RANGE_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_DATE)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateBefore, @dataInvalidDateAfter, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_TIME)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidTimeBefore, @dataInvalidTimeAfter, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_TIME_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_DATETIME)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidDateTimeBefore, @dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATETIME_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_MONTH)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidMonthBefore, @dataInvalidMonthAfter, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_MONTH_AFTER_OF)
+			else if element.hasAttribute(DATA_INVALID_WEEK)
+				forceReadSimple(element, @parser, @prefixId, @dataInvalidWeekBefore, @dataInvalidWeekAfter, DATA_INVALID_WEEK_BEFORE_OF, DATA_INVALID_WEEK_AFTER_OF)
 		if element.hasAttribute('aria-level')
-			forceRead(element, element.getAttribute('aria-level'), @parser, @prefixId, @ariaLevelPrefixBefore, @ariaLevelSuffixBefore, @ariaLevelPrefixAfter, @ariaLevelSuffixAfter, _dataAriaLevelBeforeOf, _dataAriaLevelAfterOf)
+			forceRead(element, element.getAttribute('aria-level'), @parser, @prefixId, @ariaLevelPrefixBefore, @ariaLevelSuffixBefore, @ariaLevelPrefixAfter, @ariaLevelSuffixAfter, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF)
 		if element.hasAttribute('aria-orientation')
 			attributeValue = element.getAttribute('aria-orientation')
 			if attributeValue is 'vertical'
-				forceReadSimple(element, @parser, @prefixId, @ariaOrientationVerticalBefore, @ariaOrientationVerticalAfter, _dataAriaOrientationBeforeOf, _dataAriaOrientationAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaOrientationVerticalBefore, @ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF)
 			else if attributeValue is 'horizontal'
-				forceReadSimple(element, @parser, @prefixId, @ariaOrientationHorizontalBefore, @ariaOrientationHorizontalAfter, _dataAriaOrientationBeforeOf, _dataAriaOrientationAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaOrientationHorizontalBefore, @ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF)
 		if element.hasAttribute('aria-pressed')
 			attributeValue = element.getAttribute('aria-pressed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedTrueBefore, @ariaPressedTrueAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedTrueBefore, @ariaPressedTrueAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedFalseBefore, @ariaPressedFalseAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedFalseBefore, @ariaPressedFalseAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF)
 			else if attributeValue is 'mixed'
-				forceReadSimple(element, @parser, @prefixId, @ariaPressedMixedBefore, @ariaPressedMixedAfter, _dataAriaPressedBeforeOf, _dataAriaPressedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaPressedMixedBefore, @ariaPressedMixedAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF)
 		if element.hasAttribute('aria-selected')
 			attributeValue = element.getAttribute('aria-selected')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaSelectedTrueBefore, @ariaSelectedTrueAfter, _dataAriaSelectedBeforeOf, _dataAriaSelectedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaSelectedTrueBefore, @ariaSelectedTrueAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaSelectedFalseBefore, @ariaSelectedFalseAfter, _dataAriaSelectedBeforeOf, _dataAriaSelectedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaSelectedFalseBefore, @ariaSelectedFalseAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF)
 		if element.hasAttribute('aria-sort')
 			attributeValue = element.getAttribute('aria-sort')
 			if attributeValue is 'ascending'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortAscendingBefore, @ariaSortAscendingAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortAscendingBefore, @ariaSortAscendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF)
 			else if attributeValue is 'descending'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortDescendingBefore, @ariaSortDescendingAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortDescendingBefore, @ariaSortDescendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF)
 			else if attributeValue is 'other'
-				forceReadSimple(element, @parser, @prefixId, @ariaSortOtherBefore, @ariaSortOtherAfter, _dataAriaSortBeforeOf, _dataAriaSortAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaSortOtherBefore, @ariaSortOtherAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF)
 		if (element.hasAttribute('aria-required')) and (element.getAttribute('aria-required') is 'true')
-			forceReadSimple(element, @parser, @prefixId, @ariaRequiredTrueBefore, @ariaRequiredTrueAfter, _dataAttributeRequiredBeforeOf, _dataAttributeRequiredAfterOf)
+			forceReadSimple(element, @parser, @prefixId, @ariaRequiredTrueBefore, @ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF)
 		if element.hasAttribute('aria-valuemin')
-			forceRead(element, element.getAttribute('aria-valuemin'), @parser, @prefixId, @ariaValueMinimumPrefixBefore, @ariaValueMinimumSuffixBefore, @ariaValueMinimumPrefixAfter, @ariaValueMinimumSuffixAfter, _dataAttributeRangeMinBeforeOf, _dataAttributeRangeMinAfterOf)
+			forceRead(element, element.getAttribute('aria-valuemin'), @parser, @prefixId, @ariaValueMinimumPrefixBefore, @ariaValueMinimumSuffixBefore, @ariaValueMinimumPrefixAfter, @ariaValueMinimumSuffixAfter, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF)
 		if element.hasAttribute('aria-valuemax')
-			forceRead(element, element.getAttribute('aria-valuemax'), @parser, @prefixId, @ariaValueMaximumPrefixBefore, @ariaValueMaximumSuffixBefore, @ariaValueMaximumPrefixAfter, @ariaValueMaximumSuffixAfter, _dataAttributeRangeMaxBeforeOf, _dataAttributeRangeMaxAfterOf)
+			forceRead(element, element.getAttribute('aria-valuemax'), @parser, @prefixId, @ariaValueMaximumPrefixBefore, @ariaValueMaximumSuffixBefore, @ariaValueMaximumPrefixAfter, @ariaValueMaximumSuffixAfter, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF)
 		if element.hasAttribute('aria-autocomplete')
 			attributeValue = element.getAttribute('aria-autocomplete')
 			if attributeValue is 'both'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteBothBefore, @ariaAutoCompleteBothAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteBothBefore, @ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
 			else if attributeValue is 'inline'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteListBefore, @ariaAutoCompleteListAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteListBefore, @ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
 			else if attributeValue is 'list'
-				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteInlineBefore, @ariaAutoCompleteInlineAfter, _dataAttributeAutoCompleteBeforeOf, _dataAttributeAutoCompleteAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteInlineBefore, @ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
 		return
 	
 	displayAllWAIARIAStates: () ->
@@ -872,11 +872,11 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayLinkAttributes: (link) ->
 		if link.hasAttribute('download')
-			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, _dataAttributeDownloadBeforeOf, _dataAttributeDownloadAfterOf)
+			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF)
 		if (link.hasAttribute('target')) and (link.getAttribute('target') is '_blank')
-			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, _dataAttributeTargetBeforeOf, _dataAttributeTargetAfterOf)
+			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF)
 		if (link.hasAttribute('href')) and (not isEmpty(link.getAttribute('title')))
-			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBefore, @attributeHrefSuffixBefore, @attributeHrefPrefixAfter, @attributeHrefSuffixAfter, _dataAttributeHrefBeforeOf, _dataAttributeHrefAfterOf)
+			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBefore, @attributeHrefSuffixBefore, @attributeHrefPrefixAfter, @attributeHrefSuffixAfter, DATA_ATTRIBUTE_HREF_BEFORE_OF, DATA_ATTRIBUTE_HREF_AFTER_OF)
 		return
 	
 	displayAllLinksAttributes: () ->
@@ -888,7 +888,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayTitle: (element) ->
 		if (element.hasAttribute('title')) and (not isEmpty(element.getAttribute('title')))
-			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, _dataAttributeTitleBeforeOf, _dataAttributeTitleAfterOf)
+			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
 		return
 	
 	displayAllTitles: () ->
@@ -900,33 +900,33 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	
 	displayDragAndDrop: (element) ->
 		if element.hasAttribute('draggable')
-			forceReadSimple(element, @parser, @prefixId, @attributeDraggableBefore, @attributeDraggableAfter, _dataAttributeDraggableBeforeOf, _dataAttributeDraggableAfterOf)
+			forceReadSimple(element, @parser, @prefixId, @attributeDraggableBefore, @attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF)
 		if element.hasAttribute('dropzone')
 			attributeValue = element.getAttribute('dropzone')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneCopyBefore, @attributeDropzoneCopyAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneCopyBefore, @attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneMoveBefore, @attributeDropzoneMoveAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneMoveBefore, @attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneLinkBefore, @attributeDropzoneLinkAfter, _dataAttributeDropzoneBeforeOf, _dataAttributeDropzoneAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @attributeDropzoneLinkBefore, @attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
 		if element.hasAttribute('aria-dropeffect')
 			attributeValue = element.getAttribute('aria-dropeffect')
 			if attributeValue is 'copy'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectCopyBefore, @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'move'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectMoveBefore, @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'link'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectLinkBefore, @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'execute'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectExecuteBefore, @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 			else if attributeValue is 'popup'
-				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, _dataAriaDropeffectBeforeOf, _dataAriaDropeffectAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaDropeffectPopupBefore, @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF)
 		if element.hasAttribute('aria-grabbed')
 			attributeValue = element.getAttribute('aria-grabbed')
 			if attributeValue is 'true'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedTrueBefore, @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF)
 			else if attributeValue is 'false'
-				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, _dataAriaGrabbedBeforeOf, _dataAriaGrabbedAfterOf)
+				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF)
 		return
 	
 	displayAllDragsAndDrops: () ->
@@ -941,12 +941,12 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			languageCode = element.getAttribute('lang')
 			language = @languages[languageCode]
 			if not isEmpty(language)
-				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, _dataAttributeLanguageBeforeOf, _dataAttributeLanguageAfterOf)
+				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
 		else if element.hasAttribute('hreflang')
 			languageCode = element.getAttribute('hreflang')
 			language = @languages[languageCode]
 			if not isEmpty(language)
-				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, _dataAttributeLanguageBeforeOf, _dataAttributeLanguageAfterOf)
+				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
 		return
 	
 	displayAllLanguages: () ->
