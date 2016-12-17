@@ -108,14 +108,12 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		return text;
 	};
 
-	VanillaHTMLDOMElement.prototype.insertBefore = function(newElement) {
-		var parent;
-		parent = this.data.parentNode;
-		parent.insertBefore(newElement.getData(), this.data);
-		return newElement;
+	VanillaHTMLDOMElement.prototype.insertBefore = function(newNode) {
+		this.data.parentNode.insertBefore(newNode.getData(), this.data);
+		return this;
 	};
 
-	VanillaHTMLDOMElement.prototype.insertAfter = function(newElement) {
+	VanillaHTMLDOMElement.prototype.insertAfter = function(newNode) {
 		var child, childs, found, parent, _i, _len;
 		parent = this.data.parentNode;
 		childs = parent.childNodes;
@@ -123,14 +121,14 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		for (_i = 0, _len = childs.length; _i < _len; _i++) {
 			child = childs[_i];
 			if (found) {
-				parent.insertBefore(newElement.getData(), child);
+				parent.insertBefore(newNode.getData(), child);
 				return;
 			} else if (child === this.data) {
 				found = true;
 			}
 		}
-		parent.appendChild(newElement.getData());
-		return newElement;
+		parent.appendChild(newNode.getData());
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.removeNode = function() {
@@ -138,27 +136,23 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		return this;
 	};
 
-	VanillaHTMLDOMElement.prototype.replaceNode = function(newElement) {
-		var parent;
-		parent = this.data.parentNode;
-		parent.replaceChild(newElement.getData(), this.data);
-		return newElement;
+	VanillaHTMLDOMElement.prototype.replaceNode = function(newNode) {
+		this.data.parentNode.replaceChild(newNode.getData(), this.data);
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.appendElement = function(element) {
 		this.data.appendChild(element.getData());
-		return element;
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.prependElement = function(element) {
-		var firstChildNode;
 		if (isEmpty(this.data.childNodes)) {
 			this.appendElement(element);
 		} else {
-			firstChildNode = this.data.childNodes[0];
-			this.data.insertBefore(element.getData(), firstChildNode);
+			this.data.insertBefore(element.getData(), this.data.childNodes[0]);
 		}
-		return element;
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.getChildrenElements = function() {
@@ -195,6 +189,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		} else {
 			this.data.appendChild(this.data.ownerDocument.createTextNode(text));
 		}
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.prependText = function(text) {
@@ -209,13 +204,14 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 				this.data.insertBefore(this.data.ownerDocument.createTextNode(text), child.getData());
 			}
 		}
-		return element;
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.normalize = function() {
 		if (this.data.normalize) {
 			this.data.normalize();
 		}
+		return this;
 	};
 
 	VanillaHTMLDOMElement.prototype.hasChildrenElements = function() {
@@ -239,7 +235,9 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 	};
 
 	VanillaHTMLDOMElement.prototype.getParentElement = function() {
-		if (isEmpty(this.data.parentNode)) {
+		if (this.getTagName() === 'HTML') {
+			return void 0;
+		} else if (isEmpty(this.data.parentNode)) {
 			return void 0;
 		}
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);

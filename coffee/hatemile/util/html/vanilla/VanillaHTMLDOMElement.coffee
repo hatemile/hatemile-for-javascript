@@ -91,44 +91,41 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 				text += elementChild.getTextContent()
 		return text
 	
-	insertBefore: (newElement) ->
-		parent = @data.parentNode
-		parent.insertBefore(newElement.getData(), @data)
-		return newElement
+	insertBefore: (newNode) ->
+		@data.parentNode.insertBefore(newNode.getData(), @data)
+		return this
 	
-	insertAfter: (newElement) ->
+	insertAfter: (newNode) ->
 		parent = @data.parentNode
 		childs = parent.childNodes
 		found = false
 		for child in childs
 			if (found)
-				parent.insertBefore(newElement.getData(), child)
+				parent.insertBefore(newNode.getData(), child)
 				return
 			else if (child is @data)
 				found = true
-		parent.appendChild(newElement.getData())
-		return newElement
+		parent.appendChild(newNode.getData())
+		return this
 	
 	removeNode: () ->
 		@data.remove()
 		return this
 	
-	replaceNode: (newElement) ->
-		parent = @data.parentNode
-		parent.replaceChild(newElement.getData(), @data)
-		return newElement
+	replaceNode: (newNode) ->
+		@data.parentNode.replaceChild(newNode.getData(), @data)
+		return this
 	
 	appendElement: (element) ->
 		@data.appendChild(element.getData())
-		return element
+		return this
 	
 	prependElement: (element) ->
 		if isEmpty(@data.childNodes)
 			@appendElement(element)
 		else
-			firstChildNode = @data.childNodes[0]
-			@data.insertBefore(element.getData(), firstChildNode)
-		return element
+			@data.insertBefore(element.getData(), @data.childNodes[0])
+		return this
 	
 	getChildrenElements: () ->
 		children = @data.children
@@ -153,7 +150,7 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			child.appendText(text)
 		else
 			@data.appendChild(@data.ownerDocument.createTextNode(text))
-		return
+		return this
 	
 	prependText: (text) ->
 		if (not @hasChildren())
@@ -164,12 +161,12 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 				child.prependText(text)
 			else
 				@data.insertBefore(@data.ownerDocument.createTextNode(text), child.getData())
-		return element
+		return this
 	
 	normalize: () ->
 		if (@data.normalize)
 			@data.normalize()
-		return
+		return this
 	
 	hasChildrenElements: () ->
 		return not isEmpty(@data.children)
@@ -185,7 +182,9 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			return false
 	
 	getParentElement: () ->
-		if isEmpty(@data.parentNode)
+		if @getTagName() is 'HTML'
+			return undefined
+		else if isEmpty(@data.parentNode)
 			return undefined
 		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
