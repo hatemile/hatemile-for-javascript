@@ -1030,9 +1030,9 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		if (element.hasAttribute('aria-grabbed')) {
 			attributeValue = element.getAttribute('aria-grabbed');
 			if (attributeValue === 'true') {
-				forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedTrueBegin, this.ariaGrabbedTrueEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor);
+				forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
 			} else if (attributeValue === 'false') {
-				forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedFalseBegin, this.ariaGrabbedFalseEnd, _dataAriaGrabbedBeginFor, _dataAriaGrabbedEndFor);
+				forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
 			}
 		}
 	};

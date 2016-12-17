@@ -876,7 +876,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF)
 		if (link.hasAttribute('target')) and (link.getAttribute('target') is '_blank')
 			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF)
-		if (link.hasAttribute('href')) and (not isEmpty(link.getAttribute('title')))
+		if (link.hasAttribute('href')) and (not isEmpty(link.getAttribute('href')))
 			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBefore, @attributeHrefSuffixBefore, @attributeHrefPrefixAfter, @attributeHrefSuffixAfter, DATA_ATTRIBUTE_HREF_BEFORE_OF, DATA_ATTRIBUTE_HREF_AFTER_OF)
 		return
 	
