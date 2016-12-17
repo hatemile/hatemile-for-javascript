@@ -67,7 +67,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	 * pressed isn't enter.
 	 * @memberof hatemile.implementation.AccessibleEventImplementation
 	 */
-	enterPressed = function(keyCode) {
+	isEnter = function(keyCode) {
 		var enter1, enter2;
 		enter1 = '\n'.charCodeAt(0);
 		enter2 = '\r'.charCodeAt(0);
@@ -344,6 +344,20 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		return dragEvent;
 	};
 
+	visit = function(element, condition, obj, operation) {
+		var child, children, _i, _len;
+		if (!element.hasAttribute(DATA_IGNORE)) {
+			if (condition(element)) {
+				operation.call(obj, element);
+			}
+			children = element.getChildrenElements();
+			for (_i = 0, _len = children.length; _i < _len; _i++) {
+				child = children[_i];
+				visit(child, condition, obj, operation);
+			}
+		}
+	};
+
 	AccessibleEventImplementation.prototype.fixDrop = function(element) {
 		var parser;
 		element.setAttribute('aria-dropeffect', 'none');
@@ -364,7 +378,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT))) {
 			addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, function(event) {
 				var grabbedElement, grabbedElements, _i, _len;
-				if ((enterPressed(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (!isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
+				if ((isEnter(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (!isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
 					element.setAttribute(DATA_KEY_PRESSED, 'true');
 					if (hasEvent(element, 'drop')) {
 						grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
@@ -429,19 +443,14 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	AccessibleEventImplementation.prototype.fixAllDragsandDrops = function() {
-		var element, elements, _i, _len;
-		elements = this.parser.find('body *').listResults();
-		for (_i = 0, _len = elements.length; _i < _len; _i++) {
-			element = elements[_i];
-			if (!element.hasAttribute(DATA_IGNORE)) {
-				if (hasEvent(element, 'drag') || hasEvent(element, 'dragstart') || hasEvent(element, 'dragend')) {
-					this.fixDrag(element);
-				}
-				if (hasEvent(element, 'drop') || hasEvent(element, 'dragenter') || hasEvent(element, 'dragleave') || hasEvent(element, 'dragover')) {
-					this.fixDrop(element);
-				}
-			}
-		}
+		var body;
+		body = this.parser.find('body').firstResult();
+		visit(body, function(element) {
+			return hasEvent(element, 'drag') || hasEvent(element, 'dragstart') || hasEvent(element, 'dragend');
+		}, this, this.makeAccessibleDragEvents);
+		visit(body, function(element) {
+			return hasEvent(element, 'drop') || hasEvent(element, 'dragenter') || hasEvent(element, 'dragleave') || hasEvent(element, 'dragover');
+		}, this, this.makeAccessibleDropEvents);
 	};
 
 	AccessibleEventImplementation.prototype.fixHover = function(element) {
@@ -455,14 +464,9 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	};
 
 	AccessibleEventImplementation.prototype.fixAllHovers = function() {
-		var element, elements, _i, _len;
-		elements = this.parser.find('body *').listResults();
-		for (_i = 0, _len = elements.length; _i < _len; _i++) {
-			element = elements[_i];
-			if ((!element.hasAttribute(_)) && (hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout'))) {
-				this.fixHover(element);
-			}
-		}
+		visit(this.parser.find('body').firstResult(), function(element) {
+			return hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout');
+		}, this, this.makeAccessibleHoverEvents);
 	};
 
 	AccessibleEventImplementation.prototype.fixActive = function(element) {
@@ -472,7 +476,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 		typeButtons = ['submit', 'button', 'reset'];
 		if (((tag !== 'INPUT') || (!element.hasAttribute('type')) || (typeButtons.indexOf(element.getAttribute('type').toLowerCase()) === -1)) && (tag !== 'BUTTON') && (tag !== 'A')) {
 			addEventHandler(element, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function(event) {
-				if (enterPressed(event.keyCode)) {
+				if (isEnter(event.keyCode)) {
 					if (hasEvent(element, 'click')) {
 						executeMouseEvent('click', element, event);
 					} else if (hasEvent(element, 'dblclick')) {
@@ -482,26 +486,21 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 			});
 		}
 		addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, CLICK_EVENT, function(event) {
-			if (enterPressed(event.keyCode)) {
+			if (isEnter(event.keyCode)) {
 				executeMouseEvent('mouseup', element, event);
 			}
 		});
 		addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, CLICK_EVENT, function(event) {
-			if (enterPressed(event.keyCode)) {
+			if (isEnter(event.keyCode)) {
 				executeMouseEvent('mousedown', element, event);
 			}
 		});
 	};
 
 	AccessibleEventImplementation.prototype.fixAllActives = function() {
-		var element, elements, _i, _len;
-		elements = this.parser.find('body *').listResults();
-		for (_i = 0, _len = elements.length; _i < _len; _i++) {
-			element = elements[_i];
-			if ((!element.hasAttribute(DATA_IGNORE)) && (hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick'))) {
-				this.fixActive(element);
-			}
-		}
+		visit(this.parser.find('body').firstResult(), function(element) {
+			return hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick');
+		}, this, this.makeAccessibleClickEvents);
 	};
 
 	return AccessibleEventImplementation;

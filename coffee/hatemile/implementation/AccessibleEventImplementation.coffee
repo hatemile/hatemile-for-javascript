@@ -299,14 +299,14 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		dragEvent.dataTransfer = exports.__dragEventDataTransfer__
 		return dragEvent
 	
-	visit = (element, condition, operation) ->
+	visit = (element, condition, obj, operation) ->
 		if not element.hasAttribute(DATA_IGNORE)
 			if condition(element)
-				operation(element)
+				operation.call(obj, element)
 			
 			children = element.getChildrenElements()
 			for child in children
-				visit(child, condition, operation)
+				visit(child, condition, obj, operation)
 		return
 	
 	fixDrop: (element) ->
@@ -397,10 +397,10 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 		body = @parser.find('body').firstResult()
 		visit(body, (element) ->
 			return (hasEvent(element, 'drag') or hasEvent(element, 'dragstart') or hasEvent(element, 'dragend'))
-		, @fixDrag)
+		, this, @fixDrag)
 		visit(body, (element) -> 
 			return (hasEvent(element, 'drop') or hasEvent(element, 'dragenter') or hasEvent(element, 'dragleave') or hasEvent(element, 'dragover'))
-		, @fixDrop)
+		, this, @fixDrop)
 		return
 	
 	fixHover: (element) ->
@@ -419,7 +419,7 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixAllHovers: () ->
 		visit(@parser.find('body').firstResult(), (element) ->
 			return (hasEvent(element, 'mouseover') or hasEvent(element, 'mouseout'))
-		, @fixHover)
+		, this, @fixHover)
 		return
 	
 	fixActive: (element) ->
@@ -451,5 +451,5 @@ class exports.hatemile.implementation.AccessibleEventImplementation
 	fixAllActives: () ->
 		visit(@parser.find('body').firstResult(), (element) ->
 			return (hasEvent(element, 'click') or hasEvent(element, 'mousedown') or hasEvent(element, 'mouseup') or hasEvent(element, 'dblclick'))
-		, @fixActive)
+		, this, @fixActive)
 		return
