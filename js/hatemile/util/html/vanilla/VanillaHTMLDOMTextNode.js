@@ -57,11 +57,34 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 	}
 
 	VanillaHTMLDOMTextNode.prototype.setTextContent = function(text) {
-		return this.data.nodeValue = text;
+		this.data.nodeValue = text;
 	};
 
 	VanillaHTMLDOMTextNode.prototype.getTextContent = function() {
 		return this.data.nodeValue;
+	};
+
+	VanillaHTMLDOMTextNode.prototype.insertBefore = function(newNode) {
+		this.data.parentNode.insertBefore(newNode.getData(), this.data);
+		return this;
+	};
+
+	VanillaHTMLDOMTextNode.prototype.insertAfter = function(newNode) {
+		var child, childs, found, parent, _i, _len;
+		parent = this.data.parentNode;
+		childs = parent.childNodes;
+		found = false;
+		for (_i = 0, _len = childs.length; _i < _len; _i++) {
+			child = childs[_i];
+			if (found) {
+				parent.insertBefore(newNode.getData(), child);
+				return;
+			} else if (child === this.data) {
+				found = true;
+			}
+		}
+		parent.appendChild(newNode.getData());
+		return this;
 	};
 
 	VanillaHTMLDOMTextNode.prototype.removeNode = function() {
@@ -69,26 +92,19 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 		return this;
 	};
 
-	VanillaHTMLDOMTextNode.prototype.replaceNode = function(newElement) {
-		var parent;
-		parent = this.data.parentNode;
-		parent.replaceChild(newElement.getData(), this.data);
-		return newElement;
+	VanillaHTMLDOMTextNode.prototype.replaceNode = function(newNode) {
+		this.data.parentNode.replaceChild(newNode.getData(), this.data);
+		return this;
 	};
 
 	VanillaHTMLDOMTextNode.prototype.appendText = function(text) {
-		this.data.appendChild(this.data.ownerDocument.createTextNode(text));
+		this.setTextContent("" + (this.getTextContent()) + text);
+		return this;
 	};
 
 	VanillaHTMLDOMTextNode.prototype.prependText = function(text) {
-		var firstChildNode;
-		if (isEmpty(this.data.childNodes)) {
-			appendText(text);
-		} else {
-			firstChildNode = this.data.childNodes[0];
-			this.data.insertBefore(document.createTextNode(text), firstChildNode);
-		}
-		return element;
+		this.setTextContent("" + text + (this.getTextContent()));
+		return this;
 	};
 
 	VanillaHTMLDOMTextNode.prototype.getParentElement = function() {
@@ -104,13 +120,6 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 
 	VanillaHTMLDOMTextNode.prototype.setData = function(data) {
 		this.data = data;
-	};
-
-	VanillaHTMLDOMTextNode.prototype.cloneElement = function() {
-		var div;
-		div = this.data.ownerDocument.createElement('div');
-		div.innerHTML = this.getOuterHTML();
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild);
 	};
 
 	VanillaHTMLDOMTextNode.prototype.equals = function(node) {

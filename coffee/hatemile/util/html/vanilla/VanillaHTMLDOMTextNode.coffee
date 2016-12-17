@@ -42,14 +42,14 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 	
 	setTextContent: (text) ->
 		@data.nodeValue = text
+		return
 	
 	getTextContent: () ->
 		return @data.nodeValue
 	
 	insertBefore: (newNode) ->
-		parent = @data.parentNode
-		parent.insertBefore(newNode.getData(), @data)
-		return newElement
+		@data.parentNode.insertBefore(newNode.getData(), @data)
+		return this
 	
 	insertAfter: (newNode) ->
 		parent = @data.parentNode
@@ -62,28 +62,23 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 			else if (child is @data)
 				found = true
 		parent.appendChild(newNode.getData())
-		return newElement
+		return this
 	
 	removeNode: () ->
 		@data.remove()
 		return this
 	
-	replaceNode: (newElement) ->
-		parent = @data.parentNode
-		parent.replaceChild(newElement.getData(), @data)
-		return newElement
+	replaceNode: (newNode) ->
+		@data.parentNode.replaceChild(newNode.getData(), @data)
+		return this
 	
 	appendText: (text) ->
-		@data.appendChild(@data.ownerDocument.createTextNode(text))
-		return
+		@setTextContent("#{@getTextContent()}#{text}")
+		return this
 	
 	prependText: (text) ->
-		if isEmpty(@data.childNodes)
-			appendText(text)
-		else
-			firstChildNode = @data.childNodes[0]
-			@data.insertBefore(document.createTextNode(text), firstChildNode)
-		return element
+		@setTextContent("#{text}#{@getTextContent()}")
+		return this
 	
 	getParentElement: () ->
 		if isEmpty(@data.parentNode)
