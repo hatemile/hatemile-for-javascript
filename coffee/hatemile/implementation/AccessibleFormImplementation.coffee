@@ -167,9 +167,9 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			field.setAttribute('aria-invalid', 'true')
 		return
 	
-	validate = (field, dataInvalid, typeDataEvent, typeFix, validateFunction) ->
+	validate = (field, dataInvalid, typeFix, validateFunction) ->
 		validateNow(field, dataInvalid, validateFunction)
-		addEventHandler(field, 'change', typeDataEvent, typeFix, (event) ->
+		addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, (event) ->
 			validateNow(field, dataInvalid, validateFunction)
 		)
 		return
@@ -303,31 +303,31 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	
 	fixValidation: (field) ->
 		if (field.hasAttribute('required')) or ((field.hasAttribute('aria-required')) and (field.getAttribute('aria-required').toLowerCase() is 'true'))
-			validate(field, DATA_INVALID_REQUIRED, _dataEventChangeAdded, VALIDATION_REQUIRED, isValidRequired)
+			validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired)
 		if field.hasAttribute('pattern')
-			validate(field, DATA_INVALID_PATTERN, _dataEventChangeAdded, VALIDATION_PATTERN, isValidPattern)
+			validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern)
 		if (field.hasAttribute('minlength')) or (field.hasAttribute('maxlength'))
-			validate(field, DATA_INVALID_LENGTH, _dataEventChangeAdded, VALIDATION_LENGTH, isValidLength)
+			validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength)
 		if (field.hasAttribute('aria-valuemin')) or (field.hasAttribute('aria-valuemax'))
-			validate(field, DATA_INVALID_RANGE, _dataEventChangeAdded, VALIDATION_TYPE, isValidRange)
+			validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
 		if field.hasAttribute('type')
 			type = field.getAttribute('type').toLowerCase()
 			if type is 'week'
-				validate(field, DATA_INVALID_WEEK, _dataEventChangeAdded, VALIDATION_TYPE, isValidWeek)
+				validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek)
 			else if type is 'month'
-				validate(field, DATA_INVALID_MONTH, _dataEventChangeAdded, VALIDATION_TYPE, isValidMonth)
+				validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth)
 			else if (type is 'datetime-local') or (type is 'datetime')
-				validate(field, DATA_INVALID_DATETIME, _dataEventChangeAdded, VALIDATION_TYPE, isValidDateTime)
+				validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, isValidDateTime)
 			else if type is 'time'
-				validate(field, DATA_INVALID_TIME, _dataEventChangeAdded, VALIDATION_TYPE, isValidTime)
+				validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime)
 			else if type is 'date'
-				validate(field, DATA_INVALID_DATE, _dataEventChangeAdded, VALIDATION_TYPE, isValidDate)
+				validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate)
 			else if (type is 'number') or (type is 'range')
-				validate(field, DATA_INVALID_RANGE, _dataEventChangeAdded, VALIDATION_TYPE, isValidRange)
+				validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
 			else if type is 'email'
-				validate(field, DATA_INVALID_EMAIL, _dataEventChangeAdded, VALIDATION_TYPE, isValidEmail)
+				validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail)
 			else if type is 'url'
-				validate(field, DATA_INVALID_URL, _dataEventChangeAdded, VALIDATION_TYPE, isValidURL)
+				validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL)
 		return
 	
 	fixAllValidations: () ->
