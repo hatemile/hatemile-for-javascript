@@ -38,7 +38,7 @@ class exports.hatemile.util.css.jscssp.JSCSSPRule
 	
 	hasProperty: (propertyName) ->
 		for nativeDeclaration in @rule.declarations
-			declaration = new hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+			declaration = new exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
 			if propertyName is declaration.getProperty()
 				return true
 		return false
@@ -49,7 +49,7 @@ class exports.hatemile.util.css.jscssp.JSCSSPRule
 	getDeclarations: (propertyName) ->
 		declarations = []
 		for nativeDeclaration in @rule.declarations
-			declaration = new hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+			declaration = new exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
 			if propertyName is declaration.getProperty()
 				declarations.push(declaration)
 		return declarations
