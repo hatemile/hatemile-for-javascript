@@ -188,12 +188,10 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	VanillaHTMLDOMParser.prototype.listResults = function() {
 		var array, result, _i, _len, _ref;
 		array = [];
-		if (!isEmpty(this.results)) {
-			_ref = this.results;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				result = _ref[_i];
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
-			}
+		_ref = this.results;
+		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+			result = _ref[_i];
+			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
 		}
 		return array;
 	};

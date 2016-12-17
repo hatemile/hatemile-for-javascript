@@ -129,9 +129,8 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	listResults: () ->
 		array = []
-		if not isEmpty(@results)
-			for result in @results
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
+		for result in @results
+			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
 		return array
 	
 	createElement: (tag) ->
