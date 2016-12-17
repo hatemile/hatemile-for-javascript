@@ -1,7 +1,5 @@
 hatemile_configuration_skippers = [
-	{"selector": "main,[role=main]", "default-text": "Main Content", "shortcut": "1"},
-	{"selector": "nav,[role=navigation]", "default-text": "Menu", "shortcut": "2"},
-	{"selector": "form", "default-text": "Form", "shortcut": "3"},
-	{"selector": "#container-shortcuts", "default-text": "Shortcuts", "shortcut": "9"},
-	{"selector": "#container-heading", "default-text": "Summary", "shortcut": "0"}
+	{'selector': 'main,[role=main]', 'description': 'Go to main content', 'shortcut': '1'},
+	{'selector': '#container-shortcuts', 'description': 'Go to shortcuts', 'shortcut': '9'},
+	{'selector': '#container-heading', 'description': 'Go to table of contents', 'shortcut': '0'}
 ]

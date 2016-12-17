@@ -288,7 +288,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 					itemLink = this.parser.createElement('li');
 					link = this.parser.createElement('a');
 					link.setAttribute('href', "#" + (anchor.getAttribute('name')));
-					link.appendText(skipper['default-text']);
+					link.appendText(skipper['description']);
 					shortcuts = skipper['shortcut'];
 					if (!isEmpty(shortcuts)) {
 						shortcut = shortcuts[0];

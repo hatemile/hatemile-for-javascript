@@ -236,7 +236,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 					itemLink = @parser.createElement('li')
 					link = @parser.createElement('a')
 					link.setAttribute('href', "##{anchor.getAttribute('name')}")
-					link.appendText(skipper['default-text'])
+					link.appendText(skipper['description'])
 
 					shortcuts = skipper['shortcut']
 					if not isEmpty(shortcuts)
