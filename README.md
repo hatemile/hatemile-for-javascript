@@ -6,5 +6,5 @@ HaTeMiLe is a libary that can convert a HTML code in a HTML code more accessible
 
 1.  Instanciate a new object with HTMLDOMParser interface, setting the HTML code;
 2.  Instanciate a new Configuration object;
-3.  Instanciate a new object with AccessibleCSS, AccessibleDisplay, AccessibleForm, AccessibleNavigation, AccessibleTable, AccessibleEvent or AccessibleSelector interface and call yours methods;
+3.  Instanciate a new object with AccessibleAssociation, AccessibleCSS, AccessibleDisplay, AccessibleForm, AccessibleNavigation or AccessibleEvent interface and call yours methods;
 4.  Get the HTML code of object with HTMLDOMParser interface.
