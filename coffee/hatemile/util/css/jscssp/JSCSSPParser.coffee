@@ -35,24 +35,6 @@ exports.hatemile.util.css.jscssp or= {}
 
 class exports.hatemile.util.css.jscssp.JSCSSPParser
 	
-	###*
-	 * Initializes a new object that encapsulate the CSS parser.
-	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
-	 * document object or a string with CSS rules.
-	 * @param {string} currentURL The current URL of page.
-	 * @class The JSCSSPParser class is official implementation of
-	 * StyleSheetParser interface for JSCSSP.
-	 * @implements {hatemile.util.css.StyleSheetParser}
-	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
-	###
-	constructor: (@parser, @currentURL) ->
-		if not (@parser instanceof jscsspStylesheet)
-			parser = new CSSParser()
-			if (@parser instanceof exports.HTMLDocument)
-				@parser = getCSSContent(@parser, @currentURL)
-			if (typeof @parser is typeof '')
-				@parser = parser.parse("body{}#{@parser}", false, false)
-	
 	###
 	 * Returns the absolute path of a URL.
 	 * @param {string} currentURL The current URL of document.
@@ -135,6 +117,24 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 				httpRequest.open('GET', url, false);
 				httpRequest.send()
 		return content
+	
+	###*
+	 * Initializes a new object that encapsulate the CSS parser.
+	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
+	 * document object or a string with CSS rules.
+	 * @param {string} currentURL The current URL of page.
+	 * @class The JSCSSPParser class is official implementation of
+	 * StyleSheetParser interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetParser}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
+	###
+	constructor: (@parser, @currentURL) ->
+		if not (@parser instanceof jscsspStylesheet)
+			parser = new CSSParser()
+			if (@parser instanceof exports.HTMLDocument)
+				@parser = getCSSContent(@parser, @currentURL)
+			if (typeof @parser is typeof '')
+				@parser = parser.parse("body{}#{@parser}", false, false)
 	
 	###
 	 * Returns the text content of element.

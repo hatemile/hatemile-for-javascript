@@ -120,6 +120,279 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 	DATA_INVALID_WEEK = 'data-invalidweek';
 	
 	/**
+	 * Returns the shortcut prefix of browser.
+	 * @param {string} userAgent The user agent of browser.
+	 * @param {string} defaultPrefix The default prefix.
+	 * @returns {string} The shortcut prefix of browser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
+	 */
+	getShortcutPrefix = function(userAgent, defaultPrefix) {
+		var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
+		if (!isEmpty(userAgent)) {
+			userAgent = userAgent.toLowerCase();
+			opera = userAgent.indexOf('opera') > -1;
+			mac = userAgent.indexOf('mac') > -1;
+			konqueror = userAgent.indexOf('konqueror') > -1;
+			spoofer = userAgent.indexOf('spoofer') > -1;
+			safari = userAgent.indexOf('applewebkit') > -1;
+			windows = userAgent.indexOf('windows') > -1;
+			chrome = userAgent.indexOf('chrome') > -1;
+			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent);
+			ie = (userAgent.indexOf('msie') > -1) || (userAgent.indexOf('trident') > -1);
+			if (opera) {
+				return 'SHIFT + ESC';
+			} else if (chrome && mac && (!spoofer)) {
+				return 'CTRL + OPTION';
+			} else if (chrome || ie) {
+				return 'ALT';
+			} else if (safari && (!windows) && (!spoofer)) {
+				return 'CTRL + ALT';
+			} else if ((!windows) && (safari || mac || konqueror)) {
+				return 'CTRL';
+			} else if (firefox) {
+				return 'ALT + SHIFT';
+			}
+		} else {
+			return defaultPrefix;
+		}
+	};
+
+	/**
+	 * Returns the description of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @returns {string} The description of element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getDescription
+	 */
+	getDescription = function(element, parser) {
+		var description, descriptionId, descriptionIds, elementDescription, type, _i, _len;
+		description = void 0;
+		if (element.hasAttribute('title')) {
+			description = element.getAttribute('title');
+		} else if (element.hasAttribute('aria-label')) {
+			description = element.getAttribute('aria-label');
+		} else if (element.hasAttribute('alt')) {
+			description = element.getAttribute('alt');
+		} else if (element.hasAttribute('label')) {
+			description = element.getAttribute('label');
+		} else if (element.hasAttribute('aria-labelledby') || element.hasAttribute('aria-describedby')) {
+			if (element.hasAttribute('aria-labelledby')) {
+				descriptionIds = element.getAttribute('aria-labelledby').split(new RegExp('[ \n\t\r]+'));
+			} else {
+				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'));
+			}
+			for (_i = 0, _len = descriptionIds.length; _i < _len; _i++) {
+				descriptionId = descriptionIds[_i];
+				elementDescription = parser.find("#" + descriptionId).firstResult();
+				if (!isEmpty(elementDescription)) {
+					description = elementDescription.getTextContent();
+					break;
+				}
+			}
+		} else if ((element.getTagName() === 'INPUT') && (element.hasAttribute('type'))) {
+			type = element.getAttribute('type').toLowerCase();
+			if (((type === 'button') || (type === 'submit') || (type === 'reset')) && (element.hasAttribute('value'))) {
+				description = element.getAttribute('value');
+			}
+		}
+		if (isEmpty(description)) {
+			description = element.getTextContent();
+		}
+		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
+	};
+
+	/**
+	 * Generate the list of shortcuts of page.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {string} textShortcuts The description of container of shortcuts.
+	 * @returns {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.generateListShortcuts
+	 */
+	generateListShortcuts = function(parser, textShortcuts) {
+		var container, list, local, textContainer;
+		container = parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
+		if (isEmpty(container)) {
+			local = parser.find('body').firstResult();
+			if (!isEmpty(local)) {
+				container = parser.createElement('div');
+				container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
+				textContainer = parser.createElement('span');
+				textContainer.setAttribute('id', ID_TEXT_SHORTCUTS);
+				textContainer.appendText(textShortcuts);
+				container.appendElement(textContainer);
+				local.appendElement(container);
+			}
+		}
+		list = void 0;
+		if (!isEmpty(container)) {
+			list = parser.find(container).findChildren('ul').firstResult();
+			if (isEmpty(list)) {
+				list = parser.createElement('ul');
+				container.appendElement(list);
+			}
+		}
+		return list;
+	};
+
+	/**
+	 * Insert a element before other element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
+	 * be inserted.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertBefore
+	 */
+	insertBefore = function(element, insertedElement, parser) {
+		var body, controls, label, labels, tagName, tags, _i, _len;
+		tagName = element.getTagName();
+		tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
+		controls = ['INPUT', 'SELECT', 'TEXTAREA'];
+		if (tagName === 'HTML') {
+			body = parser.find('body').firstResult();
+			if (!isEmpty(body)) {
+				insertBefore(body, insertedElement, parser);
+			}
+		} else if (tags.indexOf(tagName) > -1) {
+			element.prependElement(insertedElement);
+		} else if (controls.indexOf(tagName) > -1) {
+			if (element.hasAttribute('id')) {
+				labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
+			}
+			if (isEmpty(labels)) {
+				labels = parser.find(element).findAncestors('label').listResults();
+			}
+			for (_i = 0, _len = labels.length; _i < _len; _i++) {
+				label = labels[_i];
+				insertBefore(label, insertedElement, parser);
+			}
+		} else {
+			element.insertBefore(insertedElement);
+		}
+	};
+
+	/**
+	 * Insert a element after other element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
+	 * be inserted.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertAfter
+	 */
+	insertAfter = function(element, insertedElement, parser) {
+		var appendTags, body, controls, label, labels, tagName, _i, _len;
+		tagName = element.getTagName();
+		appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
+		controls = ['INPUT', 'SELECT', 'TEXTAREA'];
+		if (tagName === 'HTML') {
+			body = parser.find('body').firstResult();
+			if (!isEmpty(body)) {
+				insertAfter(body, insertedElement, parser);
+			}
+		} else if (appendTags.indexOf(tagName) > -1) {
+			element.appendElement(insertedElement);
+		} else if (controls.indexOf(tagName) > -1) {
+			if (element.hasAttribute('id')) {
+				labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
+			}
+			if (isEmpty(labels)) {
+				labels = parser.find(element).findAncestors('label').listResults();
+			}
+			for (_i = 0, _len = labels.length; _i < _len; _i++) {
+				label = labels[_i];
+				insertAfter(label, insertedElement, parser);
+			}
+		} else {
+			element.insertAfter(insertedElement);
+		}
+	};
+
+	/**
+	 * Force the screen reader display an information of element.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {string} prefixId The prefix of generated ids.
+	 * @param {string} textBefore The text content to show before the element.
+	 * @param {string} textAfter The text content to show after the element.
+	 * @param {string} dataBeforeOf The name of attribute that links the before
+	 * content with element.
+	 * @param {string} dataAfterOf The name of attribute that links the after
+	 * content with element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
+	 */
+	forceReadSimple = function(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) {
+		var identifier, referenceAfter, referenceBefore, span;
+		exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
+		identifier = element.getAttribute('id');
+		if (!isEmpty(textBefore)) {
+			referenceBefore = parser.find("." + CLASS_FORCE_READ_BEFORE + "[" + dataBeforeOf + "=\"" + identifier + "\"]").firstResult();
+			if (!isEmpty(referenceBefore)) {
+				referenceBefore.removeNode();
+				referenceBefore = void 0;
+			}
+			span = parser.createElement('span');
+			span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
+			span.setAttribute(dataBeforeOf, identifier);
+			span.appendText(textBefore);
+			insertBefore(element, span, parser);
+		}
+		if (!isEmpty(textAfter)) {
+			referenceAfter = parser.find("." + CLASS_FORCE_READ_AFTER + "[" + dataAfterOf + "=\"" + identifier + "\"]").firstResult();
+			if (!isEmpty(referenceAfter)) {
+				referenceAfter.removeNode();
+				referenceAfter = void 0;
+			}
+			span = parser.createElement('span');
+			span.setAttribute('class', CLASS_FORCE_READ_AFTER);
+			span.setAttribute(dataAfterOf, identifier);
+			span.appendText(textAfter);
+			insertAfter(element, span, parser);
+		}
+	};
+
+	/**
+	 * Force the screen reader display an information of element with prefixes or
+	 * suffixes.
+	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
+	 * @param {string} value The value to be show.
+	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
+	 * @param {string} prefixId The prefix of generated ids.
+	 * @param {string} textPrefixBefore The prefix of value to show before the
+	 * element.
+	 * @param {string} textSuffixBefore The suffix of value to show before the
+	 * element.
+	 * @param {string} textPrefixAfter The prefix of value to show after the
+	 * element.
+	 * @param {string} textSuffixAfter The suffix of value to show after the
+	 * element.
+	 * @param {string} dataBeforeOf The name of attribute that links the before
+	 * content with element.
+	 * @param {string} dataAfterOf The name of attribute that links the after
+	 * content with element.
+	 * @private
+	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
+	 */
+	forceRead = function(element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) {
+		var textAfter, textBefore;
+		if ((!isEmpty(textPrefixBefore)) || (!isEmpty(textSuffixBefore))) {
+			textBefore = "" + textPrefixBefore + value + textSuffixBefore;
+		} else {
+			textBefore = '';
+		}
+		if ((!isEmpty(textPrefixAfter)) || (!isEmpty(textSuffixAfter))) {
+			textAfter = "" + textPrefixAfter + value + textSuffixAfter;
+		} else {
+			textAfter = '';
+		}
+		forceReadSimple(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf);
+	};
+
+	/**
 	 * Initializes a new object that manipulate the display for screen readers of
 	 * parser.
 	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
@@ -515,279 +788,6 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		};
 		this.shortcutPrefix = getShortcutPrefix(userAgent, this.attributeAccesskeyDefault);
 	}
-
-	/**
-	 * Returns the shortcut prefix of browser.
-	 * @param {string} userAgent The user agent of browser.
-	 * @param {string} defaultPrefix The default prefix.
-	 * @returns {string} The shortcut prefix of browser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
-	 */
-	getShortcutPrefix = function(userAgent, defaultPrefix) {
-		var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
-		if (!isEmpty(userAgent)) {
-			userAgent = userAgent.toLowerCase();
-			opera = userAgent.indexOf('opera') > -1;
-			mac = userAgent.indexOf('mac') > -1;
-			konqueror = userAgent.indexOf('konqueror') > -1;
-			spoofer = userAgent.indexOf('spoofer') > -1;
-			safari = userAgent.indexOf('applewebkit') > -1;
-			windows = userAgent.indexOf('windows') > -1;
-			chrome = userAgent.indexOf('chrome') > -1;
-			firefox = /firefox\/[2-9]|minefield\/3/.test(userAgent);
-			ie = (userAgent.indexOf('msie') > -1) || (userAgent.indexOf('trident') > -1);
-			if (opera) {
-				return 'SHIFT + ESC';
-			} else if (chrome && mac && (!spoofer)) {
-				return 'CTRL + OPTION';
-			} else if (chrome || ie) {
-				return 'ALT';
-			} else if (safari && (!windows) && (!spoofer)) {
-				return 'CTRL + ALT';
-			} else if ((!windows) && (safari || mac || konqueror)) {
-				return 'CTRL';
-			} else if (firefox) {
-				return 'ALT + SHIFT';
-			}
-		} else {
-			return defaultPrefix;
-		}
-	};
-
-	/**
-	 * Returns the description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {string} The description of element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getDescription
-	 */
-	getDescription = function(element, parser) {
-		var description, descriptionId, descriptionIds, elementDescription, type, _i, _len;
-		description = void 0;
-		if (element.hasAttribute('title')) {
-			description = element.getAttribute('title');
-		} else if (element.hasAttribute('aria-label')) {
-			description = element.getAttribute('aria-label');
-		} else if (element.hasAttribute('alt')) {
-			description = element.getAttribute('alt');
-		} else if (element.hasAttribute('label')) {
-			description = element.getAttribute('label');
-		} else if (element.hasAttribute('aria-labelledby') || element.hasAttribute('aria-describedby')) {
-			if (element.hasAttribute('aria-labelledby')) {
-				descriptionIds = element.getAttribute('aria-labelledby').split(new RegExp('[ \n\t\r]+'));
-			} else {
-				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'));
-			}
-			for (_i = 0, _len = descriptionIds.length; _i < _len; _i++) {
-				descriptionId = descriptionIds[_i];
-				elementDescription = parser.find("#" + descriptionId).firstResult();
-				if (!isEmpty(elementDescription)) {
-					description = elementDescription.getTextContent();
-					break;
-				}
-			}
-		} else if ((element.getTagName() === 'INPUT') && (element.hasAttribute('type'))) {
-			type = element.getAttribute('type').toLowerCase();
-			if (((type === 'button') || (type === 'submit') || (type === 'reset')) && (element.hasAttribute('value'))) {
-				description = element.getAttribute('value');
-			}
-		}
-		if (isEmpty(description)) {
-			description = element.getTextContent();
-		}
-		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
-	};
-
-	/**
-	 * Generate the list of shortcuts of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} textShortcuts The description of container of shortcuts.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.generateListShortcuts
-	 */
-	generateListShortcuts = function(parser, textShortcuts) {
-		var container, list, local, textContainer;
-		container = parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
-		if (isEmpty(container)) {
-			local = parser.find('body').firstResult();
-			if (!isEmpty(local)) {
-				container = parser.createElement('div');
-				container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
-				textContainer = parser.createElement('span');
-				textContainer.setAttribute('id', ID_TEXT_SHORTCUTS);
-				textContainer.appendText(textShortcuts);
-				container.appendElement(textContainer);
-				local.appendElement(container);
-			}
-		}
-		list = void 0;
-		if (!isEmpty(container)) {
-			list = parser.find(container).findChildren('ul').firstResult();
-			if (isEmpty(list)) {
-				list = parser.createElement('ul');
-				container.appendElement(list);
-			}
-		}
-		return list;
-	};
-
-	/**
-	 * Insert a element before other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-	 * be inserted.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertBefore
-	 */
-	insertBefore = function(element, insertedElement, parser) {
-		var body, controls, label, labels, tagName, tags, _i, _len;
-		tagName = element.getTagName();
-		tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
-		controls = ['INPUT', 'SELECT', 'TEXTAREA'];
-		if (tagName === 'HTML') {
-			body = parser.find('body').firstResult();
-			if (!isEmpty(body)) {
-				insertBefore(body, insertedElement, parser);
-			}
-		} else if (tags.indexOf(tagName) > -1) {
-			element.prependElement(insertedElement);
-		} else if (controls.indexOf(tagName) > -1) {
-			if (element.hasAttribute('id')) {
-				labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
-			}
-			if (isEmpty(labels)) {
-				labels = parser.find(element).findAncestors('label').listResults();
-			}
-			for (_i = 0, _len = labels.length; _i < _len; _i++) {
-				label = labels[_i];
-				insertBefore(label, insertedElement, parser);
-			}
-		} else {
-			element.insertBefore(insertedElement);
-		}
-	};
-
-	/**
-	 * Insert a element after other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-	 * be inserted.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertAfter
-	 */
-	insertAfter = function(element, insertedElement, parser) {
-		var appendTags, body, controls, label, labels, tagName, _i, _len;
-		tagName = element.getTagName();
-		appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
-		controls = ['INPUT', 'SELECT', 'TEXTAREA'];
-		if (tagName === 'HTML') {
-			body = parser.find('body').firstResult();
-			if (!isEmpty(body)) {
-				insertAfter(body, insertedElement, parser);
-			}
-		} else if (appendTags.indexOf(tagName) > -1) {
-			element.appendElement(insertedElement);
-		} else if (controls.indexOf(tagName) > -1) {
-			if (element.hasAttribute('id')) {
-				labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
-			}
-			if (isEmpty(labels)) {
-				labels = parser.find(element).findAncestors('label').listResults();
-			}
-			for (_i = 0, _len = labels.length; _i < _len; _i++) {
-				label = labels[_i];
-				insertAfter(label, insertedElement, parser);
-			}
-		} else {
-			element.insertAfter(insertedElement);
-		}
-	};
-
-	/**
-	 * Force the screen reader display an information of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated ids.
-	 * @param {string} textBefore The text content to show before the element.
-	 * @param {string} textAfter The text content to show after the element.
-	 * @param {string} dataBeforeOf The name of attribute that links the before
-	 * content with element.
-	 * @param {string} dataAfterOf The name of attribute that links the after
-	 * content with element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
-	 */
-	forceReadSimple = function(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) {
-		var identifier, referenceAfter, referenceBefore, span;
-		exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
-		identifier = element.getAttribute('id');
-		if (!isEmpty(textBefore)) {
-			referenceBefore = parser.find("." + CLASS_FORCE_READ_BEFORE + "[" + dataBeforeOf + "=\"" + identifier + "\"]").firstResult();
-			if (!isEmpty(referenceBefore)) {
-				referenceBefore.removeNode();
-				referenceBefore = void 0;
-			}
-			span = parser.createElement('span');
-			span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
-			span.setAttribute(dataBeforeOf, identifier);
-			span.appendText(textBefore);
-			insertBefore(element, span, parser);
-		}
-		if (!isEmpty(textAfter)) {
-			referenceAfter = parser.find("." + CLASS_FORCE_READ_AFTER + "[" + dataAfterOf + "=\"" + identifier + "\"]").firstResult();
-			if (!isEmpty(referenceAfter)) {
-				referenceAfter.removeNode();
-				referenceAfter = void 0;
-			}
-			span = parser.createElement('span');
-			span.setAttribute('class', CLASS_FORCE_READ_AFTER);
-			span.setAttribute(dataAfterOf, identifier);
-			span.appendText(textAfter);
-			insertAfter(element, span, parser);
-		}
-	};
-
-	/**
-	 * Force the screen reader display an information of element with prefixes or
-	 * suffixes.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {string} value The value to be show.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated ids.
-	 * @param {string} textPrefixBefore The prefix of value to show before the
-	 * element.
-	 * @param {string} textSuffixBefore The suffix of value to show before the
-	 * element.
-	 * @param {string} textPrefixAfter The prefix of value to show after the
-	 * element.
-	 * @param {string} textSuffixAfter The suffix of value to show after the
-	 * element.
-	 * @param {string} dataBeforeOf The name of attribute that links the before
-	 * content with element.
-	 * @param {string} dataAfterOf The name of attribute that links the after
-	 * content with element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
-	 */
-	forceRead = function(element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) {
-		var textAfter, textBefore;
-		if ((!isEmpty(textPrefixBefore)) || (!isEmpty(textSuffixBefore))) {
-			textBefore = "" + textPrefixBefore + value + textSuffixBefore;
-		} else {
-			textBefore = '';
-		}
-		if ((!isEmpty(textPrefixAfter)) || (!isEmpty(textSuffixAfter))) {
-			textAfter = "" + textPrefixAfter + value + textSuffixAfter;
-		} else {
-			textAfter = '';
-		}
-		forceReadSimple(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf);
-	};
 
 	AccessibleDisplayScreenReaderImplementation.prototype.displayShortcut = function(element) {
 		var description, item, key, keys, _i, _len;

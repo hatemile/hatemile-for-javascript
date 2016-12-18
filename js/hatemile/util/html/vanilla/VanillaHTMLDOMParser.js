@@ -38,19 +38,6 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	var isDescendant;
-
-	/**
-	 * Initializes a new object that encapsulate the HTMLDocument.
-	 * @param {HTMLDocument} ownerDocument The owner document of parser.
-	 * @class The class VanillaHTMLDOMParser is official implementation of
-	 * HTMLDOMParser interface for JavaScript.
-	 * @implements {hatemile.util.html.HTMLDOMParser}
-	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
-	 */
-	function VanillaHTMLDOMParser(ownerDocument) {
-		this.ownerDocument = ownerDocument;
-		this.results = [];
-	}
 	
 	/**
 	 * Check that the element is descendant of other.
@@ -74,6 +61,19 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 		}
 		return false;
 	};
+	
+	/**
+	 * Initializes a new object that encapsulate the HTMLDocument.
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class VanillaHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for JavaScript.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
+	 */
+	function VanillaHTMLDOMParser(ownerDocument) {
+		this.ownerDocument = ownerDocument;
+		this.results = [];
+	}
 
 	VanillaHTMLDOMParser.prototype.find = function(selector) {
 		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {

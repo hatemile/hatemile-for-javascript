@@ -36,17 +36,6 @@ exports.hatemile.util.html.vanilla or= {}
 class exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	###*
-	 * Initializes a new object that encapsulate the HTMLDocument.
-	 * @param {HTMLDocument} ownerDocument The owner document of parser.
-	 * @class The class VanillaHTMLDOMParser is official implementation of
-	 * HTMLDOMParser interface for JavaScript.
-	 * @implements {hatemile.util.html.HTMLDOMParser}
-	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
-	###
-	constructor: (@ownerDocument) ->
-		@results = []
-	
-	###*
 	 * Check that the element is descendant of other.
 	 * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
 	 * ancestor.
@@ -64,6 +53,17 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 				return true
 			ancestor = ancestor.parentNode
 		return false
+	
+	###*
+	 * Initializes a new object that encapsulate the HTMLDocument.
+	 * @param {HTMLDocument} ownerDocument The owner document of parser.
+	 * @class The class VanillaHTMLDOMParser is official implementation of
+	 * HTMLDOMParser interface for JavaScript.
+	 * @implements {hatemile.util.html.HTMLDOMParser}
+	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
+	###
+	constructor: (@ownerDocument) ->
+		@results = []
 	
 	find: (selector) ->
 		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)

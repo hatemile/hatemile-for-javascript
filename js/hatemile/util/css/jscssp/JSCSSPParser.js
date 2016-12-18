@@ -38,30 +38,6 @@ exports.hatemile || (exports.hatemile = {});
 
 exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 	var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
-
-	/**
-	 * Initializes a new object that encapsulate the CSS parser.
-	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
-	 * document object or a string with CSS rules.
-	 * @param {string} currentURL The current URL of page.
-	 * @class The JSCSSPParser class is official implementation of
-	 * StyleSheetParser interface for JSCSSP.
-	 * @implements {hatemile.util.css.StyleSheetParser}
-	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
-	 */
-	function JSCSSPParser(parser, currentURL) {
-		this.parser = parser;
-		this.currentURL = currentURL;
-		if (!(this.parser instanceof jscsspStylesheet)) {
-			parser = new CSSParser();
-			if (this.parser instanceof exports.HTMLDocument) {
-				this.parser = getCSSContent(this.parser, this.currentURL);
-			}
-			if (typeof this.parser === typeof '') {
-				this.parser = parser.parse("body{}" + this.parser, false, false);
-			}
-		}
-	}
 	
 	/*
 	 * Returns the absolute path of a URL.
@@ -202,6 +178,30 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 		}
 		return text;
 	};
+
+	/**
+	 * Initializes a new object that encapsulate the CSS parser.
+	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
+	 * document object or a string with CSS rules.
+	 * @param {string} currentURL The current URL of page.
+	 * @class The JSCSSPParser class is official implementation of
+	 * StyleSheetParser interface for JSCSSP.
+	 * @implements {hatemile.util.css.StyleSheetParser}
+	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
+	 */
+	function JSCSSPParser(parser, currentURL) {
+		this.parser = parser;
+		this.currentURL = currentURL;
+		if (!(this.parser instanceof jscsspStylesheet)) {
+			parser = new CSSParser();
+			if (this.parser instanceof exports.HTMLDocument) {
+				this.parser = getCSSContent(this.parser, this.currentURL);
+			}
+			if (typeof this.parser === typeof '') {
+				this.parser = parser.parse("body{}" + this.parser, false, false);
+			}
+		}
+	}
 
 	JSCSSPParser.prototype.getRules = function(properties) {
 		var nativeRule, property, rule, rules, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
