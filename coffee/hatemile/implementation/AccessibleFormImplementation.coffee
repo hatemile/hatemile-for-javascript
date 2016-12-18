@@ -73,21 +73,6 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 		return undefined
 	
 	###*
-	 * Returns the labels of field.
-	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {hatemile.util.html.HTMLDOMElement[]} The labels of field.
-	 * @private
-	 * @function hatemile.implementation.AccessibleFormImplementation.getLabels
-	###
-	getLabels = (field, parser) ->
-		if field.hasAttribute('id')
-			labels = parser.find("label[for=\"#{field.getAttribute('id')}\"]").listResults()
-		if isEmpty(labels)
-			labels = parser.find(field).findAncestors('label').listResults()
-		return labels
-	
-	###*
 	 * Increase a function on event.
 	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
 	 * @param {string} typeEvent The type of event.
@@ -418,30 +403,6 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@markAutoCompleteField(element)
-		return
-	
-	associateLabelWithField: (label) ->
-		if label.getTagName() is 'LABEL'
-			if label.hasAttribute('for')
-				field = @parser.find("##{label.getAttribute('for')}").firstResult()
-			else
-				field = @parser.find(label).findDescendants('input,select,textarea').firstResult()
-				
-				if not isEmpty(field)
-					exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
-					label.setAttribute('for', field.getAttribute('id'))
-			if (not isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
-				if not field.hasAttribute('aria-label')
-					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
-				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
-				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
-		return
-	
-	associateAllLabelsWithFields: () ->
-		labels = @parser.find('label').listResults()
-		for label in labels
-			if exports.hatemile.util.CommonFunctions.isValidElement(label)
-				@associateLabelWithField(label)
 		return
 	
 	markInvalidField: (field) ->

@@ -71,21 +71,6 @@ class exports.hatemile.AccessibleForm
 	markAllAutoCompleteFields: () ->
 	
 	###*
-	 * Associate label with field.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @public
-	 * @function hatemile.AccessibleForm#associateLabelWithField
-	###
-	associateLabelWithField: (label) ->
-	
-	###*
-	 * Associate all labels of page with fields.
-	 * @public
-	 * @function hatemile.AccessibleForm#associateAllLabelsWithFields
-	###
-	associateAllLabelsWithFields: () ->
-	
-	###*
 	 * Mark a solution to display that this field is invalid.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
 	 * @public

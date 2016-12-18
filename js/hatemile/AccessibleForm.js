@@ -82,23 +82,6 @@ exports.hatemile.AccessibleForm = (function() {
 	};
 
 	/**
-	 * Associate label with field.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @public
-	 * @function hatemile.AccessibleForm#associateLabelWithField
-	 */
-	AccessibleForm.prototype.associateLabelWithField = function(label) {
-	};
-
-	/**
-	 * Associate all labels of page with fields.
-	 * @public
-	 * @function hatemile.AccessibleForm#associateAllLabelsWithFields
-	 */
-	AccessibleForm.prototype.associateAllLabelsWithFields = function() {
-	};
-
-	/**
 	 * Mark a solution to display that this field is invalid.
 	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
 	 * @public

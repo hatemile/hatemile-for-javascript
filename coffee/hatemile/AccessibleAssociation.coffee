@@ -39,3 +39,18 @@ class exports.hatemile.AccessibleAssociation
 	 * @function hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
 	###
 	associateAllDataCellsWithHeaderCells: () ->
+	
+	###*
+	 * Associate label with field.
+	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateLabelWithField
+	###
+	associateLabelWithField: (label) ->
+	
+	###*
+	 * Associate all labels of page with fields.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateAllLabelsWithFields
+	###
+	associateAllLabelsWithFields: () ->

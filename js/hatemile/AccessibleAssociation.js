@@ -47,6 +47,23 @@ exports.hatemile.AccessibleAssociation = (function() {
 	AccessibleAssociation.prototype.associateAllDataCellsWithHeaderCells = function() {
 	};
 
+	/**
+	 * Associate label with field.
+	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateLabelWithField
+	 */
+	AccessibleAssociation.prototype.associateLabelWithField = function(label) {
+	};
+
+	/**
+	 * Associate all labels of page with fields.
+	 * @public
+	 * @function hatemile.AccessibleAssociation#associateAllLabelsWithFields
+	 */
+	AccessibleAssociation.prototype.associateAllLabelsWithFields = function() {
+	};
+
 	return AccessibleAssociation;
 
 })();

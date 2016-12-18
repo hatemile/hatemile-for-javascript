@@ -308,6 +308,39 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 		}
 	};
 
+	AccessibleAssociationImplementation.prototype.associateLabelWithField = function(label) {
+		var field;
+		if (label.getTagName() === 'LABEL') {
+			if (label.hasAttribute('for')) {
+				field = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
+			} else {
+				field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
+				if (!isEmpty(field)) {
+					exports.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
+					label.setAttribute('for', field.getAttribute('id'));
+				}
+			}
+			if ((!isEmpty(field)) && (!field.hasAttribute(DATA_IGNORE))) {
+				if (!field.hasAttribute('aria-label')) {
+					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
+				}
+				exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
+				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
+			}
+		}
+	};
+
+	AccessibleAssociationImplementation.prototype.associateAllLabelsWithFields = function() {
+		var label, labels, _i, _len;
+		labels = this.parser.find('label').listResults();
+		for (_i = 0, _len = labels.length; _i < _len; _i++) {
+			label = labels[_i];
+			if (exports.hatemile.util.CommonFunctions.isValidElement(label)) {
+				this.associateLabelWithField(label);
+			}
+		}
+	};
+
 	return AccessibleAssociationImplementation;
 
 })();

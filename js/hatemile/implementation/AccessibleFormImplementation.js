@@ -27,7 +27,7 @@ exports.hatemile || (exports.hatemile = {});
 (_base = exports.hatemile).implementation || (_base.implementation = {});
 
 exports.hatemile.implementation.AccessibleFormImplementation = (function() {
-	var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, addEventHandler, getARIAAutoComplete, getLabels, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow;
+	var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, addEventHandler, getARIAAutoComplete, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
 	DATA_EVENT_CHANGE_ADDED = 'data-changeadded';
@@ -82,25 +82,6 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 			}
 		}
 		return void 0;
-	};
-
-	/**
-	 * Returns the labels of field.
-	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {hatemile.util.html.HTMLDOMElement[]} The labels of field.
-	 * @private
-	 * @function hatemile.implementation.AccessibleFormImplementation.getLabels
-	 */
-	getLabels = function(field, parser) {
-		var labels;
-		if (field.hasAttribute('id')) {
-			labels = parser.find("label[for=\"" + (field.getAttribute('id')) + "\"]").listResults();
-		}
-		if (isEmpty(labels)) {
-			labels = parser.find(field).findAncestors('label').listResults();
-		}
-		return labels;
 	};
 
 	/**
@@ -495,39 +476,6 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.markAutoCompleteField(element);
-			}
-		}
-	};
-
-	AccessibleFormImplementation.prototype.associateLabelWithField = function(label) {
-		var field;
-		if (label.getTagName() === 'LABEL') {
-			if (label.hasAttribute('for')) {
-				field = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
-			} else {
-				field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
-				if (!isEmpty(field)) {
-					exports.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
-					label.setAttribute('for', field.getAttribute('id'));
-				}
-			}
-			if ((!isEmpty(field)) && (!field.hasAttribute(DATA_IGNORE))) {
-				if (!field.hasAttribute('aria-label')) {
-					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
-				}
-				exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
-				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
-			}
-		}
-	};
-
-	AccessibleFormImplementation.prototype.associateAllLabelsWithFields = function() {
-		var label, labels, _i, _len;
-		labels = this.parser.find('label').listResults();
-		for (_i = 0, _len = labels.length; _i < _len; _i++) {
-			label = labels[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(label)) {
-				this.associateLabelWithField(label);
 			}
 		}
 	};
