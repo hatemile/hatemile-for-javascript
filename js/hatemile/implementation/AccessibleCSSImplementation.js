@@ -397,7 +397,9 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsSpellOut
 	 */
 	speakAsSpellOut = function(element, htmlParser) {
-		speakAs(element, '[a-zA-Z]', 'spell-out', htmlParser, function(content, index, children) {
+		var dataPropertyValue;
+		dataPropertyValue = 'spell-out';
+		speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, function(content, index, children) {
 			children.push(createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser));
 			return children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser));
 		});
@@ -428,7 +430,9 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsLiteralPunctuation
 	 */
 	speakAsLiteralPunctuation = function(element, htmlParser, symbols) {
-		speakAs(element, getRegularExpressionOfSymbols(symbols), 'literal-punctuation', htmlParser, function(content, index, children) {
+		var dataPropertyValue;
+		dataPropertyValue = 'literal-punctuation';
+		speakAs(element, getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
@@ -463,7 +467,9 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsNoPunctuation
 	 */
 	speakAsNoPunctuation = function(element, htmlParser) {
-		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', 'no-punctuation', htmlParser, function(content, index, children) {
+		var dataPropertyValue;
+		dataPropertyValue = 'no-punctuation';
+		speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
@@ -493,7 +499,9 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	 * @function hatemile.implementation.AccessibleCSSImplementation.speakAsDigits
 	 */
 	speakAsDigits = function(element, htmlParser) {
-		speakAs(element, '[0-9]', 'no-punctuation', htmlParser, function(content, index, children) {
+		var dataPropertyValue;
+		dataPropertyValue = 'digits';
+		speakAs(element, '[0-9]', dataPropertyValue, htmlParser, function(content, index, children) {
 			if (index !== 0) {
 				children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
 			}
