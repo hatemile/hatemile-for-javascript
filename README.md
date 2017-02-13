@@ -100,7 +100,8 @@ accessibleScreenReader.displayAllLanguages();
 ```
 
 ## See also
-[HaTeMiLe for Java](https://github.com/carlsonsantana/HaTeMiLe-for-Java)
-[HaTeMiLe for PHP](https://github.com/carlsonsantana/HaTeMiLe-for-PHP)
-[HaTeMiLe for Python](https://github.com/carlsonsantana/HaTeMiLe-for-Python)
-[HaTeMiLe for Ruby](https://github.com/carlsonsantana/HaTeMiLe-for-Ruby)
+* [HaTeMiLe for CSS](https://github.com/carlsonsantana/HaTeMiLe-for-CSS)
+* [HaTeMiLe for Java](https://github.com/carlsonsantana/HaTeMiLe-for-Java)
+* [HaTeMiLe for PHP](https://github.com/carlsonsantana/HaTeMiLe-for-PHP)
+* [HaTeMiLe for Python](https://github.com/carlsonsantana/HaTeMiLe-for-Python)
+* [HaTeMiLe for Ruby](https://github.com/carlsonsantana/HaTeMiLe-for-Ruby)
