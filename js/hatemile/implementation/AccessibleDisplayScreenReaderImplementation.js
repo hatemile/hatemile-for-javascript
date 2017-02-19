@@ -118,7 +118,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 	DATA_INVALID_DATETIME = 'data-invaliddatetime';
 	DATA_INVALID_MONTH = 'data-invalidmonth';
 	DATA_INVALID_WEEK = 'data-invalidweek';
-	
+
 	/**
 	 * Returns the shortcut prefix of browser.
 	 * @param {string} userAgent The user agent of browser.
@@ -1022,7 +1022,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 
 	AccessibleDisplayScreenReaderImplementation.prototype.displayAllWAIARIAStates = function() {
 		var element, elements, _i, _len;
-		elements = this.parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
+		elements = this.parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {

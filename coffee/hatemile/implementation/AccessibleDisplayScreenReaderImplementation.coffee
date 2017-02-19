@@ -931,7 +931,7 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		return
 	
 	displayAllWAIARIAStates: () ->
-		elements = @parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults()
+		elements = @parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayWAIARIAStates(element)
