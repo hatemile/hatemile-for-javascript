@@ -4,21 +4,12 @@ HaTeMiLe (HTML Accessible) is a library that can convert a HTML code in a HTML c
 
 ## Accessibility solutions
 
-* Associate HTML elements;
-* Provide a polyfill to CSS speech and aural properties: speak, speak-as, speak-punctuation, speak-numeral and speak-header;
-* Display more information of page for screen reader:
-  * Titles;
-  * Link attributes;
-  * Cell headers;
-  * Keyboard shortcuts;
-  * Languages;
-  * WAI-ARIA roles;
-  * WAI-ARIA attribute.
-* Make mouse events available from a keyboard;
-* Show information of fields;
-* Provide a polyfill to long descriptions attributes;
-* Provide links to navigate by heading;
-* Provide links to skip contents of page.
+* [Associate HTML elements](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Associate-HTML-elements);
+* [Provide a polyfill to CSS Speech and CSS Aural properties](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Provide-a-polyfill-to-CSS-Speech-and-CSS-Aural-properties);
+* [Display inacessible informations of page](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Display-inacessible-informations-of-page);
+* [Enable all functionality of page available from a keyboard](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Enable-all-functionality-of-page-available-from-a-keyboard);
+* [Improve the acessibility of forms](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Improve-the-acessibility-of-forms);
+* [Provide accessibility resources to navigate](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Provide-accessibility-resources-to-navigate).
 
 ## Documentation
 
