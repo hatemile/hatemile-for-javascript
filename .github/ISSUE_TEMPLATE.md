@@ -17,5 +17,5 @@
 [What actually happened]
 
 ## Your Environment
+* **Version**: 2.0.2
 * **Browser and it version**: [all | Chrome XX | Firefox XX | IE XX | Safari XX | Mobile Chrome XX | Android X.X Web Browser | iOS XX Safari | iOS XX UIWebView | iOS XX WKWebView ]
-* **Version of HaTeMiLe for Browser**: 2.0.2
