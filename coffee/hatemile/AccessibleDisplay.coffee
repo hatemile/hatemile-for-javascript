@@ -145,3 +145,18 @@ class exports.hatemile.AccessibleDisplay
 	 * @function hatemile.AccessibleDisplay#displayAllLanguages
 	###
 	displayAllLanguages: () ->
+	
+	###*
+	 * Display the alternative text of image.
+	 * @param {hatemile.util.html.HTMLDOMElement} image The image.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAlternativeTextImage
+	###
+	displayAlternativeTextImage: (image) ->
+	
+	###*
+	 * Display the alternative text of all images of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllAlternativeTextImages
+	###
+	displayAllAlternativeTextImages: () ->

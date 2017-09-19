@@ -167,6 +167,23 @@ exports.hatemile.AccessibleDisplay = (function() {
 	AccessibleDisplay.prototype.displayAllLanguages = function() {
 	};
 
+	/**
+	 * Display the alternative text of image.
+	 * @param {hatemile.util.html.HTMLDOMElement} image The image.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAlternativeTextImage
+	 */
+	AccessibleDisplay.prototype.displayAlternativeTextImage = function(image) {
+	};
+
+	/**
+	 * Display the alternative texts of all images of page.
+	 * @public
+	 * @function hatemile.AccessibleDisplay#displayAllAlternativeTextImages
+	 */
+	AccessibleDisplay.prototype.displayAllAlternativeTextImages = function() {
+	};
+
 	return AccessibleDisplay;
 
 })();

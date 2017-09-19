@@ -1149,6 +1149,34 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		}
 	};
 
+	AccessibleDisplayScreenReaderImplementation.prototype.displayAlternativeTextImage = function(image) {
+		if ((image.hasAttribute('alt')) || (image.hasAttribute('title'))) {
+			if ((image.hasAttribute('alt')) && (!image.hasAttribute('title'))) {
+				image.setAttribute('title', image.getAttribute('alt'));
+			} else if ((image.hasAttribute('title')) && (!image.hasAttribute('alt'))) {
+				image.setAttribute('alt', image.getAttribute('title'));
+			}
+			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+			image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'));
+			image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'));
+		} else {
+			image.setAttribute('alt', '');
+			image.setAttribute('role', 'presentation');
+			image.setAttribute('aria-hidden', 'true');
+		}
+	};
+
+	AccessibleDisplayScreenReaderImplementation.prototype.displayAllAlternativeTextImages = function() {
+		var image, images, _i, _len;
+		images = this.parser.find('img').listResults();
+		for (_i = 0, _len = images.length; _i < _len; _i++) {
+			image = images[_i];
+			if (exports.hatemile.util.CommonFunctions.isValidElement(image)) {
+				this.displayAlternativeTextImage(image);
+			}
+		}
+	};
+
 	return AccessibleDisplayScreenReaderImplementation;
 
 })();

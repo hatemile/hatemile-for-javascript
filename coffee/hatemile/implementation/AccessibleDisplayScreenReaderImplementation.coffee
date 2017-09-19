@@ -1022,3 +1022,25 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLanguage(element)
 		return
+	
+	displayAlternativeTextImage: (image) ->
+		if (image.hasAttribute('alt')) or (image.hasAttribute('title'))
+			if (image.hasAttribute('alt')) and (not image.hasAttribute('title'))
+				image.setAttribute('title', image.getAttribute('alt'))
+			else if (image.hasAttribute('title')) and (not image.hasAttribute('alt'))
+				image.setAttribute('alt', image.getAttribute('title'))
+			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+			image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'))
+			image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'))
+		else
+			image.setAttribute('alt', '')
+			image.setAttribute('role', 'presentation')
+			image.setAttribute('aria-hidden', 'true')
+		return
+	
+	displayAllAlternativeTextImages: () ->
+		images = @parser.find('img').listResults();
+		for image in images
+			if exports.hatemile.util.CommonFunctions.isValidElement(image)
+				@displayAlternativeTextImage(image)
+		return
