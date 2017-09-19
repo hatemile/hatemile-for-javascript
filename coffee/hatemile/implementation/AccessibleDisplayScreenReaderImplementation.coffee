@@ -39,8 +39,6 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 	DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF = 'data-attributeautocompleteafterof'
 	DATA_ATTRIBUTE_TITLE_BEFORE_OF = 'data-attributetitlebeforeof'
 	DATA_ATTRIBUTE_TITLE_AFTER_OF = 'data-attributetitleafterof'
-	DATA_ATTRIBUTE_HREF_BEFORE_OF = 'data-attributehrefbeforeof'
-	DATA_ATTRIBUTE_HREF_AFTER_OF = 'data-attributehrefafterof'
 	DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF = 'data-attributeaccesskeybeforeof'
 	DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF = 'data-attributeaccesskeyafterof'
 	DATA_ATTRIBUTE_TARGET_BEFORE_OF = 'data-attributetargetbeforeof'
@@ -376,10 +374,6 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 		@attributeTitleSuffixBefore = configure.getParameter('attribute-title-suffix-before')
 		@attributeTitlePrefixAfter = configure.getParameter('attribute-title-prefix-after')
 		@attributeTitleSuffixAfter = configure.getParameter('attribute-title-suffix-after')
-		@attributeHrefPrefixBefore = configure.getParameter('attribute-href-prefix-before')
-		@attributeHrefSuffixBefore = configure.getParameter('attribute-href-suffix-before')
-		@attributeHrefPrefixAfter = configure.getParameter('attribute-href-prefix-after')
-		@attributeHrefSuffixAfter = configure.getParameter('attribute-href-suffix-after')
 		@attributeAccesskeyDefault = configure.getParameter('attribute-accesskey-default')
 		@attributeAccesskeyPrefixBefore = configure.getParameter('attribute-accesskey-prefix-before')
 		@attributeAccesskeySuffixBefore = configure.getParameter('attribute-accesskey-suffix-before')
@@ -942,12 +936,10 @@ class exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementatio
 			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF)
 		if (link.hasAttribute('target')) and (link.getAttribute('target') is '_blank')
 			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF)
-		if (link.hasAttribute('href')) and (not isEmpty(link.getAttribute('href')))
-			forceRead(link, link.getAttribute('href'), @parser, @prefixId, @attributeHrefPrefixBefore, @attributeHrefSuffixBefore, @attributeHrefPrefixAfter, @attributeHrefSuffixAfter, DATA_ATTRIBUTE_HREF_BEFORE_OF, DATA_ATTRIBUTE_HREF_AFTER_OF)
 		return
 	
 	displayAllLinksAttributes: () ->
-		elements = @parser.find('a[download],a[target="_blank"],a[href]').listResults()
+		elements = @parser.find('a[download],a[target="_blank"]').listResults()
 		for element in elements
 			if exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLinkAttributes(element)
