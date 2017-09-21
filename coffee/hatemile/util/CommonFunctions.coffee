@@ -11,23 +11,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
  * @class hatemile.util.CommonFunctions
 ###
-class exports.hatemile.util.CommonFunctions
+class __exports.hatemile.util.CommonFunctions
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_count = 0

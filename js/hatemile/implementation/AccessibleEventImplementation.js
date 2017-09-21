@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleEventImplementation = (function() {
+__exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, isEnter, keyboardAccess, visit;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
@@ -102,11 +102,11 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 					}
 				};
 			} else {
-				found = exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+				found = __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
 			}
 			if (!found) {
 				nativeElement["liston" + typeEvent].push(functionForEventHandler);
-				attribute = exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
+				attribute = __exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
 				element.setAttribute(typeDataEvent, attribute);
 			}
 		}
@@ -131,7 +131,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 			return (!isEmpty(nativeElement["on" + typeEvent])) || ((!isEmpty(nativeElement.eventListenerList)) && (!isEmpty(nativeElement.eventListenerList[typeEvent])));
 		} else {
 			attribute = element.getAttribute(typeDataEvent);
-			return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+			return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
 		}
 	};
 
@@ -164,8 +164,8 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	 */
 	generateDropEffect = function(parser) {
 		var ariaDropEffect, dropEffect, droppedElement, droppedElements, effectAllowed, _i, _len;
-		dropEffect = exports.__dragEventDataTransfer__.dropEffect;
-		effectAllowed = exports.__dragEventDataTransfer__.effectAllowed;
+		dropEffect = __exports.__dragEventDataTransfer__.dropEffect;
+		effectAllowed = __exports.__dragEventDataTransfer__.effectAllowed;
 		if ((dropEffect === 'none') || ((dropEffect !== 'copy') && (dropEffect !== 'link') && (dropEffect !== 'move'))) {
 			if ((effectAllowed === 'copyLink') || (effectAllowed === 'copyMove') || (effectAllowed === 'linkMove') || (effectAllowed === 'all')) {
 				ariaDropEffect = 'popup';
@@ -208,29 +208,29 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	 * @function hatemile.implementation.AccessibleEventImplementation.executeDragEvent
 	 */
 	executeDragEvent = function(type, element, event) {
-		if (isEmpty(exports.__dragEventDataTransfer__)) {
-			exports.__dragEventDataTransfer__ = {
+		if (isEmpty(__exports.__dragEventDataTransfer__)) {
+			__exports.__dragEventDataTransfer__ = {
 				'files': null
 				, 'types': null
 				, 'effectAllowed': 'uninitialized'
 				, 'dropEffect': 'none'
 			};
-			exports.__dragEventDataTransfer__.setDragImage = function() {
+			__exports.__dragEventDataTransfer__.setDragImage = function() {
 			};
-			exports.__dragEventDataTransfer__.addElement = function() {
+			__exports.__dragEventDataTransfer__.addElement = function() {
 			};
-			exports.__dragEventDataTransfer__._data = {};
-			exports.__dragEventDataTransfer__.setData = function(format, data) {
-				exports.__dragEventDataTransfer__._data[format] = data;
+			__exports.__dragEventDataTransfer__._data = {};
+			__exports.__dragEventDataTransfer__.setData = function(format, data) {
+				__exports.__dragEventDataTransfer__._data[format] = data;
 			};
-			exports.__dragEventDataTransfer__.getData = function(format) {
-				return exports.__dragEventDataTransfer__._data[format];
+			__exports.__dragEventDataTransfer__.getData = function(format) {
+				return __exports.__dragEventDataTransfer__._data[format];
 			};
-			exports.__dragEventDataTransfer__.clearData = function(format) {
+			__exports.__dragEventDataTransfer__.clearData = function(format) {
 				if (isEmpty(format)) {
-					exports.__dragEventDataTransfer__._data = {};
+					__exports.__dragEventDataTransfer__._data = {};
 				} else {
-					exports.__dragEventDataTransfer__._data[format] = void 0;
+					__exports.__dragEventDataTransfer__._data[format] = void 0;
 				}
 			};
 		}
@@ -332,7 +332,7 @@ exports.hatemile.implementation.AccessibleEventImplementation = (function() {
 	createDragEvent = function(type, element, event) {
 		var dragEvent;
 		dragEvent = createMouseEvent(type, element, event);
-		dragEvent.dataTransfer = exports.__dragEventDataTransfer__;
+		dragEvent.dataTransfer = __exports.__dragEventDataTransfer__;
 		return dragEvent;
 	};
 

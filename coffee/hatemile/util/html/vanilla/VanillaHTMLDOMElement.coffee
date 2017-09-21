@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-exports.hatemile.util.html or= {}
+__exports.hatemile.util.html or= {}
 
 ###*
  * @namespace hatemile.util.html.vanilla
 ###
-exports.hatemile.util.html.vanilla or= {}
+__exports.hatemile.util.html.vanilla or= {}
 
-class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
+class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLElement.
@@ -80,7 +80,7 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
 				text += child.nodeValue
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				elementChild = new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+				elementChild = new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
 				text += elementChild.getTextContent()
 		return text
 	
@@ -124,7 +124,7 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		children = @data.children
 		array = []
 		for child in children
-			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
 	getChildren: () ->
@@ -132,14 +132,14 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		array = []
 		for child in children
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
 	appendText: (text) ->
 		child = @getLastNodeChild()
-		if (child isnt undefined) and (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
+		if (child isnt undefined) and (child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
 			child.appendText(text)
 		else
 			@data.appendChild(@data.ownerDocument.createTextNode(text))
@@ -150,7 +150,7 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			@appendText(text)
 		else
 			child = @getFirstNodeChild()
-			if child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+			if child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 				child.prependText(text)
 			else
 				@data.insertBefore(@data.ownerDocument.createTextNode(text), child.getData())
@@ -179,7 +179,7 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			return undefined
 		else if isEmpty(@data.parentNode)
 			return undefined
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
 	getInnerHTML: () ->
 		return @data.innerHTML
@@ -201,17 +201,17 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	cloneElement: () ->
 		div = @data.ownerDocument.createElement('div')
 		div.innerHTML = @getOuterHTML()
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
 	
 	getFirstElementChild: () ->
 		if not @hasChildrenElements()
 			return undefined
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
 	
 	getLastElementChild: () ->
 		if not @hasChildrenElements()
 			return undefined
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
 	
 	getFirstNodeChild: () ->
 		if not @hasChildren()
@@ -219,9 +219,9 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		children = @data.childNodes
 		for child in children
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
-				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
+				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
 		return undefined
 	
 	getLastNodeChild: () ->
@@ -235,12 +235,12 @@ class exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		if lastChild == undefined
 			return undefined
 		else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
-			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
+			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
 		else if (lastChild.nodeType is @data.ownerDocument.ELEMENT_NODE)
-			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
+			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
 	
 	equals: (node) ->
-		if node instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
+		if node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			if @data is node.getData()
 				return true
 		return false

@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
-class exports.hatemile.util.Configure
+class __exports.hatemile.util.Configure
 	
 	###*
 	 * Initializes a new object that contains the configuration of HaTeMiLe.

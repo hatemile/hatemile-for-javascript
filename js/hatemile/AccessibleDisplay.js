@@ -12,20 +12,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports;
+var __exports;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * The AccessibleDisplay interface improve accessibility, showing informations.
  * @interface hatemile.AccessibleDisplay
  */
-exports.hatemile.AccessibleDisplay = (function() {
+__exports.hatemile.AccessibleDisplay = (function() {
 	function AccessibleDisplay() {
 	}
 

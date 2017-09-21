@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * @namespace hatemile.util.html.vanilla
  */
-(_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
+(_base2 = __exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
+__exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	var isDescendant;
 	
 	/**
@@ -76,7 +76,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	}
 
 	VanillaHTMLDOMParser.prototype.find = function(selector) {
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			this.results = [selector.getData()];
 		} else {
 			this.results = this.ownerDocument.querySelectorAll(selector);
@@ -87,7 +87,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	VanillaHTMLDOMParser.prototype.findChildren = function(selector) {
 		var children, descendant, descendants, result, resultChild, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2;
 		children = [];
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			_ref = this.results;
 			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 				result = _ref[_i];
@@ -123,7 +123,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	VanillaHTMLDOMParser.prototype.findDescendants = function(selector) {
 		var descendants, result, resultDescendant, resultDescendants, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
 		descendants = [];
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			_ref = this.results;
 			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 				result = _ref[_i];
@@ -150,7 +150,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 	VanillaHTMLDOMParser.prototype.findAncestors = function(selector) {
 		var ancestors, element, elements, result, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
 		ancestors = [];
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			_ref = this.results;
 			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 				result = _ref[_i];
@@ -180,14 +180,14 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 		if (isEmpty(this.results)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[0]);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[0]);
 	};
 
 	VanillaHTMLDOMParser.prototype.lastResult = function() {
 		if (isEmpty(this.results)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[this.results.length - 1]);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[this.results.length - 1]);
 	};
 
 	VanillaHTMLDOMParser.prototype.listResults = function() {
@@ -196,13 +196,13 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
 		_ref = this.results;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 			result = _ref[_i];
-			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
+			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
 		}
 		return array;
 	};
 
 	VanillaHTMLDOMParser.prototype.createElement = function(tag) {
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
 	};
 
 	VanillaHTMLDOMParser.prototype.getHTML = function() {

@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-exports.hatemile.util.css or= {}
+__exports.hatemile.util.css or= {}
 
 ###*
  * @namespace hatemile.util.css.jscssp
 ###
-exports.hatemile.util.css.jscssp or= {}
+__exports.hatemile.util.css.jscssp or= {}
 
-class exports.hatemile.util.css.jscssp.JSCSSPDeclaration
+class __exports.hatemile.util.css.jscssp.JSCSSPDeclaration
 	
 	###*
 	 * Initializes a new object that encapsulate the CSS declaration.

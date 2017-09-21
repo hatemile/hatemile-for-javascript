@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-exports.hatemile.implementation or= {}
+__exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleFormImplementation
+class __exports.hatemile.implementation.AccessibleFormImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	DATA_EVENT_CHANGE_ADDED = 'data-changeadded'
@@ -95,10 +95,10 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 						addedEvent(event)
 					return
 			else
-				found = exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+				found = __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 			if not found
 				nativeElement["liston#{typeEvent}"].push(functionForEventHandler)
-				attribute = exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
+				attribute = __exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
 				element.setAttribute(typeDataEvent, attribute)
 		return
 	
@@ -120,7 +120,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 			return (not isEmpty(nativeElement["on#{typeEvent}"])) or ((not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[typeEvent])))
 		else
 			attribute = element.getAttribute(typeDataEvent)
-			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 	
 	###*
 	 * Check that the field is valid.
@@ -374,7 +374,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	markAllRequiredFields: () ->
 		requiredFields = @parser.find('[required]').listResults()
 		for requiredField in requiredFields
-			if exports.hatemile.util.CommonFunctions.isValidElement(requiredField)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(requiredField)
 				@markRequiredField(requiredField)
 		return
 	
@@ -388,7 +388,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	markAllRangeFields: () ->
 		rangeFields = @parser.find('[min],[max]').listResults()
 		for rangeField in rangeFields
-			if exports.hatemile.util.CommonFunctions.isValidElement(rangeField)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(rangeField)
 				@markRangeField(rangeField)
 		return
 	
@@ -401,7 +401,7 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	markAllAutoCompleteFields: () ->
 		elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
 		for element in elements
-			if exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@markAutoCompleteField(element)
 		return
 	
@@ -437,6 +437,6 @@ class exports.hatemile.implementation.AccessibleFormImplementation
 	markAllInvalidFields: () ->
 		fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
 		for field in fields
-			if exports.hatemile.util.CommonFunctions.isValidElement(field)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(field)
 				@markInvalidField(field)
 		return

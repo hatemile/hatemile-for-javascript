@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * @namespace hatemile.util.html.vanilla
  */
-(_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
+(_base2 = __exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
+__exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 	/**
 	 * Initializes a new object that encapsulate the HTMLElement.
 	 * @param {HTMLElement} data The HTMLElement instance.
@@ -94,7 +94,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 			if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
 				text += child.nodeValue;
 			} else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
-				elementChild = new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
+				elementChild = new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
 				text += elementChild.getTextContent();
 			}
 		}
@@ -154,7 +154,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		array = [];
 		for (_i = 0, _len = children.length; _i < _len; _i++) {
 			child = children[_i];
-			array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child));
+			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child));
 		}
 		return array;
 	};
@@ -166,9 +166,9 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		for (_i = 0, _len = children.length; _i < _len; _i++) {
 			child = children[_i];
 			if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child));
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child));
 			} else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child));
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child));
 			}
 		}
 		return array;
@@ -177,7 +177,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 	VanillaHTMLDOMElement.prototype.appendText = function(text) {
 		var child;
 		child = this.getLastNodeChild();
-		if ((child !== void 0) && (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)) {
+		if ((child !== void 0) && (child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)) {
 			child.appendText(text);
 		} else {
 			this.data.appendChild(this.data.ownerDocument.createTextNode(text));
@@ -191,7 +191,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 			this.appendText(text);
 		} else {
 			child = this.getFirstNodeChild();
-			if (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
+			if (child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
 				child.prependText(text);
 			} else {
 				this.data.insertBefore(this.data.ownerDocument.createTextNode(text), child.getData());
@@ -233,7 +233,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		} else if (isEmpty(this.data.parentNode)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
 	};
 
 	VanillaHTMLDOMElement.prototype.getInnerHTML = function() {
@@ -260,21 +260,21 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		var div;
 		div = this.data.ownerDocument.createElement('div');
 		div.innerHTML = this.getOuterHTML();
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild);
 	};
 
 	VanillaHTMLDOMElement.prototype.getFirstElementChild = function() {
 		if (!this.hasChildrenElements()) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.firstElementChild);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.firstElementChild);
 	};
 
 	VanillaHTMLDOMElement.prototype.getLastElementChild = function() {
 		if (!this.hasChildrenElements()) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.lastElementChild);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.lastElementChild);
 	};
 
 	VanillaHTMLDOMElement.prototype.getFirstNodeChild = function() {
@@ -286,9 +286,9 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		for (_i = 0, _len = children.length; _i < _len; _i++) {
 			child = children[_i];
 			if (child.nodeType === this.data.ownerDocument.TEXT_NODE) {
-				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child);
+				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child);
 			} else if (child.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
-				return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
+				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
 			}
 		}
 		return void 0;
@@ -310,14 +310,14 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function() {
 		if (lastChild === void 0) {
 			return void 0;
 		} else if (lastChild.nodeType === this.data.ownerDocument.TEXT_NODE) {
-			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild);
+			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild);
 		} else if (lastChild.nodeType === this.data.ownerDocument.ELEMENT_NODE) {
-			return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild);
+			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild);
 		}
 	};
 
 	VanillaHTMLDOMElement.prototype.equals = function(node) {
-		if (node instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			if (this.data === node.getData()) {
 				return true;
 			}

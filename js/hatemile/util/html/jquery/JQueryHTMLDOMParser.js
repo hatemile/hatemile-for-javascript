@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * @namespace hatemile.util.html.jquery
  */
-(_base2 = exports.hatemile.util.html).jquery || (_base2.jquery = {});
+(_base2 = __exports.hatemile.util.html).jquery || (_base2.jquery = {});
 
-exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
+__exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	/**
 	 * Initializes a new object that encapsulate the jQuery.
 	 * @param {string|HTMLDocument} html The html code or owner document.
@@ -59,7 +59,7 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	}
 
 	JQueryHTMLDOMParser.prototype.find = function(selector) {
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			selector = selector.getData();
 		}
 		this.results = this.root.find(selector);
@@ -67,7 +67,7 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	};
 
 	JQueryHTMLDOMParser.prototype.findChildren = function(selector) {
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			selector = selector.getData();
 		}
 		this.results = jQuery(this.results).children(selector);
@@ -75,7 +75,7 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	};
 
 	JQueryHTMLDOMParser.prototype.findDescendants = function(selector) {
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			selector = selector.getData();
 		}
 		this.results = jQuery(this.results).find(selector);
@@ -83,7 +83,7 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 	};
 
 	JQueryHTMLDOMParser.prototype.findAncestors = function(selector) {
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
 			selector = selector.getData();
 		}
 		this.results = jQuery(this.results).parents(selector);
@@ -94,14 +94,14 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 		if (isEmpty(this.results)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(0));
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(0));
 	};
 
 	JQueryHTMLDOMParser.prototype.lastResult = function() {
 		if (isEmpty(this.results)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
 	};
 
 	JQueryHTMLDOMParser.prototype.listResults = function() {
@@ -111,14 +111,14 @@ exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
 			_ref = this.results;
 			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 				result = _ref[_i];
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
 			}
 		}
 		return array;
 	};
 
 	JQueryHTMLDOMParser.prototype.createElement = function(tag) {
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
 	};
 
 	JQueryHTMLDOMParser.prototype.getHTML = function() {

@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-exports.hatemile.util.css or= {}
+__exports.hatemile.util.css or= {}
 
 ###*
  * The StyleSheetDeclaration interface contains the methods for access the CSS
  * declaration.
  * @interface hatemile.util.css.StyleSheetDeclaration
 ###
-class exports.hatemile.util.css.StyleSheetDeclaration
+class __exports.hatemile.util.css.StyleSheetDeclaration
 	
 	###*
 	 * Returns the value of declaration.

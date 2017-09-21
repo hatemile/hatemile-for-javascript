@@ -12,7 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _ref
+var __exports, _base, _base1, _ref
 		, __hasProp = {}.hasOwnProperty
 		, __extends = function(child, parent) {
 			for (var key in parent) {
@@ -28,22 +28,22 @@ var exports, _base, _base1, _ref
 			return child;
 		};
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * The HTMLDOMElement interface contains the methods for access the HTML
@@ -51,7 +51,7 @@ exports.hatemile || (exports.hatemile = {});
  * @interface hatemile.util.html.HTMLDOMElement
  * @extends hatemile.util.html.HTMLDOMNode
  */
-exports.hatemile.util.html.HTMLDOMElement = (function(_super) {
+__exports.hatemile.util.html.HTMLDOMElement = (function(_super) {
 	__extends(HTMLDOMElement, _super);
 
 	function HTMLDOMElement() {
@@ -266,4 +266,4 @@ exports.hatemile.util.html.HTMLDOMElement = (function(_super) {
 
 	return HTMLDOMElement;
 
-})(exports.hatemile.util.html.HTMLDOMNode);
+})(__exports.hatemile.util.html.HTMLDOMNode);

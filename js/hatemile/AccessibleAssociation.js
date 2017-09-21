@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports;
+var __exports;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * The AccessibleAssociation interface improve accessibility, associating
  * elements.
  * @interface hatemile.AccessibleAssociation
  */
-exports.hatemile.AccessibleAssociation = (function() {
+__exports.hatemile.AccessibleAssociation = (function() {
 	function AccessibleAssociation() {
 	}
 

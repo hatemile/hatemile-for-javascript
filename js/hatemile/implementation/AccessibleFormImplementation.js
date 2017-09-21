@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleFormImplementation = (function() {
+__exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 	var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, addEventHandler, getARIAAutoComplete, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
@@ -112,11 +112,11 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 					}
 				};
 			} else {
-				found = exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+				found = __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
 			}
 			if (!found) {
 				nativeElement["liston" + typeEvent].push(functionForEventHandler);
-				attribute = exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
+				attribute = __exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
 				element.setAttribute(typeDataEvent, attribute);
 			}
 		}
@@ -141,7 +141,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 			return (!isEmpty(nativeElement["on" + typeEvent])) || ((!isEmpty(nativeElement.eventListenerList)) && (!isEmpty(nativeElement.eventListenerList[typeEvent])));
 		} else {
 			attribute = element.getAttribute(typeDataEvent);
-			return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+			return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix);
 		}
 	};
 
@@ -435,7 +435,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		requiredFields = this.parser.find('[required]').listResults();
 		for (_i = 0, _len = requiredFields.length; _i < _len; _i++) {
 			requiredField = requiredFields[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(requiredField)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(requiredField)) {
 				this.markRequiredField(requiredField);
 			}
 		}
@@ -455,7 +455,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		rangeFields = this.parser.find('[min],[max]').listResults();
 		for (_i = 0, _len = rangeFields.length; _i < _len; _i++) {
 			rangeField = rangeFields[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(rangeField)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(rangeField)) {
 				this.markRangeField(rangeField);
 			}
 		}
@@ -474,7 +474,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		elements = this.parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.markAutoCompleteField(element);
 			}
 		}
@@ -521,7 +521,7 @@ exports.hatemile.implementation.AccessibleFormImplementation = (function() {
 		fields = this.parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults();
 		for (_i = 0, _len = fields.length; _i < _len; _i++) {
 			field = fields[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(field)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(field)) {
 				this.markInvalidField(field);
 			}
 		}

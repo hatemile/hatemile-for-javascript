@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function() {
+__exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function() {
 	var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, DATA_ARIA_BUSY_AFTER_OF, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF, DATA_ARIA_SORT_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_AFTER_OF, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_AFTER_OF, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_AFTER_OF, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_AFTER_OF, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_AFTER_OF, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_AFTER_OF, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_AFTER_OF, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_AFTER_OF, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_URL, DATA_INVALID_URL_AFTER_OF, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_AFTER_OF, DATA_INVALID_WEEK_BEFORE_OF, DATA_ROLE_AFTER_OF, DATA_ROLE_BEFORE_OF, ID_CONTAINER_SHORTCUTS, ID_TEXT_SHORTCUTS, forceRead, forceReadSimple, generateListShortcuts, getDescription, getShortcutPrefix, insertAfter, insertBefore;
 
 	ID_CONTAINER_SHORTCUTS = 'container-shortcuts';
@@ -325,7 +325,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 	 */
 	forceReadSimple = function(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) {
 		var identifier, referenceAfter, referenceBefore, span;
-		exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
+		__exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
 		identifier = element.getAttribute('id');
 		if (!isEmpty(textBefore)) {
 			referenceBefore = parser.find("." + CLASS_FORCE_READ_BEFORE + "[" + dataBeforeOf + "=\"" + identifier + "\"]").firstResult();
@@ -816,7 +816,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[accesskey]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayShortcut(element);
 			}
 		}
@@ -838,7 +838,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[role]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayRole(element);
 			}
 		}
@@ -871,7 +871,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('td[headers],th[headers]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayCellHeader(element);
 			}
 		}
@@ -1019,7 +1019,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayWAIARIAStates(element);
 			}
 		}
@@ -1039,7 +1039,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('a[download],a[target="_blank"]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayLinkAttributes(element);
 			}
 		}
@@ -1056,7 +1056,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('body [title]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayTitle(element);
 			}
 		}
@@ -1106,7 +1106,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayDragAndDrop(element);
 			}
 		}
@@ -1134,7 +1134,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		elements = this.parser.find('html[lang],body[lang],body [lang],body [hreflang]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.displayLanguage(element);
 			}
 		}
@@ -1147,7 +1147,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 			} else if ((image.hasAttribute('title')) && (!image.hasAttribute('alt'))) {
 				image.setAttribute('alt', image.getAttribute('title'));
 			}
-			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+			__exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
 			image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'));
 			image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'));
 		} else {
@@ -1162,7 +1162,7 @@ exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (f
 		images = this.parser.find('img').listResults();
 		for (_i = 0, _len = images.length; _i < _len; _i++) {
 			image = images[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(image)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(image)) {
 				this.displayAlternativeTextImage(image);
 			}
 		}

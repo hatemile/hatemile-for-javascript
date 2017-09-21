@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-exports.hatemile.implementation or= {}
+__exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleNavigationImplementation
+class __exports.hatemile.implementation.AccessibleNavigationImplementation
 	
 	ID_CONTAINER_SKIPPERS = 'container-skippers'
 	ID_CONTAINER_HEADING = 'container-heading'
@@ -151,14 +151,14 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateAnchorFor
 	###
 	generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
-		exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
+		__exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		anchor = undefined
 		if isEmpty(parser.find("[#{dataAttribute}=\"#{element.getAttribute('id')}\"]").firstResult())
 			if element.getTagName() is 'A'
 				anchor = element
 			else
 				anchor = parser.createElement('a')
-				exports.hatemile.util.CommonFunctions.generateId(anchor, prefixId)
+				__exports.hatemile.util.CommonFunctions.generateId(anchor, prefixId)
 				anchor.setAttribute('class', anchorClass)
 				element.insertBefore(anchor)
 			if not anchor.hasAttribute('name')
@@ -178,12 +178,12 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 		elements = parser.find('[accesskey]').listResults()
 		for element in elements
 			shortcuts = element.getAttribute('accesskey').toLowerCase()
-			if exports.hatemile.util.CommonFunctions.inList(shortcuts, shortcut)
+			if __exports.hatemile.util.CommonFunctions.inList(shortcuts, shortcut)
 				for key in alphaNumbers
 					found = true
 					for elementWithShortcuts in elements
 						shortcuts = elementWithShortcuts.getAttribute('accesskey').toLowerCase()
-						if exports.hatemile.util.CommonFunctions.inList(shortcuts, key)
+						if __exports.hatemile.util.CommonFunctions.inList(shortcuts, key)
 							found = false
 							break
 					if found
@@ -248,7 +248,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 						if not isEmpty(shortcut)
 							freeShortcut(shortcut, @parser)
 							link.setAttribute('accesskey', shortcut)
-					exports.hatemile.util.CommonFunctions.generateId(link, @prefixId)
+					__exports.hatemile.util.CommonFunctions.generateId(link, @prefixId)
 
 					itemLink.appendElement(link)
 					@listSkippers.appendElement(itemLink)
@@ -258,7 +258,7 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 		for skipper in @skippers
 			elements = @parser.find(skipper['selector']).listResults()
 			for element in elements
-				if exports.hatemile.util.CommonFunctions.isValidElement(element)
+				if __exports.hatemile.util.CommonFunctions.isValidElement(element)
 					@provideNavigationBySkipper(element)
 		return
 	
@@ -294,13 +294,13 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	provideNavigationByAllHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
-			if exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@provideNavigationByHeading(element)
 		return
 	
 	provideNavigationToLongDescription: (image) ->
 		if image.hasAttribute('longdesc')
-			exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+			__exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
 			id = image.getAttribute('id')
 			if isEmpty(@parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]").firstResult())
 				if image.hasAttribute('alt')
@@ -327,6 +327,6 @@ class exports.hatemile.implementation.AccessibleNavigationImplementation
 	provideNavigationToAllLongDescriptions: () ->
 		elements = @parser.find('[longdesc]').listResults()
 		for element in elements
-			if exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
 				@provideNavigationToLongDescription(element)
 		return

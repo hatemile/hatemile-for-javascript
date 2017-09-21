@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.css
  */
-(_base1 = exports.hatemile.util).css || (_base1.css = {});
+(_base1 = __exports.hatemile.util).css || (_base1.css = {});
 
 /**
  * @namespace hatemile.util.css.jscssp
  */
-(_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
+(_base2 = __exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
-exports.hatemile.util.css.jscssp.JSCSSPRule = (function() {
+__exports.hatemile.util.css.jscssp.JSCSSPRule = (function() {
 	/**
 	 * Initializes a new object that encapsulate the CSS rule.
 	 * @param {jscsspStyleRule} rule The JSCSSP rule.
@@ -54,7 +54,7 @@ exports.hatemile.util.css.jscssp.JSCSSPRule = (function() {
 		_ref = this.rule.declarations;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 			nativeDeclaration = _ref[_i];
-			declaration = new exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration);
+			declaration = new __exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration);
 			if (propertyName === declaration.getProperty()) {
 				return true;
 			}
@@ -72,7 +72,7 @@ exports.hatemile.util.css.jscssp.JSCSSPRule = (function() {
 		_ref = this.rule.declarations;
 		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 			nativeDeclaration = _ref[_i];
-			declaration = new exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration);
+			declaration = new __exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration);
 			if (propertyName === declaration.getProperty()) {
 				declarations.push(declaration);
 			}

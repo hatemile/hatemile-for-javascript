@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.css
  */
-(_base1 = exports.hatemile.util).css || (_base1.css = {});
+(_base1 = __exports.hatemile.util).css || (_base1.css = {});
 
 /**
  * @namespace hatemile.util.css.jscssp
  */
-(_base2 = exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
+(_base2 = __exports.hatemile.util.css).jscssp || (_base2.jscssp = {});
 
-exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
+__exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 	var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
 	
 	/*
@@ -194,7 +194,7 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 		this.currentURL = currentURL;
 		if (!(this.parser instanceof jscsspStylesheet)) {
 			parser = new CSSParser();
-			if (this.parser instanceof exports.HTMLDocument) {
+			if (this.parser instanceof __exports.HTMLDocument) {
 				this.parser = getCSSContent(this.parser, this.currentURL);
 			}
 			if (typeof this.parser === typeof '') {
@@ -211,7 +211,7 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 				nativeRule = _ref[_i];
 				if (nativeRule.type === 1) {
-					rules.push(new exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule));
+					rules.push(new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule));
 				}
 			}
 		} else {
@@ -219,7 +219,7 @@ exports.hatemile.util.css.jscssp.JSCSSPParser = (function() {
 			for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
 				nativeRule = _ref1[_j];
 				if (nativeRule.type === 1) {
-					rule = new exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule);
+					rule = new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule);
 					for (_k = 0, _len2 = properties.length; _k < _len2; _k++) {
 						property = properties[_k];
 						if (rule.hasProperty(property)) {

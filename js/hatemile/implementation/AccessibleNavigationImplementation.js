@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleNavigationImplementation = (function() {
+__exports.hatemile.implementation.AccessibleNavigationImplementation = (function() {
 	var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING, freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading;
 
 	ID_CONTAINER_SKIPPERS = 'container-skippers';
@@ -176,14 +176,14 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	 */
 	generateAnchorFor = function(element, dataAttribute, anchorClass, parser, prefixId) {
 		var anchor;
-		exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
+		__exports.hatemile.util.CommonFunctions.generateId(element, prefixId);
 		anchor = void 0;
 		if (isEmpty(parser.find("[" + dataAttribute + "=\"" + (element.getAttribute('id')) + "\"]").firstResult())) {
 			if (element.getTagName() === 'A') {
 				anchor = element;
 			} else {
 				anchor = parser.createElement('a');
-				exports.hatemile.util.CommonFunctions.generateId(anchor, prefixId);
+				__exports.hatemile.util.CommonFunctions.generateId(anchor, prefixId);
 				anchor.setAttribute('class', anchorClass);
 				element.insertBefore(anchor);
 			}
@@ -209,14 +209,14 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
 			shortcuts = element.getAttribute('accesskey').toLowerCase();
-			if (exports.hatemile.util.CommonFunctions.inList(shortcuts, shortcut)) {
+			if (__exports.hatemile.util.CommonFunctions.inList(shortcuts, shortcut)) {
 				for (_j = 0, _len1 = alphaNumbers.length; _j < _len1; _j++) {
 					key = alphaNumbers[_j];
 					found = true;
 					for (_k = 0, _len2 = elements.length; _k < _len2; _k++) {
 						elementWithShortcuts = elements[_k];
 						shortcuts = elementWithShortcuts.getAttribute('accesskey').toLowerCase();
-						if (exports.hatemile.util.CommonFunctions.inList(shortcuts, key)) {
+						if (__exports.hatemile.util.CommonFunctions.inList(shortcuts, key)) {
 							found = false;
 							break;
 						}
@@ -301,7 +301,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 							link.setAttribute('accesskey', shortcut);
 						}
 					}
-					exports.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
+					__exports.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
 					itemLink.appendElement(link);
 					this.listSkippers.appendElement(itemLink);
 				}
@@ -317,7 +317,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 			elements = this.parser.find(skipper['selector']).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
-				if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+				if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 					this.provideNavigationBySkipper(element);
 				}
 			}
@@ -364,7 +364,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.provideNavigationByHeading(element);
 			}
 		}
@@ -373,7 +373,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 	AccessibleNavigationImplementation.prototype.provideNavigationToLongDescription = function(image) {
 		var anchor, id, text;
 		if (image.hasAttribute('longdesc')) {
-			exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+			__exports.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
 			id = image.getAttribute('id');
 			if (isEmpty(this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult())) {
 				if (image.hasAttribute('alt')) {
@@ -407,7 +407,7 @@ exports.hatemile.implementation.AccessibleNavigationImplementation = (function()
 		elements = this.parser.find('[longdesc]').listResults();
 		for (_i = 0, _len = elements.length; _i < _len; _i++) {
 			element = elements[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 				this.provideNavigationToLongDescription(element);
 			}
 		}

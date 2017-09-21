@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-exports.hatemile.implementation or= {}
+__exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleCSSImplementation
+class __exports.hatemile.implementation.AccessibleCSSImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
@@ -133,7 +133,7 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 			if isValidElement(element)
 				children = element.getChildren()
 				for child in children
-					if child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+					if child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 						span = htmlParser.createElement('span')
 						span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
 						span.appendText(child.getTextContent())
@@ -644,6 +644,6 @@ class exports.hatemile.implementation.AccessibleCSSImplementation
 		if selector isnt undefined
 			elements = @htmlParser.find(selector).listResults()
 			for element in elements
-				if exports.hatemile.util.CommonFunctions.isValidElement(element)
+				if __exports.hatemile.util.CommonFunctions.isValidElement(element)
 					@provideSpeakProperties(element)
 		return

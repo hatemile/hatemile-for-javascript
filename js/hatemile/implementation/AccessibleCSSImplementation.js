@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
+__exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 	var DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS, createAuralContentElement, createContentElement, createVisualContentElement, getDescriptionOfSymbol, getFormatedSymbol, getRegularExpressionOfSymbols, isValidElement, isValidInheritElement, isolateTextNode, replaceElementByOwnContent, reverseSpeakAs, speakAs, speakAsContinuousInherit, speakAsDigits, speakAsDigitsInherit, speakAsLiteralPunctuation, speakAsLiteralPunctuationInherit, speakAsNoPunctuation, speakAsNoPunctuationInherit, speakAsNormal, speakAsSpellOut, speakAsSpellOutInherit, speakHeaderAlways, speakHeaderAlwaysInherit, speakHeaderOnceInherit, speakNone, speakNoneInherit, speakNormal, speakNormalInherit, visit;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
@@ -135,7 +135,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 				children = element.getChildren();
 				for (_i = 0, _len = children.length; _i < _len; _i++) {
 					child = children[_i];
-					if (child instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
+					if (child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
 						span = htmlParser.createElement('span');
 						span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
 						span.appendText(child.getTextContent());
@@ -714,7 +714,7 @@ exports.hatemile.implementation.AccessibleCSSImplementation = (function() {
 			elements = this.htmlParser.find(selector).listResults();
 			for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
 				element = elements[_j];
-				if (exports.hatemile.util.CommonFunctions.isValidElement(element)) {
+				if (__exports.hatemile.util.CommonFunctions.isValidElement(element)) {
 					this.provideSpeakProperties(element);
 				}
 			}

@@ -12,31 +12,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1, _base2;
+var __exports, _base, _base1, _base2;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * @namespace hatemile.util.html.vanilla
  */
-(_base2 = exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
+(_base2 = __exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
+__exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 	/**
 	 * Initializes a new object that encapsulate the text node.
 	 * @param {Text} data The native text node.
@@ -104,7 +104,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 		if (isEmpty(this.data.parentNode)) {
 			return void 0;
 		}
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
 	};
 
 	VanillaHTMLDOMTextNode.prototype.getData = function() {
@@ -116,7 +116,7 @@ exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
 	};
 
 	VanillaHTMLDOMTextNode.prototype.equals = function(node) {
-		if (node instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
+		if (node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
 			if (this.data === node.getData()) {
 				return true;
 			}

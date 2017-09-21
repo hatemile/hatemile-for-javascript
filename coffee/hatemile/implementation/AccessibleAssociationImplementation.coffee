@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-exports.hatemile.implementation or= {}
+__exports.hatemile.implementation or= {}
 
-class exports.hatemile.implementation.AccessibleAssociationImplementation
+class __exports.hatemile.implementation.AccessibleAssociationImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	
@@ -160,7 +160,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 			headersIds = []
 			for cell in row
 				if cell.getTagName() is 'TH'
-					exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+					__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
 					headersIds.push(cell.getAttribute('id'))
 					
 					cell.setAttribute('scope', 'row')
@@ -169,7 +169,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 					if cell.getTagName() is 'TD'
 						headers = cell.getAttribute('headers')
 						for headerId in headersIds
-							headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId)
+							headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId)
 						cell.setAttribute('headers', headers)
 		return
 	
@@ -184,7 +184,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 	prepareHeaderCells = (tableHeader, parser, prefixId) ->
 		cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
 		for cell in cells
-			exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+			__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
 			if not cell.hasAttribute('scope')
 				cell.setAttribute('scope', 'col')
 		return
@@ -222,7 +222,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 							headersIds = getCellsHeadersIds(headerRows, i++)
 							headers = cell.getAttribute('headers')
 							for headersId in headersIds
-								headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
+								headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
 							cell.setAttribute('headers', headers)
 		if not isEmpty(body)
 			associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
@@ -233,7 +233,7 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 	associateAllDataCellsWithHeaderCells: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
-			if exports.hatemile.util.CommonFunctions.isValidElement(table)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(table)
 				if isEmpty(@parser.find(table).findDescendants("thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult())
 					@associateDataCellsWithHeaderCells(table)
 		return
@@ -246,18 +246,18 @@ class exports.hatemile.implementation.AccessibleAssociationImplementation
 				field = @parser.find(label).findDescendants('input,select,textarea').firstResult()
 				
 				if not isEmpty(field)
-					exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
+					__exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
 					label.setAttribute('for', field.getAttribute('id'))
 			if (not isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
 				if not field.hasAttribute('aria-label')
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
-				exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
-				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
+				__exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
+				field.setAttribute('aria-labelledby', __exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 	
 	associateAllLabelsWithFields: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels
-			if exports.hatemile.util.CommonFunctions.isValidElement(label)
+			if __exports.hatemile.util.CommonFunctions.isValidElement(label)
 				@associateLabelWithField(label)
 		return

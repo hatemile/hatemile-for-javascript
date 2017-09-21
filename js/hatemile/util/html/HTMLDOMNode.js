@@ -12,30 +12,30 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1;
+var __exports, _base, _base1;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.html
  */
-(_base1 = exports.hatemile.util).html || (_base1.html = {});
+(_base1 = __exports.hatemile.util).html || (_base1.html = {});
 
 /**
  * The HTMLDOMNode interface contains the methods for access the Node.
  * @interface hatemile.util.html.HTMLDOMNode
  */
-exports.hatemile.util.html.HTMLDOMNode = (function() {
+__exports.hatemile.util.html.HTMLDOMNode = (function() {
 	function HTMLDOMNode() {
 	}
 

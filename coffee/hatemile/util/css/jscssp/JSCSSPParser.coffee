@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-exports.hatemile.util.css or= {}
+__exports.hatemile.util.css or= {}
 
 ###*
  * @namespace hatemile.util.css.jscssp
 ###
-exports.hatemile.util.css.jscssp or= {}
+__exports.hatemile.util.css.jscssp or= {}
 
-class exports.hatemile.util.css.jscssp.JSCSSPParser
+class __exports.hatemile.util.css.jscssp.JSCSSPParser
 	
 	###
 	 * Returns the absolute path of a URL.
@@ -131,7 +131,7 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 	constructor: (@parser, @currentURL) ->
 		if not (@parser instanceof jscsspStylesheet)
 			parser = new CSSParser()
-			if (@parser instanceof exports.HTMLDocument)
+			if (@parser instanceof __exports.HTMLDocument)
 				@parser = getCSSContent(@parser, @currentURL)
 			if (typeof @parser is typeof '')
 				@parser = parser.parse("body{}#{@parser}", false, false)
@@ -162,11 +162,11 @@ class exports.hatemile.util.css.jscssp.JSCSSPParser
 		if isEmpty(properties)
 			for nativeRule in @parser.cssRules
 				if nativeRule.type is 1
-					rules.push(new exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule))
+					rules.push(new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule))
 		else
 			for nativeRule in @parser.cssRules
 				if nativeRule.type is 1
-					rule = new exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule)
+					rule = new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule)
 					for property in properties
 						if rule.hasProperty(property)
 							rules.push(rule)

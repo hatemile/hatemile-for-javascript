@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports;
+var __exports;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * The AccessibleEvent interface improve the accessibility, making elements
  * events available from a keyboard.
  * @interface hatemile.AccessibleEvent
  */
-exports.hatemile.AccessibleEvent = (function() {
+__exports.hatemile.AccessibleEvent = (function() {
 	function AccessibleEvent() {
 	}
 

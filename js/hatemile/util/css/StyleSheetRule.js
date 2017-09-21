@@ -12,30 +12,30 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base, _base1;
+var __exports, _base, _base1;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.util
  */
-(_base = exports.hatemile).util || (_base.util = {});
+(_base = __exports.hatemile).util || (_base.util = {});
 
 /**
  * @namespace hatemile.util.css
  */
-(_base1 = exports.hatemile.util).css || (_base1.css = {});
+(_base1 = __exports.hatemile.util).css || (_base1.css = {});
 
 /**
  * The StyleSheetRule interface contains the methods for access the CSS rule.
  * @interface hatemile.util.css.StyleSheetRule
  */
-exports.hatemile.util.css.StyleSheetRule = (function() {
+__exports.hatemile.util.css.StyleSheetRule = (function() {
 	function StyleSheetRule() {
 	}
 

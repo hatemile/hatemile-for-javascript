@@ -12,21 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var exports, _base;
+var __exports, _base;
 
-exports = this;
+__exports = this;
 
 /**
  * @namespace hatemile
  */
-exports.hatemile || (exports.hatemile = {});
+__exports.hatemile || (__exports.hatemile = {});
 
 /**
  * @namespace hatemile.implementation
  */
-(_base = exports.hatemile).implementation || (_base.implementation = {});
+(_base = __exports.hatemile).implementation || (_base.implementation = {});
 
-exports.hatemile.implementation.AccessibleAssociationImplementation = (function() {
+__exports.hatemile.implementation.AccessibleAssociationImplementation = (function() {
 	var DATA_IGNORE, associateDataCellsWithHeaderCellsOfRow, getCellsHeadersIds, getModelRow, getModelTable, getValidModelTable, prepareHeaderCells, validateHeader;
 
 	DATA_IGNORE = 'data-ignoreaccessibilityfix';
@@ -199,7 +199,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 			for (_j = 0, _len1 = row.length; _j < _len1; _j++) {
 				cell = row[_j];
 				if (cell.getTagName() === 'TH') {
-					exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
+					__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
 					headersIds.push(cell.getAttribute('id'));
 					cell.setAttribute('scope', 'row');
 				}
@@ -211,7 +211,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 						headers = cell.getAttribute('headers');
 						for (_l = 0, _len3 = headersIds.length; _l < _len3; _l++) {
 							headerId = headersIds[_l];
-							headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId);
+							headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId);
 						}
 						cell.setAttribute('headers', headers);
 					}
@@ -233,7 +233,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 		cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
 		for (_i = 0, _len = cells.length; _i < _len; _i++) {
 			cell = cells[_i];
-			exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
+			__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId);
 			if (!cell.hasAttribute('scope')) {
 				cell.setAttribute('scope', 'col');
 			}
@@ -279,7 +279,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 							headers = cell.getAttribute('headers');
 							for (_k = 0, _len2 = headersIds.length; _k < _len2; _k++) {
 								headersId = headersIds[_k];
-								headers = exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId);
+								headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId);
 							}
 							cell.setAttribute('headers', headers);
 						}
@@ -300,7 +300,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 		tables = this.parser.find('table').listResults();
 		for (_i = 0, _len = tables.length; _i < _len; _i++) {
 			table = tables[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(table)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(table)) {
 				if (isEmpty(this.parser.find(table).findDescendants("thead[" + DATA_IGNORE + "],tbody[" + DATA_IGNORE + "],tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],th[" + DATA_IGNORE + "],td[" + DATA_IGNORE + "]").firstResult())) {
 					this.associateDataCellsWithHeaderCells(table);
 				}
@@ -316,7 +316,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 			} else {
 				field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
 				if (!isEmpty(field)) {
-					exports.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
+					__exports.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
 					label.setAttribute('for', field.getAttribute('id'));
 				}
 			}
@@ -324,8 +324,8 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 				if (!field.hasAttribute('aria-label')) {
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
 				}
-				exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
-				field.setAttribute('aria-labelledby', exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
+				__exports.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
+				field.setAttribute('aria-labelledby', __exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
 			}
 		}
 	};
@@ -335,7 +335,7 @@ exports.hatemile.implementation.AccessibleAssociationImplementation = (function(
 		labels = this.parser.find('label').listResults();
 		for (_i = 0, _len = labels.length; _i < _len; _i++) {
 			label = labels[_i];
-			if (exports.hatemile.util.CommonFunctions.isValidElement(label)) {
+			if (__exports.hatemile.util.CommonFunctions.isValidElement(label)) {
 				this.associateLabelWithField(label);
 			}
 		}

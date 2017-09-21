@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-exports = this
+__exports = this
 
 ###*
  * @namespace hatemile
 ###
-exports.hatemile or= {}
+__exports.hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-exports.hatemile.util or= {}
+__exports.hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-exports.hatemile.util.html or= {}
+__exports.hatemile.util.html or= {}
 
 ###*
  * @namespace hatemile.util.html.jquery
 ###
-exports.hatemile.util.html.jquery or= {}
+__exports.hatemile.util.html.jquery or= {}
 
-class exports.hatemile.util.html.jquery.JQueryHTMLDOMParser
+class __exports.hatemile.util.html.jquery.JQueryHTMLDOMParser
 	
 	###*
 	 * Initializes a new object that encapsulate the jQuery.
@@ -55,25 +55,25 @@ class exports.hatemile.util.html.jquery.JQueryHTMLDOMParser
 			@ownerDocument = document
 	
 	find: (selector) ->
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
 		@results = @root.find(selector)
 		return this
 	
 	findChildren: (selector) ->
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
 		@results = jQuery(@results).children(selector)
 		return this
 	
 	findDescendants: (selector) ->
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
 		@results = jQuery(@results).find(selector)
 		return this
 	
 	findAncestors: (selector) ->
-		if (selector instanceof exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			selector = selector.getData()
 		@results = jQuery(@results).parents(selector)
 		return this
@@ -81,22 +81,22 @@ class exports.hatemile.util.html.jquery.JQueryHTMLDOMParser
 	firstResult: () ->
 		if isEmpty(@results)
 			return undefined
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results.get(0))
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results.get(0))
 	
 	lastResult: () ->
 		if isEmpty(@results)
 			return undefined
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results.get(@results.length - 1))
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results.get(@results.length - 1))
 	
 	listResults: () ->
 		array = []
 		if not isEmpty(@results)
 			for result in @results
-				array.push(new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
+				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
 		return array
 	
 	createElement: (tag) ->
-		return new exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
+		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
 	
 	getHTML: () ->
 		return @ownerDocument.documentElement.outerHTML
