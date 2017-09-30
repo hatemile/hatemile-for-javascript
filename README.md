@@ -1,5 +1,7 @@
 # HaTeMiLe for JavaScript
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PRY8PY3ANVYT6)
+
 HaTeMiLe (HTML Accessible) is a library that can convert a HTML code in a HTML code more accessible.
 
 ## Accessibility solutions
