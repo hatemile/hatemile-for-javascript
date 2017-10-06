@@ -38,6 +38,12 @@ module.exports = function(grunt) {
 					'js/hatemile/util/html/vanilla/VanillaHTMLDOMElement.js': 'coffee/hatemile/util/html/vanilla/VanillaHTMLDOMElement.coffee',
 					'js/hatemile/util/html/vanilla/VanillaHTMLDOMParser.js': 'coffee/hatemile/util/html/vanilla/VanillaHTMLDOMParser.coffee',
 					'js/hatemile/util/html/vanilla/VanillaHTMLDOMTextNode.js': 'coffee/hatemile/util/html/vanilla/VanillaHTMLDOMTextNode.coffee',
+					'_locales/en_US/js/configurations.js': '_locales/en_US/coffee/configurations.coffee',
+					'_locales/en_US/js/skippers.js': '_locales/en_US/coffee/skippers.coffee',
+					'_locales/en_US/js/symbols.js': '_locales/en_US/coffee/symbols.coffee',
+					'_locales/pt_BR/js/configurations.js': '_locales/pt_BR/coffee/configurations.coffee',
+					'_locales/pt_BR/js/skippers.js': '_locales/pt_BR/coffee/skippers.coffee',
+					'_locales/pt_BR/js/symbols.js': '_locales/pt_BR/coffee/symbols.coffee'
 				}
 			}
 		},
@@ -46,7 +52,7 @@ module.exports = function(grunt) {
 				end_with_newline: true,
 				jslint_happy: true
 			},
-			files: ['js/**/*.js']
+			files: ['js/**/*.js', '_locales/**/*.js']
 		}
 	});
 
