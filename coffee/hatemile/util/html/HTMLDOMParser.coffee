@@ -11,28 +11,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * The HTMLDOMParser interface contains the methods for access a native parser.
  * @interface hatemile.util.html.HTMLDOMParser
 ###
-class __exports.hatemile.util.html.HTMLDOMParser
+class @hatemile.util.html.HTMLDOMParser
 	
 	###*
 	 * Find all elements in the parser by selector.

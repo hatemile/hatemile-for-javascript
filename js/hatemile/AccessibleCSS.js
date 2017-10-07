@@ -10,43 +10,47 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
-var __exports;
-
-__exports = this;
 
 /**
  * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * The AccessibleCSS interface improve accessibility of CSS.
- * @interface hatemile.AccessibleCSS
- */
-__exports.hatemile.AccessibleCSS = (function() {
-	function AccessibleCSS() {
-	}
+(function () {
+    this.hatemile || (this.hatemile = {});
 
-	/**
-	 * Provide the CSS features of speaking and speech properties in element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @public
-	 * @function hatemile.AccessibleCSS#provideSpeakProperties
-	 */
-	AccessibleCSS.prototype.provideSpeakProperties = function(element) {
-	};
 
-	/**
-	 * Provide the CSS features of speaking and speech properties in all elements
-	 * of page.
-	 * @public
-	 * @function hatemile.AccessibleCSS#provideAllSpeakProperties
-	 */
-	AccessibleCSS.prototype.provideAllSpeakProperties = function() {
-	};
+    /**
+     * The AccessibleCSS interface improve accessibility of CSS.
+     * @interface hatemile.AccessibleCSS
+     */
 
-	return AccessibleCSS;
+    this.hatemile.AccessibleCSS = (function () {
+        function AccessibleCSS() {}
 
-})();
+
+        /**
+         * Provide the CSS features of speaking and speech properties in element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element.
+         * @public
+         * @function hatemile.AccessibleCSS#provideSpeakProperties
+         */
+
+        AccessibleCSS.prototype.provideSpeakProperties = function (element) {};
+
+
+        /**
+         * Provide the CSS features of speaking and speech properties in all elements
+         * of page.
+         * @public
+         * @function hatemile.AccessibleCSS#provideAllSpeakProperties
+         */
+
+        AccessibleCSS.prototype.provideAllSpeakProperties = function () {};
+
+        return AccessibleCSS;
+
+    })();
+
+}).call(this);

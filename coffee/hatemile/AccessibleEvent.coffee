@@ -11,19 +11,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * The AccessibleEvent interface improve the accessibility, making elements
  * events available from a keyboard.
  * @interface hatemile.AccessibleEvent
 ###
-class __exports.hatemile.AccessibleEvent
+class @hatemile.AccessibleEvent
 	
 	###*
 	 * Make the drop events of element available from a keyboard.

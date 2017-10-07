@@ -11,29 +11,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * The HTMLDOMTextNode interface contains the methods for access of the Text.
  * @interface hatemile.util.html.HTMLDOMTextNode
  * @extends hatemile.util.html.HTMLDOMNode
 ###
-class __exports.hatemile.util.html.HTMLDOMTextNode extends __exports.hatemile.util.html.HTMLDOMNode
+class @hatemile.util.html.HTMLDOMTextNode extends @hatemile.util.html.HTMLDOMNode
 	
 	###*
 	 * Change the text content of text node.

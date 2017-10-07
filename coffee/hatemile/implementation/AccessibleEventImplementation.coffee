@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-__exports.hatemile.implementation or= {}
+@hatemile.implementation or= {}
 
-class __exports.hatemile.implementation.AccessibleEventImplementation
+class @hatemile.implementation.AccessibleEventImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	DATA_KEY_PRESSED = 'data-keypressed'
@@ -88,10 +88,10 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 						addedEvent(event)
 					return
 			else
-				found = __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+				found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 			if not found
 				nativeElement["liston#{typeEvent}"].push(functionForEventHandler)
-				attribute = __exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
+				attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
 				element.setAttribute(typeDataEvent, attribute)
 		return
 	
@@ -109,11 +109,11 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 	###
 	hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
 		nativeElement = element.getData()
-		if isEmpty(typeDataEvent) or isEmpty(typeFix)
-			return (not isEmpty(nativeElement["on#{typeEvent}"])) or ((not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[typeEvent])))
+		if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
+			return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or ((not self.isEmpty(nativeElement.eventListenerList)) and (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
 		else
 			attribute = element.getAttribute(typeDataEvent)
-			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 	
 	###*
 	 * Remove the information on attributes of drop effect of all elements.
@@ -140,8 +140,8 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 	 * @function hatemile.implementation.AccessibleEventImplementation.generateDropEffect
 	###
 	generateDropEffect = (parser) ->
-		dropEffect = __exports.__dragEventDataTransfer__.dropEffect
-		effectAllowed = __exports.__dragEventDataTransfer__.effectAllowed
+		dropEffect = self.__dragEventDataTransfer__.dropEffect
+		effectAllowed = self.__dragEventDataTransfer__.effectAllowed
 		if (dropEffect is 'none') or ((dropEffect isnt 'copy') and (dropEffect isnt 'link') and (dropEffect isnt 'move'))
 			if (effectAllowed is 'copyLink') or (effectAllowed is 'copyMove') or (effectAllowed is 'linkMove') or (effectAllowed is 'all')
 				ariaDropEffect = 'popup'
@@ -180,28 +180,28 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 	 * @function hatemile.implementation.AccessibleEventImplementation.executeDragEvent
 	###
 	executeDragEvent = (type, element, event) ->
-		if isEmpty(__exports.__dragEventDataTransfer__)
-			__exports.__dragEventDataTransfer__ = {
+		if self.isEmpty(self.__dragEventDataTransfer__)
+			self.__dragEventDataTransfer__ = {
 				'files': null,
 				'types': null,
 				'effectAllowed': 'uninitialized',
 				'dropEffect': 'none'
 			}
-			__exports.__dragEventDataTransfer__.setDragImage = () ->
+			self.__dragEventDataTransfer__.setDragImage = () ->
 				return
-			__exports.__dragEventDataTransfer__.addElement = () ->
+			self.__dragEventDataTransfer__.addElement = () ->
 				return
-			__exports.__dragEventDataTransfer__._data = {}
-			__exports.__dragEventDataTransfer__.setData = (format, data) ->
-				__exports.__dragEventDataTransfer__._data[format] = data
+			self.__dragEventDataTransfer__._data = {}
+			self.__dragEventDataTransfer__.setData = (format, data) ->
+				self.__dragEventDataTransfer__._data[format] = data
 				return
-			__exports.__dragEventDataTransfer__.getData = (format) ->
-				return __exports.__dragEventDataTransfer__._data[format]
-			__exports.__dragEventDataTransfer__.clearData = (format) ->
-				if isEmpty(format)
-					__exports.__dragEventDataTransfer__._data = {}
+			self.__dragEventDataTransfer__.getData = (format) ->
+				return self.__dragEventDataTransfer__._data[format]
+			self.__dragEventDataTransfer__.clearData = (format) ->
+				if self.isEmpty(format)
+					self.__dragEventDataTransfer__._data = {}
 				else
-					__exports.__dragEventDataTransfer__._data[format] = undefined
+					self.__dragEventDataTransfer__._data[format] = undefined
 				return
 			
 		executeEvent(element, createDragEvent(type, element, event))
@@ -218,11 +218,11 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 		nativeElement = element.getData()
 		if hasEvent(element, event.type)
 			handlerEvent = nativeElement["on#{event.type}"]
-			if not isEmpty(handlerEvent)
+			if not self.isEmpty(handlerEvent)
 				try
 					handlerEvent.call(nativeElement, event)
 				catch error
-			if (not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[event.type]))
+			if (not self.isEmpty(nativeElement.eventListenerList)) and (not self.isEmpty(nativeElement.eventListenerList[event.type]))
 				for listenerEvent in nativeElement.eventListenerList[event.type]
 					try
 						listenerEvent.call(nativeElement, event)
@@ -290,7 +290,7 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 	createDragEvent = (type, element, event) ->
 		dragEvent = createMouseEvent(type, element, event)
 		
-		dragEvent.dataTransfer = __exports.__dragEventDataTransfer__
+		dragEvent.dataTransfer = self.__dragEventDataTransfer__
 		return dragEvent
 	
 	###*
@@ -331,7 +331,7 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 		parser = @parser
 		
 		addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, (event) ->
-			if not isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
+			if not self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
 				executeDragEvent('dragenter', element, event)
 				executeDragEvent('dragover', element, event)
 				
@@ -339,7 +339,7 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 			return
 		)
 		addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, (event) ->
-			if not isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
+			if not self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
 				executeDragEvent('dragleave', element, event)
 				
 				generateDropEffect(parser)
@@ -347,7 +347,7 @@ class __exports.hatemile.implementation.AccessibleEventImplementation
 		)
 		if (not hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT)) and (not hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT))
 			addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, (event) ->
-				if (isEnter(event.keyCode)) and (not element.hasAttribute(DATA_KEY_PRESSED)) and (not isEmpty(parser.find('[aria-grabbed=true]').firstResult()))
+				if (isEnter(event.keyCode)) and (not element.hasAttribute(DATA_KEY_PRESSED)) and (not self.isEmpty(parser.find('[aria-grabbed=true]').firstResult()))
 					element.setAttribute(DATA_KEY_PRESSED, 'true')
 					
 					if hasEvent(element, 'drop')

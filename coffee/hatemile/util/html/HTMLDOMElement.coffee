@@ -11,22 +11,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * The HTMLDOMElement interface contains the methods for access the HTML
@@ -34,7 +33,7 @@ __exports.hatemile.util.html or= {}
  * @interface hatemile.util.html.HTMLDOMElement
  * @extends hatemile.util.html.HTMLDOMNode
 ###
-class __exports.hatemile.util.html.HTMLDOMElement extends __exports.hatemile.util.html.HTMLDOMNode
+class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
 	
 	###*
 	 * Returns the tag name of element.

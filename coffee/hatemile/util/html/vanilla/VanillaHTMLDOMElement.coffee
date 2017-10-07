@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * @namespace hatemile.util.html.vanilla
 ###
-__exports.hatemile.util.html.vanilla or= {}
+@hatemile.util.html.vanilla or= {}
 
-class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
+class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	
 	###*
 	 * Initializes a new object that encapsulate the HTMLElement.
@@ -70,9 +70,9 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		return @data.hasAttributes()
 	
 	getTextContent: () ->
-		if not isEmpty(@data.textContent)
+		if not self.isEmpty(@data.textContent)
 			return @data.textContent
-		if not isEmpty(@data.innerText)
+		if not self.isEmpty(@data.innerText)
 			return @data.innerText
 		text = ''
 		childs = @data.childNodes
@@ -80,7 +80,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
 				text += child.nodeValue
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				elementChild = new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+				elementChild = new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
 				text += elementChild.getTextContent()
 		return text
 	
@@ -114,7 +114,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		return this
 	
 	prependElement: (element) ->
-		if isEmpty(@data.childNodes)
+		if self.isEmpty(@data.childNodes)
 			@appendElement(element)
 		else
 			@data.insertBefore(element.getData(), @data.childNodes[0])
@@ -124,7 +124,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		children = @data.children
 		array = []
 		for child in children
-			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+			array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
 	getChildren: () ->
@@ -132,14 +132,14 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		array = []
 		for child in children
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
-				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
+				array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+				array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
 		return array
 	
 	appendText: (text) ->
 		child = @getLastNodeChild()
-		if (child isnt undefined) and (child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
+		if (child isnt undefined) and (child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
 			child.appendText(text)
 		else
 			@data.appendChild(@data.ownerDocument.createTextNode(text))
@@ -150,7 +150,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			@appendText(text)
 		else
 			child = @getFirstNodeChild()
-			if child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+			if child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 				child.prependText(text)
 			else
 				@data.insertBefore(@data.ownerDocument.createTextNode(text), child.getData())
@@ -162,7 +162,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		return this
 	
 	hasChildrenElements: () ->
-		return not isEmpty(@data.children)
+		return not self.isEmpty(@data.children)
 	
 	hasChildren: () ->
 		if not @data.hasChildNodes()
@@ -177,9 +177,9 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	getParentElement: () ->
 		if @getTagName() is 'HTML'
 			return undefined
-		else if isEmpty(@data.parentNode)
+		else if self.isEmpty(@data.parentNode)
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
 	getInnerHTML: () ->
 		return @data.innerHTML
@@ -201,17 +201,17 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 	cloneElement: () ->
 		div = @data.ownerDocument.createElement('div')
 		div.innerHTML = @getOuterHTML()
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
 	
 	getFirstElementChild: () ->
 		if not @hasChildrenElements()
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
 	
 	getLastElementChild: () ->
 		if not @hasChildrenElements()
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
 	
 	getFirstNodeChild: () ->
 		if not @hasChildren()
@@ -219,9 +219,9 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		children = @data.childNodes
 		for child in children
 			if (child.nodeType is @data.ownerDocument.TEXT_NODE)
-				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
+				return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
 			else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-				return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+				return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
 		return undefined
 	
 	getLastNodeChild: () ->
@@ -235,12 +235,12 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 		if lastChild == undefined
 			return undefined
 		else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
-			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
+			return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
 		else if (lastChild.nodeType is @data.ownerDocument.ELEMENT_NODE)
-			return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
+			return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
 	
 	equals: (node) ->
-		if node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement
+		if node instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement
 			if @data is node.getData()
 				return true
 		return false

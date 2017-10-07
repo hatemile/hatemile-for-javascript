@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * @namespace hatemile.util.html.vanilla
 ###
-__exports.hatemile.util.html.vanilla or= {}
+@hatemile.util.html.vanilla or= {}
 
-class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
+class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	###*
 	 * Check that the element is descendant of other.
@@ -48,7 +48,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	###
 	isDescendant = (possibleAncestor, possibleDescendant) ->
 		ancestor = possibleDescendant.parentNode
-		while not isEmpty(ancestor)
+		while not self.isEmpty(ancestor)
 			if ancestor is possibleAncestor
 				return true
 			ancestor = ancestor.parentNode
@@ -66,7 +66,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 		@results = []
 	
 	find: (selector) ->
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			@results = [selector.getData()]
 		else
 			@results = @ownerDocument.querySelectorAll(selector)
@@ -74,13 +74,13 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	findChildren: (selector) ->
 		children = []
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			for result in @results
 				for resultChild in result.children
 					if selector.getData() is resultChild
 						children.push(selector.getData())
 						break
-				if not isEmpty(children)
+				if not self.isEmpty(children)
 					break
 		else
 			for result in @results
@@ -93,7 +93,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	findDescendants: (selector) ->
 		descendants = []
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			for result in @results
 				if isDescendant(result, selector.getData())
 					descendants.push(selector.getData())
@@ -108,7 +108,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 	
 	findAncestors: (selector) ->
 		ancestors = []
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+		if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
 			for result in @results
 				if isDescendant(selector.getData(), result)
 					ancestors.push(selector.getData())
@@ -123,23 +123,23 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser
 		return this
 	
 	firstResult: () ->
-		if isEmpty(@results)
+		if self.isEmpty(@results)
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[0])
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[0])
 	
 	lastResult: () ->
-		if isEmpty(@results)
+		if self.isEmpty(@results)
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[@results.length - 1])
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[@results.length - 1])
 	
 	listResults: () ->
 		array = []
 		for result in @results
-			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
+			array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
 		return array
 	
 	createElement: (tag) ->
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
 	
 	getHTML: () ->
 		return @ownerDocument.documentElement.outerHTML

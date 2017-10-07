@@ -11,18 +11,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * The AccessibleForm interface improve the accessibility of forms.
  * @interface hatemile.AccessibleForm
 ###
-class __exports.hatemile.AccessibleForm
+class @hatemile.AccessibleForm
 	
 	###*
 	 * Mark that the field is required.

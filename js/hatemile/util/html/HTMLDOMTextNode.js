@@ -10,63 +10,72 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
-var __exports, _base, _base1, _ref
-		, __hasProp = {}.hasOwnProperty
-		, __extends = function(child, parent) {
-			for (var key in parent) {
-				if (__hasProp.call(parent, key))
-					child[key] = parent[key];
-			}
-			function ctor() {
-				this.constructor = child;
-			}
-			ctor.prototype = parent.prototype;
-			child.prototype = new ctor();
-			child.__super__ = parent.prototype;
-			return child;
-		};
-
-__exports = this;
 
 /**
  * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * @namespace hatemile.util
- */
-(_base = __exports.hatemile).util || (_base.util = {});
+(function () {
+    var base, base1,
+        extend = function (child, parent) {
+            for (var key in parent) {
+                if (hasProp.call(parent, key)) child[key] = parent[key];
+            }
 
-/**
- * @namespace hatemile.util.html
- */
-(_base1 = __exports.hatemile.util).html || (_base1.html = {});
+            function ctor() {
+                this.constructor = child;
+            }
+            ctor.prototype = parent.prototype;
+            child.prototype = new ctor();
+            child.__super__ = parent.prototype;
+            return child;
+        },
+        hasProp = {}.hasOwnProperty;
 
-/**
- * The HTMLDOMTextNode interface contains the methods for access of the Text.
- * @interface hatemile.util.html.HTMLDOMTextNode
- * @extends hatemile.util.html.HTMLDOMNode
- */
-__exports.hatemile.util.html.HTMLDOMTextNode = (function(_super) {
-	__extends(HTMLDOMTextNode, _super);
+    this.hatemile || (this.hatemile = {});
 
-	function HTMLDOMTextNode() {
-		_ref = HTMLDOMTextNode.__super__.constructor.apply(this, arguments);
-		return _ref;
-	}
 
-	/**
-	 * Change the text content of text node.
-	 * @param {string} text The new text content.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
-	 */
-	HTMLDOMTextNode.prototype.setTextContent = function(text) {
-	};
+    /**
+     * @namespace hatemile.util
+     */
 
-	return HTMLDOMTextNode;
+    (base = this.hatemile).util || (base.util = {});
 
-})(__exports.hatemile.util.html.HTMLDOMNode);
+
+    /**
+     * @namespace hatemile.util.html
+     */
+
+    (base1 = this.hatemile.util).html || (base1.html = {});
+
+
+    /**
+     * The HTMLDOMTextNode interface contains the methods for access of the Text.
+     * @interface hatemile.util.html.HTMLDOMTextNode
+     * @extends hatemile.util.html.HTMLDOMNode
+     */
+
+    this.hatemile.util.html.HTMLDOMTextNode = (function (superClass) {
+        extend(HTMLDOMTextNode, superClass);
+
+        function HTMLDOMTextNode() {
+            return HTMLDOMTextNode.__super__.constructor.apply(this, arguments);
+        }
+
+
+        /**
+         * Change the text content of text node.
+         * @param {string} text The new text content.
+         * @public
+         * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
+         */
+
+        HTMLDOMTextNode.prototype.setTextContent = function (text) {};
+
+        return HTMLDOMTextNode;
+
+    })(this.hatemile.util.html.HTMLDOMNode);
+
+}).call(this);

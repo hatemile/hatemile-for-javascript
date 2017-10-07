@@ -11,18 +11,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * The AccessibleNavigation interface improve the accessibility of navigation.
  * @interface hatemile.AccessibleNavigation
 ###
-class __exports.hatemile.AccessibleNavigation
+class @hatemile.AccessibleNavigation
 	
 	###*
 	 * Provide a content skipper for element.

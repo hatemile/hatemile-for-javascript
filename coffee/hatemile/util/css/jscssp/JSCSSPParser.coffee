@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-__exports.hatemile.util.css or= {}
+@hatemile.util.css or= {}
 
 ###*
  * @namespace hatemile.util.css.jscssp
 ###
-__exports.hatemile.util.css.jscssp or= {}
+@hatemile.util.css.jscssp or= {}
 
-class __exports.hatemile.util.css.jscssp.JSCSSPParser
+class @hatemile.util.css.jscssp.JSCSSPParser
 	
 	###
 	 * Returns the absolute path of a URL.
@@ -99,7 +99,7 @@ class __exports.hatemile.util.css.jscssp.JSCSSPParser
 	###
 	getContentFromURL = (url) ->
 		content = ''
-		if not isEmpty(url)
+		if not self.isEmpty(url)
 			httpRequest = false
 			if window.XMLHttpRequest
 				httpRequest = new XMLHttpRequest()
@@ -131,7 +131,7 @@ class __exports.hatemile.util.css.jscssp.JSCSSPParser
 	constructor: (@parser, @currentURL) ->
 		if not (@parser instanceof jscsspStylesheet)
 			parser = new CSSParser()
-			if (@parser instanceof __exports.HTMLDocument)
+			if (@parser instanceof HTMLDocument)
 				@parser = getCSSContent(@parser, @currentURL)
 			if (typeof @parser is typeof '')
 				@parser = parser.parse("body{}#{@parser}", false, false)
@@ -144,9 +144,9 @@ class __exports.hatemile.util.css.jscssp.JSCSSPParser
 	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromElement
 	###
 	getContentFromElement = (element) ->
-		if not isEmpty(element.textContent)
+		if not self.isEmpty(element.textContent)
 			return element.textContent
-		if not isEmpty(element.innerText)
+		if not self.isEmpty(element.innerText)
 			return element.innerText
 		text = ''
 		childs = element.childNodes
@@ -159,14 +159,14 @@ class __exports.hatemile.util.css.jscssp.JSCSSPParser
 	
 	getRules: (properties) ->
 		rules = []
-		if isEmpty(properties)
+		if self.isEmpty(properties)
 			for nativeRule in @parser.cssRules
 				if nativeRule.type is 1
-					rules.push(new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule))
+					rules.push(new self.hatemile.util.css.jscssp.JSCSSPRule(nativeRule))
 		else
 			for nativeRule in @parser.cssRules
 				if nativeRule.type is 1
-					rule = new __exports.hatemile.util.css.jscssp.JSCSSPRule(nativeRule)
+					rule = new self.hatemile.util.css.jscssp.JSCSSPRule(nativeRule)
 					for property in properties
 						if rule.hasProperty(property)
 							rules.push(rule)

@@ -10,94 +10,104 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
-var __exports;
-
-__exports = this;
 
 /**
  * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * The AccessibleForm interface improve the accessibility of forms.
- * @interface hatemile.AccessibleForm
- */
-__exports.hatemile.AccessibleForm = (function() {
-	function AccessibleForm() {
-	}
+(function () {
+    this.hatemile || (this.hatemile = {});
 
-	/**
-	 * Mark that the field is required.
-	 * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markRequiredField
-	 */
-	AccessibleForm.prototype.markRequiredField = function(requiredField) {
-	};
 
-	/**
-	 * Mark that the fields is required.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllRequiredFields
-	 */
-	AccessibleForm.prototype.markAllRequiredFields = function() {
-	};
+    /**
+     * The AccessibleForm interface improve the accessibility of forms.
+     * @interface hatemile.AccessibleForm
+     */
 
-	/**
-	 * Mark that the field have range.
-	 * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markRangeField
-	 */
-	AccessibleForm.prototype.markRangeField = function(rangeField) {
-	};
+    this.hatemile.AccessibleForm = (function () {
+        function AccessibleForm() {}
 
-	/**
-	 * Mark that the fields have range.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllRangeFields
-	 */
-	AccessibleForm.prototype.markAllRangeFields = function() {
-	};
 
-	/**
-	 * Mark that the field have autocomplete.
-	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
-	 * with autocomplete.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAutoCompleteField
-	 */
-	AccessibleForm.prototype.markAutoCompleteField = function(autoCompleteField) {
-	};
+        /**
+         * Mark that the field is required.
+         * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
+         * @public
+         * @function hatemile.AccessibleForm#markRequiredField
+         */
 
-	/**
-	 * Mark that the fields have autocomplete.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllAutoCompleteFields
-	 */
-	AccessibleForm.prototype.markAllAutoCompleteFields = function() {
-	};
+        AccessibleForm.prototype.markRequiredField = function (requiredField) {};
 
-	/**
-	 * Mark a solution to display that this field is invalid.
-	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markInvalidField
-	 */
-	AccessibleForm.prototype.markInvalidField = function(field) {
-	};
 
-	/**
-	 * Mark a solution to display that a fields are invalid.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllInvalidFields
-	 */
-	AccessibleForm.prototype.markAllInvalidFields = function() {
-	};
+        /**
+         * Mark that the fields is required.
+         * @public
+         * @function hatemile.AccessibleForm#markAllRequiredFields
+         */
 
-	return AccessibleForm;
+        AccessibleForm.prototype.markAllRequiredFields = function () {};
 
-})();
+
+        /**
+         * Mark that the field have range.
+         * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
+         * @public
+         * @function hatemile.AccessibleForm#markRangeField
+         */
+
+        AccessibleForm.prototype.markRangeField = function (rangeField) {};
+
+
+        /**
+         * Mark that the fields have range.
+         * @public
+         * @function hatemile.AccessibleForm#markAllRangeFields
+         */
+
+        AccessibleForm.prototype.markAllRangeFields = function () {};
+
+
+        /**
+         * Mark that the field have autocomplete.
+         * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
+         * with autocomplete.
+         * @public
+         * @function hatemile.AccessibleForm#markAutoCompleteField
+         */
+
+        AccessibleForm.prototype.markAutoCompleteField = function (autoCompleteField) {};
+
+
+        /**
+         * Mark that the fields have autocomplete.
+         * @public
+         * @function hatemile.AccessibleForm#markAllAutoCompleteFields
+         */
+
+        AccessibleForm.prototype.markAllAutoCompleteFields = function () {};
+
+
+        /**
+         * Mark a solution to display that this field is invalid.
+         * @param {hatemile.util.html.HTMLDOMElement} field The field.
+         * @public
+         * @function hatemile.AccessibleForm#markInvalidField
+         */
+
+        AccessibleForm.prototype.markInvalidField = function (field) {};
+
+
+        /**
+         * Mark a solution to display that a fields are invalid.
+         * @public
+         * @function hatemile.AccessibleForm#markAllInvalidFields
+         */
+
+        AccessibleForm.prototype.markAllInvalidFields = function () {};
+
+        return AccessibleForm;
+
+    })();
+
+}).call(this);

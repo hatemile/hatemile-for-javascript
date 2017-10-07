@@ -11,19 +11,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * The AccessibleAssociation interface improve accessibility, associating
  * elements.
  * @interface hatemile.AccessibleAssociation
 ###
-class __exports.hatemile.AccessibleAssociation
+class @hatemile.AccessibleAssociation
 	
 	###*
 	 * Associate all data cells with header cells of table.

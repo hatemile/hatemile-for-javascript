@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.html
 ###
-__exports.hatemile.util.html or= {}
+@hatemile.util.html or= {}
 
 ###*
  * @namespace hatemile.util.html.vanilla
 ###
-__exports.hatemile.util.html.vanilla or= {}
+@hatemile.util.html.vanilla or= {}
 
-class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 	
 	###*
 	 * Initializes a new object that encapsulate the text node.
@@ -86,9 +86,9 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 		return this
 	
 	getParentElement: () ->
-		if isEmpty(@data.parentNode)
+		if self.isEmpty(@data.parentNode)
 			return undefined
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
+		return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
 	
 	getData: () ->
 		return @data
@@ -98,7 +98,7 @@ class __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 		return
 	
 	equals: (node) ->
-		if node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+		if node instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 			if @data is node.getData()
 				return true
 		return false

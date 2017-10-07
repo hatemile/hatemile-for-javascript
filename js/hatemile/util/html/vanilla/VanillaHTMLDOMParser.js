@@ -10,213 +10,227 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-
-var __exports, _base, _base1, _base2;
-
-__exports = this;
-
-/**
- * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * @namespace hatemile.util
- */
-(_base = __exports.hatemile).util || (_base.util = {});
+(function () {
+    var base, base1, base2, self;
 
-/**
- * @namespace hatemile.util.html
- */
-(_base1 = __exports.hatemile.util).html || (_base1.html = {});
+    self = this;
 
-/**
- * @namespace hatemile.util.html.vanilla
- */
-(_base2 = __exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-__exports.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function() {
-	var isDescendant;
-	
-	/**
-	 * Check that the element is descendant of other.
-	 * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
-	 * ancestor.
-	 * @param {hatemile.util.html.HTMLDOMElement} possibleDescendant The possible
-	 * descendant.
-	 * @returns {boolean} True if the element is descendant of other or false if
-	 * the element is not descendant of other.
-	 * @private
-	 * @function hatemile.util.html.vanilla.VanillaHTMLDOMParser.isDescendant
-	 */
-	isDescendant = function(possibleAncestor, possibleDescendant) {
-		var ancestor;
-		ancestor = possibleDescendant.parentNode;
-		while (!isEmpty(ancestor)) {
-			if (ancestor === possibleAncestor) {
-				return true;
-			}
-			ancestor = ancestor.parentNode;
-		}
-		return false;
-	};
-	
-	/**
-	 * Initializes a new object that encapsulate the HTMLDocument.
-	 * @param {HTMLDocument} ownerDocument The owner document of parser.
-	 * @class The class VanillaHTMLDOMParser is official implementation of
-	 * HTMLDOMParser interface for JavaScript.
-	 * @implements {hatemile.util.html.HTMLDOMParser}
-	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
-	 */
-	function VanillaHTMLDOMParser(ownerDocument) {
-		this.ownerDocument = ownerDocument;
-		this.results = [];
-	}
+    /**
+     * @namespace hatemile
+     */
 
-	VanillaHTMLDOMParser.prototype.find = function(selector) {
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			this.results = [selector.getData()];
-		} else {
-			this.results = this.ownerDocument.querySelectorAll(selector);
-		}
-		return this;
-	};
+    this.hatemile || (this.hatemile = {});
 
-	VanillaHTMLDOMParser.prototype.findChildren = function(selector) {
-		var children, descendant, descendants, result, resultChild, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2;
-		children = [];
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			_ref = this.results;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				result = _ref[_i];
-				_ref1 = result.children;
-				for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-					resultChild = _ref1[_j];
-					if (selector.getData() === resultChild) {
-						children.push(selector.getData());
-						break;
-					}
-				}
-				if (!isEmpty(children)) {
-					break;
-				}
-			}
-		} else {
-			_ref2 = this.results;
-			for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-				result = _ref2[_k];
-				descendants = result.querySelectorAll(selector);
-				for (_l = 0, _len3 = descendants.length; _l < _len3; _l++) {
-					descendant = descendants[_l];
-					if (descendant.parentNode === result) {
-						children.push(descendant);
-					}
-				}
-			}
-		}
-		this.results = children;
-		return this;
-	};
 
-	VanillaHTMLDOMParser.prototype.findDescendants = function(selector) {
-		var descendants, result, resultDescendant, resultDescendants, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
-		descendants = [];
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			_ref = this.results;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				result = _ref[_i];
-				if (isDescendant(result, selector.getData())) {
-					descendants.push(selector.getData());
-					break;
-				}
-			}
-		} else {
-			_ref1 = this.results;
-			for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-				result = _ref1[_j];
-				resultDescendants = result.querySelectorAll(selector);
-				for (_k = 0, _len2 = resultDescendants.length; _k < _len2; _k++) {
-					resultDescendant = resultDescendants[_k];
-					descendants.push(resultDescendant);
-				}
-			}
-		}
-		this.results = descendants;
-		return this;
-	};
+    /**
+     * @namespace hatemile.util
+     */
 
-	VanillaHTMLDOMParser.prototype.findAncestors = function(selector) {
-		var ancestors, element, elements, result, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
-		ancestors = [];
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			_ref = this.results;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				result = _ref[_i];
-				if (isDescendant(selector.getData(), result)) {
-					ancestors.push(selector.getData());
-					break;
-				}
-			}
-		} else {
-			elements = this.ownerDocument.querySelectorAll(selector);
-			_ref1 = this.results;
-			for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-				result = _ref1[_j];
-				for (_k = 0, _len2 = elements.length; _k < _len2; _k++) {
-					element = elements[_k];
-					if (isDescendant(element, result)) {
-						ancestors.push(element);
-					}
-				}
-			}
-		}
-		this.results = ancestors;
-		return this;
-	};
+    (base = this.hatemile).util || (base.util = {});
 
-	VanillaHTMLDOMParser.prototype.firstResult = function() {
-		if (isEmpty(this.results)) {
-			return void 0;
-		}
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[0]);
-	};
 
-	VanillaHTMLDOMParser.prototype.lastResult = function() {
-		if (isEmpty(this.results)) {
-			return void 0;
-		}
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[this.results.length - 1]);
-	};
+    /**
+     * @namespace hatemile.util.html
+     */
 
-	VanillaHTMLDOMParser.prototype.listResults = function() {
-		var array, result, _i, _len, _ref;
-		array = [];
-		_ref = this.results;
-		for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-			result = _ref[_i];
-			array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
-		}
-		return array;
-	};
+    (base1 = this.hatemile.util).html || (base1.html = {});
 
-	VanillaHTMLDOMParser.prototype.createElement = function(tag) {
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
-	};
 
-	VanillaHTMLDOMParser.prototype.getHTML = function() {
-		return this.ownerDocument.documentElement.outerHTML;
-	};
+    /**
+     * @namespace hatemile.util.html.vanilla
+     */
 
-	VanillaHTMLDOMParser.prototype.getParser = function() {
-		return this.ownerDocument;
-	};
+    (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
-	VanillaHTMLDOMParser.prototype.clearParser = function() {
-		this.results = [];
-	};
+    this.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function () {
 
-	return VanillaHTMLDOMParser;
+        /**
+         * Check that the element is descendant of other.
+         * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
+         * ancestor.
+         * @param {hatemile.util.html.HTMLDOMElement} possibleDescendant The possible
+         * descendant.
+         * @returns {boolean} True if the element is descendant of other or false if
+         * the element is not descendant of other.
+         * @private
+         * @function hatemile.util.html.vanilla.VanillaHTMLDOMParser.isDescendant
+         */
+        var isDescendant;
 
-})();
+        isDescendant = function (possibleAncestor, possibleDescendant) {
+            var ancestor;
+            ancestor = possibleDescendant.parentNode;
+            while (!self.isEmpty(ancestor)) {
+                if (ancestor === possibleAncestor) {
+                    return true;
+                }
+                ancestor = ancestor.parentNode;
+            }
+            return false;
+        };
+
+
+        /**
+         * Initializes a new object that encapsulate the HTMLDocument.
+         * @param {HTMLDocument} ownerDocument The owner document of parser.
+         * @class The class VanillaHTMLDOMParser is official implementation of
+         * HTMLDOMParser interface for JavaScript.
+         * @implements {hatemile.util.html.HTMLDOMParser}
+         * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
+         */
+
+        function VanillaHTMLDOMParser(ownerDocument) {
+            this.ownerDocument = ownerDocument;
+            this.results = [];
+        }
+
+        VanillaHTMLDOMParser.prototype.find = function (selector) {
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                this.results = [selector.getData()];
+            } else {
+                this.results = this.ownerDocument.querySelectorAll(selector);
+            }
+            return this;
+        };
+
+        VanillaHTMLDOMParser.prototype.findChildren = function (selector) {
+            var children, descendant, descendants, i, j, k, l, len, len1, len2, len3, ref, ref1, ref2, result, resultChild;
+            children = [];
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                ref = this.results;
+                for (i = 0, len = ref.length; i < len; i++) {
+                    result = ref[i];
+                    ref1 = result.children;
+                    for (j = 0, len1 = ref1.length; j < len1; j++) {
+                        resultChild = ref1[j];
+                        if (selector.getData() === resultChild) {
+                            children.push(selector.getData());
+                            break;
+                        }
+                    }
+                    if (!self.isEmpty(children)) {
+                        break;
+                    }
+                }
+            } else {
+                ref2 = this.results;
+                for (k = 0, len2 = ref2.length; k < len2; k++) {
+                    result = ref2[k];
+                    descendants = result.querySelectorAll(selector);
+                    for (l = 0, len3 = descendants.length; l < len3; l++) {
+                        descendant = descendants[l];
+                        if (descendant.parentNode === result) {
+                            children.push(descendant);
+                        }
+                    }
+                }
+            }
+            this.results = children;
+            return this;
+        };
+
+        VanillaHTMLDOMParser.prototype.findDescendants = function (selector) {
+            var descendants, i, j, k, len, len1, len2, ref, ref1, result, resultDescendant, resultDescendants;
+            descendants = [];
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                ref = this.results;
+                for (i = 0, len = ref.length; i < len; i++) {
+                    result = ref[i];
+                    if (isDescendant(result, selector.getData())) {
+                        descendants.push(selector.getData());
+                        break;
+                    }
+                }
+            } else {
+                ref1 = this.results;
+                for (j = 0, len1 = ref1.length; j < len1; j++) {
+                    result = ref1[j];
+                    resultDescendants = result.querySelectorAll(selector);
+                    for (k = 0, len2 = resultDescendants.length; k < len2; k++) {
+                        resultDescendant = resultDescendants[k];
+                        descendants.push(resultDescendant);
+                    }
+                }
+            }
+            this.results = descendants;
+            return this;
+        };
+
+        VanillaHTMLDOMParser.prototype.findAncestors = function (selector) {
+            var ancestors, element, elements, i, j, k, len, len1, len2, ref, ref1, result;
+            ancestors = [];
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                ref = this.results;
+                for (i = 0, len = ref.length; i < len; i++) {
+                    result = ref[i];
+                    if (isDescendant(selector.getData(), result)) {
+                        ancestors.push(selector.getData());
+                        break;
+                    }
+                }
+            } else {
+                elements = this.ownerDocument.querySelectorAll(selector);
+                ref1 = this.results;
+                for (j = 0, len1 = ref1.length; j < len1; j++) {
+                    result = ref1[j];
+                    for (k = 0, len2 = elements.length; k < len2; k++) {
+                        element = elements[k];
+                        if (isDescendant(element, result)) {
+                            ancestors.push(element);
+                        }
+                    }
+                }
+            }
+            this.results = ancestors;
+            return this;
+        };
+
+        VanillaHTMLDOMParser.prototype.firstResult = function () {
+            if (self.isEmpty(this.results)) {
+                return void 0;
+            }
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[0]);
+        };
+
+        VanillaHTMLDOMParser.prototype.lastResult = function () {
+            if (self.isEmpty(this.results)) {
+                return void 0;
+            }
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[this.results.length - 1]);
+        };
+
+        VanillaHTMLDOMParser.prototype.listResults = function () {
+            var array, i, len, ref, result;
+            array = [];
+            ref = this.results;
+            for (i = 0, len = ref.length; i < len; i++) {
+                result = ref[i];
+                array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
+            }
+            return array;
+        };
+
+        VanillaHTMLDOMParser.prototype.createElement = function (tag) {
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
+        };
+
+        VanillaHTMLDOMParser.prototype.getHTML = function () {
+            return this.ownerDocument.documentElement.outerHTML;
+        };
+
+        VanillaHTMLDOMParser.prototype.getParser = function () {
+            return this.ownerDocument;
+        };
+
+        VanillaHTMLDOMParser.prototype.clearParser = function () {
+            this.results = [];
+        };
+
+        return VanillaHTMLDOMParser;
+
+    })();
+
+}).call(this);

@@ -10,63 +10,74 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
-var __exports, _base, _base1;
-
-__exports = this;
 
 /**
  * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * @namespace hatemile.util
- */
-(_base = __exports.hatemile).util || (_base.util = {});
+(function () {
+    var base, base1;
 
-/**
- * @namespace hatemile.util.css
- */
-(_base1 = __exports.hatemile.util).css || (_base1.css = {});
+    this.hatemile || (this.hatemile = {});
 
-/**
- * The StyleSheetDeclaration interface contains the methods for access the CSS
- * declaration.
- * @interface hatemile.util.css.StyleSheetDeclaration
- */
-__exports.hatemile.util.css.StyleSheetDeclaration = (function() {
-	function StyleSheetDeclaration() {
-	}
 
-	/**
-	 * Returns the value of declaration.
-	 * @returns {string} The value of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getValue
-	 */
-	StyleSheetDeclaration.prototype.getValue = function() {
-	};
+    /**
+     * @namespace hatemile.util
+     */
 
-	/**
-	 * Returns a array with the values of declaration.
-	 * @returns {string[]} The array with the values of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getValues
-	 */
-	StyleSheetDeclaration.prototype.getValues = function() {
-	};
+    (base = this.hatemile).util || (base.util = {});
 
-	/**
-	 * Returns the property of declaration.
-	 * @returns {string} The property of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getProperty
-	 */
-	StyleSheetDeclaration.prototype.getProperty = function() {
-	};
 
-	return StyleSheetDeclaration;
+    /**
+     * @namespace hatemile.util.css
+     */
 
-})();
+    (base1 = this.hatemile.util).css || (base1.css = {});
+
+
+    /**
+     * The StyleSheetDeclaration interface contains the methods for access the CSS
+     * declaration.
+     * @interface hatemile.util.css.StyleSheetDeclaration
+     */
+
+    this.hatemile.util.css.StyleSheetDeclaration = (function () {
+        function StyleSheetDeclaration() {}
+
+
+        /**
+         * Returns the value of declaration.
+         * @returns {string} The value of declaration.
+         * @public
+         * @function hatemile.util.css.StyleSheetDeclaration#getValue
+         */
+
+        StyleSheetDeclaration.prototype.getValue = function () {};
+
+
+        /**
+         * Returns a array with the values of declaration.
+         * @returns {string[]} The array with the values of declaration.
+         * @public
+         * @function hatemile.util.css.StyleSheetDeclaration#getValues
+         */
+
+        StyleSheetDeclaration.prototype.getValues = function () {};
+
+
+        /**
+         * Returns the property of declaration.
+         * @returns {string} The property of declaration.
+         * @public
+         * @function hatemile.util.css.StyleSheetDeclaration#getProperty
+         */
+
+        StyleSheetDeclaration.prototype.getProperty = function () {};
+
+        return StyleSheetDeclaration;
+
+    })();
+
+}).call(this);

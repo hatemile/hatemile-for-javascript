@@ -10,120 +10,132 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-
-var __exports, _base, _base1, _base2;
-
-__exports = this;
-
-/**
- * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * @namespace hatemile.util
- */
-(_base = __exports.hatemile).util || (_base.util = {});
+(function () {
+    var base, base1, base2, self;
 
-/**
- * @namespace hatemile.util.html
- */
-(_base1 = __exports.hatemile.util).html || (_base1.html = {});
+    self = this;
 
-/**
- * @namespace hatemile.util.html.vanilla
- */
-(_base2 = __exports.hatemile.util.html).vanilla || (_base2.vanilla = {});
 
-__exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function() {
-	/**
-	 * Initializes a new object that encapsulate the text node.
-	 * @param {Text} data The native text node.
-	 * @class The VanillaHTMLDOMTextNode class is official implementation of
-	 * HTMLDOMTextNode interface for the Javascript.
-	 * @implements {hatemile.util.html.HTMLDOMTextNode}
-	 * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
-	 */
-	function VanillaHTMLDOMTextNode(data) {
-		this.data = data;
-	}
+    /**
+     * @namespace hatemile
+     */
 
-	VanillaHTMLDOMTextNode.prototype.setTextContent = function(text) {
-		this.data.nodeValue = text;
-	};
+    this.hatemile || (this.hatemile = {});
 
-	VanillaHTMLDOMTextNode.prototype.getTextContent = function() {
-		return this.data.nodeValue;
-	};
 
-	VanillaHTMLDOMTextNode.prototype.insertBefore = function(newNode) {
-		this.data.parentNode.insertBefore(newNode.getData(), this.data);
-		return this;
-	};
+    /**
+     * @namespace hatemile.util
+     */
 
-	VanillaHTMLDOMTextNode.prototype.insertAfter = function(newNode) {
-		var child, childs, found, parent, _i, _len;
-		parent = this.data.parentNode;
-		childs = parent.childNodes;
-		found = false;
-		for (_i = 0, _len = childs.length; _i < _len; _i++) {
-			child = childs[_i];
-			if (found) {
-				parent.insertBefore(newNode.getData(), child);
-				return;
-			} else if (child === this.data) {
-				found = true;
-			}
-		}
-		parent.appendChild(newNode.getData());
-		return this;
-	};
+    (base = this.hatemile).util || (base.util = {});
 
-	VanillaHTMLDOMTextNode.prototype.removeNode = function() {
-		this.data.remove();
-		return this;
-	};
 
-	VanillaHTMLDOMTextNode.prototype.replaceNode = function(newNode) {
-		this.data.parentNode.replaceChild(newNode.getData(), this.data);
-		return this;
-	};
+    /**
+     * @namespace hatemile.util.html
+     */
 
-	VanillaHTMLDOMTextNode.prototype.appendText = function(text) {
-		this.setTextContent("" + (this.getTextContent()) + text);
-		return this;
-	};
+    (base1 = this.hatemile.util).html || (base1.html = {});
 
-	VanillaHTMLDOMTextNode.prototype.prependText = function(text) {
-		this.setTextContent("" + text + (this.getTextContent()));
-		return this;
-	};
 
-	VanillaHTMLDOMTextNode.prototype.getParentElement = function() {
-		if (isEmpty(this.data.parentNode)) {
-			return void 0;
-		}
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
-	};
+    /**
+     * @namespace hatemile.util.html.vanilla
+     */
 
-	VanillaHTMLDOMTextNode.prototype.getData = function() {
-		return this.data;
-	};
+    (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
-	VanillaHTMLDOMTextNode.prototype.setData = function(data) {
-		this.data = data;
-	};
+    this.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function () {
 
-	VanillaHTMLDOMTextNode.prototype.equals = function(node) {
-		if (node instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
-			if (this.data === node.getData()) {
-				return true;
-			}
-		}
-		return false;
-	};
+        /**
+         * Initializes a new object that encapsulate the text node.
+         * @param {Text} data The native text node.
+         * @class The VanillaHTMLDOMTextNode class is official implementation of
+         * HTMLDOMTextNode interface for the Javascript.
+         * @implements {hatemile.util.html.HTMLDOMTextNode}
+         * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+         */
+        function VanillaHTMLDOMTextNode(data1) {
+            this.data = data1;
+        }
 
-	return VanillaHTMLDOMTextNode;
+        VanillaHTMLDOMTextNode.prototype.setTextContent = function (text) {
+            this.data.nodeValue = text;
+        };
 
-})();
+        VanillaHTMLDOMTextNode.prototype.getTextContent = function () {
+            return this.data.nodeValue;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.insertBefore = function (newNode) {
+            this.data.parentNode.insertBefore(newNode.getData(), this.data);
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.insertAfter = function (newNode) {
+            var child, childs, found, i, len, parent;
+            parent = this.data.parentNode;
+            childs = parent.childNodes;
+            found = false;
+            for (i = 0, len = childs.length; i < len; i++) {
+                child = childs[i];
+                if (found) {
+                    parent.insertBefore(newNode.getData(), child);
+                    return;
+                } else if (child === this.data) {
+                    found = true;
+                }
+            }
+            parent.appendChild(newNode.getData());
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.removeNode = function () {
+            this.data.remove();
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.replaceNode = function (newNode) {
+            this.data.parentNode.replaceChild(newNode.getData(), this.data);
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.appendText = function (text) {
+            this.setTextContent("" + (this.getTextContent()) + text);
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.prependText = function (text) {
+            this.setTextContent("" + text + (this.getTextContent()));
+            return this;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.getParentElement = function () {
+            if (self.isEmpty(this.data.parentNode)) {
+                return void 0;
+            }
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
+        };
+
+        VanillaHTMLDOMTextNode.prototype.getData = function () {
+            return this.data;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.setData = function (data) {
+            this.data = data;
+        };
+
+        VanillaHTMLDOMTextNode.prototype.equals = function (node) {
+            if (node instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
+                if (this.data === node.getData()) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        return VanillaHTMLDOMTextNode;
+
+    })();
+
+}).call(this);

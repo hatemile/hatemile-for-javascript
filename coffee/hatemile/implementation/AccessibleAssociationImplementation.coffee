@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-__exports.hatemile.implementation or= {}
+@hatemile.implementation or= {}
 
-class __exports.hatemile.implementation.AccessibleAssociationImplementation
+class @hatemile.implementation.AccessibleAssociationImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	
@@ -55,20 +55,20 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 	###
 	getValidModelTable = (originalTable) ->
 		newTable = []
-		if not isEmpty(originalTable)
+		if not self.isEmpty(originalTable)
 			lengthTable = originalTable.length
 			for rowIndex in [0..lengthTable - 1]
 				originalRow = originalTable[rowIndex]
-				if isEmpty(newTable[rowIndex])
+				if self.isEmpty(newTable[rowIndex])
 					newTable[rowIndex] = []
-				if not isEmpty(originalRow)
+				if not self.isEmpty(originalRow)
 					cellsAdded = 0
 					lengthRow = originalRow.length
 					for cellIndex in [0..lengthRow - 1]
 						cell = originalRow[cellIndex]
 						newCellIndex = cellIndex + cellsAdded
 						newRow = newTable[rowIndex]
-						while not isEmpty(newRow[newCellIndex])
+						while not self.isEmpty(newRow[newCellIndex])
 							cellsAdded = cellsAdded + 1
 							newCellIndex = cellIndex + cellsAdded
 						newRow[newCellIndex] = cell
@@ -78,7 +78,7 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 							while (rowspan > 1)
 								rowspan = rowspan - 1
 								newRowIndex = newRowIndex + 1
-								if isEmpty(newTable[newRowIndex])
+								if self.isEmpty(newTable[newRowIndex])
 									newTable[newRowIndex] = []
 								newTable[newRowIndex][newCellIndex] = cell
 		return newTable
@@ -94,7 +94,7 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 	###
 	getModelRow = (originalRow) ->
 		newRow = []
-		if not isEmpty(originalRow)
+		if not self.isEmpty(originalRow)
 			newRow = newRow.concat(originalRow)
 			length = originalRow.length
 			cellsAdded = 0
@@ -117,11 +117,11 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 	 * @function hatemile.implementation.AccessibleAssociationImplementation.validateHeader
 	###
 	validateHeader = (header) ->
-		if isEmpty(header)
+		if self.isEmpty(header)
 			return false
 		length = -1
 		for row in header
-			if isEmpty(row)
+			if self.isEmpty(row)
 				return false
 			else if length is -1
 				length = row.length
@@ -160,16 +160,16 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 			headersIds = []
 			for cell in row
 				if cell.getTagName() is 'TH'
-					__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+					self.hatemile.util.CommonFunctions.generateId(cell, prefixId)
 					headersIds.push(cell.getAttribute('id'))
 					
 					cell.setAttribute('scope', 'row')
-			if not isEmpty(headersIds)
+			if not self.isEmpty(headersIds)
 				for cell in row
 					if cell.getTagName() is 'TD'
 						headers = cell.getAttribute('headers')
 						for headerId in headersIds
-							headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headerId)
+							headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headerId)
 						cell.setAttribute('headers', headers)
 		return
 	
@@ -184,7 +184,7 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 	prepareHeaderCells = (tableHeader, parser, prefixId) ->
 		cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
 		for cell in cells
-			__exports.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+			self.hatemile.util.CommonFunctions.generateId(cell, prefixId)
 			if not cell.hasAttribute('scope')
 				cell.setAttribute('scope', 'col')
 		return
@@ -206,14 +206,14 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 		header = @parser.find(table).findChildren('thead').firstResult()
 		body = @parser.find(table).findChildren('tbody').firstResult()
 		footer = @parser.find(table).findChildren('tfoot').firstResult()
-		if not isEmpty(header)
+		if not self.isEmpty(header)
 			prepareHeaderCells(header, @parser, @prefixId)
 			
 			headerRows = getModelTable(header, @parser)
-			if (not isEmpty(body)) and (validateHeader(headerRows))
+			if (not self.isEmpty(body)) and (validateHeader(headerRows))
 				lengthHeader = headerRows[0].length
 				fakeTable = getModelTable(body, @parser)
-				if not isEmpty(footer)
+				if not self.isEmpty(footer)
 					fakeTable = fakeTable.concat(getModelTable(footer, @parser))
 				for row in fakeTable
 					if row.length is lengthHeader
@@ -222,19 +222,19 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 							headersIds = getCellsHeadersIds(headerRows, i++)
 							headers = cell.getAttribute('headers')
 							for headersId in headersIds
-								headers = __exports.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
+								headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
 							cell.setAttribute('headers', headers)
-		if not isEmpty(body)
+		if not self.isEmpty(body)
 			associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
-		if not isEmpty(footer)
+		if not self.isEmpty(footer)
 			associateDataCellsWithHeaderCellsOfRow(footer, @parser, @prefixId)
 		return
 	
 	associateAllDataCellsWithHeaderCells: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
-			if __exports.hatemile.util.CommonFunctions.isValidElement(table)
-				if isEmpty(@parser.find(table).findDescendants("thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult())
+			if self.hatemile.util.CommonFunctions.isValidElement(table)
+				if self.isEmpty(@parser.find(table).findDescendants("thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult())
 					@associateDataCellsWithHeaderCells(table)
 		return
 	
@@ -245,19 +245,19 @@ class __exports.hatemile.implementation.AccessibleAssociationImplementation
 			else
 				field = @parser.find(label).findDescendants('input,select,textarea').firstResult()
 				
-				if not isEmpty(field)
-					__exports.hatemile.util.CommonFunctions.generateId(field, @prefixId)
+				if not self.isEmpty(field)
+					self.hatemile.util.CommonFunctions.generateId(field, @prefixId)
 					label.setAttribute('for', field.getAttribute('id'))
-			if (not isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
+			if (not self.isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
 				if not field.hasAttribute('aria-label')
 					field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
-				__exports.hatemile.util.CommonFunctions.generateId(label, @prefixId)
-				field.setAttribute('aria-labelledby', __exports.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
+				self.hatemile.util.CommonFunctions.generateId(label, @prefixId)
+				field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 	
 	associateAllLabelsWithFields: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels
-			if __exports.hatemile.util.CommonFunctions.isValidElement(label)
+			if self.hatemile.util.CommonFunctions.isValidElement(label)
 				@associateLabelWithField(label)
 		return

@@ -11,29 +11,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-__exports.hatemile.util.css or= {}
+@hatemile.util.css or= {}
 
 ###*
  * The StyleSheetParser interface contains the methods for access the CSS
  * parser.
  * @interface hatemile.util.css.StyleSheetParser
 ###
-class __exports.hatemile.util.css.StyleSheetParser
+class @hatemile.util.css.StyleSheetParser
 	
 	###*
 	 * Returns the rules of parser by properties.

@@ -1,4 +1,4 @@
-hatemile_configuration_symbols = [
+@hatemile_configuration_symbols = [
 	{'symbol': '!', 'description': 'exclamação'}
 	{'symbol': '"', 'description': 'aspas duplas'}
 	{'symbol': '#', 'description': 'cerquilha'}

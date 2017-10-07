@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		coffee: {
 			options: {
-				bare: true
+				bare: false
 			},
 			compile: {
 				files: {

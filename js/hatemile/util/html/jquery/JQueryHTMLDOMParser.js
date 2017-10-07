@@ -10,129 +10,141 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-
-var __exports, _base, _base1, _base2;
-
-__exports = this;
-
-/**
- * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * @namespace hatemile.util
- */
-(_base = __exports.hatemile).util || (_base.util = {});
+(function () {
+    var base, base1, base2, self;
 
-/**
- * @namespace hatemile.util.html
- */
-(_base1 = __exports.hatemile.util).html || (_base1.html = {});
+    self = this;
 
-/**
- * @namespace hatemile.util.html.jquery
- */
-(_base2 = __exports.hatemile.util.html).jquery || (_base2.jquery = {});
 
-__exports.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function() {
-	/**
-	 * Initializes a new object that encapsulate the jQuery.
-	 * @param {string|HTMLDocument} html The html code or owner document.
-	 * @param {HTMLDocument} ownerDocument The owner document of parser.
-	 * @class The class JQueryHTMLDOMParser is official implementation of
-	 * HTMLDOMParser interface for the jQuery library.
-	 * @implements {hatemile.util.html.HTMLDOMParser}
-	 * @constructs hatemile.util.html.jquery.JQueryHTMLDOMParser
-	 */
-	function JQueryHTMLDOMParser(html, ownerDocument) {
-		this.root = jQuery(html);
-		this.results = void 0;
-		if (!isEmpty(ownerDocument)) {
-			this.ownerDocument = ownerDocument;
-		} else if (!isEmpty(html.ownerDocument)) {
-			this.ownerDocument = html.ownerDocument;
-		} else {
-			this.ownerDocument = document;
-		}
-	}
+    /**
+     * @namespace hatemile
+     */
 
-	JQueryHTMLDOMParser.prototype.find = function(selector) {
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			selector = selector.getData();
-		}
-		this.results = this.root.find(selector);
-		return this;
-	};
+    this.hatemile || (this.hatemile = {});
 
-	JQueryHTMLDOMParser.prototype.findChildren = function(selector) {
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			selector = selector.getData();
-		}
-		this.results = jQuery(this.results).children(selector);
-		return this;
-	};
 
-	JQueryHTMLDOMParser.prototype.findDescendants = function(selector) {
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			selector = selector.getData();
-		}
-		this.results = jQuery(this.results).find(selector);
-		return this;
-	};
+    /**
+     * @namespace hatemile.util
+     */
 
-	JQueryHTMLDOMParser.prototype.findAncestors = function(selector) {
-		if (selector instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
-			selector = selector.getData();
-		}
-		this.results = jQuery(this.results).parents(selector);
-		return this;
-	};
+    (base = this.hatemile).util || (base.util = {});
 
-	JQueryHTMLDOMParser.prototype.firstResult = function() {
-		if (isEmpty(this.results)) {
-			return void 0;
-		}
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(0));
-	};
 
-	JQueryHTMLDOMParser.prototype.lastResult = function() {
-		if (isEmpty(this.results)) {
-			return void 0;
-		}
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
-	};
+    /**
+     * @namespace hatemile.util.html
+     */
 
-	JQueryHTMLDOMParser.prototype.listResults = function() {
-		var array, result, _i, _len, _ref;
-		array = [];
-		if (!isEmpty(this.results)) {
-			_ref = this.results;
-			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-				result = _ref[_i];
-				array.push(new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
-			}
-		}
-		return array;
-	};
+    (base1 = this.hatemile.util).html || (base1.html = {});
 
-	JQueryHTMLDOMParser.prototype.createElement = function(tag) {
-		return new __exports.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
-	};
 
-	JQueryHTMLDOMParser.prototype.getHTML = function() {
-		return this.ownerDocument.documentElement.outerHTML;
-	};
+    /**
+     * @namespace hatemile.util.html.jquery
+     */
 
-	JQueryHTMLDOMParser.prototype.getParser = function() {
-		return this.root;
-	};
+    (base2 = this.hatemile.util.html).jquery || (base2.jquery = {});
 
-	JQueryHTMLDOMParser.prototype.clearParser = function() {
-		this.results = void 0;
-	};
+    this.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function () {
 
-	return JQueryHTMLDOMParser;
+        /**
+         * Initializes a new object that encapsulate the jQuery.
+         * @param {string|HTMLDocument} html The html code or owner document.
+         * @param {HTMLDocument} ownerDocument The owner document of parser.
+         * @class The class JQueryHTMLDOMParser is official implementation of
+         * HTMLDOMParser interface for the jQuery library.
+         * @implements {hatemile.util.html.HTMLDOMParser}
+         * @constructs hatemile.util.html.jquery.JQueryHTMLDOMParser
+         */
+        function JQueryHTMLDOMParser(html, ownerDocument) {
+            this.root = jQuery(html);
+            this.results = void 0;
+            if (!self.isEmpty(ownerDocument)) {
+                this.ownerDocument = ownerDocument;
+            } else if (!self.isEmpty(html.ownerDocument)) {
+                this.ownerDocument = html.ownerDocument;
+            } else {
+                this.ownerDocument = document;
+            }
+        }
 
-})();
+        JQueryHTMLDOMParser.prototype.find = function (selector) {
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                selector = selector.getData();
+            }
+            this.results = this.root.find(selector);
+            return this;
+        };
+
+        JQueryHTMLDOMParser.prototype.findChildren = function (selector) {
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                selector = selector.getData();
+            }
+            this.results = jQuery(this.results).children(selector);
+            return this;
+        };
+
+        JQueryHTMLDOMParser.prototype.findDescendants = function (selector) {
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                selector = selector.getData();
+            }
+            this.results = jQuery(this.results).find(selector);
+            return this;
+        };
+
+        JQueryHTMLDOMParser.prototype.findAncestors = function (selector) {
+            if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement) {
+                selector = selector.getData();
+            }
+            this.results = jQuery(this.results).parents(selector);
+            return this;
+        };
+
+        JQueryHTMLDOMParser.prototype.firstResult = function () {
+            if (self.isEmpty(this.results)) {
+                return void 0;
+            }
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(0));
+        };
+
+        JQueryHTMLDOMParser.prototype.lastResult = function () {
+            if (self.isEmpty(this.results)) {
+                return void 0;
+            }
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
+        };
+
+        JQueryHTMLDOMParser.prototype.listResults = function () {
+            var array, i, len, ref, result;
+            array = [];
+            if (!self.isEmpty(this.results)) {
+                ref = this.results;
+                for (i = 0, len = ref.length; i < len; i++) {
+                    result = ref[i];
+                    array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result));
+                }
+            }
+            return array;
+        };
+
+        JQueryHTMLDOMParser.prototype.createElement = function (tag) {
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.ownerDocument.createElement(tag));
+        };
+
+        JQueryHTMLDOMParser.prototype.getHTML = function () {
+            return this.ownerDocument.documentElement.outerHTML;
+        };
+
+        JQueryHTMLDOMParser.prototype.getParser = function () {
+            return this.root;
+        };
+
+        JQueryHTMLDOMParser.prototype.clearParser = function () {
+            this.results = void 0;
+        };
+
+        return JQueryHTMLDOMParser;
+
+    })();
+
+}).call(this);

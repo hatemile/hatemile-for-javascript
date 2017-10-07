@@ -1,4 +1,4 @@
-hatemile_configuration =
+@hatemile_configuration =
 	'prefix-generated-ids': 'id-cs-'
 	
 	'aria-autocomplete-both-before': ''

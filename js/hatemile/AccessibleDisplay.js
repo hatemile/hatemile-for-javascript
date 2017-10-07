@@ -10,180 +10,200 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
+ */
 
-var __exports;
-
-__exports = this;
 
 /**
  * @namespace hatemile
  */
-__exports.hatemile || (__exports.hatemile = {});
 
-/**
- * The AccessibleDisplay interface improve accessibility, showing informations.
- * @interface hatemile.AccessibleDisplay
- */
-__exports.hatemile.AccessibleDisplay = (function() {
-	function AccessibleDisplay() {
-	}
+(function () {
+    this.hatemile || (this.hatemile = {});
 
-	/**
-	 * Display the shortcut of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayShortcut
-	 */
-	AccessibleDisplay.prototype.displayShortcut = function(element) {
-	};
 
-	/**
-	 * Display all shortcuts of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllShortcuts
-	 */
-	AccessibleDisplay.prototype.displayAllShortcuts = function() {
-	};
+    /**
+     * The AccessibleDisplay interface improve accessibility, showing informations.
+     * @interface hatemile.AccessibleDisplay
+     */
 
-	/**
-	 * Display the WAI-ARIA role of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayRole
-	 */
-	AccessibleDisplay.prototype.displayRole = function(element) {
-	};
+    this.hatemile.AccessibleDisplay = (function () {
+        function AccessibleDisplay() {}
 
-	/**
-	 * Display the WAI-ARIA roles of all elements of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllRoles
-	 */
-	AccessibleDisplay.prototype.displayAllRoles = function() {
-	};
 
-	/**
-	 * Display the headers of each data cell of table.
-	 * @param {hatemile.util.html.HTMLDOMElement} tableCell The table cell.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayCellHeader
-	 */
-	AccessibleDisplay.prototype.displayCellHeader = function(tableCell) {
-	};
+        /**
+         * Display the shortcut of element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayShortcut
+         */
 
-	/**
-	 * Display the headers of each data cell of all tables of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllCellHeaders
-	 */
-	AccessibleDisplay.prototype.displayAllCellHeaders = function() {
-	};
+        AccessibleDisplay.prototype.displayShortcut = function (element) {};
 
-	/**
-	 * Display the WAI-ARIA attributes of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with
-	 * WAI-ARIA attributes.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayWAIARIAStates
-	 */
-	AccessibleDisplay.prototype.displayWAIARIAStates = function(element) {
-	};
 
-	/**
-	 * Display the WAI-ARIA attributes of all elements of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllWAIARIAStates
-	 */
-	AccessibleDisplay.prototype.displayAllWAIARIAStates = function() {
-	};
+        /**
+         * Display all shortcuts of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllShortcuts
+         */
 
-	/**
-	 * Display the attributes of link.
-	 * @param {hatemile.util.html.HTMLDOMElement} link The link element.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayLinkAttributes
-	 */
-	AccessibleDisplay.prototype.displayLinkAttributes = function(link) {
-	};
+        AccessibleDisplay.prototype.displayAllShortcuts = function () {};
 
-	/**
-	 * Display the attributes of all links of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllLinksAttributes
-	 */
-	AccessibleDisplay.prototype.displayAllLinksAttributes = function() {
-	};
 
-	/**
-	 * Display the title of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with title.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayTitle
-	 */
-	AccessibleDisplay.prototype.displayTitle = function(element) {
-	};
+        /**
+         * Display the WAI-ARIA role of element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayRole
+         */
 
-	/**
-	 * Display the titles of all elements of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllTitles
-	 */
-	AccessibleDisplay.prototype.displayAllTitles = function() {
-	};
+        AccessibleDisplay.prototype.displayRole = function (element) {};
 
-	/**
-	 * Display that the element has drag-and-drop event.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element with drag
-	 * or drop events.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayDragAndDrop
-	 */
-	AccessibleDisplay.prototype.displayDragAndDrop = function(element) {
-	};
 
-	/**
-	 * Display that an elements of page have drag-and-drop events.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllDragsAndDrops
-	 */
-	AccessibleDisplay.prototype.displayAllDragsAndDrops = function() {
-	};
+        /**
+         * Display the WAI-ARIA roles of all elements of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllRoles
+         */
 
-	/**
-	 * Display the language of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayLanguage
-	 */
-	AccessibleDisplay.prototype.displayLanguage = function(element) {
-	};
+        AccessibleDisplay.prototype.displayAllRoles = function () {};
 
-	/**
-	 * Display the language of all elements of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllLanguages
-	 */
-	AccessibleDisplay.prototype.displayAllLanguages = function() {
-	};
 
-	/**
-	 * Display the alternative text of image.
-	 * @param {hatemile.util.html.HTMLDOMElement} image The image.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAlternativeTextImage
-	 */
-	AccessibleDisplay.prototype.displayAlternativeTextImage = function(image) {
-	};
+        /**
+         * Display the headers of each data cell of table.
+         * @param {hatemile.util.html.HTMLDOMElement} tableCell The table cell.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayCellHeader
+         */
 
-	/**
-	 * Display the alternative texts of all images of page.
-	 * @public
-	 * @function hatemile.AccessibleDisplay#displayAllAlternativeTextImages
-	 */
-	AccessibleDisplay.prototype.displayAllAlternativeTextImages = function() {
-	};
+        AccessibleDisplay.prototype.displayCellHeader = function (tableCell) {};
 
-	return AccessibleDisplay;
 
-})();
+        /**
+         * Display the headers of each data cell of all tables of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllCellHeaders
+         */
+
+        AccessibleDisplay.prototype.displayAllCellHeaders = function () {};
+
+
+        /**
+         * Display the WAI-ARIA attributes of element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element with
+         * WAI-ARIA attributes.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayWAIARIAStates
+         */
+
+        AccessibleDisplay.prototype.displayWAIARIAStates = function (element) {};
+
+
+        /**
+         * Display the WAI-ARIA attributes of all elements of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllWAIARIAStates
+         */
+
+        AccessibleDisplay.prototype.displayAllWAIARIAStates = function () {};
+
+
+        /**
+         * Display the attributes of link.
+         * @param {hatemile.util.html.HTMLDOMElement} link The link element.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayLinkAttributes
+         */
+
+        AccessibleDisplay.prototype.displayLinkAttributes = function (link) {};
+
+
+        /**
+         * Display the attributes of all links of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllLinksAttributes
+         */
+
+        AccessibleDisplay.prototype.displayAllLinksAttributes = function () {};
+
+
+        /**
+         * Display the title of element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element with title.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayTitle
+         */
+
+        AccessibleDisplay.prototype.displayTitle = function (element) {};
+
+
+        /**
+         * Display the titles of all elements of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllTitles
+         */
+
+        AccessibleDisplay.prototype.displayAllTitles = function () {};
+
+
+        /**
+         * Display that the element has drag-and-drop event.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element with drag
+         * or drop events.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayDragAndDrop
+         */
+
+        AccessibleDisplay.prototype.displayDragAndDrop = function (element) {};
+
+
+        /**
+         * Display that an elements of page have drag-and-drop events.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllDragsAndDrops
+         */
+
+        AccessibleDisplay.prototype.displayAllDragsAndDrops = function () {};
+
+
+        /**
+         * Display the language of element.
+         * @param {hatemile.util.html.HTMLDOMElement} element The element.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayLanguage
+         */
+
+        AccessibleDisplay.prototype.displayLanguage = function (element) {};
+
+
+        /**
+         * Display the language of all elements of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllLanguages
+         */
+
+        AccessibleDisplay.prototype.displayAllLanguages = function () {};
+
+
+        /**
+         * Display the alternative text of image.
+         * @param {hatemile.util.html.HTMLDOMElement} image The image.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAlternativeTextImage
+         */
+
+        AccessibleDisplay.prototype.displayAlternativeTextImage = function (image) {};
+
+
+        /**
+         * Display the alternative text of all images of page.
+         * @public
+         * @function hatemile.AccessibleDisplay#displayAllAlternativeTextImages
+         */
+
+        AccessibleDisplay.prototype.displayAllAlternativeTextImages = function () {};
+
+        return AccessibleDisplay;
+
+    })();
+
+}).call(this);

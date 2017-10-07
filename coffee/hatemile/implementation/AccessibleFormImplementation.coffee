@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-__exports.hatemile.implementation or= {}
+@hatemile.implementation or= {}
 
-class __exports.hatemile.implementation.AccessibleFormImplementation
+class @hatemile.implementation.AccessibleFormImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	DATA_EVENT_CHANGE_ADDED = 'data-changeadded'
@@ -60,13 +60,13 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 				value = field.getAttribute('autocomplete').toLowerCase()
 			else
 				form = parser.find(field).findAncestors('form').firstResult()
-				if (isEmpty(form)) and (field.hasAttribute('form'))
+				if (self.isEmpty(form)) and (field.hasAttribute('form'))
 					form = parser.find("##{field.getAttribute('form')}").firstResult()
-				if (not isEmpty(form)) and (form.hasAttribute('autocomplete'))
+				if (not self.isEmpty(form)) and (form.hasAttribute('autocomplete'))
 					value = form.getAttribute('autocomplete').toLowerCase()
 			if ('on' is value)
 				return 'both'
-			else if (field.hasAttribute('list')) and (not isEmpty(parser.find("datalist[id=\"#{field.getAttribute('list')}\"]").firstResult()))
+			else if (field.hasAttribute('list')) and (not self.isEmpty(parser.find("datalist[id=\"#{field.getAttribute('list')}\"]").firstResult()))
 				return 'list'
 			else if ('off' is value)
 				return 'none'
@@ -95,10 +95,10 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 						addedEvent(event)
 					return
 			else
-				found = __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+				found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 			if not found
 				nativeElement["liston#{typeEvent}"].push(functionForEventHandler)
-				attribute = __exports.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
+				attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
 				element.setAttribute(typeDataEvent, attribute)
 		return
 	
@@ -116,11 +116,11 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	###
 	hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
 		nativeElement = element.getData()
-		if isEmpty(typeDataEvent) or isEmpty(typeFix)
-			return (not isEmpty(nativeElement["on#{typeEvent}"])) or ((not isEmpty(nativeElement.eventListenerList)) and (not isEmpty(nativeElement.eventListenerList[typeEvent])))
+		if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
+			return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or ((not self.isEmpty(nativeElement.eventListenerList)) and (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
 		else
 			attribute = element.getAttribute(typeDataEvent)
-			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or __exports.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+			return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
 	
 	###*
 	 * Check that the field is valid.
@@ -214,7 +214,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidURL
 	###
 	isValidURL = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
 	
 	###*
 	 * Check that the field has a valid e-mail address value.
@@ -228,7 +228,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 		regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])'
 		if field.hasAttribute('multiple')
 			regularExpression = "#{regularExpression}( *, *#{regularExpression})*"
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, "^(#{regularExpression})?$")
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, "^(#{regularExpression})?$")
 	
 	###*
 	 * Check that the field has a valid date value.
@@ -239,7 +239,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidDate
 	###
 	isValidDate = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$')
 	
 	###*
 	 * Check that the field has a valid time value.
@@ -250,7 +250,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidTime
 	###
 	isValidTime = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$')
 	
 	###*
 	 * Check that the field has a valid date and time value.
@@ -261,7 +261,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidDateTime
 	###
 	isValidDateTime = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$')
 	
 	###*
 	 * Check that the field has a valid month value.
@@ -272,7 +272,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidMonth
 	###
 	isValidMonth = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$')
 	
 	###*
 	 * Check that the field has a valid week value.
@@ -283,7 +283,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidWeek
 	###
 	isValidWeek = (field) ->
-		return isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
+		return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
 	
 	###
 	 * Check that the value in field is between its range.
@@ -294,7 +294,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidRange
 	###
 	isValidRange = (field) ->
-		if not isEmpty(field.getData().value)
+		if not self.isEmpty(field.getData().value)
 			if not isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')
 				return false
 			value = parseFloat(field.getData().value)
@@ -351,7 +351,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	 * @function hatemile.implementation.AccessibleFormImplementation.isValidRequired
 	###
 	isValidRequired = (field) ->
-		return not isEmpty(field.getData().value)
+		return not self.isEmpty(field.getData().value)
 	
 	###*
 	 * Initializes a new object that manipulate the accessibility of the forms of
@@ -374,7 +374,7 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	markAllRequiredFields: () ->
 		requiredFields = @parser.find('[required]').listResults()
 		for requiredField in requiredFields
-			if __exports.hatemile.util.CommonFunctions.isValidElement(requiredField)
+			if self.hatemile.util.CommonFunctions.isValidElement(requiredField)
 				@markRequiredField(requiredField)
 		return
 	
@@ -388,20 +388,20 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	markAllRangeFields: () ->
 		rangeFields = @parser.find('[min],[max]').listResults()
 		for rangeField in rangeFields
-			if __exports.hatemile.util.CommonFunctions.isValidElement(rangeField)
+			if self.hatemile.util.CommonFunctions.isValidElement(rangeField)
 				@markRangeField(rangeField)
 		return
 	
 	markAutoCompleteField: (autoCompleteField) ->
 		ariaAutoComplete = getARIAAutoComplete(autoCompleteField, @parser)
-		if not isEmpty(ariaAutoComplete)
+		if not self.isEmpty(ariaAutoComplete)
 			autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
 		return
 	
 	markAllAutoCompleteFields: () ->
 		elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@markAutoCompleteField(element)
 		return
 	
@@ -437,6 +437,6 @@ class __exports.hatemile.implementation.AccessibleFormImplementation
 	markAllInvalidFields: () ->
 		fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
 		for field in fields
-			if __exports.hatemile.util.CommonFunctions.isValidElement(field)
+			if self.hatemile.util.CommonFunctions.isValidElement(field)
 				@markInvalidField(field)
 		return

@@ -11,23 +11,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
  * @class hatemile.util.CommonFunctions
 ###
-class __exports.hatemile.util.CommonFunctions
+class @hatemile.util.CommonFunctions
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_count = 0
@@ -80,12 +79,12 @@ class __exports.hatemile.util.CommonFunctions
 	 * @function hatemile.util.CommonFunctions.increaseInList
 	###
 	@increaseInList: (list, stringToIncrease) ->
-		if not (isEmpty(list) or isEmpty(stringToIncrease))
+		if not (self.isEmpty(list) or self.isEmpty(stringToIncrease))
 			if @inList(list, stringToIncrease)
 				return list
 			else
 				return "#{list} #{stringToIncrease}"
-		else if isEmpty(list)
+		else if self.isEmpty(list)
 			return stringToIncrease
 		else
 			return list
@@ -100,7 +99,7 @@ class __exports.hatemile.util.CommonFunctions
 	 * @function hatemile.util.CommonFunctions.inList
 	###
 	@inList: (list, stringToSearch) ->
-		if not (isEmpty(list) or isEmpty(stringToSearch))
+		if not (self.isEmpty(list) or self.isEmpty(stringToSearch))
 			array = list.split(new RegExp('[ \n\t\r]+'))
 			for item in array
 				if item is stringToSearch
@@ -120,7 +119,7 @@ class __exports.hatemile.util.CommonFunctions
 			return false
 		else
 			parentElement = element.getParentElement()
-			if not isEmpty(parentElement)
+			if not self.isEmpty(parentElement)
 				tagName = parentElement.getTagName()
 				if (tagName isnt 'BODY') and (tagName isnt 'HTML')
 					return @isValidElement(parentElement)

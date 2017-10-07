@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-__exports.hatemile.implementation or= {}
+@hatemile.implementation or= {}
 
-class __exports.hatemile.implementation.AccessibleCSSImplementation
+class @hatemile.implementation.AccessibleCSSImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
@@ -90,7 +90,7 @@ class __exports.hatemile.implementation.AccessibleCSSImplementation
 		regularExpression = undefined
 		for symbol in symbols
 			formatedSymbol = getFormatedSymbol(symbol.symbol)
-			if isEmpty(regularExpression)
+			if self.isEmpty(regularExpression)
 				regularExpression = "(#{formatedSymbol})"
 			else
 				regularExpression = "#{regularExpression}|(#{formatedSymbol})"
@@ -133,7 +133,7 @@ class __exports.hatemile.implementation.AccessibleCSSImplementation
 			if isValidElement(element)
 				children = element.getChildren()
 				for child in children
-					if child instanceof __exports.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+					if child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
 						span = htmlParser.createElement('span')
 						span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
 						span.appendText(child.getTextContent())
@@ -524,9 +524,9 @@ class __exports.hatemile.implementation.AccessibleCSSImplementation
 		textHeader = ''
 		for idHeader in idsHeaders
 			header = htmlParser.find("##{idHeader}").firstResult()
-			if not isEmpty(header)
+			if not self.isEmpty(header)
 				textHeader = "#{textHeader}#{header.getTextContent()} "
-		if not isEmpty(textHeader)
+		if not self.isEmpty(textHeader)
 			element.prependElement(createAuralContentElement(textHeader, 'always', htmlParser))
 		return
 	
@@ -644,6 +644,6 @@ class __exports.hatemile.implementation.AccessibleCSSImplementation
 		if selector isnt undefined
 			elements = @htmlParser.find(selector).listResults()
 			for element in elements
-				if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+				if self.hatemile.util.CommonFunctions.isValidElement(element)
 					@provideSpeakProperties(element)
 		return

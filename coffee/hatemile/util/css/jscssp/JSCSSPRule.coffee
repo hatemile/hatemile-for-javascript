@@ -11,29 +11,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.util
 ###
-__exports.hatemile.util or= {}
+@hatemile.util or= {}
 
 ###*
  * @namespace hatemile.util.css
 ###
-__exports.hatemile.util.css or= {}
+@hatemile.util.css or= {}
 
 ###*
  * @namespace hatemile.util.css.jscssp
 ###
-__exports.hatemile.util.css.jscssp or= {}
+@hatemile.util.css.jscssp or= {}
 
-class __exports.hatemile.util.css.jscssp.JSCSSPRule
+class @hatemile.util.css.jscssp.JSCSSPRule
 	
 	###*
 	 * Initializes a new object that encapsulate the CSS rule.
@@ -47,7 +47,7 @@ class __exports.hatemile.util.css.jscssp.JSCSSPRule
 	
 	hasProperty: (propertyName) ->
 		for nativeDeclaration in @rule.declarations
-			declaration = new __exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+			declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
 			if propertyName is declaration.getProperty()
 				return true
 		return false
@@ -58,7 +58,7 @@ class __exports.hatemile.util.css.jscssp.JSCSSPRule
 	getDeclarations: (propertyName) ->
 		declarations = []
 		for nativeDeclaration in @rule.declarations
-			declaration = new __exports.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+			declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
 			if propertyName is declaration.getProperty()
 				declarations.push(declaration)
 		return declarations

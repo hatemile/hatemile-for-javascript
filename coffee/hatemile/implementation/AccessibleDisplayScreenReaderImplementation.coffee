@@ -11,19 +11,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ###
-__exports = this
+self = this
 
 ###*
  * @namespace hatemile
 ###
-__exports.hatemile or= {}
+@hatemile or= {}
 
 ###*
  * @namespace hatemile.implementation
 ###
-__exports.hatemile.implementation or= {}
+@hatemile.implementation or= {}
 
-class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementation
+class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	
 	ID_CONTAINER_SHORTCUTS = 'container-shortcuts'
 	ID_TEXT_SHORTCUTS = 'text-shortcuts'
@@ -122,7 +122,7 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
 	###
 	getShortcutPrefix = (userAgent, defaultPrefix) ->
-		if not isEmpty(userAgent)
+		if not self.isEmpty(userAgent)
 			userAgent = userAgent.toLowerCase()
 			opera = userAgent.indexOf('opera') > -1
 			mac = userAgent.indexOf('mac') > -1
@@ -174,14 +174,14 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 				descriptionIds = element.getAttribute('aria-describedby').split(new RegExp('[ \n\t\r]+'))
 			for descriptionId in descriptionIds
 				elementDescription = parser.find("##{descriptionId}").firstResult()
-				if not isEmpty(elementDescription)
+				if not self.isEmpty(elementDescription)
 					description = elementDescription.getTextContent()
 					break
 		else if (element.getTagName() is 'INPUT') and (element.hasAttribute('type'))
 			type = element.getAttribute('type').toLowerCase()
 			if ((type is 'button') or (type is 'submit') or (type is 'reset')) and (element.hasAttribute('value'))
 				description = element.getAttribute('value')
-		if isEmpty(description)
+		if self.isEmpty(description)
 			description = element.getTextContent()
 		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
 	
@@ -195,9 +195,9 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	###
 	generateListShortcuts = (parser, textShortcuts) ->
 		container = parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
-		if isEmpty(container)
+		if self.isEmpty(container)
 			local = parser.find('body').firstResult()
-			if not isEmpty(local)
+			if not self.isEmpty(local)
 				container = parser.createElement('div')
 				container.setAttribute('id', ID_CONTAINER_SHORTCUTS)
 				
@@ -208,9 +208,9 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 				container.appendElement(textContainer)
 				local.appendElement(container)
 		list = undefined
-		if not isEmpty(container)
+		if not self.isEmpty(container)
 			list = parser.find(container).findChildren('ul').firstResult()
-			if isEmpty(list)
+			if self.isEmpty(list)
 				list = parser.createElement('ul')
 				container.appendElement(list)
 		return list
@@ -230,14 +230,14 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 		controls = ['INPUT', 'SELECT', 'TEXTAREA']
 		if tagName is 'HTML'
 			body = parser.find('body').firstResult()
-			if not isEmpty(body)
+			if not self.isEmpty(body)
 				insertBefore(body, insertedElement, parser)
 		else if (tags.indexOf(tagName) > -1)
 			element.prependElement(insertedElement)
 		else if (controls.indexOf(tagName) > -1)
 			if element.hasAttribute('id')
 				labels = parser.find("label[for=\"#{element.getAttribute('id')}\"]").listResults()
-			if isEmpty(labels)
+			if self.isEmpty(labels)
 				labels = parser.find(element).findAncestors('label').listResults()
 			for label in labels
 				insertBefore(label, insertedElement, parser)
@@ -260,14 +260,14 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 		controls = ['INPUT', 'SELECT', 'TEXTAREA']
 		if tagName is 'HTML'
 			body = parser.find('body').firstResult()
-			if not isEmpty(body)
+			if not self.isEmpty(body)
 				insertAfter(body, insertedElement, parser)
 		else if appendTags.indexOf(tagName) > -1
 			element.appendElement(insertedElement)
 		else if (controls.indexOf(tagName) > -1)
 			if element.hasAttribute('id')
 				labels = parser.find("label[for=\"#{element.getAttribute('id')}\"]").listResults()
-			if isEmpty(labels)
+			if self.isEmpty(labels)
 				labels = parser.find(element).findAncestors('label').listResults()
 			for label in labels
 				insertAfter(label, insertedElement, parser)
@@ -290,13 +290,13 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
 	###
 	forceReadSimple = (element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) ->
-		__exports.hatemile.util.CommonFunctions.generateId(element, prefixId)
+		self.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		identifier = element.getAttribute('id')
 		
-		if not isEmpty(textBefore)
+		if not self.isEmpty(textBefore)
 			referenceBefore = parser.find(".#{CLASS_FORCE_READ_BEFORE}[#{dataBeforeOf}=\"#{identifier}\"]").firstResult()
 			
-			if not isEmpty(referenceBefore)
+			if not self.isEmpty(referenceBefore)
 				referenceBefore.removeNode()
 				referenceBefore = undefined
 			
@@ -305,10 +305,10 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 			span.setAttribute(dataBeforeOf, identifier)
 			span.appendText(textBefore)
 			insertBefore(element, span, parser)
-		if not isEmpty(textAfter)
+		if not self.isEmpty(textAfter)
 			referenceAfter = parser.find(".#{CLASS_FORCE_READ_AFTER}[#{dataAfterOf}=\"#{identifier}\"]").firstResult()
 			
-			if not isEmpty(referenceAfter)
+			if not self.isEmpty(referenceAfter)
 				referenceAfter.removeNode()
 				referenceAfter = undefined
 			
@@ -342,11 +342,11 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
 	###
 	forceRead = (element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) ->
-		if (not isEmpty(textPrefixBefore)) or (not isEmpty(textSuffixBefore))
+		if (not self.isEmpty(textPrefixBefore)) or (not self.isEmpty(textSuffixBefore))
 			textBefore = "#{textPrefixBefore}#{value}#{textSuffixBefore}"
 		else
 			textBefore = ''
-		if (not isEmpty(textPrefixAfter)) or (not isEmpty(textSuffixAfter))
+		if (not self.isEmpty(textPrefixAfter)) or (not self.isEmpty(textSuffixAfter))
 			textAfter = "#{textPrefixAfter}#{value}#{textSuffixAfter}"
 		else
 			textAfter = ''
@@ -761,11 +761,11 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 				@listShortcuts = generateListShortcuts(@parser, "#{@attributeAccesskeyPrefixBefore}#{@attributeAccesskeySuffixBefore}")
 				@listShortcutsAdded = true
 			
-			if not isEmpty(@listShortcuts)
+			if not self.isEmpty(@listShortcuts)
 				keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
 				for key in keys
 					key = key.toUpperCase()
-					if isEmpty(@parser.find(@listShortcuts).findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}\"]").firstResult())
+					if self.isEmpty(@parser.find(@listShortcuts).findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}\"]").firstResult())
 						item = @parser.createElement('li')
 						item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key)
 						item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key)
@@ -776,7 +776,7 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	displayAllShortcuts: () ->
 		elements = @parser.find('[accesskey]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayShortcut(element)
 		return
 	
@@ -784,14 +784,14 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 		if element.hasAttribute('role')
 			role = element.getAttribute('role')
 			roleDescription = @roles[role]
-			if not isEmpty(roleDescription)
+			if not self.isEmpty(roleDescription)
 				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBefore, @attributeRoleSuffixBefore, @attributeRolePrefixAfter, @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
 		return
 	
 	displayAllRoles: () ->
 		elements = @parser.find('[role]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayRole(element)
 		return
 	
@@ -801,19 +801,19 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 			idsHeaders = tableCell.getAttribute('headers').split(new RegExp('[ \n\t\r]+'))
 			for idHeader in idsHeaders
 				header = @parser.find("##{idHeader}").firstResult()
-				if not isEmpty(header)
+				if not self.isEmpty(header)
 					if textHeader is undefined
 						textHeader = header.getTextContent()
 					else
 						textHeader = "#{textHeader} #{header.getTextContent()}"
-			if not isEmpty(textHeader)
+			if not self.isEmpty(textHeader)
 				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBefore, @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, @attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF)
 		return
 	
 	displayAllCellHeaders: () ->
 		elements = @parser.find('td[headers],th[headers]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayCellHeader(element)
 		return
 	
@@ -927,7 +927,7 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	displayAllWAIARIAStates: () ->
 		elements = @parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayWAIARIAStates(element)
 		return
 	
@@ -941,19 +941,19 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	displayAllLinksAttributes: () ->
 		elements = @parser.find('a[download],a[target="_blank"]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLinkAttributes(element)
 		return
 	
 	displayTitle: (element) ->
-		if (element.hasAttribute('title')) and (not isEmpty(element.getAttribute('title')))
+		if (element.hasAttribute('title')) and (not self.isEmpty(element.getAttribute('title')))
 			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
 		return
 	
 	displayAllTitles: () ->
 		elements = @parser.find('body [title]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayTitle(element)
 		return
 	
@@ -991,7 +991,7 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	displayAllDragsAndDrops: () ->
 		elements = @parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayDragAndDrop(element)
 		return
 	
@@ -999,19 +999,19 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 		if element.hasAttribute('lang')
 			languageCode = element.getAttribute('lang')
 			language = @languages[languageCode]
-			if not isEmpty(language)
+			if not self.isEmpty(language)
 				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
 		else if element.hasAttribute('hreflang')
 			languageCode = element.getAttribute('hreflang')
 			language = @languages[languageCode]
-			if not isEmpty(language)
+			if not self.isEmpty(language)
 				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
 		return
 	
 	displayAllLanguages: () ->
 		elements = @parser.find('html[lang],body[lang],body [lang],body [hreflang]').listResults()
 		for element in elements
-			if __exports.hatemile.util.CommonFunctions.isValidElement(element)
+			if self.hatemile.util.CommonFunctions.isValidElement(element)
 				@displayLanguage(element)
 		return
 	
@@ -1021,7 +1021,7 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 				image.setAttribute('title', image.getAttribute('alt'))
 			else if (image.hasAttribute('title')) and (not image.hasAttribute('alt'))
 				image.setAttribute('alt', image.getAttribute('title'))
-			__exports.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+			self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
 			image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'))
 			image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'))
 		else
@@ -1033,6 +1033,6 @@ class __exports.hatemile.implementation.AccessibleDisplayScreenReaderImplementat
 	displayAllAlternativeTextImages: () ->
 		images = @parser.find('img').listResults();
 		for image in images
-			if __exports.hatemile.util.CommonFunctions.isValidElement(image)
+			if self.hatemile.util.CommonFunctions.isValidElement(image)
 				@displayAlternativeTextImage(image)
 		return
