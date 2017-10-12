@@ -17,47 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.html
-     */
-
     (base1 = this.hatemile.util).html || (base1.html = {});
-
-
-    /**
-     * @namespace hatemile.util.html.vanilla
-     */
 
     (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
     this.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function () {
-
-        /**
-         * Check that the element is descendant of other.
-         * @param {hatemile.util.html.HTMLDOMElement} possibleAncestor The possible
-         * ancestor.
-         * @param {hatemile.util.html.HTMLDOMElement} possibleDescendant The possible
-         * descendant.
-         * @returns {boolean} True if the element is descendant of other or false if
-         * the element is not descendant of other.
-         * @private
-         * @function hatemile.util.html.vanilla.VanillaHTMLDOMParser.isDescendant
-         */
         var isDescendant;
 
         isDescendant = function (possibleAncestor, possibleDescendant) {
@@ -71,16 +39,6 @@ limitations under the License.
             }
             return false;
         };
-
-
-        /**
-         * Initializes a new object that encapsulate the HTMLDocument.
-         * @param {HTMLDocument} ownerDocument The owner document of parser.
-         * @class The class VanillaHTMLDOMParser is official implementation of
-         * HTMLDOMParser interface for JavaScript.
-         * @implements {hatemile.util.html.HTMLDOMParser}
-         * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMParser
-         */
 
         function VanillaHTMLDOMParser(ownerDocument) {
             this.ownerDocument = ownerDocument;

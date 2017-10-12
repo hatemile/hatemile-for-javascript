@@ -13,16 +13,19 @@ limitations under the License.
 ###
 self = this
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.implementation
-###
+# @namespace hatemile.implementation
+#
 @hatemile.implementation or= {}
 
+# The AccessibleDisplayScreenReaderImplementation class is official
+# implementation of AccessibleDisplay interface for screen readers.
+#
+# @extend hatemile.AccessibleDisplay
+#
 class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	
 	ID_CONTAINER_SHORTCUTS = 'container-shortcuts'
@@ -113,14 +116,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 	DATA_INVALID_MONTH = 'data-invalidmonth'
 	DATA_INVALID_WEEK = 'data-invalidweek'
 	
-	###*
-	 * Returns the shortcut prefix of browser.
-	 * @param {string} userAgent The user agent of browser.
-	 * @param {string} defaultPrefix The default prefix.
-	 * @returns {string} The shortcut prefix of browser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
-	###
+	# Returns the shortcut prefix of browser.
+	#
+	# @param [string] userAgent The user agent of browser.
+	# @param [string] defaultPrefix The default prefix.
+	#
+	# @return [string] The shortcut prefix of browser.
+	#
 	getShortcutPrefix = (userAgent, defaultPrefix) ->
 		if not self.isEmpty(userAgent)
 			userAgent = userAgent.toLowerCase()
@@ -149,14 +151,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 		else
 			return defaultPrefix
 	
-	###*
-	 * Returns the description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {string} The description of element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getDescription
-	###
+	# Returns the description of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
+	# @return [string] The description of element.
+	#
 	getDescription = (element, parser) ->
 		description = undefined
 		if element.hasAttribute('title')
@@ -185,14 +186,14 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			description = element.getTextContent()
 		return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
 	
-	###*
-	 * Generate the list of shortcuts of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} textShortcuts The description of container of shortcuts.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.generateListShortcuts
-	###
+	# Generate the list of shortcuts of page.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] textShortcuts The description of container of shortcuts.
+	#
+	# @return [hatemile.util.html.HTMLDOMElement] The list of shortcuts of
+	# page.
+	#
 	generateListShortcuts = (parser, textShortcuts) ->
 		container = parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
 		if self.isEmpty(container)
@@ -215,15 +216,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				container.appendElement(list)
 		return list
 	
-	###*
-	 * Insert a element before other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-	 * be inserted.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertBefore
-	###
+	# Insert a element before other element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The reference element.
+	# @param [hatemile.util.html.HTMLDOMElement] insertedElement The element
+	# that be inserted.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
 	insertBefore = (element, insertedElement, parser) ->
 		tagName = element.getTagName()
 		tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH']
@@ -245,15 +244,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			element.insertBefore(insertedElement)
 		return
 	
-	###*
-	 * Insert a element after other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-	 * be inserted.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertAfter
-	###
+	# Insert a element after other element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The reference element.
+	# @param [hatemile.util.html.HTMLDOMElement] insertedElement The element
+	# that be inserted.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
 	insertAfter = (element, insertedElement, parser) ->
 		tagName = element.getTagName()
 		appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH']
@@ -275,20 +272,18 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			element.insertAfter(insertedElement)
 		return
 	
-	###*
-	 * Force the screen reader display an information of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated ids.
-	 * @param {string} textBefore The text content to show before the element.
-	 * @param {string} textAfter The text content to show after the element.
-	 * @param {string} dataBeforeOf The name of attribute that links the before
-	 * content with element.
-	 * @param {string} dataAfterOf The name of attribute that links the after
-	 * content with element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
-	###
+	# Force the screen reader display an information of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The reference element.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] prefixId The prefix of generated ids.
+	# @param [string] textBefore The text content to show before the element.
+	# @param [string] textAfter The text content to show after the element.
+	# @param [string] dataBeforeOf The name of attribute that links the before
+	# content with element.
+	# @param [string] dataAfterOf The name of attribute that links the after
+	# content with element.
+	#
 	forceReadSimple = (element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) ->
 		self.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		identifier = element.getAttribute('id')
@@ -319,28 +314,26 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			insertAfter(element, span, parser)
 		return
 	
-	###*
-	 * Force the screen reader display an information of element with prefixes or
-	 * suffixes.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-	 * @param {string} value The value to be show.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated ids.
-	 * @param {string} textPrefixBefore The prefix of value to show before the
-	 * element.
-	 * @param {string} textSuffixBefore The suffix of value to show before the
-	 * element.
-	 * @param {string} textPrefixAfter The prefix of value to show after the
-	 * element.
-	 * @param {string} textSuffixAfter The suffix of value to show after the
-	 * element.
-	 * @param {string} dataBeforeOf The name of attribute that links the before
-	 * content with element.
-	 * @param {string} dataAfterOf The name of attribute that links the after
-	 * content with element.
-	 * @private
-	 * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
-	###
+	# Force the screen reader display an information of element with prefixes or
+	# suffixes.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The reference element.
+	# @param [string] value The value to be show.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] prefixId The prefix of generated ids.
+	# @param [string] textPrefixBefore The prefix of value to show before the
+	# element.
+	# @param [string] textSuffixBefore The suffix of value to show before the
+	# element.
+	# @param [string] textPrefixAfter The prefix of value to show after the
+	# element.
+	# @param [string] textSuffixAfter The suffix of value to show after the
+	# element.
+	# @param [string] dataBeforeOf The name of attribute that links the before
+	# content with element.
+	# @param [string] dataAfterOf The name of attribute that links the after
+	# content with element.
+	#
 	forceRead = (element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) ->
 		if (not self.isEmpty(textPrefixBefore)) or (not self.isEmpty(textSuffixBefore))
 			textBefore = "#{textPrefixBefore}#{value}#{textSuffixBefore}"
@@ -353,17 +346,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 		forceReadSimple(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf)
 		return
 	
-	###*
-	 * Initializes a new object that manipulate the display for screen readers of
-	 * parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-	 * @param {string} userAgent The user agent of browser.
-	 * @class The AccessibleDisplayScreenReaderImplementation class is official
-	 * implementation of AccessibleDisplay interface for screen readers.
-	 * @implements {hatemile.AccessibleDisplay}
-	 * @constructs hatemile.implementation.AccessibleDisplayScreenReaderImplementation
-	###
+	# Initializes a new object that manipulate the display for screen readers of
+	# parser.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
+	# @param [string] userAgent The user agent of browser.
+	#
 	constructor: (@parser, configure, userAgent) ->
 		@listShortcutsAdded = false
 		@listShortcuts = undefined
@@ -751,6 +740,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 		
 		@shortcutPrefix = getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
 	
+	# Display the shortcut of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @see hatemile.AccessibleDisplay#displayShortcut
+	#
 	displayShortcut: (element) ->
 		if element.hasAttribute('accesskey')
 			description = getDescription(element, @parser)
@@ -773,6 +768,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 						@listShortcuts.appendElement(item)
 		return
 	
+	# Display all shortcuts of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllShortcuts
+	#
 	displayAllShortcuts: () ->
 		elements = @parser.find('[accesskey]').listResults()
 		for element in elements
@@ -780,6 +779,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayShortcut(element)
 		return
 	
+	# Display the WAI-ARIA role of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @see hatemile.AccessibleDisplay#displayRole
+	#
 	displayRole: (element) ->
 		if element.hasAttribute('role')
 			role = element.getAttribute('role')
@@ -788,6 +793,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				forceRead(element, roleDescription, @parser, @prefixId, @attributeRolePrefixBefore, @attributeRoleSuffixBefore, @attributeRolePrefixAfter, @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
 		return
 	
+	# Display the WAI-ARIA roles of all elements of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllRoles
+	#
 	displayAllRoles: () ->
 		elements = @parser.find('[role]').listResults()
 		for element in elements
@@ -795,6 +804,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayRole(element)
 		return
 	
+	# Display the headers of each data cell of table.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] tableCell The table cell.
+	#
+	# @see hatemile.AccessibleDisplay#displayCellHeader
+	#
 	displayCellHeader: (tableCell) ->
 		if tableCell.hasAttribute('headers')
 			textHeader = undefined
@@ -810,6 +825,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				forceRead(tableCell, textHeader, @parser, @prefixId, @attributeHeadersPrefixBefore, @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, @attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF)
 		return
 	
+	# Display the headers of each data cell of all tables of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllCellHeaders
+	#
 	displayAllCellHeaders: () ->
 		elements = @parser.find('td[headers],th[headers]').listResults()
 		for element in elements
@@ -817,6 +836,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayCellHeader(element)
 		return
 	
+	# Display the WAI-ARIA attributes of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element with
+	# WAI-ARIA attributes.
+	#
+	# @see hatemile.AccessibleDisplay#displayWAIARIAStates
+	#
 	displayWAIARIAStates: (element) ->
 		if (element.hasAttribute('aria-busy')) and (element.getAttribute('aria-busy') is 'true')
 			forceReadSimple(element, @parser, @prefixId, @ariaBusyTrueBefore, @ariaBusyTrueAfter, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF)
@@ -924,6 +950,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				forceReadSimple(element, @parser, @prefixId, @ariaAutoCompleteInlineBefore, @ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
 		return
 	
+	# Display the WAI-ARIA attributes of all elements of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllWAIARIAStates
+	#
 	displayAllWAIARIAStates: () ->
 		elements = @parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults()
 		for element in elements
@@ -931,6 +961,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayWAIARIAStates(element)
 		return
 	
+	# Display the attributes of link.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] link The link element.
+	#
+	# @see hatemile.AccessibleDisplay#displayLinkAttributes
+	#
 	displayLinkAttributes: (link) ->
 		if link.hasAttribute('download')
 			forceReadSimple(link, @parser, @prefixId, @attributeDownloadBefore, @attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF)
@@ -938,6 +974,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			forceReadSimple(link, @parser, @prefixId, @attributeTargetBlankBefore, @attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF)
 		return
 	
+	# Display the attributes of all links of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllLinksAttributes
+	#
 	displayAllLinksAttributes: () ->
 		elements = @parser.find('a[download],a[target="_blank"]').listResults()
 		for element in elements
@@ -945,11 +985,21 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayLinkAttributes(element)
 		return
 	
+	# Display the title of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element with title.
+	#
+	# @see hatemile.AccessibleDisplay#displayTitle
+	#
 	displayTitle: (element) ->
 		if (element.hasAttribute('title')) and (not self.isEmpty(element.getAttribute('title')))
 			forceRead(element, element.getAttribute('title'), @parser, @prefixId, @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
 		return
 	
+	# Display the titles of all elements of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllTitles
+	#
 	displayAllTitles: () ->
 		elements = @parser.find('body [title]').listResults()
 		for element in elements
@@ -957,6 +1007,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayTitle(element)
 		return
 	
+	# Display that the element has drag-and-drop event.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element with drag
+	# or drop events.
+	#
+	# @see hatemile.AccessibleDisplay#displayDragAndDrop
+	#
 	displayDragAndDrop: (element) ->
 		if element.hasAttribute('draggable')
 			forceReadSimple(element, @parser, @prefixId, @attributeDraggableBefore, @attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF)
@@ -988,6 +1045,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				forceReadSimple(element, @parser, @prefixId, @ariaGrabbedFalseBefore, @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF)
 		return
 	
+	# Display that an elements of page have drag-and-drop events.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllDragsAndDrops
+	#
 	displayAllDragsAndDrops: () ->
 		elements = @parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults()
 		for element in elements
@@ -995,6 +1056,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayDragAndDrop(element)
 		return
 	
+	# Display the language of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @see hatemile.AccessibleDisplay#displayLanguage
+	#
 	displayLanguage: (element) ->
 		if element.hasAttribute('lang')
 			languageCode = element.getAttribute('lang')
@@ -1008,6 +1075,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				forceRead(element, language, @parser, @prefixId, @attributeLanguagePrefixBefore, @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
 		return
 	
+	# Display the language of all elements of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllLanguages
+	#
 	displayAllLanguages: () ->
 		elements = @parser.find('html[lang],body[lang],body [lang],body [hreflang]').listResults()
 		for element in elements
@@ -1015,6 +1086,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 				@displayLanguage(element)
 		return
 	
+	# Display the alternative text of image.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] image The image.
+	#
+	# @see hatemile.AccessibleDisplay#displayAlternativeTextImage
+	#
 	displayAlternativeTextImage: (image) ->
 		if (image.hasAttribute('alt')) or (image.hasAttribute('title'))
 			if (image.hasAttribute('alt')) and (not image.hasAttribute('title'))
@@ -1030,6 +1107,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
 			image.setAttribute('aria-hidden', 'true')
 		return
 	
+	# Display the alternative text of all images of page.
+	#
+	# @see hatemile.AccessibleDisplay#displayAllAlternativeTextImages
+	#
 	displayAllAlternativeTextImages: () ->
 		images = @parser.find('img').listResults();
 		for image in images

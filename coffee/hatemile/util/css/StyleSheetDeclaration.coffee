@@ -12,48 +12,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.css
-###
+# @namespace hatemile.util.css
+#
 @hatemile.util.css or= {}
 
-###*
- * The StyleSheetDeclaration interface contains the methods for access the CSS
- * declaration.
- * @interface hatemile.util.css.StyleSheetDeclaration
-###
+# The StyleSheetDeclaration interface contains the methods for access the CSS
+# declaration.
+#
+# @abstract
+#
 class @hatemile.util.css.StyleSheetDeclaration
 	
-	###*
-	 * Returns the value of declaration.
-	 * @returns {string} The value of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getValue
-	###
+	# Returns the value of declaration.
+	#
+	# @return [string] The value of declaration.
+	#
 	getValue: () ->
 	
-	###*
-	 * Returns a array with the values of declaration.
-	 * @returns {string[]} The array with the values of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getValues
-	###
+	# Returns a array with the values of declaration.
+	#
+	# @return [Array<string>] The array with the values of declaration.
+	#
 	getValues: () ->
 	
-	###*
-	 * Returns the property of declaration.
-	 * @returns {string} The property of declaration.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetDeclaration#getProperty
-	###
+	# Returns the property of declaration.
+	#
+	# @return [string] The property of declaration.
+	#
 	getProperty: () ->

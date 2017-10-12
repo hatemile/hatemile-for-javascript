@@ -12,72 +12,61 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
- * @class hatemile.util.CommonFunctions
-###
+# The CommonFuncionts class contains the used methods by HaTeMiLe classes.
+#
 class @hatemile.util.CommonFunctions
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	_count = 0
 	
-	###*
-	 * Generate a id for a element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {string} prefix The prefix of id.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.generateId
-	###
+	# Generate a id for a element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	# @param [string] prefix The prefix of id.
+	#
 	@generateId: (element, prefix) ->
 		if not element.hasAttribute('id')
 			element.setAttribute('id', prefix + _count.toString())
 			_count++
 		return
 	
-	###*
-	 * Reset the count number of ids.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.resetCount
-	###
+	# Reset the count number of ids.
+	#
 	@resetCount: () ->
 		_count = 0
 		return
 	
-	###*
-	 * Copy a list of attributes of a element for other element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element1 The element that have
-	 * attributes copied.
-	 * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
-	 * attributes.
-	 * @param {string[]} attributes The list of attributes that will be copied.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.setListAttributes
-	###
+	# Copy a list of attributes of a element for other element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element1 The element that have
+	# attributes copied.
+	# @param [hatemile.util.html.HTMLDOMElement] element2 The element that copy
+	# the attributes.
+	# @param [Array<string>] attributes The list of attributes that will be
+	# copied.
+	#
 	@setListAttributes: (element1, element2, attributes) ->
 		for attribute in attributes
 			if element1.hasAttribute(attribute)
 				element2.setAttribute(attribute, element1.getAttribute(attribute))
 		return
 	
-	###*
-	 * Increase a item in a HTML list.
-	 * @param {string} list The list.
-	 * @param {string} stringToIncrease The value of item.
-	 * @returns {string} The HTML list with the item added, if the item not was
-	 * contained in list.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.increaseInList
-	###
+	# Increase a item in a HTML list.
+	#
+	# @param [string] list The list.
+	# @param [string] stringToIncrease The value of item.
+	#
+	# @return [string] The HTML list with the item added, if the item not was
+	# contained in list.
+	#
 	@increaseInList: (list, stringToIncrease) ->
 		if not (self.isEmpty(list) or self.isEmpty(stringToIncrease))
 			if @inList(list, stringToIncrease)
@@ -89,15 +78,14 @@ class @hatemile.util.CommonFunctions
 		else
 			return list
 	
-	###*
-	 * Verify if the list contains the item.
-	 * @param {string} list The list.
-	 * @param {string} stringToSearch The value of item.
-	 * @returns {boolean} True if the list contains the item or false is not
-	 * contains.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.inList
-	###
+	# Verify if the list contains the item.
+	#
+	# @param [string] list The list.
+	# @param [string] stringToSearch The value of item.
+	#
+	# @return [boolean] True if the list contains the item or false is not
+	# contains.
+	#
 	@inList: (list, stringToSearch) ->
 		if not (self.isEmpty(list) or self.isEmpty(stringToSearch))
 			array = list.split(new RegExp('[ \n\t\r]+'))
@@ -106,14 +94,13 @@ class @hatemile.util.CommonFunctions
 					return true
 		return false
 	
-	###*
-	 * Check that the element can be manipulated by HaTeMiLe.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element
-	 * @returns {boolean} True if element can be manipulated or false if element
-	 * and  element can be manipulated.
-	 * @public
-	 * @function hatemile.util.CommonFunctions.isValidElement
-	###
+	# Check that the element can be manipulated by HaTeMiLe.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @return [boolean] True if element can be manipulated or false if element
+	# and element can be manipulated.
+	#
 	@isValidElement: (element) ->
 		if element.hasAttribute(DATA_IGNORE)
 			return false

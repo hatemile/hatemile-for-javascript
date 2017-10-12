@@ -12,47 +12,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     var base, base1, base2;
 
     this.hatemile || (this.hatemile = {});
 
-
-    /**
-     * @namespace hatemile.util
-     */
-
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.css
-     */
-
     (base1 = this.hatemile.util).css || (base1.css = {});
-
-
-    /**
-     * @namespace hatemile.util.css.jscssp
-     */
 
     (base2 = this.hatemile.util.css).jscssp || (base2.jscssp = {});
 
     this.hatemile.util.css.jscssp.JSCSSPDeclaration = (function () {
-
-        /**
-         * Initializes a new object that encapsulate the CSS declaration.
-         * @param {jscsspDeclaration} declaration The declaration CSS of rule.
-         * @class The JSCSSPDeclaration class is official implementation of
-         * StyleSheetDeclaration interface for JSCSSP.
-         * @implements {hatemile.util.css.StyleSheetDeclaration}
-         * @constructs hatemile.util.css.jscssp.JSCSSPDeclaration
-         */
         function JSCSSPDeclaration(declaration) {
             this.declaration = declaration;
         }

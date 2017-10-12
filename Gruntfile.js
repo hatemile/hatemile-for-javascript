@@ -53,13 +53,18 @@ module.exports = function(grunt) {
 				jslint_happy: true
 			},
 			files: ['js/**/*.js', '_locales/**/*.js']
-		}
+		},
+		codo: {
+            src: ['coffee/hatemile']
+        }
 	});
 
 	// Load dependencies.
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-js-beautify');
+	grunt.loadNpmTasks('grunt-codo');
 
 	// Default task(s).
 	grunt.registerTask('default', ['coffee', 'js_beautify']);
+	grunt.registerTask('doc', ['codo']);
 };

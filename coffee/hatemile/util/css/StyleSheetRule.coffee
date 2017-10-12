@@ -12,60 +12,51 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.css
-###
+# @namespace hatemile.util.css
+#
 @hatemile.util.css or= {}
 
-###*
- * The StyleSheetRule interface contains the methods for access the CSS rule.
- * @interface hatemile.util.css.StyleSheetRule
-###
+# The StyleSheetRule interface contains the methods for access the CSS rule.
+#
+# @abstract
+#
 class @hatemile.util.css.StyleSheetRule
 	
-	###*
-	 * Returns that the rule has a declaration with the property.
-	 * @param {string} propertyName The name of property.
-	 * @returns {boolean} True if the rule has a declaration with the property or
-	 * false if the rule not has a declaration with the property.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetRule#hasProperty
-	###
+	# Returns that the rule has a declaration with the property.
+	#
+	# @param [string] propertyName The name of property.
+	#
+	# @return [boolean] True if the rule has a declaration with the property or
+	# false if the rule not has a declaration with the property.
+	#
 	hasProperty: (propertyName) ->
 	
-	###*
-	 * Returns that the rule has declarations.
-	 * @returns {boolean} True if the rule has the property or false if the rule
-	 * not has declarations.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetRule#hasDeclarations
-	###
+	# Returns that the rule has declarations.
+	#
+	# @return [boolean] True if the rule has the property or false if the rule
+	# not has declarations.
+	#
 	hasDeclarations: () ->
 	
-	###*
-	 * Returns the declarations with the property.
-	 * @param {string} propertyName The property.
-	 * @returns {hatemile.util.css.StyleSheetDeclaration[]} The declarations with
-	 * the property.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetRule#getDeclarations
-	###
+	# Returns the declarations with the property.
+	#
+	# @param [string] propertyName The property.
+	#
+	# @return [Array<hatemile.util.css.StyleSheetDeclaration>] The declarations
+	# with the property.
+	#
 	getDeclarations: (propertyName) ->
 	
-	###*
-	 * Returns the selector of rule.
-	 * @returns {string} The selector of rule.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetRule#getSelector
-	###
+	# Returns the selector of rule.
+	#
+	# @return [string] The selector of rule.
+	#
 	getSelector: () ->

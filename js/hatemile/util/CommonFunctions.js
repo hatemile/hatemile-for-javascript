@@ -12,28 +12,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     var base;
 
     this.hatemile || (this.hatemile = {});
 
-
-    /**
-     * @namespace hatemile.util
-     */
-
     (base = this.hatemile).util || (base.util = {});
-
-
-    /**
-     * The CommonFuncionts class contains the used methods by HaTeMiLe classes.
-     * @class hatemile.util.CommonFunctions
-     */
 
     this.hatemile.util.CommonFunctions = (function () {
         var DATA_IGNORE, _count;
@@ -44,15 +28,6 @@ limitations under the License.
 
         _count = 0;
 
-
-        /**
-         * Generate a id for a element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @param {string} prefix The prefix of id.
-         * @public
-         * @function hatemile.util.CommonFunctions.generateId
-         */
-
         CommonFunctions.generateId = function (element, prefix) {
             if (!element.hasAttribute('id')) {
                 element.setAttribute('id', prefix + _count.toString());
@@ -60,28 +35,9 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Reset the count number of ids.
-         * @public
-         * @function hatemile.util.CommonFunctions.resetCount
-         */
-
         CommonFunctions.resetCount = function () {
             _count = 0;
         };
-
-
-        /**
-         * Copy a list of attributes of a element for other element.
-         * @param {hatemile.util.html.HTMLDOMElement} element1 The element that have
-         * attributes copied.
-         * @param {hatemile.util.html.HTMLDOMElement} element2 The element that copy the
-         * attributes.
-         * @param {string[]} attributes The list of attributes that will be copied.
-         * @public
-         * @function hatemile.util.CommonFunctions.setListAttributes
-         */
 
         CommonFunctions.setListAttributes = function (element1, element2, attributes) {
             var attribute, i, len;
@@ -92,17 +48,6 @@ limitations under the License.
                 }
             }
         };
-
-
-        /**
-         * Increase a item in a HTML list.
-         * @param {string} list The list.
-         * @param {string} stringToIncrease The value of item.
-         * @returns {string} The HTML list with the item added, if the item not was
-         * contained in list.
-         * @public
-         * @function hatemile.util.CommonFunctions.increaseInList
-         */
 
         CommonFunctions.increaseInList = function (list, stringToIncrease) {
             if (!(self.isEmpty(list) || self.isEmpty(stringToIncrease))) {
@@ -118,17 +63,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Verify if the list contains the item.
-         * @param {string} list The list.
-         * @param {string} stringToSearch The value of item.
-         * @returns {boolean} True if the list contains the item or false is not
-         * contains.
-         * @public
-         * @function hatemile.util.CommonFunctions.inList
-         */
-
         CommonFunctions.inList = function (list, stringToSearch) {
             var array, i, item, len;
             if (!(self.isEmpty(list) || self.isEmpty(stringToSearch))) {
@@ -142,16 +76,6 @@ limitations under the License.
             }
             return false;
         };
-
-
-        /**
-         * Check that the element can be manipulated by HaTeMiLe.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element
-         * @returns {boolean} True if element can be manipulated or false if element
-         * and  element can be manipulated.
-         * @public
-         * @function hatemile.util.CommonFunctions.isValidElement
-         */
 
         CommonFunctions.isValidElement = function (element) {
             var parentElement, tagName;

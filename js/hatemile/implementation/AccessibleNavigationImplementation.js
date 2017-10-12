@@ -17,17 +17,7 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.implementation
-     */
 
     (base = this.hatemile).implementation || (base.implementation = {});
 
@@ -54,15 +44,6 @@ limitations under the License.
 
         DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
-
-        /**
-         * Generate the list of skippers of page.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @returns {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.generateListSkippers
-         */
-
         generateListSkippers = function (parser) {
             var container, list, local;
             container = parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
@@ -84,17 +65,6 @@ limitations under the License.
             }
             return list;
         };
-
-
-        /**
-         * Generate the list of heading links of page.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} textHeading The description of container of heading links.
-         * @returns {hatemile.util.html.HTMLDOMElement} The list of heading links of
-         * page.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.generateListHeading
-         */
 
         generateListHeading = function (parser, textHeading) {
             var container, list, local, textContainer;
@@ -122,15 +92,6 @@ limitations under the License.
             return list;
         };
 
-
-        /**
-         * Returns the level of heading.
-         * @param {hatemile.util.html.HTMLDOMElement} element The heading.
-         * @returns {number} The level of heading.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.getHeadingLevel
-         */
-
         getHeadingLevel = function (element) {
             var tag;
             tag = element.getTagName();
@@ -150,16 +111,6 @@ limitations under the License.
                 return -1;
             }
         };
-
-
-        /**
-         * Check that the headings of page are sintatic correct.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @returns {boolean} True if the headings of page are sintatic correct or
-         * false if not.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.isValidHeading
-         */
 
         isValidHeading = function (parser) {
             var countMainHeading, element, elements, i, lastLevel, len, level;
@@ -184,20 +135,6 @@ limitations under the License.
             return true;
         };
 
-
-        /**
-         * Generate an anchor for the element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @param {string} dataAttribute The custom attribute that links the element
-         * with the anchor.
-         * @param {string} anchorClass The HTML class of anchor.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} prefixId The prefix of generated ids.
-         * @returns {hatemile.util.html.HTMLDOMElement} The anchor.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.generateAnchorFor
-         */
-
         generateAnchorFor = function (element, dataAttribute, anchorClass, parser, prefixId) {
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, prefixId);
@@ -218,15 +155,6 @@ limitations under the License.
             }
             return anchor;
         };
-
-
-        /**
-         * Replace the shortcut of elements, that has the shortcut passed.
-         * @param {hatemile.util.html.HTMLDOMElement} shortcut The shortcut.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @private
-         * @function hatemile.implementation.AccessibleNavigationImplementation.freeShortcut
-         */
 
         freeShortcut = function (shortcut, parser) {
             var alphaNumbers, element, elementWithShortcuts, elements, found, i, j, k, key, len, len1, len2, shortcuts;
@@ -258,22 +186,6 @@ limitations under the License.
                 }
             }
         };
-
-
-        /**
-         * Initializes a new object that manipulate the accessibility of the
-         * navigation of parser.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-         * @param {object[]} skippers The skippers.
-         * @param {string} skippers[].selector The skipper selector.
-         * @param {string} skippers[].description The description of skipper.
-         * @param {string} skippers[].shortcut The skipper shortcut.
-         * @class The AccessibleNavigationImplementation class is official
-         * implementation of AccessibleNavigation interface.
-         * @implements {hatemile.AccessibleNavigation}
-         * @constructs hatemile.implementation.AccessibleNavigationImplementation
-         */
 
         function AccessibleNavigationImplementation(parser1, configure, skippers) {
             this.parser = parser1;

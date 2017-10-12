@@ -17,17 +17,7 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.implementation
-     */
 
     (base = this.hatemile).implementation || (base.implementation = {});
 
@@ -208,16 +198,6 @@ limitations under the License.
 
         DATA_INVALID_WEEK = 'data-invalidweek';
 
-
-        /**
-         * Returns the shortcut prefix of browser.
-         * @param {string} userAgent The user agent of browser.
-         * @param {string} defaultPrefix The default prefix.
-         * @returns {string} The shortcut prefix of browser.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getShortcutPrefix
-         */
-
         getShortcutPrefix = function (userAgent, defaultPrefix) {
             var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
             if (!self.isEmpty(userAgent)) {
@@ -248,16 +228,6 @@ limitations under the License.
                 return defaultPrefix;
             }
         };
-
-
-        /**
-         * Returns the description of element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @returns {string} The description of element.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.getDescription
-         */
 
         getDescription = function (element, parser) {
             var description, descriptionId, descriptionIds, elementDescription, i, len, type;
@@ -296,16 +266,6 @@ limitations under the License.
             return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
         };
 
-
-        /**
-         * Generate the list of shortcuts of page.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} textShortcuts The description of container of shortcuts.
-         * @returns {hatemile.util.html.HTMLDOMElement} The list of shortcuts of page.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.generateListShortcuts
-         */
-
         generateListShortcuts = function (parser, textShortcuts) {
             var container, list, local, textContainer;
             container = parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
@@ -331,17 +291,6 @@ limitations under the License.
             }
             return list;
         };
-
-
-        /**
-         * Insert a element before other element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-         * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-         * be inserted.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertBefore
-         */
 
         insertBefore = function (element, insertedElement, parser) {
             var body, controls, i, label, labels, len, tagName, tags;
@@ -371,17 +320,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Insert a element after other element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-         * @param {hatemile.util.html.HTMLDOMElement} insertedElement The element that
-         * be inserted.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.insertAfter
-         */
-
         insertAfter = function (element, insertedElement, parser) {
             var appendTags, body, controls, i, label, labels, len, tagName;
             tagName = element.getTagName();
@@ -409,22 +347,6 @@ limitations under the License.
                 element.insertAfter(insertedElement);
             }
         };
-
-
-        /**
-         * Force the screen reader display an information of element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} prefixId The prefix of generated ids.
-         * @param {string} textBefore The text content to show before the element.
-         * @param {string} textAfter The text content to show after the element.
-         * @param {string} dataBeforeOf The name of attribute that links the before
-         * content with element.
-         * @param {string} dataAfterOf The name of attribute that links the after
-         * content with element.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceReadSimple
-         */
 
         forceReadSimple = function (element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf) {
             var identifier, referenceAfter, referenceBefore, span;
@@ -456,30 +378,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Force the screen reader display an information of element with prefixes or
-         * suffixes.
-         * @param {hatemile.util.html.HTMLDOMElement} element The reference element.
-         * @param {string} value The value to be show.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} prefixId The prefix of generated ids.
-         * @param {string} textPrefixBefore The prefix of value to show before the
-         * element.
-         * @param {string} textSuffixBefore The suffix of value to show before the
-         * element.
-         * @param {string} textPrefixAfter The prefix of value to show after the
-         * element.
-         * @param {string} textSuffixAfter The suffix of value to show after the
-         * element.
-         * @param {string} dataBeforeOf The name of attribute that links the before
-         * content with element.
-         * @param {string} dataAfterOf The name of attribute that links the after
-         * content with element.
-         * @private
-         * @function hatemile.implementation.AccessibleDisplayScreenReaderImplementation.forceRead
-         */
-
         forceRead = function (element, value, parser, prefixId, textPrefixBefore, textSuffixBefore, textPrefixAfter, textSuffixAfter, dataBeforeOf, dataAfterOf) {
             var textAfter, textBefore;
             if ((!self.isEmpty(textPrefixBefore)) || (!self.isEmpty(textSuffixBefore))) {
@@ -494,19 +392,6 @@ limitations under the License.
             }
             forceReadSimple(element, parser, prefixId, textBefore, textAfter, dataBeforeOf, dataAfterOf);
         };
-
-
-        /**
-         * Initializes a new object that manipulate the display for screen readers of
-         * parser.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-         * @param {string} userAgent The user agent of browser.
-         * @class The AccessibleDisplayScreenReaderImplementation class is official
-         * implementation of AccessibleDisplay interface for screen readers.
-         * @implements {hatemile.AccessibleDisplay}
-         * @constructs hatemile.implementation.AccessibleDisplayScreenReaderImplementation
-         */
 
         function AccessibleDisplayScreenReaderImplementation(parser1, configure, userAgent) {
             this.parser = parser1;

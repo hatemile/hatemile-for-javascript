@@ -17,44 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.css
-     */
-
     (base1 = this.hatemile.util).css || (base1.css = {});
-
-
-    /**
-     * @namespace hatemile.util.css.jscssp
-     */
 
     (base2 = this.hatemile.util.css).jscssp || (base2.jscssp = {});
 
     this.hatemile.util.css.jscssp.JSCSSPRule = (function () {
-
-        /**
-         * Initializes a new object that encapsulate the CSS rule.
-         * @param {jscsspStyleRule} rule The JSCSSP rule.
-         * @class The JSCSSPRule class is official implementation of StyleSheetRule
-         * interface for JSCSSP.
-         * @implements {hatemile.util.css.StyleSheetRule}
-         * @constructs hatemile.util.css.jscssp.JSCSSPRule
-         */
         function JSCSSPRule(rule) {
             this.rule = rule;
         }

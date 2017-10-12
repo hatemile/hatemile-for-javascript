@@ -17,44 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.html
-     */
-
     (base1 = this.hatemile.util).html || (base1.html = {});
-
-
-    /**
-     * @namespace hatemile.util.html.vanilla
-     */
 
     (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
     this.hatemile.util.html.vanilla.VanillaHTMLDOMElement = (function () {
-
-        /**
-         * Initializes a new object that encapsulate the HTMLElement.
-         * @param {HTMLElement} data The HTMLElement instance.
-         * @class The VanillaHTMLDOMElement class is official implementation of
-         * HTMLDOMElement interface for the Javascript.
-         * @implements {hatemile.util.html.HTMLDOMElement}
-         * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMElement
-         */
         function VanillaHTMLDOMElement(data1) {
             this.data = data1;
         }

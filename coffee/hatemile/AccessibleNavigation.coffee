@@ -12,60 +12,44 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * The AccessibleNavigation interface improve the accessibility of navigation.
- * @interface hatemile.AccessibleNavigation
-###
+# The AccessibleNavigation interface improve the accessibility of navigation.
+#
+# @abstract
+#
 class @hatemile.AccessibleNavigation
 	
-	###*
-	 * Provide a content skipper for element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationBySkipper
-	###
+	# Provide a content skipper for element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
 	provideNavigationBySkipper: (element) ->
 	
-	###*
-	 * Provide navigation by content skippers.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationByAllSkippers
-	###
+	# Provide navigation by content skippers.
+	#
 	provideNavigationByAllSkippers: () ->
 	
-	###*
-	 * Provide navigation by heading.
-	 * @param {hatemile.util.html.HTMLDOMElement} heading The heading element.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationByHeading
-	###
+	# Provide navigation by heading.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] heading The heading element.
+	#
 	provideNavigationByHeading: (heading) ->
 	
-	###*
-	 * Provide navigation by headings of page.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationByAllHeadings
-	###
+	# Provide navigation by headings of page.
+	#
 	provideNavigationByAllHeadings: () ->
 	
-	###*
-	 * Provide an alternative way to access the long description of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} image The image with long
-	 * description.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationToLongDescription
-	###
+	# Provide an alternative way to access the long description of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] image The image with long
+	# description.
+	#
 	provideNavigationToLongDescription: (image) ->
 	
-	###*
-	 * Provide an alternative way to access the longs descriptions of all elements
-	 * of page.
-	 * @public
-	 * @function hatemile.AccessibleNavigation#provideNavigationToAllLongDescriptions
-	###
+	# Provide an alternative way to access the longs descriptions of all
+	# elements of page.
+	#
 	provideNavigationToAllLongDescriptions: () ->

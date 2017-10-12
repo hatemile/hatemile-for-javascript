@@ -12,11 +12,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     var base, base1,
         extend = function (child, parent) {
@@ -36,26 +31,9 @@ limitations under the License.
 
     this.hatemile || (this.hatemile = {});
 
-
-    /**
-     * @namespace hatemile.util
-     */
-
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.html
-     */
-
     (base1 = this.hatemile.util).html || (base1.html = {});
-
-
-    /**
-     * The HTMLDOMTextNode interface contains the methods for access of the Text.
-     * @interface hatemile.util.html.HTMLDOMTextNode
-     * @extends hatemile.util.html.HTMLDOMNode
-     */
 
     this.hatemile.util.html.HTMLDOMTextNode = (function (superClass) {
         extend(HTMLDOMTextNode, superClass);
@@ -63,14 +41,6 @@ limitations under the License.
         function HTMLDOMTextNode() {
             return HTMLDOMTextNode.__super__.constructor.apply(this, arguments);
         }
-
-
-        /**
-         * Change the text content of text node.
-         * @param {string} text The new text content.
-         * @public
-         * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
-         */
 
         HTMLDOMTextNode.prototype.setTextContent = function (text) {};
 

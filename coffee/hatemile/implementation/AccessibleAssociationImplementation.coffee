@@ -13,30 +13,32 @@ limitations under the License.
 ###
 self = this
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.implementation
-###
+# @namespace hatemile.implementation
+#
 @hatemile.implementation or= {}
 
+# The AccessibleAssociationImplementation class is official implementation of
+# AccessibleAssociation.
+#
+# @extend hatemile.AccessibleAssociation
+#
 class @hatemile.implementation.AccessibleAssociationImplementation
 	
 	DATA_IGNORE = 'data-ignoreaccessibilityfix'
 	
-	###*
-	 * Returns a list that represents the table.
-	 * @param {hatemile.util.html.HTMLDOMElement} part The table header, table
-	 * footer or table body.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {hatemile.util.html.HTMLDOMElement[][]} The list that
-	 * represents the table.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.getModelTable
-	###
+	# Returns a list that represents the table.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] part The table header, table
+	# footer or table body.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
+	# @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
+	# represents the table.
+	#
 	getModelTable = (part, parser) ->
 		table = []
 		rows = parser.find(part).findChildren('tr').listResults()
@@ -44,15 +46,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 			table.push(getModelRow(parser.find(row).findChildren('th,td').listResults()))
 		return getValidModelTable(table)
 	
-	###*
-	 * Returns a list that represents the table with the rowspans.
-	 * @param {hatemile.util.html.HTMLDOMElement[][]} originalTable The list that
-	 * represents the table without the rowspans.
-	 * @returns {hatemile.util.html.HTMLDOMElement[][]} The list that represents
-	 * the table with the rowspans.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.getValidModelTable
-	###
+	# Returns a list that represents the table with the rowspans.
+	#
+	# @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] originalTable The
+	# list that represents the table without the rowspans.
+	#
+	# @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
+	# represents the table with the rowspans.
+	#
 	getValidModelTable = (originalTable) ->
 		newTable = []
 		if not self.isEmpty(originalTable)
@@ -83,15 +84,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 								newTable[newRowIndex][newCellIndex] = cell
 		return newTable
 	
-	###*
-	 * Returns a list that represents the line of table with the colspans.
-	 * @param {hatemile.util.html.HTMLDOMElement[]} originalRow The list that
-	 * represents the line of table without the colspans.
-	 * @returns {hatemile.util.html.HTMLDOMElement[]} The list that represents the
-	 * line of table with the colspans.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.getModelRow
-	###
+	# Returns a list that represents the line of table with the colspans.
+	#
+	# @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list
+	# that represents the line of table without the colspans.
+	#
+	# @return [Array<hatemile.util.html.HTMLDOMElement>] The list that
+	# represents the line of table with the colspans.
+	#
 	getModelRow = (originalRow) ->
 		newRow = []
 		if not self.isEmpty(originalRow)
@@ -107,15 +107,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 						newRow.splice(i + cellsAdded, 0, originalRow[i])
 		return newRow
 	
-	###*
-	 * Validate the model that represents the table header.
-	 * @param {hatemile.util.html.HTMLDOMElement[][]} header The list that
-	 * represents the table header.
-	 * @returns {boolean} True if the table header is valid or false if the table
-	 * header is not valid.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.validateHeader
-	###
+	# Validate the model that represents the table header.
+	#
+	# @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
+	# that represents the table header.
+	#
+	# @return [boolean] True if the table header is valid or false if the table
+	# header is not valid.
+	#
 	validateHeader = (header) ->
 		if self.isEmpty(header)
 			return false
@@ -129,15 +128,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 				return false
 		return true
 	
-	###*
-	 * Returns a list with ids of rows of same column.
-	 * @param {hatemile.util.html.HTMLDOMElement[][]} header The list that
-	 * represents the table header.
-	 * @param {number} index The index of columns.
-	 * @returns {string[]} The list with ids of rows of same column.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.getCellsHeadersIds
-	###
+	# Returns a list with ids of rows of same column.
+	#
+	# @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
+	# that represents the table header.
+	# @param [number] index The index of columns.
+	#
+	# @return [Array<string>] The list with ids of rows of same column.
+	#
 	getCellsHeadersIds = (header, index) ->
 		ids = []
 		for row in header
@@ -146,14 +144,13 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 				ids.push(cell.getAttribute('id'))
 		return ids
 	
-	###*
-	 * Associate the data cell with header cell of row.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The table body or footer.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated id.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.associateDataCellsWithHeaderCellsOfRow
-	###
+	# Associate the data cell with header cell of row.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The table body or
+	# footer.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] prefixId The prefix of generated id.
+	#
 	associateDataCellsWithHeaderCellsOfRow = (element, parser, prefixId) ->
 		table = getModelTable(element, parser)
 		for row in table
@@ -173,14 +170,12 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 						cell.setAttribute('headers', headers)
 		return
 	
-	###*
-	 * Set the scope of header cells of table header.
-	 * @param {hatemile.util.html.HTMLDOMElement} tableHeader The table header.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated id.
-	 * @private
-	 * @function hatemile.implementation.AccessibleAssociationImplementation.prepareHeaderCells
-	###
+	# Set the scope of header cells of table header.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] tableHeader The table header.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] prefixId The prefix of generated id.
+	#
 	prepareHeaderCells = (tableHeader, parser, prefixId) ->
 		cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
 		for cell in cells
@@ -189,19 +184,21 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 				cell.setAttribute('scope', 'col')
 		return
 	
-	###*
-	 * Initializes a new object that improve the accessibility of associations of
-	 * parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-	 * @class The AccessibleAssociationImplementation class is official
-	 * implementation of AccessibleAssociation.
-	 * @implements {hatemile.AccessibleAssociation}
-	 * @constructs hatemile.implementation.AccessibleAssociationImplementation
-	###
+	# Initializes a new object that improve the accessibility of associations of
+	# parser.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
+	#
 	constructor: (@parser, configure) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
 	
+	# Associate all data cells with header cells of table.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] table The table.
+	#
+	# @see hatemile.AccessibleAssociation#associateDataCellsWithHeaderCells
+	#
 	associateDataCellsWithHeaderCells: (table) ->
 		header = @parser.find(table).findChildren('thead').firstResult()
 		body = @parser.find(table).findChildren('tbody').firstResult()
@@ -230,6 +227,10 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 			associateDataCellsWithHeaderCellsOfRow(footer, @parser, @prefixId)
 		return
 	
+	# Associate all data cells with header cells of all tables of page.
+	#
+	# @see hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
+	#
 	associateAllDataCellsWithHeaderCells: () ->
 		tables = @parser.find('table').listResults()
 		for table in tables
@@ -238,6 +239,12 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 					@associateDataCellsWithHeaderCells(table)
 		return
 	
+	# Associate label with field.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] label The label.
+	#
+	# @see hatemile.AccessibleAssociation#associateLabelWithField
+	#
 	associateLabelWithField: (label) ->
 		if label.getTagName() is 'LABEL'
 			if label.hasAttribute('for')
@@ -255,6 +262,10 @@ class @hatemile.implementation.AccessibleAssociationImplementation
 				field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
 		return
 	
+	# Associate all labels of page with fields.
+	#
+	# @see hatemile.AccessibleAssociation#associateAllLabelsWithFields
+	#
 	associateAllLabelsWithFields: () ->
 		labels = @parser.find('label').listResults()
 		for label in labels

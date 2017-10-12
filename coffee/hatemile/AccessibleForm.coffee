@@ -12,74 +12,54 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * The AccessibleForm interface improve the accessibility of forms.
- * @interface hatemile.AccessibleForm
-###
+# The AccessibleForm interface improve the accessibility of forms.
+#
+# @abstract
+#
 class @hatemile.AccessibleForm
 	
-	###*
-	 * Mark that the field is required.
-	 * @param {hatemile.util.html.HTMLDOMElement} requiredField The required field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markRequiredField
-	###
+	# Mark that the field is required.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] requiredField The required
+	# field.
+	#
 	markRequiredField: (requiredField) ->
 	
-	###*
-	 * Mark that the fields is required.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllRequiredFields
-	###
+	# Mark that the fields is required.
+	#
 	markAllRequiredFields: () ->
 	
-	###*
-	 * Mark that the field have range.
-	 * @param {hatemile.util.html.HTMLDOMElement} rangeField The range field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markRangeField
-	###
+	# Mark that the field have range.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] rangeField The range field.
+	#
 	markRangeField: (rangeField) ->
 	
-	###*
-	 * Mark that the fields have range.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllRangeFields
-	###
+	# Mark that the fields have range.
+	#
 	markAllRangeFields: () ->
 	
-	###*
-	 * Mark that the field have autocomplete.
-	 * @param {hatemile.util.html.HTMLDOMElement} autoCompleteField The field
-	 * with autocomplete.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAutoCompleteField
-	###
+	# Mark that the field have autocomplete.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field
+	# with autocomplete.
+	#
 	markAutoCompleteField: (autoCompleteField) ->
 	
-	###*
-	 * Mark that the fields have autocomplete.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllAutoCompleteFields
-	###
+	# Mark that the fields have autocomplete.
+	#
 	markAllAutoCompleteFields: () ->
 	
-	###*
-	 * Mark a solution to display that this field is invalid.
-	 * @param {hatemile.util.html.HTMLDOMElement} field The field.
-	 * @public
-	 * @function hatemile.AccessibleForm#markInvalidField
-	###
+	# Mark a solution to display that this field is invalid.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] field The field.
+	#
 	markInvalidField: (field) ->
 	
-	###*
-	 * Mark a solution to display that a fields are invalid.
-	 * @public
-	 * @function hatemile.AccessibleForm#markAllInvalidFields
-	###
+	# Mark a solution to display that a fields are invalid.
+	#
 	markAllInvalidFields: () ->

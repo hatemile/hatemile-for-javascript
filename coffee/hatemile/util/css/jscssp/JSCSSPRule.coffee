@@ -13,38 +13,44 @@ limitations under the License.
 ###
 self = this
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.css
-###
+# @namespace hatemile.util.css
+#
 @hatemile.util.css or= {}
 
-###*
- * @namespace hatemile.util.css.jscssp
-###
+# @namespace hatemile.util.css.jscssp
+#
 @hatemile.util.css.jscssp or= {}
 
+# The JSCSSPRule class is official implementation of StyleSheetRule interface
+# for JSCSSP.
+#
+# @extend hatemile.util.css.StyleSheetRule
+#
 class @hatemile.util.css.jscssp.JSCSSPRule
 	
-	###*
-	 * Initializes a new object that encapsulate the CSS rule.
-	 * @param {jscsspStyleRule} rule The JSCSSP rule.
-	 * @class The JSCSSPRule class is official implementation of StyleSheetRule
-	 * interface for JSCSSP.
-	 * @implements {hatemile.util.css.StyleSheetRule}
-	 * @constructs hatemile.util.css.jscssp.JSCSSPRule
-	###
+	# Initializes a new object that encapsulate the CSS rule.
+	#
+	# @param [jscsspStyleRule] rule The JSCSSP rule.
+	#
 	constructor: (@rule) ->
 	
+	# Returns that the rule has a declaration with the property.
+	#
+	# @param [string] propertyName The name of property.
+	#
+	# @return [boolean] True if the rule has a declaration with the property or
+	# false if the rule not has a declaration with the property.
+	#
+	# @see hatemile.util.css.StyleSheetRule#hasProperty
+	#
 	hasProperty: (propertyName) ->
 		for nativeDeclaration in @rule.declarations
 			declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
@@ -52,9 +58,25 @@ class @hatemile.util.css.jscssp.JSCSSPRule
 				return true
 		return false
 	
+	# Returns that the rule has declarations.
+	#
+	# @return [boolean] True if the rule has the property or false if the rule
+	# not has declarations.
+	#
+	# @see hatemile.util.css.StyleSheetRule#hasDeclarations
+	#
 	hasDeclarations: () ->
 		return @rule.declarations.length > 0
 	
+	# Returns the declarations with the property.
+	#
+	# @param [string] propertyName The property.
+	#
+	# @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The
+	# declarations with the property.
+	#
+	# @see hatemile.util.css.StyleSheetRule#getDeclarations
+	#
 	getDeclarations: (propertyName) ->
 		declarations = []
 		for nativeDeclaration in @rule.declarations
@@ -63,5 +85,11 @@ class @hatemile.util.css.jscssp.JSCSSPRule
 				declarations.push(declaration)
 		return declarations
 	
+	# Returns the selector of rule.
+	#
+	# @return [string] The selector of rule.
+	#
+	# @see hatemile.util.css.StyleSheetRule#getSelector
+	#
 	getSelector: () ->
 		return @rule.mSelectorText

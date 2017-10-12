@@ -12,33 +12,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.css
-###
+# @namespace hatemile.util.css
+#
 @hatemile.util.css or= {}
 
-###*
- * The StyleSheetParser interface contains the methods for access the CSS
- * parser.
- * @interface hatemile.util.css.StyleSheetParser
-###
+# The StyleSheetParser interface contains the methods for access the CSS parser.
+#
+# @abstract
+#
 class @hatemile.util.css.StyleSheetParser
 	
-	###*
-	 * Returns the rules of parser by properties.
-	 * @param {string[]} properties The properties.
-	 * @returns {hatemile.util.css.StyleSheetRule[]} The rules.
-	 * @public
-	 * @function hatemile.util.css.StyleSheetParser#getRules
-	###
+	# Returns the rules of parser by properties.
+	#
+	# @param [Array<string>] properties The properties.
+	#
+	# @return [Array<hatemile.util.css.StyleSheetRule>] The rules.
+	#
 	getRules: (properties) ->

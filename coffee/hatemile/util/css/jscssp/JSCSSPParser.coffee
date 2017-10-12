@@ -13,36 +13,36 @@ limitations under the License.
 ###
 self = this
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.css
-###
+# @namespace hatemile.util.css
+#
 @hatemile.util.css or= {}
 
-###*
- * @namespace hatemile.util.css.jscssp
-###
+# @namespace hatemile.util.css.jscssp
+#
 @hatemile.util.css.jscssp or= {}
 
+# The JSCSSPParser class is official implementation of StyleSheetParser
+# interface for JSCSSP.
+#
+# @extend hatemile.util.css.StyleSheetParser
+#
 class @hatemile.util.css.jscssp.JSCSSPParser
 	
-	###
-	 * Returns the absolute path of a URL.
-	 * @param {string} currentURL The current URL of document.
-	 * @param {string} otherURL The other URL.
-	 * @returns {string} The absolute path of other URL.
-	 * @private
-	 * @function hatemile.util.css.jscssp.JSCSSPParser.getAbsolutePath
-	###
+	# Returns the absolute path of a URL.
+	#
+	# @param [string] currentURL The current URL of document.
+	# @param [string] otherURL The other URL.
+	#
+	# @return [string] The absolute path of other URL.
+	#
 	getAbsolutePath = (currentURL, otherURL) ->
 		if otherURL.indexOf('//') is 0
 			if currentURL.indexOf('https://') is 0
@@ -68,13 +68,12 @@ class @hatemile.util.css.jscssp.JSCSSPParser
 						stackURL.push(relativePart)
 				return stackURL.join('/')
 	
-	###
-	 * Returns the text content of document.
-	 * @param {HTMLDocument} doc The document.
-	 * @returns {string} The text content of document.
-	 * @private
-	 * @function hatemile.util.css.jscssp.JSCSSPParser.getCSSContent
-	###
+	# Returns the text content of document.
+	#
+	# @param [HTMLDocument] doc The document.
+	#
+	# @return [string] The text content of document.
+	#
 	getCSSContent = (doc, currentURL) ->
 		content = ''
 		head = doc.getElementsByTagName('head')[0]
@@ -90,13 +89,12 @@ class @hatemile.util.css.jscssp.JSCSSPParser
 				content += getContentFromElement(style)
 		return content
 	
-	###
-	 * Returns the text content of URL.
-	 * @param {string} url The URL.
-	 * @returns {string} The text content of URL.
-	 * @private
-	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromURL
-	###
+	# Returns the text content of URL.
+	#
+	# @param [string] url The URL.
+	#
+	# @return [string] The text content of URL.
+	#
 	getContentFromURL = (url) ->
 		content = ''
 		if not self.isEmpty(url)
@@ -118,16 +116,12 @@ class @hatemile.util.css.jscssp.JSCSSPParser
 				httpRequest.send()
 		return content
 	
-	###*
-	 * Initializes a new object that encapsulate the CSS parser.
-	 * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
-	 * document object or a string with CSS rules.
-	 * @param {string} currentURL The current URL of page.
-	 * @class The JSCSSPParser class is official implementation of
-	 * StyleSheetParser interface for JSCSSP.
-	 * @implements {hatemile.util.css.StyleSheetParser}
-	 * @constructs hatemile.util.css.jscssp.JSCSSPParser
-	###
+	# Initializes a new object that encapsulate the CSS parser.
+	#
+	# @param [jscsspStylesheet, HTMLDocument, string] parser The JSCSSP parser,
+	# the document object or a string with CSS rules.
+	# @param [string] currentURL The current URL of page.
+	#
 	constructor: (@parser, @currentURL) ->
 		if not (@parser instanceof jscsspStylesheet)
 			parser = new CSSParser()
@@ -136,13 +130,12 @@ class @hatemile.util.css.jscssp.JSCSSPParser
 			if (typeof @parser is typeof '')
 				@parser = parser.parse("body{}#{@parser}", false, false)
 	
-	###
-	 * Returns the text content of element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @returns {string} The text content of element.
-	 * @private
-	 * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromElement
-	###
+	# Returns the text content of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @return [string] The text content of element.
+	#
 	getContentFromElement = (element) ->
 		if not self.isEmpty(element.textContent)
 			return element.textContent
@@ -157,6 +150,14 @@ class @hatemile.util.css.jscssp.JSCSSPParser
 				text += getContentFromElement(elementChild)
 		return text
 	
+	# Returns the rules of parser by properties.
+	#
+	# @param [Array<string>] properties The properties.
+	#
+	# @return [Array<hatemile.util.css.jscssp.JSCSSPRule>] The rules.
+	#
+	# @see hatemile.util.css.StyleSheetParser#getRules
+	#
 	getRules: (properties) ->
 		rules = []
 		if self.isEmpty(properties)

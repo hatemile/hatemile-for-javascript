@@ -17,17 +17,7 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.implementation
-     */
 
     (base = this.hatemile).implementation || (base.implementation = {});
 
@@ -68,16 +58,6 @@ limitations under the License.
 
         VALIDATION_LENGTH = 'length';
 
-
-        /**
-         * Returns the appropriate value for attribute aria-autocomplete of field.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @returns {string} The ARIA value of field.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.getARIAAutoComplete
-         */
-
         getARIAAutoComplete = function (field, parser) {
             var form, tagName, type, value;
             tagName = field.getTagName();
@@ -107,19 +87,6 @@ limitations under the License.
             return void 0;
         };
 
-
-        /**
-         * Increase a function on event.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @param {string} typeEvent The type of event.
-         * @param {string} typeDataEvent The name of attribute that store the type of
-         * event fixed.
-         * @param {string} typeFix The id of fix method.
-         * @param {function} functionForEventHandler The function.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.addEventHandler
-         */
-
         addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {
             var attribute, found, nativeElement;
             if (!hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
@@ -147,20 +114,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Check that the element has the event added by developer or fixed by
-         * HaTeMiLe.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @param {string} typeEvent The type event.
-         * @param {string} typeDataEvent The custom attribute of type of event.
-         * @param {string} typeFix The id of fix method.
-         * @returns {boolean} True if the element has the event added by developer or
-         * fixed by HaTeMiLe or false if the element not has the event.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.hasEvent
-         */
-
         hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
             var attribute, nativeElement;
             nativeElement = element.getData();
@@ -171,15 +124,6 @@ limitations under the License.
                 return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
             }
         };
-
-
-        /**
-         * Check that the field is valid.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field is valid or if the field is not valid.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValid
-         */
 
         isValid = function (field) {
             if (field.hasAttribute(DATA_INVALID_URL)) {
@@ -209,17 +153,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Validate the field.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @param {string} dataInvalid The custom attribute used if the element is not
-         * valid.
-         * @param {function} validateFunction The validate function.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.validateNow
-         */
-
         validateNow = function (field, dataInvalid, validateFunction) {
             if (validateFunction(field)) {
                 if (field.hasAttribute(dataInvalid)) {
@@ -234,18 +167,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Validate the field when its value change.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @param {string} dataInvalid The custom attribute used if the element is not
-         * valid.
-         * @param {string} typeFix The id of fix method.
-         * @param {function} validateFunction The validate function.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.validate
-         */
-
         validate = function (field, dataInvalid, typeFix, validateFunction) {
             validateNow(field, dataInvalid, validateFunction);
             addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, function (event) {
@@ -253,46 +174,15 @@ limitations under the License.
             });
         };
 
-
-        /**
-         * Check that the value match with regular expression.
-         * @param {string} value The value.
-         * @param {string} pattern The regular expression.
-         * @returns {boolean} True if the value match with regular expression or
-         * false if the value not match with regular expression.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidRegularExpression
-         */
-
         isValidRegularExpression = function (value, pattern) {
             var regularExpression;
             regularExpression = new RegExp(pattern);
             return regularExpression.test(value);
         };
 
-
-        /**
-         * Check that the field has a valid URL value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid URL value or false if the
-         * field have not a valid URL value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidURL
-         */
-
         isValidURL = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
         };
-
-
-        /**
-         * Check that the field has a valid e-mail address value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid e-mail address value or
-         * false if the field have not a valid e-mail address value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidEmail
-         */
 
         isValidEmail = function (field) {
             var regularExpression;
@@ -303,85 +193,25 @@ limitations under the License.
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
         };
 
-
-        /**
-         * Check that the field has a valid date value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid date value or false if
-         * the field have not a valid date value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidDate
-         */
-
         isValidDate = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$');
         };
-
-
-        /**
-         * Check that the field has a valid time value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid time value or false if
-         * the field have not a valid time value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidTime
-         */
 
         isValidTime = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$');
         };
 
-
-        /**
-         * Check that the field has a valid date and time value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid date and time value or
-         * false if the field have not a valid date and time value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidDateTime
-         */
-
         isValidDateTime = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$');
         };
-
-
-        /**
-         * Check that the field has a valid month value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid month value or false if
-         * the field have not a valid month value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidMonth
-         */
 
         isValidMonth = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$');
         };
 
-
-        /**
-         * Check that the field has a valid week value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a valid week value or false if
-         * the field have not a valid week value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidWeek
-         */
-
         isValidWeek = function (field) {
             return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
         };
-
-
-        /*
-         * Check that the value in field is between its range.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the value in field is between its range or false
-         * if the value in field is not between its range.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidRange
-         */
 
         isValidRange = function (field) {
             var maxValue, minValue, value;
@@ -414,16 +244,6 @@ limitations under the License.
             return true;
         };
 
-
-        /**
-         * Check that the length of the value in field is between its range.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the length of the value in field is between its
-         * range or false if the length of the value in field is not between its range.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidLength
-         */
-
         isValidLength = function (field) {
             if (field.hasAttribute('minlength')) {
                 if (field.getData().value.length < parseInt(field.getAttribute('minlength'))) {
@@ -438,45 +258,13 @@ limitations under the License.
             return true;
         };
 
-
-        /**
-         * Check that the value in field match with its pattern.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the value in field match with its pattern or
-         * false if the value in field not match with its pattern.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidPattern
-         */
-
         isValidPattern = function (field) {
             return isValidRegularExpression(field.getData().value, field.getAttribute('pattern'));
         };
 
-
-        /**
-         * Check that the field has a value.
-         * @param {hatemile.util.html.HTMLDOMElement} field The field.
-         * @returns {boolean} True if the field has a value or false if the field not
-         * has a value.
-         * @private
-         * @function hatemile.implementation.AccessibleFormImplementation.isValidRequired
-         */
-
         isValidRequired = function (field) {
             return !self.isEmpty(field.getData().value);
         };
-
-
-        /**
-         * Initializes a new object that manipulate the accessibility of the forms of
-         * parser.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-         * @class The AccessibleFormImplementation class is official implementation of
-         * AccessibleForm interface.
-         * @implements {hatemile.AccessibleForm}
-         * @constructs hatemile.implementation.AccessibleFormImplementation
-         */
 
         function AccessibleFormImplementation(parser1, configure) {
             this.parser = parser1;

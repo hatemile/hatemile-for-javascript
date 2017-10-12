@@ -12,120 +12,101 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.html
-###
+# @namespace hatemile.util.html
+#
 @hatemile.util.html or= {}
 
-###*
- * The HTMLDOMNode interface contains the methods for access the Node.
- * @interface hatemile.util.html.HTMLDOMNode
-###
+# The HTMLDOMNode interface contains the methods for access the Node.
+#
+# @abstract
+#
 class @hatemile.util.html.HTMLDOMNode
 	
-	###*
-	 * Returns the text content of node.
-	 * @returns {string} The text content of node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#getTextContent
-	###
+	# Returns the text content of node.
+	#
+	# @return [string] The text content of node.
+	#
 	getTextContent: () ->
 	
-	###*
-	 * Insert a node before this node.
-	 * @param {hatemile.util.html.HTMLDOMNode} newNode The node that be inserted.
-	 * @returns {hatemile.util.html.HTMLDOMNode} This node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#insertBefore
-	###
+	# Insert a node before this node.
+	#
+	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] This node.
+	#
 	insertBefore: (newNode) ->
 	
-	###*
-	 * Insert a node after this node.
-	 * @param {hatemile.util.html.HTMLDOMNode} newNode The node that be inserted.
-	 * @returns {hatemile.util.html.HTMLDOMNode} This node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#insertAfter
-	###
+	# Insert a node after this node.
+	#
+	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] This node.
+	#
 	insertAfter: (newNode) ->
 	
-	###*
-	 * Remove this node of the parser.
-	 * @returns {hatemile.util.html.HTMLDOMNode} The removed node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#removeNode
-	###
+	# Remove this node of the parser.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] The removed node.
+	#
 	removeNode: () ->
 	
-	###*
-	 * Replace this node for other node.
-	 * @param {hatemile.util.html.HTMLDOMNode} newNode The node that replace this
-	 * node.
-	 * @returns {hatemile.util.html.HTMLDOMNode} This node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#replaceNode
-	###
+	# Replace this node for other node.
+	#
+	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this
+	# node.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] This node.
+	#
 	replaceNode: (newNode) ->
 	
-	###*
-	 * Append a text content in node.
-	 * @param {string} text The text content.
-	 * @returns {hatemile.util.html.HTMLDOMNode} This node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#appendText
-	###
+	# Append a text content in node.
+	#
+	# @param [string] text The text content.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] This node.
+	#
 	appendText: (text) ->
 	
-	###*
-	 * Prepend a text content in node.
-	 * @param {string} text The text content.
-	 * @returns {hatemile.util.html.HTMLDOMNode} This node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#prependText
-	###
+	# Prepend a text content in node.
+	#
+	# @param [string] text The text content.
+	#
+	# @return [hatemile.util.html.HTMLDOMNode] This node.
+	#
 	prependText: (text) ->
 	
-	###*
-	 * Returns the parent element of this node.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The parent element of this
-	 * node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#getParentElement
-	###
+	# Returns the parent element of this node.
+	#
+	# @return [hatemile.util.html.HTMLDOMElement] The parent element of this
+	# node.
+	#
 	getParentElement: () ->
 	
-	###*
-	 * Returns the native object of this node.
-	 * @returns {object} The native object of this node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#getData
-	###
+	# Returns the native object of this node.
+	#
+	# @return [object] The native object of this node.
+	#
 	getData: () ->
 	
-	###*
-	 * Modify the native object of this node.
-	 * @param {object} data The native object of this node.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#setData
-	###
+	# Modify the native object of this node.
+	#
+	# @param [object] data The native object of this node.
+	#
 	setData: (data) ->
 	
-	###*
-	 * Indicates whether some other object is equal to this one.
-	 * @param {object} node The reference object with which to compare.
-	 * @returns {boolean} True if the node is the other object is equals to this
-	 * one or if the node is not the other object is equals to this one.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMNode#equals
-	###
+	# Indicates whether some other object is equal to this one.
+	#
+	# @param [object] node The reference object with which to compare.
+	#
+	# @return [boolean] True if the node is the other object is equals to this
+	# one or if the node is not the other object is equals to this one.
+	#
 	equals: (node) ->

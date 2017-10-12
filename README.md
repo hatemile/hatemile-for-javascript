@@ -15,7 +15,11 @@ HaTeMiLe (HTML Accessible) is a library that can convert a HTML code in a HTML c
 
 ## Documentation
 
-To generate the full API documentation of HaTeMiLe of JavaScript use [JSDoc](http://usejsdoc.org/).
+To generate the full API documentation of HaTeMiLe of JavaScript:
+
+1. [Install Node.js](https://nodejs.org/en/download/package-manager/);
+2. [Install the dependencies of HaTeMiLe of JavaScript](https://docs.npmjs.com/cli/install);
+3. Execute the command `grunt doc` in HaTeMiLe of JavaScript directory.
 
 ## Usage
 

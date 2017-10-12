@@ -17,45 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.html
-     */
-
     (base1 = this.hatemile.util).html || (base1.html = {});
-
-
-    /**
-     * @namespace hatemile.util.html.jquery
-     */
 
     (base2 = this.hatemile.util.html).jquery || (base2.jquery = {});
 
     this.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function () {
-
-        /**
-         * Initializes a new object that encapsulate the jQuery.
-         * @param {string|HTMLDocument} html The html code or owner document.
-         * @param {HTMLDocument} ownerDocument The owner document of parser.
-         * @class The class JQueryHTMLDOMParser is official implementation of
-         * HTMLDOMParser interface for the jQuery library.
-         * @implements {hatemile.util.html.HTMLDOMParser}
-         * @constructs hatemile.util.html.jquery.JQueryHTMLDOMParser
-         */
         function JQueryHTMLDOMParser(html, ownerDocument) {
             this.root = jQuery(html);
             this.results = void 0;

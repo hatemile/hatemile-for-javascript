@@ -17,44 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.html
-     */
-
     (base1 = this.hatemile.util).html || (base1.html = {});
-
-
-    /**
-     * @namespace hatemile.util.html.vanilla
-     */
 
     (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
     this.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode = (function () {
-
-        /**
-         * Initializes a new object that encapsulate the text node.
-         * @param {Text} data The native text node.
-         * @class The VanillaHTMLDOMTextNode class is official implementation of
-         * HTMLDOMTextNode interface for the Javascript.
-         * @implements {hatemile.util.html.HTMLDOMTextNode}
-         * @constructs hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
-         */
         function VanillaHTMLDOMTextNode(data1) {
             this.data = data1;
         }

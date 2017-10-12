@@ -12,40 +12,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * The AccessibleCSS interface improve accessibility of CSS.
-     * @interface hatemile.AccessibleCSS
-     */
 
     this.hatemile.AccessibleCSS = (function () {
         function AccessibleCSS() {}
 
-
-        /**
-         * Provide the CSS features of speaking and speech properties in element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @public
-         * @function hatemile.AccessibleCSS#provideSpeakProperties
-         */
-
         AccessibleCSS.prototype.provideSpeakProperties = function (element) {};
-
-
-        /**
-         * Provide the CSS features of speaking and speech properties in all elements
-         * of page.
-         * @public
-         * @function hatemile.AccessibleCSS#provideAllSpeakProperties
-         */
 
         AccessibleCSS.prototype.provideAllSpeakProperties = function () {};
 

@@ -12,42 +12,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     var base;
 
     this.hatemile || (this.hatemile = {});
 
-
-    /**
-     * @namespace hatemile.util
-     */
-
     (base = this.hatemile).util || (base.util = {});
 
     this.hatemile.util.Configure = (function () {
-
-        /**
-         * Initializes a new object that contains the configuration of HaTeMiLe.
-         * @param {object.<string, string>} parameters The JSON configuration.
-         * @class The Configure class contains the configuration of HaTeMiLe.
-         * @constructs hatemile.util.Configure
-         */
         function Configure(parameters) {
             this.parameters = parameters;
         }
-
-
-        /**
-         * Returns the parameters of configuration.
-         * @returns {object.<string, string>} The parameters of configuration.
-         * @public
-         * @function hatemile.util.Configure#getParameters
-         */
 
         Configure.prototype.getParameters = function () {
             var clonedParameters, key, ref, value;
@@ -59,15 +34,6 @@ limitations under the License.
             }
             return clonedParameters;
         };
-
-
-        /**
-         * Returns the value of a parameter of configuration.
-         * @param {string} name The parameter.
-         * @returns {string} The value of the parameter.
-         * @public
-         * @function hatemile.util.Configure#getParameter
-         */
 
         Configure.prototype.getParameter = function (name) {
             return this.parameters[name];

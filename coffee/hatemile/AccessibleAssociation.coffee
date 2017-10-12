@@ -12,44 +12,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * The AccessibleAssociation interface improve accessibility, associating
- * elements.
- * @interface hatemile.AccessibleAssociation
-###
+# The AccessibleAssociation interface improve accessibility, associating
+# elements.
+#
+# @abstract
+#
 class @hatemile.AccessibleAssociation
 	
-	###*
-	 * Associate all data cells with header cells of table.
-	 * @param {hatemile.util.html.HTMLDOMElement} table The table.
-	 * @public
-	 * @function hatemile.AccessibleAssociation#associateDataCellsWithHeaderCells
-	###
+	# Associate all data cells with header cells of table.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] table The table.
+	#
 	associateDataCellsWithHeaderCells: (table) ->
 	
-	###*
-	 * Associate all data cells with header cells of all tables of page.
-	 * @public
-	 * @function hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
-	###
+	# Associate all data cells with header cells of all tables of page.
+	#
 	associateAllDataCellsWithHeaderCells: () ->
 	
-	###*
-	 * Associate label with field.
-	 * @param {hatemile.util.html.HTMLDOMElement} label The label.
-	 * @public
-	 * @function hatemile.AccessibleAssociation#associateLabelWithField
-	###
+	# Associate label with field.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] label The label.
+	#
 	associateLabelWithField: (label) ->
 	
-	###*
-	 * Associate all labels of page with fields.
-	 * @public
-	 * @function hatemile.AccessibleAssociation#associateAllLabelsWithFields
-	###
+	# Associate all labels of page with fields.
+	#
 	associateAllLabelsWithFields: () ->

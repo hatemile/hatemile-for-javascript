@@ -12,44 +12,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
+# The Configure class contains the configuration of HaTeMiLe.
+#
 class @hatemile.util.Configure
 	
-	###*
-	 * Initializes a new object that contains the configuration of HaTeMiLe.
-	 * @param {object.<string, string>} parameters The JSON configuration.
-	 * @class The Configure class contains the configuration of HaTeMiLe.
-	 * @constructs hatemile.util.Configure
-	###
+	# Initializes a new object that contains the configuration of HaTeMiLe.
+	#
+	# @param [object] parameters The JSON configuration.
+	#
 	constructor: (@parameters) ->
 	
-	###*
-	 * Returns the parameters of configuration.
-	 * @returns {object.<string, string>} The parameters of configuration.
-	 * @public
-	 * @function hatemile.util.Configure#getParameters
-	###
+	# Returns the parameters of configuration.
+	#
+	# @return [object] The parameters of configuration.
+	#
 	getParameters: () ->
 		clonedParameters = {}
 		for key, value of @parameters
 			clonedParameters[key] = value
 		return clonedParameters
 	
-	###*
-	 * Returns the value of a parameter of configuration.
-	 * @param {string} name The parameter.
-	 * @returns {string} The value of the parameter.
-	 * @public
-	 * @function hatemile.util.Configure#getParameter
-	###
+	# Returns the value of a parameter of configuration.
+	#
+	# @param [string] name The parameter.
+	#
+	# @return [string] The value of the parameter.
+	#
 	getParameter: (name) ->
 		return @parameters[name]

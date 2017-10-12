@@ -12,32 +12,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.util
-###
+# @namespace hatemile.util
+#
 @hatemile.util or= {}
 
-###*
- * @namespace hatemile.util.html
-###
+# @namespace hatemile.util.html
+#
 @hatemile.util.html or= {}
 
-###*
- * The HTMLDOMTextNode interface contains the methods for access of the Text.
- * @interface hatemile.util.html.HTMLDOMTextNode
- * @extends hatemile.util.html.HTMLDOMNode
-###
+# The HTMLDOMTextNode interface contains the methods for access of the Text.
+#
+# @abstract
+#
 class @hatemile.util.html.HTMLDOMTextNode extends @hatemile.util.html.HTMLDOMNode
 	
-	###*
-	 * Change the text content of text node.
-	 * @param {string} text The new text content.
-	 * @public
-	 * @function hatemile.util.html.HTMLDOMTextNode#setTextContent
-	###
+	# Change the text content of text node.
+	#
+	# @param [string] text The new text content.
+	#
 	setTextContent: (text) ->

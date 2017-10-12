@@ -17,17 +17,7 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.implementation
-     */
 
     (base = this.hatemile).implementation || (base.implementation = {});
 
@@ -35,18 +25,6 @@ limitations under the License.
         var DATA_IGNORE, associateDataCellsWithHeaderCellsOfRow, getCellsHeadersIds, getModelRow, getModelTable, getValidModelTable, prepareHeaderCells, validateHeader;
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
-
-
-        /**
-         * Returns a list that represents the table.
-         * @param {hatemile.util.html.HTMLDOMElement} part The table header, table
-         * footer or table body.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @returns {hatemile.util.html.HTMLDOMElement[][]} The list that
-         * represents the table.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.getModelTable
-         */
 
         getModelTable = function (part, parser) {
             var j, len, row, rows, table;
@@ -58,17 +36,6 @@ limitations under the License.
             }
             return getValidModelTable(table);
         };
-
-
-        /**
-         * Returns a list that represents the table with the rowspans.
-         * @param {hatemile.util.html.HTMLDOMElement[][]} originalTable The list that
-         * represents the table without the rowspans.
-         * @returns {hatemile.util.html.HTMLDOMElement[][]} The list that represents
-         * the table with the rowspans.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.getValidModelTable
-         */
 
         getValidModelTable = function (originalTable) {
             var cell, cellIndex, cellsAdded, j, k, lengthRow, lengthTable, newCellIndex, newRow, newRowIndex, newTable, originalRow, ref, ref1, rowIndex, rowspan;
@@ -111,17 +78,6 @@ limitations under the License.
             return newTable;
         };
 
-
-        /**
-         * Returns a list that represents the line of table with the colspans.
-         * @param {hatemile.util.html.HTMLDOMElement[]} originalRow The list that
-         * represents the line of table without the colspans.
-         * @returns {hatemile.util.html.HTMLDOMElement[]} The list that represents the
-         * line of table with the colspans.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.getModelRow
-         */
-
         getModelRow = function (originalRow) {
             var cellsAdded, colspan, i, j, length, newRow, ref;
             newRow = [];
@@ -143,17 +99,6 @@ limitations under the License.
             return newRow;
         };
 
-
-        /**
-         * Validate the model that represents the table header.
-         * @param {hatemile.util.html.HTMLDOMElement[][]} header The list that
-         * represents the table header.
-         * @returns {boolean} True if the table header is valid or false if the table
-         * header is not valid.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.validateHeader
-         */
-
         validateHeader = function (header) {
             var j, len, length, row;
             if (self.isEmpty(header)) {
@@ -173,17 +118,6 @@ limitations under the License.
             return true;
         };
 
-
-        /**
-         * Returns a list with ids of rows of same column.
-         * @param {hatemile.util.html.HTMLDOMElement[][]} header The list that
-         * represents the table header.
-         * @param {number} index The index of columns.
-         * @returns {string[]} The list with ids of rows of same column.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.getCellsHeadersIds
-         */
-
         getCellsHeadersIds = function (header, index) {
             var cell, ids, j, len, row;
             ids = [];
@@ -196,16 +130,6 @@ limitations under the License.
             }
             return ids;
         };
-
-
-        /**
-         * Associate the data cell with header cell of row.
-         * @param {hatemile.util.html.HTMLDOMElement} element The table body or footer.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} prefixId The prefix of generated id.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.associateDataCellsWithHeaderCellsOfRow
-         */
 
         associateDataCellsWithHeaderCellsOfRow = function (element, parser, prefixId) {
             var cell, headerId, headers, headersIds, j, k, l, len, len1, len2, len3, m, row, table;
@@ -237,16 +161,6 @@ limitations under the License.
             }
         };
 
-
-        /**
-         * Set the scope of header cells of table header.
-         * @param {hatemile.util.html.HTMLDOMElement} tableHeader The table header.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {string} prefixId The prefix of generated id.
-         * @private
-         * @function hatemile.implementation.AccessibleAssociationImplementation.prepareHeaderCells
-         */
-
         prepareHeaderCells = function (tableHeader, parser, prefixId) {
             var cell, cells, j, len;
             cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
@@ -258,18 +172,6 @@ limitations under the License.
                 }
             }
         };
-
-
-        /**
-         * Initializes a new object that improve the accessibility of associations of
-         * parser.
-         * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-         * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-         * @class The AccessibleAssociationImplementation class is official
-         * implementation of AccessibleAssociation.
-         * @implements {hatemile.AccessibleAssociation}
-         * @constructs hatemile.implementation.AccessibleAssociationImplementation
-         */
 
         function AccessibleAssociationImplementation(parser1, configure) {
             this.parser = parser1;

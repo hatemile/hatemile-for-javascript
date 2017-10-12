@@ -13,16 +13,19 @@ limitations under the License.
 ###
 self = this
 
-###*
- * @namespace hatemile
-###
+# @namespace hatemile
+#
 @hatemile or= {}
 
-###*
- * @namespace hatemile.implementation
-###
+# @namespace hatemile.implementation
+#
 @hatemile.implementation or= {}
 
+# The AccessibleNavigationImplementation class is official implementation of
+# AccessibleNavigation interface.
+#
+# @extend hatemile.AccessibleNavigation
+#
 class @hatemile.implementation.AccessibleNavigationImplementation
 	
 	ID_CONTAINER_SKIPPERS = 'container-skippers'
@@ -36,13 +39,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 	CLASS_LONG_DESCRIPTION_LINK = 'longdescription-link'
 	DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor'
 	
-	###*
-	 * Generate the list of skippers of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The list of skippers of page.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListSkippers
-	###
+	# Generate the list of skippers of page.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
+	# @return [hatemile.util.html.HTMLDOMElement] The list of skippers of page.
+	#
 	generateListSkippers = (parser) ->
 		container = parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
 		if self.isEmpty(container)
@@ -59,15 +61,14 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 				container.appendElement(list)
 		return list
 	
-	###*
-	 * Generate the list of heading links of page.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} textHeading The description of container of heading links.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The list of heading links of
-	 * page.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateListHeading
-	###
+	# Generate the list of heading links of page.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] textHeading The description of container of heading links.
+	#
+	# @return [hatemile.util.html.HTMLDOMElement] The list of heading links of
+	# page.
+	#
 	generateListHeading = (parser, textHeading) ->
 		container = parser.find("##{ID_CONTAINER_HEADING}").firstResult()
 		if self.isEmpty(container)
@@ -90,13 +91,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 				container.appendElement(list)
 		return list
 	
-	###*
-	 * Returns the level of heading.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The heading.
-	 * @returns {number} The level of heading.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.getHeadingLevel
-	###
+	# Returns the level of heading.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The heading.
+	#
+	# @return [number] The level of heading.
+	#
 	getHeadingLevel = (element) ->
 		tag = element.getTagName()
 		if tag is 'H1'
@@ -114,14 +114,13 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 		else
 			return -1
 	
-	###*
-	 * Check that the headings of page are sintatic correct.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @returns {boolean} True if the headings of page are sintatic correct or
-	 * false if not.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.isValidHeading
-	###
+	# Check that the headings of page are sintatic correct.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
+	# @return [boolean] True if the headings of page are sintatic correct or
+	# false if not.
+	#
 	isValidHeading = (parser) ->
 		elements = parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		lastLevel = 0
@@ -138,18 +137,17 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 			lastLevel = level
 		return true
 	
-	###*
-	 * Generate an anchor for the element.
-	 * @param {hatemile.util.html.HTMLDOMElement} element The element.
-	 * @param {string} dataAttribute The custom attribute that links the element
-	 * with the anchor.
-	 * @param {string} anchorClass The HTML class of anchor.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {string} prefixId The prefix of generated ids.
-	 * @returns {hatemile.util.html.HTMLDOMElement} The anchor.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.generateAnchorFor
-	###
+	# Generate an anchor for the element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	# @param [string] dataAttribute The custom attribute that links the element
+	# with the anchor.
+	# @param [string] anchorClass The HTML class of anchor.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [string] prefixId The prefix of generated ids.
+	#
+	# @return [hatemile.util.html.HTMLDOMElement] The anchor.
+	#
 	generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
 		self.hatemile.util.CommonFunctions.generateId(element, prefixId)
 		anchor = undefined
@@ -166,13 +164,11 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 			anchor.setAttribute(dataAttribute, element.getAttribute('id'))
 		return anchor
 	
-	###*
-	 * Replace the shortcut of elements, that has the shortcut passed.
-	 * @param {hatemile.util.html.HTMLDOMElement} shortcut The shortcut.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @private
-	 * @function hatemile.implementation.AccessibleNavigationImplementation.freeShortcut
-	###
+	# Replace the shortcut of elements, that has the shortcut passed.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] shortcut The shortcut.
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	#
 	freeShortcut = (shortcut, parser) ->
 		alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz'
 		elements = parser.find('[accesskey]').listResults()
@@ -193,20 +189,16 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 					break
 		return
 	
-	###*
-	 * Initializes a new object that manipulate the accessibility of the
-	 * navigation of parser.
-	 * @param {hatemile.util.html.HTMLDOMParser} parser The HTML parser.
-	 * @param {hatemile.util.Configure} configure The configuration of HaTeMiLe.
-	 * @param {object[]} skippers The skippers.
-	 * @param {string} skippers[].selector The skipper selector.
-	 * @param {string} skippers[].description The description of skipper.
-	 * @param {string} skippers[].shortcut The skipper shortcut.
-	 * @class The AccessibleNavigationImplementation class is official
-	 * implementation of AccessibleNavigation interface.
-	 * @implements {hatemile.AccessibleNavigation}
-	 * @constructs hatemile.implementation.AccessibleNavigationImplementation
-	###
+	# Initializes a new object that manipulate the accessibility of the
+	# navigation of parser.
+	#
+	# @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+	# @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
+	# @param [Array<object>] skippers The skippers.
+	# @option Array<skippers> [string] selector The skipper selector.
+	# @option Array<skippers> [string] description The description of skipper.
+	# @option Array<skippers> [string] shortcut The skipper shortcut.
+	#
 	constructor: (@parser, configure, @skippers) ->
 		@prefixId = configure.getParameter('prefix-generated-ids')
 		@attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before')
@@ -220,6 +212,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 		@validHeading = false
 		@listSkippers = undefined
 	
+	# Provide a content skipper for element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] element The element.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationBySkipper
+	#
 	provideNavigationBySkipper: (element) ->
 		skipper = undefined
 		for auxiliarSkipper in @skippers
@@ -254,6 +252,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 					@listSkippers.appendElement(itemLink)
 		return
 	
+	# Provide navigation by content skippers.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationByAllSkippers
+	#
 	provideNavigationByAllSkippers: () ->
 		for skipper in @skippers
 			elements = @parser.find(skipper['selector']).listResults()
@@ -262,6 +264,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 					@provideNavigationBySkipper(element)
 		return
 	
+	# Provide navigation by heading.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] heading The heading element.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationByHeading
+	#
 	provideNavigationByHeading: (heading) ->
 		if not @validateHeading
 			@validHeading = isValidHeading(@parser)
@@ -291,6 +299,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 					list.appendElement(item)
 		return
 	
+	# Provide navigation by headings of page.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationByAllHeadings
+	#
 	provideNavigationByAllHeadings: () ->
 		elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
 		for element in elements
@@ -298,6 +310,13 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 				@provideNavigationByHeading(element)
 		return
 	
+	# Provide an alternative way to access the long description of element.
+	#
+	# @param [hatemile.util.html.HTMLDOMElement] image The image with long
+	# description.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationToLongDescription
+	#
 	provideNavigationToLongDescription: (image) ->
 		if image.hasAttribute('longdesc')
 			self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
@@ -324,6 +343,11 @@ class @hatemile.implementation.AccessibleNavigationImplementation
 						image.insertAfter(anchor)
 		return
 	
+	# Provide an alternative way to access the longs descriptions of all
+	# elements of page.
+	#
+	# @see hatemile.AccessibleNavigation#provideNavigationToAllLongDescriptions
+	#
 	provideNavigationToAllLongDescriptions: () ->
 		elements = @parser.find('[longdesc]').listResults()
 		for element in elements

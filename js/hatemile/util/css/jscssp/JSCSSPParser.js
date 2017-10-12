@@ -17,44 +17,15 @@ limitations under the License.
 
     self = this;
 
-
-    /**
-     * @namespace hatemile
-     */
-
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * @namespace hatemile.util
-     */
 
     (base = this.hatemile).util || (base.util = {});
 
-
-    /**
-     * @namespace hatemile.util.css
-     */
-
     (base1 = this.hatemile.util).css || (base1.css = {});
-
-
-    /**
-     * @namespace hatemile.util.css.jscssp
-     */
 
     (base2 = this.hatemile.util.css).jscssp || (base2.jscssp = {});
 
     this.hatemile.util.css.jscssp.JSCSSPParser = (function () {
-
-        /*
-         * Returns the absolute path of a URL.
-         * @param {string} currentURL The current URL of document.
-         * @param {string} otherURL The other URL.
-         * @returns {string} The absolute path of other URL.
-         * @private
-         * @function hatemile.util.css.jscssp.JSCSSPParser.getAbsolutePath
-         */
         var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
 
         getAbsolutePath = function (currentURL, otherURL) {
@@ -91,15 +62,6 @@ limitations under the License.
             }
         };
 
-
-        /*
-         * Returns the text content of document.
-         * @param {HTMLDocument} doc The document.
-         * @returns {string} The text content of document.
-         * @private
-         * @function hatemile.util.css.jscssp.JSCSSPParser.getCSSContent
-         */
-
         getCSSContent = function (doc, currentURL) {
             var child, content, head, i, j, len, len1, ref, style, styles, tagName;
             content = '';
@@ -123,15 +85,6 @@ limitations under the License.
             }
             return content;
         };
-
-
-        /*
-         * Returns the text content of URL.
-         * @param {string} url The URL.
-         * @returns {string} The text content of URL.
-         * @private
-         * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromURL
-         */
 
         getContentFromURL = function (url) {
             var content, e, error, error1, httpRequest;
@@ -165,18 +118,6 @@ limitations under the License.
             return content;
         };
 
-
-        /**
-         * Initializes a new object that encapsulate the CSS parser.
-         * @param {jscsspStylesheet|HTMLDocument|string} parser The JSCSSP parser, the
-         * document object or a string with CSS rules.
-         * @param {string} currentURL The current URL of page.
-         * @class The JSCSSPParser class is official implementation of
-         * StyleSheetParser interface for JSCSSP.
-         * @implements {hatemile.util.css.StyleSheetParser}
-         * @constructs hatemile.util.css.jscssp.JSCSSPParser
-         */
-
         function JSCSSPParser(parser1, currentURL1) {
             var parser;
             this.parser = parser1;
@@ -191,15 +132,6 @@ limitations under the License.
                 }
             }
         }
-
-
-        /*
-         * Returns the text content of element.
-         * @param {hatemile.util.html.HTMLDOMElement} element The element.
-         * @returns {string} The text content of element.
-         * @private
-         * @function hatemile.util.css.jscssp.JSCSSPParser.getContentFromElement
-         */
 
         getContentFromElement = function (element) {
             var child, childs, i, len, text;

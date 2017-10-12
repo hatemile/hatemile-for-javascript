@@ -12,59 +12,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-
-/**
- * @namespace hatemile
- */
-
 (function () {
     this.hatemile || (this.hatemile = {});
-
-
-    /**
-     * The AccessibleAssociation interface improve accessibility, associating
-     * elements.
-     * @interface hatemile.AccessibleAssociation
-     */
 
     this.hatemile.AccessibleAssociation = (function () {
         function AccessibleAssociation() {}
 
-
-        /**
-         * Associate all data cells with header cells of table.
-         * @param {hatemile.util.html.HTMLDOMElement} table The table.
-         * @public
-         * @function hatemile.AccessibleAssociation#associateDataCellsWithHeaderCells
-         */
-
         AccessibleAssociation.prototype.associateDataCellsWithHeaderCells = function (table) {};
-
-
-        /**
-         * Associate all data cells with header cells of all tables of page.
-         * @public
-         * @function hatemile.AccessibleAssociation#associateAllDataCellsWithHeaderCells
-         */
 
         AccessibleAssociation.prototype.associateAllDataCellsWithHeaderCells = function () {};
 
-
-        /**
-         * Associate label with field.
-         * @param {hatemile.util.html.HTMLDOMElement} label The label.
-         * @public
-         * @function hatemile.AccessibleAssociation#associateLabelWithField
-         */
-
         AccessibleAssociation.prototype.associateLabelWithField = function (label) {};
-
-
-        /**
-         * Associate all labels of page with fields.
-         * @public
-         * @function hatemile.AccessibleAssociation#associateAllLabelsWithFields
-         */
 
         AccessibleAssociation.prototype.associateAllLabelsWithFields = function () {};
 
