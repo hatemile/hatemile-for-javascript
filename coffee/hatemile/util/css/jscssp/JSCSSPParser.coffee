@@ -110,7 +110,7 @@ class @hatemile.util.css.jscssp.JSCSSPParser
           catch e
       if httpRequest
         httpRequest.onreadystatechange = () ->
-          if (this.readyState is 4) and (this.status is 200)
+          if (@readyState is 4) and (@status is 200)
             content = httpRequest.responseText
         httpRequest.open('GET', url, false)
         httpRequest.send()

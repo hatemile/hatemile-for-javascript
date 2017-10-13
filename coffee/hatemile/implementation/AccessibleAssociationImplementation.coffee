@@ -216,11 +216,12 @@ class @hatemile.implementation.AccessibleAssociationImplementation
           if row.length is lengthHeader
             i = 0
             for cell in row
-              headersIds = getCellsHeadersIds(headerRows, i++)
+              headersIds = getCellsHeadersIds(headerRows, i)
               headers = cell.getAttribute('headers')
               for headersId in headersIds
                 headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
               cell.setAttribute('headers', headers)
+              i = i + 1
     if not self.isEmpty(body)
       associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
     if not self.isEmpty(footer)

@@ -35,7 +35,7 @@ class @hatemile.util.CommonFunctions
   @generateId: (element, prefix) ->
     if not element.hasAttribute('id')
       element.setAttribute('id', prefix + _count.toString())
-      _count++
+      _count = _count + 1
     return
   
   # Reset the count number of ids.
