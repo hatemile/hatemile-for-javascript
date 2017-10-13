@@ -448,7 +448,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
     for child in children
       if ((child.nodeType is @data.ownerDocument.TEXT_NODE) or (child.nodeType is @data.ownerDocument.ELEMENT_NODE))
         lastChild = child
-    if lastChild == undefined
+    if lastChild is undefined
       return undefined
     else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
       return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)

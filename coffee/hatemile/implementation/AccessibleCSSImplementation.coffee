@@ -284,7 +284,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
     content = element.getTextContent()
     while (content.length > 0)
       index = content.search(new RegExp(regularExpression))
-      if index != -1
+      if index isnt -1
         operation(content, index, children)
 
         index = index + 1
@@ -374,7 +374,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   speakAsLiteralPunctuation = (element, htmlParser, symbols) ->
     dataPropertyValue = 'literal-punctuation'
     speakAs(element, getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, (content, index, children) ->
-      if index != 0
+      if index isnt 0
         children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
       
       children.push(createAuralContentElement(" #{getDescriptionOfSymbol(symbols, content.charAt(index))} ", dataPropertyValue, htmlParser))
@@ -409,7 +409,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   speakAsNoPunctuation = (element, htmlParser) ->
     dataPropertyValue = 'no-punctuation'
     speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, (content, index, children) ->
-      if index != 0
+      if index isnt 0
         children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
       
       children.push(createVisualContentElement(content.charAt(index), dataPropertyValue, htmlParser))
@@ -438,7 +438,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   speakAsDigits = (element, htmlParser) ->
     dataPropertyValue = 'digits'
     speakAs(element, '[0-9]', dataPropertyValue, htmlParser, (content, index, children) ->
-      if index != 0
+      if index isnt 0
         children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
       
       children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser))
