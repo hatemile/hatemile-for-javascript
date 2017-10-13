@@ -1112,7 +1112,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @see hatemile.AccessibleDisplay#displayAllAlternativeTextImages
   #
   displayAllAlternativeTextImages: () ->
-    images = @parser.find('img').listResults();
+    images = @parser.find('img').listResults()
     for image in images
       if self.hatemile.util.CommonFunctions.isValidElement(image)
         @displayAlternativeTextImage(image)

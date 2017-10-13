@@ -112,7 +112,7 @@ class @hatemile.util.css.jscssp.JSCSSPParser
         httpRequest.onreadystatechange = () ->
           if (this.readyState is 4) and (this.status is 200)
             content = httpRequest.responseText
-        httpRequest.open('GET', url, false);
+        httpRequest.open('GET', url, false)
         httpRequest.send()
     return content
   
