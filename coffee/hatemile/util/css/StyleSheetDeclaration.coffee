@@ -30,21 +30,21 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.util.css.StyleSheetDeclaration
-	
-	# Returns the value of declaration.
-	#
-	# @return [string] The value of declaration.
-	#
-	getValue: () ->
-	
-	# Returns a array with the values of declaration.
-	#
-	# @return [Array<string>] The array with the values of declaration.
-	#
-	getValues: () ->
-	
-	# Returns the property of declaration.
-	#
-	# @return [string] The property of declaration.
-	#
-	getProperty: () ->
+  
+  # Returns the value of declaration.
+  #
+  # @return [string] The value of declaration.
+  #
+  getValue: () ->
+  
+  # Returns a array with the values of declaration.
+  #
+  # @return [Array<string>] The array with the values of declaration.
+  #
+  getValues: () ->
+  
+  # Returns the property of declaration.
+  #
+  # @return [string] The property of declaration.
+  #
+  getProperty: () ->

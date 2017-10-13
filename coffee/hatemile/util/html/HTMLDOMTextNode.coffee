@@ -29,9 +29,9 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.util.html.HTMLDOMTextNode extends @hatemile.util.html.HTMLDOMNode
-	
-	# Change the text content of text node.
-	#
-	# @param [string] text The new text content.
-	#
-	setTextContent: (text) ->
+  
+  # Change the text content of text node.
+  #
+  # @param [string] text The new text content.
+  #
+  setTextContent: (text) ->

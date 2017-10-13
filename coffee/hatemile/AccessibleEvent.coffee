@@ -22,43 +22,43 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.AccessibleEvent
-	
-	# Make the drop events of element available from a keyboard.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element with drop
-	# events.
-	#
-	makeAccessibleDropEvents: (element) ->
-	
-	# Make the drag events of element available from a keyboard.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element with drag
-	# events.
-	#
-	makeAccessibleDragEvents: (element) ->
-	
-	# Make all Drag-and-Drop events of page available from a keyboard.
-	#
-	makeAccessibleAllDragandDropEvents: () ->
-	
-	# Make the hover events of element available from a keyboard.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element with hover
-	# events.
-	#
-	makeAccessibleHoverEvents: (element) ->
-	
-	# Make all hover events of page available from a keyboard.
-	#
-	makeAccessibleAllHoverEvents: () ->
-	
-	# Make the click events of element available from a keyboard.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element with click
-	# events.
-	#
-	makeAccessibleClickEvents: (element) ->
-	
-	# Make all click events of page available from a keyboard.
-	#
-	makeAccessibleAllClickEvents: () ->
+  
+  # Make the drop events of element available from a keyboard.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drop
+  # events.
+  #
+  makeAccessibleDropEvents: (element) ->
+  
+  # Make the drag events of element available from a keyboard.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag
+  # events.
+  #
+  makeAccessibleDragEvents: (element) ->
+  
+  # Make all Drag-and-Drop events of page available from a keyboard.
+  #
+  makeAccessibleAllDragandDropEvents: () ->
+  
+  # Make the hover events of element available from a keyboard.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with hover
+  # events.
+  #
+  makeAccessibleHoverEvents: (element) ->
+  
+  # Make all hover events of page available from a keyboard.
+  #
+  makeAccessibleAllHoverEvents: () ->
+  
+  # Make the click events of element available from a keyboard.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with click
+  # events.
+  #
+  makeAccessibleClickEvents: (element) ->
+  
+  # Make all click events of page available from a keyboard.
+  #
+  makeAccessibleAllClickEvents: () ->

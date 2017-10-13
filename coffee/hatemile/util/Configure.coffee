@@ -23,28 +23,28 @@ limitations under the License.
 # The Configure class contains the configuration of HaTeMiLe.
 #
 class @hatemile.util.Configure
-	
-	# Initializes a new object that contains the configuration of HaTeMiLe.
-	#
-	# @param [object] parameters The JSON configuration.
-	#
-	constructor: (@parameters) ->
-	
-	# Returns the parameters of configuration.
-	#
-	# @return [object] The parameters of configuration.
-	#
-	getParameters: () ->
-		clonedParameters = {}
-		for key, value of @parameters
-			clonedParameters[key] = value
-		return clonedParameters
-	
-	# Returns the value of a parameter of configuration.
-	#
-	# @param [string] name The parameter.
-	#
-	# @return [string] The value of the parameter.
-	#
-	getParameter: (name) ->
-		return @parameters[name]
+  
+  # Initializes a new object that contains the configuration of HaTeMiLe.
+  #
+  # @param [object] parameters The JSON configuration.
+  #
+  constructor: (@parameters) ->
+  
+  # Returns the parameters of configuration.
+  #
+  # @return [object] The parameters of configuration.
+  #
+  getParameters: () ->
+    clonedParameters = {}
+    for key, value of @parameters
+      clonedParameters[key] = value
+    return clonedParameters
+  
+  # Returns the value of a parameter of configuration.
+  #
+  # @param [string] name The parameter.
+  #
+  # @return [string] The value of the parameter.
+  #
+  getParameter: (name) ->
+    return @parameters[name]

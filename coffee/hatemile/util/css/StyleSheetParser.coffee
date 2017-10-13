@@ -29,11 +29,11 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.util.css.StyleSheetParser
-	
-	# Returns the rules of parser by properties.
-	#
-	# @param [Array<string>] properties The properties.
-	#
-	# @return [Array<hatemile.util.css.StyleSheetRule>] The rules.
-	#
-	getRules: (properties) ->
+  
+  # Returns the rules of parser by properties.
+  #
+  # @param [Array<string>] properties The properties.
+  #
+  # @return [Array<hatemile.util.css.StyleSheetRule>] The rules.
+  #
+  getRules: (properties) ->

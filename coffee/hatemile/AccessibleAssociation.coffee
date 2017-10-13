@@ -22,23 +22,23 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.AccessibleAssociation
-	
-	# Associate all data cells with header cells of table.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] table The table.
-	#
-	associateDataCellsWithHeaderCells: (table) ->
-	
-	# Associate all data cells with header cells of all tables of page.
-	#
-	associateAllDataCellsWithHeaderCells: () ->
-	
-	# Associate label with field.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] label The label.
-	#
-	associateLabelWithField: (label) ->
-	
-	# Associate all labels of page with fields.
-	#
-	associateAllLabelsWithFields: () ->
+  
+  # Associate all data cells with header cells of table.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] table The table.
+  #
+  associateDataCellsWithHeaderCells: (table) ->
+  
+  # Associate all data cells with header cells of all tables of page.
+  #
+  associateAllDataCellsWithHeaderCells: () ->
+  
+  # Associate label with field.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] label The label.
+  #
+  associateLabelWithField: (label) ->
+  
+  # Associate all labels of page with fields.
+  #
+  associateAllLabelsWithFields: () ->

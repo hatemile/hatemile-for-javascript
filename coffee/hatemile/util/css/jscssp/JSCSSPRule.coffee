@@ -35,61 +35,61 @@ self = this
 # @extend hatemile.util.css.StyleSheetRule
 #
 class @hatemile.util.css.jscssp.JSCSSPRule
-	
-	# Initializes a new object that encapsulate the CSS rule.
-	#
-	# @param [jscsspStyleRule] rule The JSCSSP rule.
-	#
-	constructor: (@rule) ->
-	
-	# Returns that the rule has a declaration with the property.
-	#
-	# @param [string] propertyName The name of property.
-	#
-	# @return [boolean] True if the rule has a declaration with the property or
-	# false if the rule not has a declaration with the property.
-	#
-	# @see hatemile.util.css.StyleSheetRule#hasProperty
-	#
-	hasProperty: (propertyName) ->
-		for nativeDeclaration in @rule.declarations
-			declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
-			if propertyName is declaration.getProperty()
-				return true
-		return false
-	
-	# Returns that the rule has declarations.
-	#
-	# @return [boolean] True if the rule has the property or false if the rule
-	# not has declarations.
-	#
-	# @see hatemile.util.css.StyleSheetRule#hasDeclarations
-	#
-	hasDeclarations: () ->
-		return @rule.declarations.length > 0
-	
-	# Returns the declarations with the property.
-	#
-	# @param [string] propertyName The property.
-	#
-	# @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The
-	# declarations with the property.
-	#
-	# @see hatemile.util.css.StyleSheetRule#getDeclarations
-	#
-	getDeclarations: (propertyName) ->
-		declarations = []
-		for nativeDeclaration in @rule.declarations
-			declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
-			if propertyName is declaration.getProperty()
-				declarations.push(declaration)
-		return declarations
-	
-	# Returns the selector of rule.
-	#
-	# @return [string] The selector of rule.
-	#
-	# @see hatemile.util.css.StyleSheetRule#getSelector
-	#
-	getSelector: () ->
-		return @rule.mSelectorText
+  
+  # Initializes a new object that encapsulate the CSS rule.
+  #
+  # @param [jscsspStyleRule] rule The JSCSSP rule.
+  #
+  constructor: (@rule) ->
+  
+  # Returns that the rule has a declaration with the property.
+  #
+  # @param [string] propertyName The name of property.
+  #
+  # @return [boolean] True if the rule has a declaration with the property or
+  # false if the rule not has a declaration with the property.
+  #
+  # @see hatemile.util.css.StyleSheetRule#hasProperty
+  #
+  hasProperty: (propertyName) ->
+    for nativeDeclaration in @rule.declarations
+      declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+      if propertyName is declaration.getProperty()
+        return true
+    return false
+  
+  # Returns that the rule has declarations.
+  #
+  # @return [boolean] True if the rule has the property or false if the rule
+  # not has declarations.
+  #
+  # @see hatemile.util.css.StyleSheetRule#hasDeclarations
+  #
+  hasDeclarations: () ->
+    return @rule.declarations.length > 0
+  
+  # Returns the declarations with the property.
+  #
+  # @param [string] propertyName The property.
+  #
+  # @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The
+  # declarations with the property.
+  #
+  # @see hatemile.util.css.StyleSheetRule#getDeclarations
+  #
+  getDeclarations: (propertyName) ->
+    declarations = []
+    for nativeDeclaration in @rule.declarations
+      declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+      if propertyName is declaration.getProperty()
+        declarations.push(declaration)
+    return declarations
+  
+  # Returns the selector of rule.
+  #
+  # @return [string] The selector of rule.
+  #
+  # @see hatemile.util.css.StyleSheetRule#getSelector
+  #
+  getSelector: () ->
+    return @rule.mSelectorText

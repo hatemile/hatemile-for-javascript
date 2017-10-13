@@ -21,45 +21,45 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.AccessibleForm
-	
-	# Mark that the field is required.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] requiredField The required
-	# field.
-	#
-	markRequiredField: (requiredField) ->
-	
-	# Mark that the fields is required.
-	#
-	markAllRequiredFields: () ->
-	
-	# Mark that the field have range.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] rangeField The range field.
-	#
-	markRangeField: (rangeField) ->
-	
-	# Mark that the fields have range.
-	#
-	markAllRangeFields: () ->
-	
-	# Mark that the field have autocomplete.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field
-	# with autocomplete.
-	#
-	markAutoCompleteField: (autoCompleteField) ->
-	
-	# Mark that the fields have autocomplete.
-	#
-	markAllAutoCompleteFields: () ->
-	
-	# Mark a solution to display that this field is invalid.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] field The field.
-	#
-	markInvalidField: (field) ->
-	
-	# Mark a solution to display that a fields are invalid.
-	#
-	markAllInvalidFields: () ->
+  
+  # Mark that the field is required.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] requiredField The required
+  # field.
+  #
+  markRequiredField: (requiredField) ->
+  
+  # Mark that the fields is required.
+  #
+  markAllRequiredFields: () ->
+  
+  # Mark that the field have range.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] rangeField The range field.
+  #
+  markRangeField: (rangeField) ->
+  
+  # Mark that the fields have range.
+  #
+  markAllRangeFields: () ->
+  
+  # Mark that the field have autocomplete.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field
+  # with autocomplete.
+  #
+  markAutoCompleteField: (autoCompleteField) ->
+  
+  # Mark that the fields have autocomplete.
+  #
+  markAllAutoCompleteFields: () ->
+  
+  # Mark a solution to display that this field is invalid.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] field The field.
+  #
+  markInvalidField: (field) ->
+  
+  # Mark a solution to display that a fields are invalid.
+  #
+  markAllInvalidFields: () ->

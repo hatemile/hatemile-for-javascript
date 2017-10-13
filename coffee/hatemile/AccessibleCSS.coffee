@@ -21,14 +21,14 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.AccessibleCSS
-	
-	# Provide the CSS features of speaking and speech properties in element.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element.
-	#
-	provideSpeakProperties: (element) ->
-	
-	# Provide the CSS features of speaking and speech properties in all elements
-	# of page.
-	#
-	provideAllSpeakProperties: () ->
+  
+  # Provide the CSS features of speaking and speech properties in element.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #
+  provideSpeakProperties: (element) ->
+  
+  # Provide the CSS features of speaking and speech properties in all elements
+  # of page.
+  #
+  provideAllSpeakProperties: () ->

@@ -29,84 +29,84 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.util.html.HTMLDOMNode
-	
-	# Returns the text content of node.
-	#
-	# @return [string] The text content of node.
-	#
-	getTextContent: () ->
-	
-	# Insert a node before this node.
-	#
-	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] This node.
-	#
-	insertBefore: (newNode) ->
-	
-	# Insert a node after this node.
-	#
-	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] This node.
-	#
-	insertAfter: (newNode) ->
-	
-	# Remove this node of the parser.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] The removed node.
-	#
-	removeNode: () ->
-	
-	# Replace this node for other node.
-	#
-	# @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this
-	# node.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] This node.
-	#
-	replaceNode: (newNode) ->
-	
-	# Append a text content in node.
-	#
-	# @param [string] text The text content.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] This node.
-	#
-	appendText: (text) ->
-	
-	# Prepend a text content in node.
-	#
-	# @param [string] text The text content.
-	#
-	# @return [hatemile.util.html.HTMLDOMNode] This node.
-	#
-	prependText: (text) ->
-	
-	# Returns the parent element of this node.
-	#
-	# @return [hatemile.util.html.HTMLDOMElement] The parent element of this
-	# node.
-	#
-	getParentElement: () ->
-	
-	# Returns the native object of this node.
-	#
-	# @return [object] The native object of this node.
-	#
-	getData: () ->
-	
-	# Modify the native object of this node.
-	#
-	# @param [object] data The native object of this node.
-	#
-	setData: (data) ->
-	
-	# Indicates whether some other object is equal to this one.
-	#
-	# @param [object] node The reference object with which to compare.
-	#
-	# @return [boolean] True if the node is the other object is equals to this
-	# one or if the node is not the other object is equals to this one.
-	#
-	equals: (node) ->
+  
+  # Returns the text content of node.
+  #
+  # @return [string] The text content of node.
+  #
+  getTextContent: () ->
+  
+  # Insert a node before this node.
+  #
+  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] This node.
+  #
+  insertBefore: (newNode) ->
+  
+  # Insert a node after this node.
+  #
+  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that be inserted.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] This node.
+  #
+  insertAfter: (newNode) ->
+  
+  # Remove this node of the parser.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] The removed node.
+  #
+  removeNode: () ->
+  
+  # Replace this node for other node.
+  #
+  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this
+  # node.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] This node.
+  #
+  replaceNode: (newNode) ->
+  
+  # Append a text content in node.
+  #
+  # @param [string] text The text content.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] This node.
+  #
+  appendText: (text) ->
+  
+  # Prepend a text content in node.
+  #
+  # @param [string] text The text content.
+  #
+  # @return [hatemile.util.html.HTMLDOMNode] This node.
+  #
+  prependText: (text) ->
+  
+  # Returns the parent element of this node.
+  #
+  # @return [hatemile.util.html.HTMLDOMElement] The parent element of this
+  # node.
+  #
+  getParentElement: () ->
+  
+  # Returns the native object of this node.
+  #
+  # @return [object] The native object of this node.
+  #
+  getData: () ->
+  
+  # Modify the native object of this node.
+  #
+  # @param [object] data The native object of this node.
+  #
+  setData: (data) ->
+  
+  # Indicates whether some other object is equal to this one.
+  #
+  # @param [object] node The reference object with which to compare.
+  #
+  # @return [boolean] True if the node is the other object is equals to this
+  # one or if the node is not the other object is equals to this one.
+  #
+  equals: (node) ->

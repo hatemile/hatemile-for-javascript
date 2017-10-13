@@ -34,39 +34,39 @@ limitations under the License.
 # @extend hatemile.util.css.StyleSheetDeclaration
 #
 class @hatemile.util.css.jscssp.JSCSSPDeclaration
-	
-	# Initializes a new object that encapsulate the CSS declaration.
-	#
-	# @param [jscsspDeclaration] declaration The declaration CSS of rule.
-	#
-	constructor: (@declaration) ->
-	
-	# Returns the value of declaration.
-	#
-	# @return [string] The value of declaration.
-	#
-	# @see hatemile.util.css.StyleSheetDeclaration#getValue
-	#
-	getValue: () ->
-		return @declaration.valueText.trim()
-	
-	# Returns a array with the values of declaration.
-	#
-	# @return [Array<string>] The array with the values of declaration.
-	#
-	# @see hatemile.util.css.StyleSheetDeclaration#getValues
-	#
-	getValues: () ->
-		values = []
-		for propertyValue in @declaration.values
-			values.push(propertyValue.value)
-		return values
-	
-	# Returns the property of declaration.
-	#
-	# @return [string] The property of declaration.
-	#
-	# @see hatemile.util.css.StyleSheetDeclaration#getProperty
-	#
-	getProperty: () ->
-		return @declaration.property
+  
+  # Initializes a new object that encapsulate the CSS declaration.
+  #
+  # @param [jscsspDeclaration] declaration The declaration CSS of rule.
+  #
+  constructor: (@declaration) ->
+  
+  # Returns the value of declaration.
+  #
+  # @return [string] The value of declaration.
+  #
+  # @see hatemile.util.css.StyleSheetDeclaration#getValue
+  #
+  getValue: () ->
+    return @declaration.valueText.trim()
+  
+  # Returns a array with the values of declaration.
+  #
+  # @return [Array<string>] The array with the values of declaration.
+  #
+  # @see hatemile.util.css.StyleSheetDeclaration#getValues
+  #
+  getValues: () ->
+    values = []
+    for propertyValue in @declaration.values
+      values.push(propertyValue.value)
+    return values
+  
+  # Returns the property of declaration.
+  #
+  # @return [string] The property of declaration.
+  #
+  # @see hatemile.util.css.StyleSheetDeclaration#getProperty
+  #
+  getProperty: () ->
+    return @declaration.property

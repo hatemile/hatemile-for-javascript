@@ -21,35 +21,35 @@ limitations under the License.
 # @abstract
 #
 class @hatemile.AccessibleNavigation
-	
-	# Provide a content skipper for element.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] element The element.
-	#
-	provideNavigationBySkipper: (element) ->
-	
-	# Provide navigation by content skippers.
-	#
-	provideNavigationByAllSkippers: () ->
-	
-	# Provide navigation by heading.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] heading The heading element.
-	#
-	provideNavigationByHeading: (heading) ->
-	
-	# Provide navigation by headings of page.
-	#
-	provideNavigationByAllHeadings: () ->
-	
-	# Provide an alternative way to access the long description of element.
-	#
-	# @param [hatemile.util.html.HTMLDOMElement] image The image with long
-	# description.
-	#
-	provideNavigationToLongDescription: (image) ->
-	
-	# Provide an alternative way to access the longs descriptions of all
-	# elements of page.
-	#
-	provideNavigationToAllLongDescriptions: () ->
+  
+  # Provide a content skipper for element.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #
+  provideNavigationBySkipper: (element) ->
+  
+  # Provide navigation by content skippers.
+  #
+  provideNavigationByAllSkippers: () ->
+  
+  # Provide navigation by heading.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] heading The heading element.
+  #
+  provideNavigationByHeading: (heading) ->
+  
+  # Provide navigation by headings of page.
+  #
+  provideNavigationByAllHeadings: () ->
+  
+  # Provide an alternative way to access the long description of element.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] image The image with long
+  # description.
+  #
+  provideNavigationToLongDescription: (image) ->
+  
+  # Provide an alternative way to access the longs descriptions of all
+  # elements of page.
+  #
+  provideNavigationToAllLongDescriptions: () ->
