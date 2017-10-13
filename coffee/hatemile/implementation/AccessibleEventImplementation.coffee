@@ -412,7 +412,7 @@ class @hatemile.implementation.AccessibleEventImplementation
     visit(body, (element) ->
       return (hasEvent(element, 'drag') or hasEvent(element, 'dragstart') or hasEvent(element, 'dragend'))
     , this, @makeAccessibleDragEvents)
-    visit(body, (element) -> 
+    visit(body, (element) ->
       return (hasEvent(element, 'drop') or hasEvent(element, 'dragenter') or hasEvent(element, 'dragleave') or hasEvent(element, 'dragover'))
     , this, @makeAccessibleDropEvents)
     return
