@@ -104,9 +104,11 @@
   'attribute-data-invalid-range-before': ''
   'attribute-data-invalid-range-after': ' (Value out of valid range)'
   'attribute-data-invalid-length-before': ''
-  'attribute-data-invalid-length-after': ' (Value not contain a number of caracters in valid range)'
+  'attribute-data-invalid-length-after': \
+      ' (Value not contain a number of caracters in valid range)'
   'attribute-data-invalid-pattern-before': ''
-  'attribute-data-invalid-pattern-after': ' (Value does not match with the requested format)'
+  'attribute-data-invalid-pattern-after': \
+      ' (Value does not match with the requested format)'
   'attribute-data-invalid-required-before': ''
   'attribute-data-invalid-required-after': ' (Fill out the field)'
   'attribute-data-invalid-date-before': ''

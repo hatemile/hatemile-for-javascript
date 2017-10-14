@@ -53,15 +53,16 @@ class @hatemile.util.css.jscssp.JSCSSPRule
   #
   hasProperty: (propertyName) ->
     for nativeDeclaration in @rule.declarations
-      declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+      declaration = new self.hatemile.util.css.jscssp
+          .JSCSSPDeclaration(nativeDeclaration)
       if propertyName is declaration.getProperty()
         return true
     return false
   
   # Returns that the rule has declarations.
   #
-  # @return [boolean] True if the rule has the property or false if the rule
-  # not has declarations.
+  # @return [boolean] True if the rule has the property or false if the rule not
+  # has declarations.
   #
   # @see hatemile.util.css.StyleSheetRule#hasDeclarations
   #
@@ -72,15 +73,16 @@ class @hatemile.util.css.jscssp.JSCSSPRule
   #
   # @param [string] propertyName The property.
   #
-  # @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The
-  # declarations with the property.
+  # @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The declarations
+  # with the property.
   #
   # @see hatemile.util.css.StyleSheetRule#getDeclarations
   #
   getDeclarations: (propertyName) ->
     declarations = []
     for nativeDeclaration in @rule.declarations
-      declaration = new self.hatemile.util.css.jscssp.JSCSSPDeclaration(nativeDeclaration)
+      declaration = new self.hatemile.util.css.jscssp
+          .JSCSSPDeclaration(nativeDeclaration)
       if propertyName is declaration.getProperty()
         declarations.push(declaration)
     return declarations

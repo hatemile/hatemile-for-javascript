@@ -101,8 +101,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Check that the element has attributes.
   #
-  # @return [boolean] True if the element has attributes or false if the
-  # element not has attributes.
+  # @return [boolean] True if the element has attributes or false if the element
+  # not has attributes.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasAttributes
   #
@@ -126,7 +126,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
       if (child.nodeType is @data.ownerDocument.TEXT_NODE)
         text += child.nodeValue
       else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-        elementChild = new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
+        elementChild = new self.hatemile.util.html.vanilla
+            .VanillaHTMLDOMElement(child)
         text += elementChild.getTextContent()
     return text
   
@@ -226,7 +227,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
     children = @data.children
     array = []
     for child in children
-      array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+      array.push(new self.hatemile.util.html.vanilla
+          .VanillaHTMLDOMElement(child))
     return array
   
   # Returns the children of this element.
@@ -241,9 +243,11 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
     array = []
     for child in children
       if (child.nodeType is @data.ownerDocument.TEXT_NODE)
-        array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child))
+        array.push(new self.hatemile.util.html.vanilla
+            .VanillaHTMLDOMTextNode(child))
       else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
-        array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child))
+        array.push(new self.hatemile.util.html.vanilla
+            .VanillaHTMLDOMElement(child))
     return array
   
   # Append a text content in element.
@@ -256,7 +260,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   appendText: (text) ->
     child = @getLastNodeChild()
-    if (child isnt undefined) and (child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)
+    if (child isnt undefined) and (child instanceof self.hatemile.util.html
+        .vanilla.VanillaHTMLDOMTextNode)
       child.appendText(text)
     else
       @data.appendChild(@data.ownerDocument.createTextNode(text))
@@ -278,7 +283,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
       if child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
         child.prependText(text)
       else
-        @data.insertBefore(@data.ownerDocument.createTextNode(text), child.getData())
+        @data.insertBefore(@data.ownerDocument.createTextNode(text), \
+            child.getData())
     return this
   
   # Joins adjacent Text nodes.
@@ -294,8 +300,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Check that the element has elements children.
   #
-  # @return [boolean] True if the element has elements children or false if
-  # the element not has elements children.
+  # @return [boolean] True if the element has elements children or false if the
+  # element not has elements children.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasChildrenElements
   #
@@ -315,7 +321,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
     else
       children = @data.childNodes
       for child in children
-        if (child.nodeType is @data.ownerDocument.TEXT_NODE) or (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
+        if (child.nodeType is @data.ownerDocument.TEXT_NODE) or \
+            (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
           return true
       return false
   
@@ -331,7 +338,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
       return undefined
     else if self.isEmpty(@data.parentNode)
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@data.parentNode)
   
   # Returns the inner HTML code of this element.
   #
@@ -389,31 +397,34 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   cloneElement: () ->
     div = @data.ownerDocument.createElement('div')
     div.innerHTML = @getOuterHTML()
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild)
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(div.firstElementChild)
   
   # Returns the first element child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first
-  # element child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element
+  # child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getFirstElementChild
   #
   getFirstElementChild: () ->
     if not @hasChildrenElements()
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.firstElementChild)
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@data.firstElementChild)
   
   # Returns the last element child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last
-  # element child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element
+  # child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getLastElementChild
   #
   getLastElementChild: () ->
     if not @hasChildrenElements()
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.lastElementChild)
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@data.lastElementChild)
   
   # Returns the first node child of this element.
   #
@@ -446,21 +457,24 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
     children = @data.childNodes
     lastChild = undefined
     for child in children
-      if ((child.nodeType is @data.ownerDocument.TEXT_NODE) or (child.nodeType is @data.ownerDocument.ELEMENT_NODE))
+      if ((child.nodeType is @data.ownerDocument.TEXT_NODE) or \
+          (child.nodeType is @data.ownerDocument.ELEMENT_NODE))
         lastChild = child
     if lastChild is undefined
       return undefined
     else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
-      return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild)
+      return new self.hatemile.util.html.vanilla
+          .VanillaHTMLDOMTextNode(lastChild)
     else if (lastChild.nodeType is @data.ownerDocument.ELEMENT_NODE)
-      return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(lastChild)
+      return new self.hatemile.util.html.vanilla
+          .VanillaHTMLDOMElement(lastChild)
   
   # Indicates whether some other object is equal to this one.
   #
   # @param [object] node The reference object with which to compare.
   #
-  # @return [boolean] True if the node is the other object is equals to this
-  # one or if the node is not the other object is equals to this one.
+  # @return [boolean] True if the node is the other object is equals to this one
+  # or if the node is not the other object is equals to this one.
   #
   # @see hatemile.util.html.HTMLDOMElement#equals
   #

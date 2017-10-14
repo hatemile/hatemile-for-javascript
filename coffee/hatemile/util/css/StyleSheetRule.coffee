@@ -41,8 +41,8 @@ class @hatemile.util.css.StyleSheetRule
   
   # Returns that the rule has declarations.
   #
-  # @return [boolean] True if the rule has the property or false if the rule
-  # not has declarations.
+  # @return [boolean] True if the rule has the property or false if the rule not
+  # has declarations.
   #
   hasDeclarations: () ->
   

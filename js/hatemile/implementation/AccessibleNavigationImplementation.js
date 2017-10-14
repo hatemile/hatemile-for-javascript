@@ -139,7 +139,7 @@ limitations under the License.
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, prefixId);
             anchor = void 0;
-            if (self.isEmpty(parser.find("[" + dataAttribute + "=\"" + (element.getAttribute('id')) + "\"]").firstResult())) {
+            if (self.isEmpty(parser.find(("[" + dataAttribute + "=\"") + ((element.getAttribute('id')) + "\"]")).firstResult())) {
                 if (element.getTagName() === 'A') {
                     anchor = element;
                 } else {
@@ -277,7 +277,7 @@ limitations under the License.
                     if (level === 1) {
                         list = generateListHeading(this.parser, "" + this.elementsHeadingBefore + this.elementsHeadingAfter);
                     } else {
-                        superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants("[" + DATA_HEADING_LEVEL + "=\"" + ((level - 1).toString()) + "\"]").lastResult();
+                        superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
                         if (!self.isEmpty(superItem)) {
                             list = this.parser.find(superItem).findChildren('ol').firstResult();
                             if (self.isEmpty(list)) {
@@ -318,7 +318,7 @@ limitations under the License.
                 if (self.isEmpty(this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult())) {
                     if (image.hasAttribute('alt')) {
                         if (!(self.isEmpty(this.attributeLongDescriptionPrefixBefore) && self.isEmpty(this.attributeLongDescriptionSuffixBefore))) {
-                            text = this.attributeLongDescriptionPrefixBefore + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixBefore;
+                            text = (this.attributeLongDescriptionPrefixBefore + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixBefore);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));
                             anchor.setAttribute('target', '_blank');
@@ -328,7 +328,7 @@ limitations under the License.
                             image.insertBefore(anchor);
                         }
                         if (!(self.isEmpty(this.attributeLongDescriptionPrefixAfter) && self.isEmpty(this.attributeLongDescriptionSuffixAfter))) {
-                            text = this.attributeLongDescriptionPrefixAfter + " " + (image.getAttribute('alt')) + " " + this.attributeLongDescriptionSuffixAfter;
+                            text = (this.attributeLongDescriptionPrefixAfter + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixAfter);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));
                             anchor.setAttribute('target', '_blank');

@@ -31,7 +31,7 @@ limitations under the License.
         CommonFunctions.generateId = function (element, prefix) {
             if (!element.hasAttribute('id')) {
                 element.setAttribute('id', prefix + _count.toString());
-                _count++;
+                _count = _count + 1;
             }
         };
 

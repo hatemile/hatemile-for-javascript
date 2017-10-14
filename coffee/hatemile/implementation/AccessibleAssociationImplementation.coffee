@@ -43,7 +43,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     table = []
     rows = parser.find(part).findChildren('tr').listResults()
     for row in rows
-      table.push(getModelRow(parser.find(row).findChildren('th,td').listResults()))
+      table.push(getModelRow(parser.find(row).findChildren('th,td')
+          .listResults()))
     return getValidModelTable(table)
   
   # Returns a list that represents the table with the rowspans.
@@ -86,11 +87,11 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Returns a list that represents the line of table with the colspans.
   #
-  # @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list
-  # that represents the line of table without the colspans.
+  # @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list that
+  # represents the line of table without the colspans.
   #
-  # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that
-  # represents the line of table with the colspans.
+  # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that represents
+  # the line of table with the colspans.
   #
   getModelRow = (originalRow) ->
     newRow = []
@@ -146,8 +147,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Associate the data cell with header cell of row.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The table body or
-  # footer.
+  # @param [hatemile.util.html.HTMLDOMElement] element The table body or footer.
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   # @param [string] prefixId The prefix of generated id.
   #
@@ -166,7 +166,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
           if cell.getTagName() is 'TD'
             headers = cell.getAttribute('headers')
             for headerId in headersIds
-              headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headerId)
+              headers = self.hatemile.util.CommonFunctions
+                  .increaseInList(headers, headerId)
             cell.setAttribute('headers', headers)
     return
   
@@ -177,7 +178,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @param [string] prefixId The prefix of generated id.
   #
   prepareHeaderCells = (tableHeader, parser, prefixId) ->
-    cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults()
+    cells = parser.find(tableHeader).findChildren('tr').findChildren('th')
+        .listResults()
     for cell in cells
       self.hatemile.util.CommonFunctions.generateId(cell, prefixId)
       if not cell.hasAttribute('scope')
@@ -219,7 +221,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
               headersIds = getCellsHeadersIds(headerRows, i)
               headers = cell.getAttribute('headers')
               for headersId in headersIds
-                headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headersId)
+                headers = self.hatemile.util.CommonFunctions
+                    .increaseInList(headers, headersId)
               cell.setAttribute('headers', headers)
               i = i + 1
     if not self.isEmpty(body)
@@ -236,8 +239,11 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     tables = @parser.find('table').listResults()
     for table in tables
       if self.hatemile.util.CommonFunctions.isValidElement(table)
-        if self.isEmpty(@parser.find(table).findDescendants("thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult())
-          @associateDataCellsWithHeaderCells(table)
+        if self.isEmpty(@parser.find(table).findDescendants( \
+          "thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}]," \
+          + "tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}]," \
+          + "td[#{DATA_IGNORE}]").firstResult())
+            @associateDataCellsWithHeaderCells(table)
     return
   
   # Associate label with field.
@@ -251,16 +257,20 @@ class @hatemile.implementation.AccessibleAssociationImplementation
       if label.hasAttribute('for')
         field = @parser.find("##{label.getAttribute('for')}").firstResult()
       else
-        field = @parser.find(label).findDescendants('input,select,textarea').firstResult()
+        field = @parser.find(label).findDescendants('input,select,textarea')
+            .firstResult()
         
         if not self.isEmpty(field)
           self.hatemile.util.CommonFunctions.generateId(field, @prefixId)
           label.setAttribute('for', field.getAttribute('id'))
       if (not self.isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
         if not field.hasAttribute('aria-label')
-          field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
+          field.setAttribute('aria-label', label.getTextContent()
+              .replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
         self.hatemile.util.CommonFunctions.generateId(label, @prefixId)
-        field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')))
+        field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions
+            .increaseInList(field.getAttribute('aria-labelledby'), \
+            label.getAttribute('id')))
     return
   
   # Associate all labels of page with fields.

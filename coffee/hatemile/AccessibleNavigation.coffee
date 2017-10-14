@@ -49,7 +49,7 @@ class @hatemile.AccessibleNavigation
   #
   provideNavigationToLongDescription: (image) ->
   
-  # Provide an alternative way to access the longs descriptions of all
-  # elements of page.
+  # Provide an alternative way to access the longs descriptions of all elements
+  # of page.
   #
   provideNavigationToAllLongDescriptions: () ->

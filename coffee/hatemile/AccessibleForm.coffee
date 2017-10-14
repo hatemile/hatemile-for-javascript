@@ -24,8 +24,7 @@ class @hatemile.AccessibleForm
   
   # Mark that the field is required.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] requiredField The required
-  # field.
+  # @param [hatemile.util.html.HTMLDOMElement] requiredField The required field.
   #
   markRequiredField: (requiredField) ->
   
@@ -45,8 +44,8 @@ class @hatemile.AccessibleForm
   
   # Mark that the field have autocomplete.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field
-  # with autocomplete.
+  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with
+  # autocomplete.
   #
   markAutoCompleteField: (autoCompleteField) ->
   

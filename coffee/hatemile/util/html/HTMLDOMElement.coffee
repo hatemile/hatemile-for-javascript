@@ -68,8 +68,8 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Check that the element has attributes.
   #
-  # @return [boolean] True if the element has attributes or false if the
-  # element not has attributes.
+  # @return [boolean] True if the element has attributes or false if the element
+  # not has attributes.
   #
   hasAttributes: () ->
   
@@ -93,8 +93,8 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Returns the elements children of this element.
   #
-  # @return [Array<hatemile.util.html.HTMLDOMElement>] The elements children
-  # of this element.
+  # @return [Array<hatemile.util.html.HTMLDOMElement>] The elements children of
+  # this element.
   #
   getChildrenElements: () ->
   
@@ -113,8 +113,8 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Check that the element has elements children.
   #
-  # @return [boolean] True if the element has elements children or false if
-  # the element not has elements children.
+  # @return [boolean] True if the element has elements children or false if the
+  # element not has elements children.
   #
   hasChildrenElements: () ->
   
@@ -151,8 +151,8 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Returns the first element child of this element.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The first element child of
-  # this element.
+  # @return [hatemile.util.html.HTMLDOMElement] The first element child of this
+  # element.
   #
   getFirstElementChild: () ->
   

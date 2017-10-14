@@ -118,8 +118,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   #
-  # @return [boolean] True if the headings of page are sintatic correct or
-  # false if not.
+  # @return [boolean] True if the headings of page are sintatic correct or false
+  # if not.
   #
   isValidHeading = (parser) ->
     elements = parser.find('h1,h2,h3,h4,h5,h6').listResults()
@@ -151,7 +151,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
     self.hatemile.util.CommonFunctions.generateId(element, prefixId)
     anchor = undefined
-    if self.isEmpty(parser.find("[#{dataAttribute}=\"#{element.getAttribute('id')}\"]").firstResult())
+    if self.isEmpty(parser.find("[#{dataAttribute}=\"" \
+        + "#{element.getAttribute('id')}\"]").firstResult())
       if element.getTagName() is 'A'
         anchor = element
       else
@@ -178,7 +179,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         for key in alphaNumbers
           found = true
           for elementWithShortcuts in elements
-            shortcuts = elementWithShortcuts.getAttribute('accesskey').toLowerCase()
+            shortcuts = elementWithShortcuts.getAttribute('accesskey')
+                .toLowerCase()
             if self.hatemile.util.CommonFunctions.inList(shortcuts, key)
               found = false
               break
@@ -189,8 +191,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           break
     return
   
-  # Initializes a new object that manipulate the accessibility of the
-  # navigation of parser.
+  # Initializes a new object that manipulate the accessibility of the navigation
+  # of parser.
   #
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
@@ -201,10 +203,14 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   constructor: (@parser, configure, @skippers) ->
     @prefixId = configure.getParameter('prefix-generated-ids')
-    @attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before')
-    @attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before')
-    @attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after')
-    @attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after')
+    @attributeLongDescriptionPrefixBefore = configure
+        .getParameter('attribute-longdescription-prefix-before')
+    @attributeLongDescriptionSuffixBefore = configure
+        .getParameter('attribute-longdescription-suffix-before')
+    @attributeLongDescriptionPrefixAfter = configure
+        .getParameter('attribute-longdescription-prefix-after')
+    @attributeLongDescriptionSuffixAfter = configure
+        .getParameter('attribute-longdescription-suffix-after')
     @elementsHeadingBefore = configure.getParameter('elements-heading-before')
     @elementsHeadingAfter = configure.getParameter('elements-heading-after')
     @listSkippersAdded = false
@@ -233,7 +239,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         @listSkippers = generateListSkippers(@parser)
         @listSkippersAdded = true
       if not self.isEmpty(@listSkippers)
-        anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, @parser, @prefixId)
+        anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, \
+            CLASS_SKIPPER_ANCHOR, @parser, @prefixId)
         if not self.isEmpty(anchor)
           itemLink = @parser.createElement('li')
           link = @parser.createElement('a')
@@ -275,13 +282,17 @@ class @hatemile.implementation.AccessibleNavigationImplementation
       @validHeading = isValidHeading(@parser)
       @validateHeading = true
     if @validHeading
-      anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, @parser, @prefixId)
+      anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
+          CLASS_HEADING_ANCHOR, @parser, @prefixId)
       if not self.isEmpty(anchor)
         level = getHeadingLevel(heading)
         if level is 1
-          list = generateListHeading(@parser, "#{@elementsHeadingBefore}#{@elementsHeadingAfter}")
+          list = generateListHeading(@parser, \
+              "#{@elementsHeadingBefore}#{@elementsHeadingAfter}")
         else
-          superItem = @parser.find("##{ID_CONTAINER_HEADING}").findDescendants("[#{DATA_HEADING_LEVEL}=\"#{(level - 1).toString()}\"]").lastResult()
+          superItem = @parser.find("##{ID_CONTAINER_HEADING}")
+              .findDescendants("[#{DATA_HEADING_LEVEL}=\"" \
+              + "#{(level - 1).toString()}\"]").lastResult()
           if not self.isEmpty(superItem)
             list = @parser.find(superItem).findChildren('ol').firstResult()
             if self.isEmpty(list)
@@ -321,10 +332,14 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     if image.hasAttribute('longdesc')
       self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
       id = image.getAttribute('id')
-      if self.isEmpty(@parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]").firstResult())
+      if self.isEmpty(@parser
+          .find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]").firstResult())
         if image.hasAttribute('alt')
-          if not (self.isEmpty(@attributeLongDescriptionPrefixBefore) and self.isEmpty(@attributeLongDescriptionSuffixBefore))
-            text = "#{@attributeLongDescriptionPrefixBefore} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixBefore}"
+          if not (self.isEmpty(@attributeLongDescriptionPrefixBefore) and \
+              self.isEmpty(@attributeLongDescriptionSuffixBefore))
+            text = "#{@attributeLongDescriptionPrefixBefore} " \
+                + "#{image.getAttribute('alt')} " \
+                + "#{@attributeLongDescriptionSuffixBefore}"
             anchor = @parser.createElement('a')
             anchor.setAttribute('href', image.getAttribute('longdesc'))
             anchor.setAttribute('target', '_blank')
@@ -332,8 +347,11 @@ class @hatemile.implementation.AccessibleNavigationImplementation
             anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
             anchor.appendText(text)
             image.insertBefore(anchor)
-          if not (self.isEmpty(@attributeLongDescriptionPrefixAfter) and self.isEmpty(@attributeLongDescriptionSuffixAfter))
-            text = "#{@attributeLongDescriptionPrefixAfter} #{image.getAttribute('alt')} #{@attributeLongDescriptionSuffixAfter}"
+          if not (self.isEmpty(@attributeLongDescriptionPrefixAfter) and \
+              self.isEmpty(@attributeLongDescriptionSuffixAfter))
+            text = "#{@attributeLongDescriptionPrefixAfter} " \
+                + "#{image.getAttribute('alt')} " \
+                + "#{@attributeLongDescriptionSuffixAfter}"
             anchor = @parser.createElement('a')
             anchor.setAttribute('href', image.getAttribute('longdesc'))
             anchor.setAttribute('target', '_blank')
@@ -343,8 +361,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
             image.insertAfter(anchor)
     return
   
-  # Provide an alternative way to access the longs descriptions of all
-  # elements of page.
+  # Provide an alternative way to access the longs descriptions of all elements
+  # of page.
   #
   # @see hatemile.AccessibleNavigation#provideNavigationToAllLongDescriptions
   #

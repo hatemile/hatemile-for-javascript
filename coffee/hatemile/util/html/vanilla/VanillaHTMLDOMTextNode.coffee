@@ -143,15 +143,15 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   
   # Returns the parent element of this node.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The parent element of this
-  # node.
+  # @return [hatemile.util.html.HTMLDOMElement] The parent element of this node.
   #
   # @see hatemile.util.html.HTMLDOMTextNode#getParentElement
   #
   getParentElement: () ->
     if self.isEmpty(@data.parentNode)
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@data.parentNode)
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@data.parentNode)
   
   # Returns the native object of this node.
   #
@@ -176,8 +176,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   #
   # @param [object] node The reference object with which to compare.
   #
-  # @return [boolean] True if the node is the other object is equals to this
-  # one or if the node is not the other object is equals to this one.
+  # @return [boolean] True if the node is the other object is equals to this one
+  # or if the node is not the other object is equals to this one.
   #
   # @see hatemile.util.html.HTMLDOMTextNode#equals
   #

@@ -181,12 +181,12 @@ limitations under the License.
         };
 
         isValidURL = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
         };
 
         isValidEmail = function (field) {
             var regularExpression;
-            regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
+            regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&' + '\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21' + '\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")' + '@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*' + '[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:' + '[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|' + '\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
             if (field.hasAttribute('multiple')) {
                 regularExpression = regularExpression + "( *, *" + regularExpression + ")*";
             }
@@ -194,23 +194,23 @@ limitations under the License.
         };
 
         isValidDate = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01])))))))?$');
         };
 
         isValidTime = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|' + '(2[0-3])):[0-5][0-9])?$');
         };
 
         isValidDateTime = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' + '[0-9].[0-9])|(Z))?)?$');
         };
 
         isValidMonth = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-' + '((0[1-9])|(1[0-2])))?$');
         };
 
         isValidWeek = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
+            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
         };
 
         isValidRange = function (field) {
@@ -318,7 +318,7 @@ limitations under the License.
 
         AccessibleFormImplementation.prototype.markAllAutoCompleteFields = function () {
             var element, elements, i, len;
-            elements = this.parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults();
+            elements = this.parser.find('input[autocomplete],textarea[autocomplete],' + 'form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults();
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
                 if (self.hatemile.util.CommonFunctions.isValidElement(element)) {
@@ -365,7 +365,7 @@ limitations under the License.
 
         AccessibleFormImplementation.prototype.markAllInvalidFields = function () {
             var field, fields, i, len;
-            fields = this.parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults();
+            fields = this.parser.find('[required],input[pattern],input[minlength],' + 'input[maxlength],textarea[minlength],textarea[maxlength],' + 'input[type=week],input[type=month],input[type=datetime-local],' + 'input[type=datetime],input[type=time],input[type=date],' + 'input[type=number],input[type=range],input[type=email],' + 'input[type=url],[aria-required=true],input[aria-valuemin],' + 'input[aria-valuemax]').listResults();
             for (i = 0, len = fields.length; i < len; i++) {
                 field = fields[i];
                 if (self.hatemile.util.CommonFunctions.isValidElement(field)) {

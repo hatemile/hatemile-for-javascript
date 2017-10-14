@@ -12,7 +12,8 @@ if isEmpty(Element.prototype.eventListenerList)
     @eventListenerList[arguments[0]].push(arguments[1])
     return (@__addEventListener.apply(this, arguments))
   
-  Element.prototype.__removeEventListener = Element.prototype.removeEventListener
+  Element.prototype.__removeEventListener = Element.prototype
+      .removeEventListener
   Element.prototype.removeEventListener = () ->
     found = false
     if isEmpty(@eventListenerList[arguments[0]])

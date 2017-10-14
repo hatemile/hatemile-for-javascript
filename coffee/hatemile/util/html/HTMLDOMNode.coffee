@@ -85,8 +85,7 @@ class @hatemile.util.html.HTMLDOMNode
   
   # Returns the parent element of this node.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The parent element of this
-  # node.
+  # @return [hatemile.util.html.HTMLDOMElement] The parent element of this node.
   #
   getParentElement: () ->
   
@@ -106,7 +105,7 @@ class @hatemile.util.html.HTMLDOMNode
   #
   # @param [object] node The reference object with which to compare.
   #
-  # @return [boolean] True if the node is the other object is equals to this
-  # one or if the node is not the other object is equals to this one.
+  # @return [boolean] True if the node is the other object is equals to this one
+  # or if the node is not the other object is equals to this one.
   #
   equals: (node) ->

@@ -209,13 +209,14 @@ limitations under the License.
         };
 
         reverseSpeakAs = function (element, dataPropertyValue, htmlParser) {
-            var auxiliarElement, auxiliarElements, contentElement, contentElements, i, j, len, len1;
-            auxiliarElements = htmlParser.find(element).findDescendants("[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"][unselectable=\"on\"]").listResults();
+            var auxiliarElement, auxiliarElements, contentElement, contentElements, dataProperty, i, j, len, len1;
+            dataProperty = "[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"]";
+            auxiliarElements = htmlParser.find(element).findDescendants(dataProperty + "[unselectable=\"on\"]").listResults();
             for (i = 0, len = auxiliarElements.length; i < len; i++) {
                 auxiliarElement = auxiliarElements[i];
                 auxiliarElement.removeNode();
             }
-            contentElements = htmlParser.find(element).findDescendants("[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"][" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
+            contentElements = htmlParser.find(element).findDescendants(dataProperty + "[" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
             for (j = 0, len1 = contentElements.length; j < len1; j++) {
                 contentElement = contentElements[j];
                 replaceElementByOwnContent(contentElement);
@@ -267,7 +268,7 @@ limitations under the License.
         speakAsNoPunctuation = function (element, htmlParser) {
             var dataPropertyValue;
             dataPropertyValue = 'no-punctuation';
-            speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, function (content, index, children) {
+            speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|' + '\\}\\~]', dataPropertyValue, htmlParser, function (content, index, children) {
                 if (index !== 0) {
                     children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
                 }
@@ -373,7 +374,7 @@ limitations under the License.
                             for (l = 0, len3 = declarations.length; l < len3; l++) {
                                 declaration = declarations[l];
                                 propertyValue = declaration.getValue();
-                                pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)|((digits) ((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)))|(((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)) (digits))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|((digits) ((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((digits) (spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|(((literal\\-punctuation)|(no\\-punctuation)) (digits) (spell\\-out))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out) (digits))|((spell\\-out) (digits) ((literal\\-punctuation)|(no\\-punctuation)))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)) (digits)))$', 'g');
+                                pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|' + '(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)' + '|((digits) ((literal\\-punctuation)|(no\\-punctuation)|' + '(spell\\-out)))|(((literal\\-punctuation)|' + '(no\\-punctuation)|(spell\\-out)) (digits))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out))|((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|((digits) ((literal\\-punctuation)|' + '(no\\-punctuation)) (spell\\-out))|((digits) ' + '(spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|(((literal\\-punctuation)|' + '(no\\-punctuation)) (digits) (spell\\-out))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out) (digits))|((spell\\-out) (digits) ' + '((literal\\-punctuation)|(no\\-punctuation)))|' + '((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)) (digits)))$', 'g');
                                 if (pattern.test(propertyValue)) {
                                     propertyValues = declaration.getValues();
                                     speakAsNormal(element, this.htmlParser);

@@ -353,7 +353,7 @@ limitations under the License.
             self.hatemile.util.CommonFunctions.generateId(element, prefixId);
             identifier = element.getAttribute('id');
             if (!self.isEmpty(textBefore)) {
-                referenceBefore = parser.find("." + CLASS_FORCE_READ_BEFORE + "[" + dataBeforeOf + "=\"" + identifier + "\"]").firstResult();
+                referenceBefore = parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + dataBeforeOf + "=\"" + identifier + "\"]")).firstResult();
                 if (!self.isEmpty(referenceBefore)) {
                     referenceBefore.removeNode();
                     referenceBefore = void 0;
@@ -783,7 +783,7 @@ limitations under the License.
                     element.setAttribute('title', description);
                 }
                 if (!this.listShortcutsAdded) {
-                    this.listShortcuts = generateListShortcuts(this.parser, "" + this.attributeAccesskeyPrefixBefore + this.attributeAccesskeySuffixBefore);
+                    this.listShortcuts = generateListShortcuts(this.parser, ("" + this.attributeAccesskeyPrefixBefore) + ("" + this.attributeAccesskeySuffixBefore));
                     this.listShortcutsAdded = true;
                 }
                 if (!self.isEmpty(this.listShortcuts)) {
@@ -791,7 +791,7 @@ limitations under the License.
                     for (i = 0, len = keys.length; i < len; i++) {
                         key = keys[i];
                         key = key.toUpperCase();
-                        if (self.isEmpty(this.parser.find(this.listShortcuts).findChildren("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key + "\"]").firstResult())) {
+                        if (self.isEmpty(this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key) + '"]').firstResult())) {
                             item = this.parser.createElement('li');
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key);
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key);
@@ -1008,7 +1008,7 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayAllWAIARIAStates = function () {
             var element, elements, i, len;
-            elements = this.parser.find('[aria-busy="true"],[aria-checked],[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],[aria-invalid=true],[aria-level],[aria-orientation],[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
+            elements = this.parser.find('[aria-busy="true"],[aria-checked],' + '[aria-dropeffect],[aria-expanded],[aria-grabbed],[aria-haspopup],' + '[aria-invalid=true],[aria-level],[aria-orientation],' + '[aria-pressed],[aria-selected],[aria-sort],[aria-required="true"],' + '[aria-valuemin],[aria-valuemax],[aria-autocomplete]').listResults();
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
                 if (self.hatemile.util.CommonFunctions.isValidElement(element)) {
@@ -1095,7 +1095,7 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayAllDragsAndDrops = function () {
             var element, elements, i, len;
-            elements = this.parser.find('[draggable],[dropzone],[aria-dropeffect],[aria-grabbed]').listResults();
+            elements = this.parser.find('[draggable],[dropzone],[aria-dropeffect],' + '[aria-grabbed]').listResults();
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
                 if (self.hatemile.util.CommonFunctions.isValidElement(element)) {

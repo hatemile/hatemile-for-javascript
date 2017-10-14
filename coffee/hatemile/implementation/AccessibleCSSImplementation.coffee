@@ -32,20 +32,21 @@ class @hatemile.implementation.AccessibleCSSImplementation
   DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
   DATA_SPEAK = 'data-cssspeak'
   DATA_SPEAK_AS = 'data-cssspeakas'
-  VALID_INHERIT_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME'
-      , 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY'
-      , 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE'
-      , 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', 'DD', 'FIELDSET'
-      , 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3'
-      , 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'HGROUP'
-      , 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', 'TR', 'TD', 'TH', 'TBODY', 'THEAD'
-      , 'TFOOT']
-  VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR'
-      , 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS'
-      , 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI'
-      , 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY'
-      , 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER'
-      , 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', 'SUMMARY', 'DETAILS', 'TD', 'TH']
+  VALID_INHERIT_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', \
+      'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', \
+      'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', \
+      'FIGURE', 'PRE', 'DIV', 'OL', 'UL', 'LI', 'BLOCKQUOTE', 'DL', 'DT', \
+      'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', \
+      'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', \
+      'ARTICLE', 'FOOTER', 'HGROUP', 'CAPTION', 'SUMMARY', 'DETAILS', 'TABLE', \
+      'TR', 'TD', 'TH', 'TBODY', 'THEAD', 'TFOOT']
+  VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', \
+      'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', \
+      'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', \
+      'PRE', 'DIV', 'LI', 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', \
+      'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', \
+      'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', \
+      'SUMMARY', 'DETAILS', 'TD', 'TH']
   
   # Returns the symbol formated to be searched by regular expression.
   #
@@ -55,11 +56,12 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   getFormatedSymbol = (symbol) ->
     return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+')
-        .replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$')
-        .replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}')
-        .replace('(', '\\(').replace(')', '\\)').replace('|', '\\|').replace('/', '\\/')
-        .replace(',', '\\,').replace('!', '\\!').replace('=', '\\=').replace(':', '\\:')
-        .replace('-', '\\-')
+        .replace('*', '\\*').replace('?', '\\?').replace('^', '\\^')
+        .replace('$', '\\$').replace('[', '\\[').replace(']', '\\[')
+        .replace('{', '\\{').replace('}', '\\}').replace('(', '\\(')
+        .replace(')', '\\)').replace('|', '\\|').replace('/', '\\/')
+        .replace(',', '\\,').replace('!', '\\!').replace('=', '\\=')
+        .replace(':', '\\:').replace('-', '\\-')
   
   # Returns the description of symbol.
   #
@@ -106,7 +108,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # manipulated to apply the CSS properties.
   #
   isValidInheritElement = (element) ->
-    return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) isnt -1) and (not element.hasAttribute(DATA_IGNORE))
+    return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) isnt -1) \
+        and (not element.hasAttribute(DATA_IGNORE))
   
   # Check that the element can be manipulated to apply the CSS properties.
   #
@@ -129,7 +132,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
       if isValidElement(element)
         children = element.getChildren()
         for child in children
-          if child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
+          if child instanceof self.hatemile.util.html.vanilla
+              .VanillaHTMLDOMTextNode
             span = htmlParser.createElement('span')
             span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
             span.appendText(child.getTextContent())
@@ -181,8 +185,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # identify the fix.
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The element to show the
-  # content.
+  # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
   createContentElement = (content, dataPropertyValue, htmlParser) ->
     contentElement = htmlParser.createElement('span')
@@ -198,11 +201,11 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # identify the fix.
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The element to show the
-  # content.
+  # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
   createAuralContentElement = (content, dataPropertyValue, htmlParser) ->
-    contentElement = createContentElement(content, dataPropertyValue, htmlParser)
+    contentElement = createContentElement(content, dataPropertyValue,
+        htmlParser)
     contentElement.setAttribute('unselectable', 'on')
     contentElement.setAttribute('class', 'screen-reader-only')
     return contentElement
@@ -214,11 +217,11 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # identify the fix.
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The element to show the
-  # content.
+  # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
   createVisualContentElement = (content, dataPropertyValue, htmlParser) ->
-    contentElement = createContentElement(content, dataPropertyValue, htmlParser)
+    contentElement = createContentElement(content, dataPropertyValue,
+        htmlParser)
     contentElement.setAttribute('aria-hidden', 'true')
     contentElement.setAttribute('role', 'presentation')
     return contentElement
@@ -229,7 +232,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   speakNormal = (element) ->
     if element.hasAttribute(DATA_SPEAK)
-      if (element.getAttribute(DATA_SPEAK) is 'none') and (not element.hasAttribute(DATA_ISOLATOR_ELEMENT))
+      if (element.getAttribute(DATA_SPEAK) is 'none') \
+          and (not element.hasAttribute(DATA_ISOLATOR_ELEMENT))
         element.removeAttribute('role')
         element.removeAttribute('aria-hidden')
         element.removeAttribute(DATA_SPEAK)
@@ -278,7 +282,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   # @param [function] operation The operation to be executed.
   #
-  speakAs = (element, regularExpression, dataPropertyValue, htmlParser, operation) ->
+  speakAs = (element, regularExpression, dataPropertyValue, htmlParser, \
+      operation) ->
     children = []
     index = -1
     content = element.getTextContent()
@@ -294,7 +299,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
     
     if children.length > 0
       if content.length > 0
-        children.push(createContentElement(content, dataPropertyValue, htmlParser))
+        children.push(createContentElement(content, dataPropertyValue, \
+            htmlParser))
       
       while (element.hasChildren())
         element.getFirstNodeChild().removeNode()
@@ -311,11 +317,15 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   #
   reverseSpeakAs = (element, dataPropertyValue, htmlParser) ->
-    auxiliarElements = htmlParser.find(element).findDescendants("[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"][unselectable=\"on\"]").listResults()
+    dataProperty = "[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"]"
+    auxiliarElements = htmlParser.find(element)
+        .findDescendants("#{dataProperty}[unselectable=\"on\"]").listResults()
     for auxiliarElement in auxiliarElements
       auxiliarElement.removeNode()
     
-    contentElements = htmlParser.find(element).findDescendants("[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"][#{DATA_ISOLATOR_ELEMENT}=\"true\"]").listResults()
+    contentElements = htmlParser.find(element)
+        .findDescendants("#{dataProperty}[#{DATA_ISOLATOR_ELEMENT}=\"true\"]")
+        .listResults()
     for contentElement in contentElements
       replaceElementByOwnContent(contentElement)
     
@@ -342,10 +352,13 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   speakAsSpellOut = (element, htmlParser) ->
     dataPropertyValue = 'spell-out'
-    speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, (content, index, children) ->
-      children.push(createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser))
+    speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, (content, \
+        index, children) ->
+      children.push(createContentElement(content.substr(0, index + 1), \
+          dataPropertyValue, htmlParser))
       
-      children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser))
+      children
+          .push(createAuralContentElement(' ', dataPropertyValue, htmlParser))
     )
     return
   
@@ -373,13 +386,18 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   speakAsLiteralPunctuation = (element, htmlParser, symbols) ->
     dataPropertyValue = 'literal-punctuation'
-    speakAs(element, getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, (content, index, children) ->
+    speakAs(element, getRegularExpressionOfSymbols(symbols), \
+        dataPropertyValue, htmlParser, (content, index, children) ->
       if index isnt 0
-        children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
+        children.push(createContentElement(content.substr(0, \
+            index), dataPropertyValue, htmlParser))
       
-      children.push(createAuralContentElement(" #{getDescriptionOfSymbol(symbols, content.charAt(index))} ", dataPropertyValue, htmlParser))
+      children.push(createAuralContentElement( \
+          " #{getDescriptionOfSymbol(symbols, content.charAt(index))} ", \
+          dataPropertyValue, htmlParser))
       
-      children.push(createVisualContentElement(content.charAt(index), dataPropertyValue, htmlParser))
+      children.push(createVisualContentElement(content
+          .charAt(index), dataPropertyValue, htmlParser))
     )
     return
   
@@ -408,11 +426,15 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   speakAsNoPunctuation = (element, htmlParser) ->
     dataPropertyValue = 'no-punctuation'
-    speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, (content, index, children) ->
+    speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|' \
+        + '\\}\\~]', dataPropertyValue, htmlParser, \
+        (content, index, children) ->
       if index isnt 0
-        children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
+        children.push(createContentElement(content
+            .substr(0, index), dataPropertyValue, htmlParser))
       
-      children.push(createVisualContentElement(content.charAt(index), dataPropertyValue, htmlParser))
+      children.push(createVisualContentElement(content
+          .charAt(index), dataPropertyValue, htmlParser))
     )
     return
   
@@ -437,13 +459,17 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   speakAsDigits = (element, htmlParser) ->
     dataPropertyValue = 'digits'
-    speakAs(element, '[0-9]', dataPropertyValue, htmlParser, (content, index, children) ->
+    speakAs(element, '[0-9]', dataPropertyValue, htmlParser, (content, index, \
+        children) ->
       if index isnt 0
-        children.push(createContentElement(content.substr(0, index), dataPropertyValue, htmlParser))
+        children.push(createContentElement(content
+            .substr(0, index), dataPropertyValue, htmlParser))
       
-      children.push(createAuralContentElement(' ', dataPropertyValue, htmlParser))
+      children.push(createAuralContentElement(' ', dataPropertyValue, \
+          htmlParser))
       
-      children.push(createContentElement(content.charAt(index), dataPropertyValue, htmlParser))
+      children.push(createContentElement(content
+          .charAt(index), dataPropertyValue, htmlParser))
     )
     return
   
@@ -482,7 +508,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
       if not self.isEmpty(header)
         textHeader = "#{textHeader}#{header.getTextContent()} "
     if not self.isEmpty(textHeader)
-      element.prependElement(createAuralContentElement(textHeader, 'always', htmlParser))
+      element.prependElement(createAuralContentElement(textHeader, 'always', \
+          htmlParser))
     return
   
   # The cells headers will be spoken for every data cell for element and
@@ -494,7 +521,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   speakHeaderAlwaysInherit = (element, htmlParser) ->
     speakHeaderOnceInherit(element, htmlParser)
     
-    cellElements = htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults()
+    cellElements = htmlParser.find(element)
+        .findDescendants('td[headers],th[headers]').listResults()
     for cellElement in cellElements
       speakHeaderAlways(cellElement, htmlParser)
     return
@@ -505,7 +533,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   #
   speakHeaderOnceInherit = (element, htmlParser) ->
-    headerElements = htmlParser.find(element).findDescendants("span[#{DATA_SPEAK_AS}=\"always\"]").listResults()
+    headerElements = htmlParser.find(element)
+        .findDescendants("span[#{DATA_SPEAK_AS}=\"always\"]").listResults()
     for headerElement in headerElements
       headerElement.removeNode()
     return
@@ -528,7 +557,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @see hatemile.AccessibleCSS#provideSpeakProperties
   #
   provideSpeakProperties: (element) ->
-    rules = @cssParser.getRules(['speak', 'speak-punctuation', 'speak-numeral', 'speak-header', 'speak-as'])
+    rules = @cssParser.getRules(['speak', 'speak-punctuation', \
+        'speak-numeral', 'speak-header', 'speak-as'])
     for rule in rules
       speakElements = @htmlParser.find(rule.getSelector()).listResults()
       for speakElement in speakElements
@@ -547,7 +577,23 @@ class @hatemile.implementation.AccessibleCSSImplementation
             declarations = rule.getDeclarations('speak-as')
             for declaration in declarations
               propertyValue = declaration.getValue()
-              pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)|((digits) ((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)))|(((literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)) (digits))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|((digits) ((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out))|((digits) (spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)))|(((literal\\-punctuation)|(no\\-punctuation)) (digits) (spell\\-out))|(((literal\\-punctuation)|(no\\-punctuation)) (spell\\-out) (digits))|((spell\\-out) (digits) ((literal\\-punctuation)|(no\\-punctuation)))|((spell\\-out) ((literal\\-punctuation)|(no\\-punctuation)) (digits)))$', 'g')
+              pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|' \
+                  + '(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)' \
+                  + '|((digits) ((literal\\-punctuation)|(no\\-punctuation)|' \
+                  + '(spell\\-out)))|(((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)|(spell\\-out)) (digits))|' \
+                  + '(((literal\\-punctuation)|(no\\-punctuation)) ' \
+                  + '(spell\\-out))|((spell\\-out) ((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)))|((digits) ((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)) (spell\\-out))|((digits) ' \
+                  + '(spell\\-out) ((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)))|(((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)) (digits) (spell\\-out))|' \
+                  + '(((literal\\-punctuation)|(no\\-punctuation)) ' \
+                  + '(spell\\-out) (digits))|((spell\\-out) (digits) ' \
+                  + '((literal\\-punctuation)|(no\\-punctuation)))|' \
+                  + '((spell\\-out) ((literal\\-punctuation)|' \
+                  + '(no\\-punctuation)) (digits)))$', 'g')
               if pattern.test(propertyValue)
                 propertyValues = declaration.getValues()
                 speakAsNormal(element, @htmlParser)
@@ -555,7 +601,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
                   if propertyValue is 'spell-out'
                     speakAsSpellOutInherit(element, @htmlParser)
                   else if propertyValue is 'literal-punctuation'
-                    speakAsLiteralPunctuationInherit(element, @htmlParser, @symbols)
+                    speakAsLiteralPunctuationInherit(element, @htmlParser, \
+                        @symbols)
                   else if propertyValue is 'no-punctuation'
                     speakAsNoPunctuationInherit(element, @htmlParser)
                   else if propertyValue is 'digits'
@@ -593,7 +640,8 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   provideAllSpeakProperties: () ->
     selector = undefined
-    rules = @cssParser.getRules(['speak', 'speak-punctuation', 'speak-numeral', 'speak-header', 'speak-as'])
+    rules = @cssParser.getRules(['speak', 'speak-punctuation', \
+        'speak-numeral', 'speak-header', 'speak-as'])
     for rule in rules
       if selector is undefined
         selector = rule.getSelector()

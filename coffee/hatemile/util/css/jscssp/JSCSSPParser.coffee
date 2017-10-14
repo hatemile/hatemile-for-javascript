@@ -52,7 +52,12 @@ class @hatemile.util.css.jscssp.JSCSSPParser
     else if otherURL.indexOf('data:') is 0
       return null
     else
-      urlRegularExpression = new RegExp('([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
+      urlRegularExpression = new RegExp('([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/' \
+          + '\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]' \
+          + '{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2}' \
+          + ')+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:' \
+          + ')*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!' \
+          + ':\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
       if urlRegularExpression.test(otherURL)
         return otherURL
       else
@@ -79,8 +84,10 @@ class @hatemile.util.css.jscssp.JSCSSPParser
     head = doc.getElementsByTagName('head')[0]
     for child in head.children
       tagName = child.tagName.toUpperCase()
-      if (tagName is 'LINK') and (child.hasAttribute('rel')) and (child.getAttribute('rel') is 'stylesheet')
-        content += getContentFromURL(getAbsolutePath(currentURL, child.getAttribute('href')))
+      if (tagName is 'LINK') and (child.hasAttribute('rel')) and \
+          (child.getAttribute('rel') is 'stylesheet')
+        content += getContentFromURL(getAbsolutePath(currentURL, \
+            child.getAttribute('href')))
       else if tagName is 'STYLE'
         content += getContentFromElement(child)
     styles = doc.getElementsByTagName('style')

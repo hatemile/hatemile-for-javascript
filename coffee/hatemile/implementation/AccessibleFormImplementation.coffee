@@ -57,7 +57,10 @@ class @hatemile.implementation.AccessibleFormImplementation
     tagName = field.getTagName()
     if field.hasAttribute('type')
       type = field.getAttribute('type').toLowerCase()
-    if (tagName is 'TEXTAREA') or ((tagName is 'INPUT') and (not (('button' is type) or ('submit' is type) or ('reset' is type) or ('image' is type) or ('file' is type) or ('checkbox' is type) or ('radio' is type) or ('hidden' is type))))
+    if (tagName is 'TEXTAREA') or ((tagName is 'INPUT') and \
+        (not (('button' is type) or ('submit' is type) or ('reset' is type) or \
+        ('image' is type) or ('file' is type) or ('checkbox' is type) or \
+        ('radio' is type) or ('hidden' is type))))
       if field.hasAttribute('autocomplete')
         value = field.getAttribute('autocomplete').toLowerCase()
       else
@@ -68,7 +71,10 @@ class @hatemile.implementation.AccessibleFormImplementation
           value = form.getAttribute('autocomplete').toLowerCase()
       if ('on' is value)
         return 'both'
-      else if (field.hasAttribute('list')) and (not self.isEmpty(parser.find("datalist[id=\"#{field.getAttribute('list')}\"]").firstResult()))
+      else if (field.hasAttribute('list')) and \
+          (not self.isEmpty(parser
+          .find("datalist[id=\"#{field.getAttribute('list')}\"]")
+          .firstResult()))
         return 'list'
       else if ('off' is value)
         return 'none'
@@ -83,7 +89,8 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [string] typeFix The id of fix method.
   # @param [function] functionForEventHandler The function.
   #
-  addEventHandler = (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) ->
+  addEventHandler = (element, typeEvent, typeDataEvent, typeFix, \
+      functionForEventHandler) ->
     if not hasEvent(element, typeEvent, typeDataEvent, typeFix)
       found = false
       attribute = element.getAttribute(typeDataEvent)
@@ -98,7 +105,8 @@ class @hatemile.implementation.AccessibleFormImplementation
         found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
       if not found
         nativeElement["liston#{typeEvent}"].push(functionForEventHandler)
-        attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix)
+        attribute = self.hatemile.util.CommonFunctions
+            .increaseInList(attribute, typeFix)
         element.setAttribute(typeDataEvent, attribute)
     return
   
@@ -116,10 +124,14 @@ class @hatemile.implementation.AccessibleFormImplementation
   hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
     nativeElement = element.getData()
     if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
-      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or ((not self.isEmpty(nativeElement.eventListenerList)) and (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
+      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or \
+          ((not self.isEmpty(nativeElement.eventListenerList)) and \
+          (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
     else
       attribute = element.getAttribute(typeDataEvent)
-      return (hasEvent(element, typeEvent) and (not element.hasAttribute(typeDataEvent))) or self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+      return (hasEvent(element, typeEvent) and \
+          (not element.hasAttribute(typeDataEvent))) or \
+          self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
   
   # Check that the field is valid.
   #
@@ -156,8 +168,8 @@ class @hatemile.implementation.AccessibleFormImplementation
   # Validate the field.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [string] dataInvalid The custom attribute used if the element is
-  # not valid.
+  # @param [string] dataInvalid The custom attribute used if the element is not
+  # valid.
   # @param [function] validateFunction The validate function.
   #
   validateNow = (field, dataInvalid, validateFunction) ->
@@ -174,14 +186,15 @@ class @hatemile.implementation.AccessibleFormImplementation
   # Validate the field when its value change.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [string] dataInvalid The custom attribute used if the element is
-  # not valid.
+  # @param [string] dataInvalid The custom attribute used if the element is not
+  # valid.
   # @param [string] typeFix The id of fix method.
   # @param [function] validateFunction The validate function.
   #
   validate = (field, dataInvalid, typeFix, validateFunction) ->
     validateNow(field, dataInvalid, validateFunction)
-    addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, (event) ->
+    addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, \
+        (event) ->
       validateNow(field, dataInvalid, validateFunction)
     )
     return
@@ -206,7 +219,14 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid URL value.
   #
   isValidURL = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, \
+        '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' \
+        + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' \
+        + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' \
+        + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' \
+        + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' \
+        + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?')
   
   # Check that the field has a valid e-mail address value.
   #
@@ -216,10 +236,19 @@ class @hatemile.implementation.AccessibleFormImplementation
   # false if the field have not a valid e-mail address value.
   #
   isValidEmail = (field) ->
-    regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])'
+    regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&' \
+        + '\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21' \
+        + '\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")' \
+        + '@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*' \
+        + '[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' \
+        + '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:' \
+        + '[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|' \
+        + '\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])'
     if field.hasAttribute('multiple')
       regularExpression = "#{regularExpression}( *, *#{regularExpression})*"
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, "^(#{regularExpression})?$")
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, \
+        "^(#{regularExpression})?$")
   
   # Check that the field has a valid date value.
   #
@@ -229,7 +258,12 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid date value.
   #
   isValidDate = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01])))))))?$')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' \
+        + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' \
+        + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' \
+        + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' \
+        + '([12][0-9])|(3[01])))))))?$')
   
   # Check that the field has a valid time value.
   #
@@ -239,27 +273,37 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid time value.
   #
   isValidTime = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^((([01][0-9])|(2[0-3])):[0-5][0-9])?$')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, '^((([01][0-9])|' \
+        + '(2[0-3])):[0-5][0-9])?$')
   
   # Check that the field has a valid date and time value.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid date and time value or
-  # false if the field have not a valid date and time value.
+  # @return [boolean] True if the field has a valid date and time value or false
+  # if the field have not a valid date and time value.
   #
   isValidDateTime = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{2}(((([02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5][0-9].[0-9])|(Z))?)?$')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' \
+        + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' \
+        + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' \
+        + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' \
+        + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' \
+        + '[0-9].[0-9])|(Z))?)?$')
   
   # Check that the field has a valid month value.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid month value or false if
-  # the field have not a valid month value.
+  # @return [boolean] True if the field has a valid month value or false if the
+  # field have not a valid month value.
   #
   isValidMonth = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-((0[1-9])|(1[0-2])))?$')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, '^([0-9]{4}-' \
+        + '((0[1-9])|(1[0-2])))?$')
   
   # Check that the field has a valid week value.
   #
@@ -269,7 +313,9 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid week value.
   #
   isValidWeek = (field) ->
-    return self.isEmpty(field.getData().value) or isValidRegularExpression(field.getData().value, '^([0-9]{4}-W((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
+    return self.isEmpty(field.getData().value) or \
+        isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' \
+        + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
   
   # Check that the value in field is between its range.
   #
@@ -280,7 +326,8 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   isValidRange = (field) ->
     if not self.isEmpty(field.getData().value)
-      if not isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')
+      if not isValidRegularExpression(field.getData().value, \
+          '^[-+]?[0-9]+([.,][0-9]+)?$')
         return false
       value = parseFloat(field.getData().value)
       if field.hasAttribute('min') or field.hasAttribute('aria-valuemin')
@@ -304,15 +351,16 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
   # @return [boolean] True if the length of the value in field is between its
-  # range or false if the length of the value in field is not between its
-  # range.
+  # range or false if the length of the value in field is not between its range.
   #
   isValidLength = (field) ->
     if field.hasAttribute('minlength')
-      if field.getData().value.length < parseInt(field.getAttribute('minlength'))
+      if field.getData().value.length < \
+          parseInt(field.getAttribute('minlength'))
         return false
     if field.hasAttribute('maxlength')
-      if field.getData().value.length > parseInt(field.getAttribute('maxlength'))
+      if field.getData().value.length > \
+          parseInt(field.getAttribute('maxlength'))
         return false
     return true
   
@@ -320,11 +368,12 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the value in field match with its pattern or
-  # false if the value in field not match with its pattern.
+  # @return [boolean] True if the value in field match with its pattern or false
+  # if the value in field not match with its pattern.
   #
   isValidPattern = (field) ->
-    return isValidRegularExpression(field.getData().value, field.getAttribute('pattern'))
+    return isValidRegularExpression(field.getData().value, \
+        field.getAttribute('pattern'))
   
   # Check that the field has a value.
   #
@@ -347,8 +396,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   
   # Mark that the field is required.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] requiredField The required
-  # field.
+  # @param [hatemile.util.html.HTMLDOMElement] requiredField The required field.
   #
   # @see hatemile.AccessibleForm#markRequiredField
   #
@@ -394,8 +442,8 @@ class @hatemile.implementation.AccessibleFormImplementation
   
   # Mark that the field have autocomplete.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field
-  # with autocomplete.
+  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with
+  # autocomplete.
   #
   # @see hatemile.AccessibleForm#markAutoCompleteField
   #
@@ -410,7 +458,9 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @see hatemile.AccessibleForm#markAllAutoCompleteFields
   #
   markAllAutoCompleteFields: () ->
-    elements = @parser.find('input[autocomplete],textarea[autocomplete],form[autocomplete] input,form[autocomplete] textarea,[list],[form]').listResults()
+    elements = @parser.find('input[autocomplete],textarea[autocomplete],' \
+        + 'form[autocomplete] input,form[autocomplete] textarea,[list],[form]')
+        .listResults()
     for element in elements
       if self.hatemile.util.CommonFunctions.isValidElement(element)
         @markAutoCompleteField(element)
@@ -423,13 +473,17 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @see hatemile.AccessibleForm#markInvalidField
   #
   markInvalidField: (field) ->
-    if (field.hasAttribute('required')) or ((field.hasAttribute('aria-required')) and (field.getAttribute('aria-required').toLowerCase() is 'true'))
-      validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired)
+    if (field.hasAttribute('required')) or \
+        ((field.hasAttribute('aria-required')) and \
+        (field.getAttribute('aria-required').toLowerCase() is 'true'))
+      validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, \
+          isValidRequired)
     if field.hasAttribute('pattern')
       validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern)
     if (field.hasAttribute('minlength')) or (field.hasAttribute('maxlength'))
       validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength)
-    if (field.hasAttribute('aria-valuemin')) or (field.hasAttribute('aria-valuemax'))
+    if (field.hasAttribute('aria-valuemin')) or \
+        (field.hasAttribute('aria-valuemax'))
       validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
     if field.hasAttribute('type')
       type = field.getAttribute('type').toLowerCase()
@@ -456,7 +510,13 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @see hatemile.AccessibleForm#markAllInvalidFields
   #
   markAllInvalidFields: () ->
-    fields = @parser.find('[required],input[pattern],input[minlength],input[maxlength],textarea[minlength],textarea[maxlength],input[type=week],input[type=month],input[type=datetime-local],input[type=datetime],input[type=time],input[type=date],input[type=number],input[type=range],input[type=email],input[type=url],[aria-required=true],input[aria-valuemin],input[aria-valuemax]').listResults()
+    fields = @parser.find('[required],input[pattern],input[minlength],' \
+        + 'input[maxlength],textarea[minlength],textarea[maxlength],' \
+        + 'input[type=week],input[type=month],input[type=datetime-local],' \
+        + 'input[type=datetime],input[type=time],input[type=date],' \
+        + 'input[type=number],input[type=range],input[type=email],' \
+        + 'input[type=url],[aria-required=true],input[aria-valuemin],' \
+        + 'input[aria-valuemax]').listResults()
     for field in fields
       if self.hatemile.util.CommonFunctions.isValidElement(field)
         @markInvalidField(field)

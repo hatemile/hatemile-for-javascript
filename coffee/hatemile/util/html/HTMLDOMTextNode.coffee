@@ -28,7 +28,8 @@ limitations under the License.
 #
 # @abstract
 #
-class @hatemile.util.html.HTMLDOMTextNode extends @hatemile.util.html.HTMLDOMNode
+class @hatemile.util.html.HTMLDOMTextNode extends \
+    @hatemile.util.html.HTMLDOMNode
   
   # Change the text content of text node.
   #

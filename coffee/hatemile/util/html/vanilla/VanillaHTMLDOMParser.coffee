@@ -40,11 +40,11 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleAncestor
   # The possible ancestor.
-  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement]
-  # possibleDescendant The possible descendant.
+  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleDescendant
+  # The possible descendant.
   #
-  # @return [boolean] True if the element is descendant of other or false if
-  # the element is not descendant of other.
+  # @return [boolean] True if the element is descendant of other or false if the
+  # element is not descendant of other.
   #
   isDescendant = (possibleAncestor, possibleDescendant) ->
     ancestor = possibleDescendant.parentNode
@@ -71,7 +71,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#find
   #
   find: (selector) ->
-    if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+    if (selector instanceof self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement)
       @results = [selector.getData()]
     else
       @results = @ownerDocument.querySelectorAll(selector)
@@ -88,7 +89,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   findChildren: (selector) ->
     children = []
-    if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+    if (selector instanceof self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement)
       for result in @results
         for resultChild in result.children
           if selector.getData() is resultChild
@@ -105,8 +107,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
     @results = children
     return this
   
-  # Find all elements in the parser by selector, descendants of found
-  # elements.
+  # Find all elements in the parser by selector, descendants of found elements.
   #
   # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
   #
@@ -117,7 +118,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   findDescendants: (selector) ->
     descendants = []
-    if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+    if (selector instanceof self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement)
       for result in @results
         if isDescendant(result, selector.getData())
           descendants.push(selector.getData())
@@ -141,7 +143,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   findAncestors: (selector) ->
     ancestors = []
-    if (selector instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMElement)
+    if (selector instanceof self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement)
       for result in @results
         if isDescendant(selector.getData(), result)
           ancestors.push(selector.getData())
@@ -157,27 +160,29 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   
   # Returns the first element found.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first
-  # element found or undefined if not have elements found.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element
+  # found or undefined if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#firstResult
   #
   firstResult: () ->
     if self.isEmpty(@results)
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[0])
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@results[0])
   
   # Returns the last element found.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last
-  # element found or undefined if not have elements found.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element
+  # found or undefined if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#lastResult
   #
   lastResult: () ->
     if self.isEmpty(@results)
       return undefined
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@results[@results.length - 1])
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@results[@results.length - 1])
   
   # Returns a list with all elements found.
   #
@@ -189,7 +194,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   listResults: () ->
     array = []
     for result in @results
-      array.push(new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(result))
+      array.push(new self.hatemile.util.html.vanilla
+          .VanillaHTMLDOMElement(result))
     return array
   
   # Create a element.
@@ -202,7 +208,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#createElement
   #
   createElement: (tag) ->
-    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
+    return new self.hatemile.util.html.vanilla
+        .VanillaHTMLDOMElement(@ownerDocument.createElement(tag))
   
   # Returns the HTML code of parser.
   #

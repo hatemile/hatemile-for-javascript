@@ -48,8 +48,7 @@ class @hatemile.util.html.HTMLDOMParser
   #
   findChildren: (selector) ->
   
-  # Find all elements in the parser by selector, descendants of found
-  # elements.
+  # Find all elements in the parser by selector, descendants of found elements.
   #
   # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
   #

@@ -20,7 +20,8 @@
   'aria-dropeffect-move-before': ''
   'aria-dropeffect-move-after': ' (Mover o elemento selecionado para o local)'
   'aria-dropeffect-link-before': ''
-  'aria-dropeffect-link-after': ' (Criar um link do elemento selecionado para o local)'
+  'aria-dropeffect-link-after': \
+      ' (Criar um link do elemento selecionado para o local)'
   'aria-dropeffect-execute-before': ''
   'aria-dropeffect-execute-after': ' (Executar o elemento selecionado no local)'
   'aria-dropeffect-popup-before': ''
@@ -92,21 +93,29 @@
   'attribute-draggable-before': ''
   'attribute-draggable-after': ' (Arrastável)'
   'attribute-dropzone-copy-before': ''
-  'attribute-dropzone-copy-after': ' (Colar o elemento selecionado para o local)'
+  'attribute-dropzone-copy-after': \
+      ' (Colar o elemento selecionado para o local)'
   'attribute-dropzone-move-before': ''
-  'attribute-dropzone-move-after': ' (Mover o elemento selecionado para o local)'
+  'attribute-dropzone-move-after': \
+      ' (Mover o elemento selecionado para o local)'
   'attribute-dropzone-link-before': ''
-  'attribute-dropzone-link-after': ' (Criar um link do elemento selecionado para o local)'
+  'attribute-dropzone-link-after': \
+      ' (Criar um link do elemento selecionado para o local)'
   'attribute-data-invalid-url-before': ''
-  'attribute-data-invalid-url-after': ' (Informe um endereço da internet válido)'
+  'attribute-data-invalid-url-after': \
+      ' (Informe um endereço da internet válido)'
   'attribute-data-invalid-email-before': ''
-  'attribute-data-invalid-email-after': ' (Informe um endereço de e-mail válido)'
+  'attribute-data-invalid-email-after': \
+      ' (Informe um endereço de e-mail válido)'
   'attribute-data-invalid-range-before': ''
-  'attribute-data-invalid-range-after': ' (Informe um valor dentro do intervalo)'
+  'attribute-data-invalid-range-after': \
+      ' (Informe um valor dentro do intervalo)'
   'attribute-data-invalid-length-before': ''
-  'attribute-data-invalid-length-after': ' (Informe um valor com número de caracteres dentro do intervalo)'
+  'attribute-data-invalid-length-after': \
+      ' (Informe um valor com número de caracteres dentro do intervalo)'
   'attribute-data-invalid-pattern-before': ''
-  'attribute-data-invalid-pattern-after': ' (Informe um valor de acordo com o formato solicitado)'
+  'attribute-data-invalid-pattern-after': \
+      ' (Informe um valor de acordo com o formato solicitado)'
   'attribute-data-invalid-required-before': ''
   'attribute-data-invalid-required-after': ' (Preencha o campo)'
   'attribute-data-invalid-date-before': ''
@@ -114,7 +123,8 @@
   'attribute-data-invalid-time-before': ''
   'attribute-data-invalid-time-after': ' (Informe um horário válido)'
   'attribute-data-invalid-datetime-before': ''
-  'attribute-data-invalid-datetime-after': ' (Informe uma data e horário válidos)'
+  'attribute-data-invalid-datetime-after': \
+      ' (Informe uma data e horário válidos)'
   'attribute-data-invalid-month-before': ''
   'attribute-data-invalid-month-after': ' (Informe um mês válido)'
   'attribute-data-invalid-week-before': ''

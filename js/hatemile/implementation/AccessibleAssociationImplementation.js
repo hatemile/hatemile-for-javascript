@@ -198,13 +198,14 @@ limitations under the License.
                             i = 0;
                             for (k = 0, len1 = row.length; k < len1; k++) {
                                 cell = row[k];
-                                headersIds = getCellsHeadersIds(headerRows, i++);
+                                headersIds = getCellsHeadersIds(headerRows, i);
                                 headers = cell.getAttribute('headers');
                                 for (l = 0, len2 = headersIds.length; l < len2; l++) {
                                     headersId = headersIds[l];
                                     headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headersId);
                                 }
                                 cell.setAttribute('headers', headers);
+                                i = i + 1;
                             }
                         }
                     }
@@ -224,7 +225,7 @@ limitations under the License.
             for (j = 0, len = tables.length; j < len; j++) {
                 table = tables[j];
                 if (self.hatemile.util.CommonFunctions.isValidElement(table)) {
-                    if (self.isEmpty(this.parser.find(table).findDescendants("thead[" + DATA_IGNORE + "],tbody[" + DATA_IGNORE + "],tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],th[" + DATA_IGNORE + "],td[" + DATA_IGNORE + "]").firstResult())) {
+                    if (self.isEmpty(this.parser.find(table).findDescendants(("thead[" + DATA_IGNORE + "],tbody[" + DATA_IGNORE + "],") + ("tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],th[" + DATA_IGNORE + "],") + ("td[" + DATA_IGNORE + "]")).firstResult())) {
                         this.associateDataCellsWithHeaderCells(table);
                     }
                 }
