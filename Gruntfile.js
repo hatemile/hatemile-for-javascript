@@ -56,15 +56,55 @@ module.exports = function(grunt) {
         },
         codo: {
             src: ['coffee/hatemile']
+        },
+        coffeelint: {
+            src: ['coffee/**/*.coffee', '_locales/**/*.coffee'],
+            options: {
+                'arrow_spacing': {
+                    'level': 'error'
+                },
+                'braces_spacing': {
+                    'level': 'error'
+                },
+                'line_endings': {
+                    'level': 'error'
+                },
+                'no_unnecessary_double_quotes': {
+                    'level': 'error'
+                },
+                'no_implicit_parens': {
+                    'level': 'error'
+                },
+                'no_interpolation_in_single_quotes': {
+                    'level': 'error'
+                },
+                'no_nested_string_interpolation': {
+                    'level': 'error'
+                },
+                'no_plusplus': {
+                    'level': 'error'
+                },
+                'prefer_english_operator': {
+                    'level': 'error'
+                },
+                'space_operators': {
+                    'level': 'error'
+                },
+                'spacing_after_comma': {
+                    'level': 'error'
+                }
+            }
         }
     });
 
     // Load dependencies.
+    grunt.loadNpmTasks('grunt-coffeelint');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-js-beautify');
     grunt.loadNpmTasks('grunt-codo');
 
     // Default task(s).
-    grunt.registerTask('default', ['coffee', 'js_beautify']);
+    grunt.registerTask('default', ['coffeelint', 'coffee', 'js_beautify']);
     grunt.registerTask('doc', ['codo']);
+    grunt.registerTask('test', ['coffeelint']);
 };

@@ -25,6 +25,7 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-codo": "^0.3.0",
+    "grunt-coffeelint": "0.0.16",
     "grunt-contrib-coffee": "^1.0.0",
     "grunt-js-beautify": "^0.1.4"
   }
