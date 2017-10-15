@@ -9,7 +9,7 @@
   "keywords": [
     "accessibility",
     "wcag",
-	"accessible"
+    "accessible"
   ],
   "license": "Apache License, Version 2.0",
   "homepage": "https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript",
@@ -19,5 +19,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "JSCSSP": "jscssp#^0.1.1"
+  }
 }
