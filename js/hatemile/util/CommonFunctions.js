@@ -13,7 +13,9 @@ limitations under the License.
  */
 
 (function () {
-    var base;
+    var base, self;
+
+    self = this;
 
     this.hatemile || (this.hatemile = {});
 
