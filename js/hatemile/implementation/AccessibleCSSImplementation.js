@@ -53,7 +53,7 @@ limitations under the License.
 
         getRegularExpressionOfSymbols = function (symbols) {
             var formatedSymbol, i, len, regularExpression, symbol;
-            regularExpression = void 0;
+            regularExpression = null;
             for (i = 0, len = symbols.length; i < len; i++) {
                 symbol = symbols[i];
                 formatedSymbol = getFormatedSymbol(symbol.symbol);
@@ -436,17 +436,17 @@ limitations under the License.
 
         AccessibleCSSImplementation.prototype.provideAllSpeakProperties = function () {
             var element, elements, i, j, len, len1, rule, rules, selector;
-            selector = void 0;
+            selector = null;
             rules = this.cssParser.getRules(['speak', 'speak-punctuation', 'speak-numeral', 'speak-header', 'speak-as']);
             for (i = 0, len = rules.length; i < len; i++) {
                 rule = rules[i];
-                if (selector === void 0) {
+                if (selector === null) {
                     selector = rule.getSelector();
                 } else {
                     selector = selector + "," + (rule.getSelector());
                 }
             }
-            if (selector !== void 0) {
+            if (selector !== null) {
                 elements = this.htmlParser.find(selector).listResults();
                 for (j = 0, len1 = elements.length; j < len1; j++) {
                     element = elements[j];

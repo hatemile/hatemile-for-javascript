@@ -260,7 +260,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   appendText: (text) ->
     child = @getLastNodeChild()
-    if (child isnt undefined) and (child instanceof self.hatemile.util.html
+    if (child isnt null) and (child instanceof self.hatemile.util.html
         .vanilla.VanillaHTMLDOMTextNode)
       child.appendText(text)
     else
@@ -335,9 +335,9 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   getParentElement: () ->
     if @getTagName() is 'HTML'
-      return undefined
+      return null
     else if self.isEmpty(@data.parentNode)
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@data.parentNode)
   
@@ -409,7 +409,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   getFirstElementChild: () ->
     if not @hasChildrenElements()
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@data.firstElementChild)
   
@@ -422,7 +422,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   getLastElementChild: () ->
     if not @hasChildrenElements()
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@data.lastElementChild)
   
@@ -435,14 +435,14 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   getFirstNodeChild: () ->
     if not @hasChildren()
-      return undefined
+      return null
     children = @data.childNodes
     for child in children
       if (child.nodeType is @data.ownerDocument.TEXT_NODE)
         return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(child)
       else if (child.nodeType is @data.ownerDocument.ELEMENT_NODE)
         return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child)
-    return undefined
+    return null
   
   # Returns the last node child of this element.
   #
@@ -453,15 +453,15 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   getLastNodeChild: () ->
     if not @hasChildren()
-      return undefined
+      return null
     children = @data.childNodes
-    lastChild = undefined
+    lastChild = null
     for child in children
       if ((child.nodeType is @data.ownerDocument.TEXT_NODE) or \
           (child.nodeType is @data.ownerDocument.ELEMENT_NODE))
         lastChild = child
-    if lastChild is undefined
-      return undefined
+    if lastChild is null
+      return null
     else if (lastChild.nodeType is @data.ownerDocument.TEXT_NODE)
       return new self.hatemile.util.html.vanilla
           .VanillaHTMLDOMTextNode(lastChild)

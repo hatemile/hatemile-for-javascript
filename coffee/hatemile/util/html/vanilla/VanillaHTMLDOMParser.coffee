@@ -161,26 +161,26 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # Returns the first element found.
   #
   # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element
-  # found or undefined if not have elements found.
+  # found or null if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#firstResult
   #
   firstResult: () ->
     if self.isEmpty(@results)
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results[0])
   
   # Returns the last element found.
   #
   # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element
-  # found or undefined if not have elements found.
+  # found or null if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#lastResult
   #
   lastResult: () ->
     if self.isEmpty(@results)
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results[@results.length - 1])
   

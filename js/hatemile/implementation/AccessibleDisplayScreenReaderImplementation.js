@@ -231,7 +231,7 @@ limitations under the License.
 
         getDescription = function (element, parser) {
             var description, descriptionId, descriptionIds, elementDescription, i, len, type;
-            description = void 0;
+            description = null;
             if (element.hasAttribute('title')) {
                 description = element.getAttribute('title');
             } else if (element.hasAttribute('aria-label')) {
@@ -281,7 +281,7 @@ limitations under the License.
                     local.appendElement(container);
                 }
             }
-            list = void 0;
+            list = null;
             if (!self.isEmpty(container)) {
                 list = parser.find(container).findChildren('ul').firstResult();
                 if (self.isEmpty(list)) {
@@ -356,7 +356,7 @@ limitations under the License.
                 referenceBefore = parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + dataBeforeOf + "=\"" + identifier + "\"]")).firstResult();
                 if (!self.isEmpty(referenceBefore)) {
                     referenceBefore.removeNode();
-                    referenceBefore = void 0;
+                    referenceBefore = null;
                 }
                 span = parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
@@ -368,7 +368,7 @@ limitations under the License.
                 referenceAfter = parser.find("." + CLASS_FORCE_READ_AFTER + "[" + dataAfterOf + "=\"" + identifier + "\"]").firstResult();
                 if (!self.isEmpty(referenceAfter)) {
                     referenceAfter.removeNode();
-                    referenceAfter = void 0;
+                    referenceAfter = null;
                 }
                 span = parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_AFTER);
@@ -396,7 +396,7 @@ limitations under the License.
         function AccessibleDisplayScreenReaderImplementation(parser1, configure, userAgent) {
             this.parser = parser1;
             this.listShortcutsAdded = false;
-            this.listShortcuts = void 0;
+            this.listShortcuts = null;
             this.prefixId = configure.getParameter('prefix-generated-ids');
             this.attributeTitlePrefixBefore = configure.getParameter('attribute-title-prefix-before');
             this.attributeTitleSuffixBefore = configure.getParameter('attribute-title-suffix-before');
@@ -839,13 +839,13 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayCellHeader = function (tableCell) {
             var header, i, idHeader, idsHeaders, len, textHeader;
             if (tableCell.hasAttribute('headers')) {
-                textHeader = void 0;
+                textHeader = null;
                 idsHeaders = tableCell.getAttribute('headers').split(new RegExp('[ \n\t\r]+'));
                 for (i = 0, len = idsHeaders.length; i < len; i++) {
                     idHeader = idsHeaders[i];
                     header = this.parser.find("#" + idHeader).firstResult();
                     if (!self.isEmpty(header)) {
-                        if (textHeader === void 0) {
+                        if (textHeader === null) {
                             textHeader = header.getTextContent();
                         } else {
                             textHeader = textHeader + " " + (header.getTextContent());

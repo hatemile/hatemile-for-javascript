@@ -148,14 +148,14 @@ limitations under the License.
 
         VanillaHTMLDOMParser.prototype.firstResult = function () {
             if (self.isEmpty(this.results)) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[0]);
         };
 
         VanillaHTMLDOMParser.prototype.lastResult = function () {
             if (self.isEmpty(this.results)) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results[this.results.length - 1]);
         };

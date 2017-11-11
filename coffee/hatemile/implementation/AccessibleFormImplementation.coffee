@@ -78,7 +78,7 @@ class @hatemile.implementation.AccessibleFormImplementation
         return 'list'
       else if ('off' is value)
         return 'none'
-    return undefined
+    return null
   
   # Increase a function on event.
   #

@@ -84,7 +84,7 @@ limitations under the License.
                     return 'none';
                 }
             }
-            return void 0;
+            return null;
         };
 
         addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {

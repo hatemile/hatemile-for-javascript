@@ -55,7 +55,7 @@ limitations under the License.
                     local.getFirstElementChild().insertBefore(container);
                 }
             }
-            list = void 0;
+            list = null;
             if (!self.isEmpty(container)) {
                 list = parser.find(container).findChildren('ul').firstResult();
                 if (self.isEmpty(list)) {
@@ -81,7 +81,7 @@ limitations under the License.
                     local.appendElement(container);
                 }
             }
-            list = void 0;
+            list = null;
             if (!self.isEmpty(container)) {
                 list = parser.find(container).findChildren('ol').firstResult();
                 if (self.isEmpty(list)) {
@@ -138,7 +138,7 @@ limitations under the License.
         generateAnchorFor = function (element, dataAttribute, anchorClass, parser, prefixId) {
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, prefixId);
-            anchor = void 0;
+            anchor = null;
             if (self.isEmpty(parser.find(("[" + dataAttribute + "=\"") + ((element.getAttribute('id')) + "\"]")).firstResult())) {
                 if (element.getTagName() === 'A') {
                     anchor = element;
@@ -200,12 +200,12 @@ limitations under the License.
             this.listSkippersAdded = false;
             this.validateHeading = false;
             this.validHeading = false;
-            this.listSkippers = void 0;
+            this.listSkippers = null;
         }
 
         AccessibleNavigationImplementation.prototype.provideNavigationBySkipper = function (element) {
             var anchor, auxiliarElement, auxiliarElements, auxiliarSkipper, i, itemLink, j, len, len1, link, ref, shortcut, shortcuts, skipper;
-            skipper = void 0;
+            skipper = null;
             ref = this.skippers;
             for (i = 0, len = ref.length; i < len; i++) {
                 auxiliarSkipper = ref[i];
@@ -217,11 +217,11 @@ limitations under the License.
                         break;
                     }
                 }
-                if (skipper !== void 0) {
+                if (skipper !== null) {
                     break;
                 }
             }
-            if (skipper !== void 0) {
+            if (skipper !== null) {
                 if (!this.listSkippersAdded) {
                     this.listSkippers = generateListSkippers(this.parser);
                     this.listSkippersAdded = true;

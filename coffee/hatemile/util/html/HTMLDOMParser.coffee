@@ -68,15 +68,15 @@ class @hatemile.util.html.HTMLDOMParser
   
   # Returns the first element found.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The first element found or
-  # undefined if not have elements found.
+  # @return [hatemile.util.html.HTMLDOMElement] The first element found or null
+  # if not have elements found.
   #
   firstResult: () ->
   
   # Returns the last element found.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The last element found or
-  # undefined if not have elements found.
+  # @return [hatemile.util.html.HTMLDOMElement] The last element found or null
+  # if not have elements found.
   #
   lastResult: () ->
   

@@ -89,7 +89,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @return [string] The regular expression to search all symbols.
   #
   getRegularExpressionOfSymbols = (symbols) ->
-    regularExpression = undefined
+    regularExpression = null
     for symbol in symbols
       formatedSymbol = getFormatedSymbol(symbol.symbol)
       if self.isEmpty(regularExpression)
@@ -639,15 +639,15 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @see hatemile.AccessibleCSS#provideAllSpeakProperties
   #
   provideAllSpeakProperties: () ->
-    selector = undefined
+    selector = null
     rules = @cssParser.getRules(['speak', 'speak-punctuation', \
         'speak-numeral', 'speak-header', 'speak-as'])
     for rule in rules
-      if selector is undefined
+      if selector is null
         selector = rule.getSelector()
       else
         selector = "#{selector},#{rule.getSelector()}"
-    if selector isnt undefined
+    if selector isnt null
       elements = @htmlParser.find(selector).listResults()
       for element in elements
         if self.hatemile.util.CommonFunctions.isValidElement(element)

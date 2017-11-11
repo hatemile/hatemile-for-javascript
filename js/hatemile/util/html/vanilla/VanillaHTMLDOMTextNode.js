@@ -83,7 +83,7 @@ limitations under the License.
 
         VanillaHTMLDOMTextNode.prototype.getParentElement = function () {
             if (self.isEmpty(this.data.parentNode)) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
         };

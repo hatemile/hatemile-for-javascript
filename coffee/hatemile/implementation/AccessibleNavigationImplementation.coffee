@@ -53,7 +53,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         container = parser.createElement('div')
         container.setAttribute('id', ID_CONTAINER_SKIPPERS)
         local.getFirstElementChild().insertBefore(container)
-    list = undefined
+    list = null
     if not self.isEmpty(container)
       list = parser.find(container).findChildren('ul').firstResult()
       if self.isEmpty(list)
@@ -83,7 +83,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         
         container.appendElement(textContainer)
         local.appendElement(container)
-    list = undefined
+    list = null
     if not self.isEmpty(container)
       list = parser.find(container).findChildren('ol').firstResult()
       if self.isEmpty(list)
@@ -150,7 +150,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
     self.hatemile.util.CommonFunctions.generateId(element, prefixId)
-    anchor = undefined
+    anchor = null
     if self.isEmpty(parser.find("[#{dataAttribute}=\"" \
         + "#{element.getAttribute('id')}\"]").firstResult())
       if element.getTagName() is 'A'
@@ -216,7 +216,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     @listSkippersAdded = false
     @validateHeading = false
     @validHeading = false
-    @listSkippers = undefined
+    @listSkippers = null
   
   # Provide a content skipper for element.
   #
@@ -225,16 +225,16 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @see hatemile.AccessibleNavigation#provideNavigationBySkipper
   #
   provideNavigationBySkipper: (element) ->
-    skipper = undefined
+    skipper = null
     for auxiliarSkipper in @skippers
       auxiliarElements = @parser.find(auxiliarSkipper['selector']).listResults()
       for auxiliarElement in auxiliarElements
         if auxiliarElement.getData() is element.getData()
           skipper = auxiliarSkipper
           break
-      if skipper isnt undefined
+      if skipper isnt null
         break
-    if skipper isnt undefined
+    if skipper isnt null
       if not @listSkippersAdded
         @listSkippers = generateListSkippers(@parser)
         @listSkippersAdded = true

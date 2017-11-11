@@ -158,7 +158,7 @@ limitations under the License.
         VanillaHTMLDOMElement.prototype.appendText = function (text) {
             var child;
             child = this.getLastNodeChild();
-            if ((child !== void 0) && (child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)) {
+            if ((child !== null) && (child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode)) {
                 child.appendText(text);
             } else {
                 this.data.appendChild(this.data.ownerDocument.createTextNode(text));
@@ -210,9 +210,9 @@ limitations under the License.
 
         VanillaHTMLDOMElement.prototype.getParentElement = function () {
             if (this.getTagName() === 'HTML') {
-                return void 0;
+                return null;
             } else if (self.isEmpty(this.data.parentNode)) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
         };
@@ -246,14 +246,14 @@ limitations under the License.
 
         VanillaHTMLDOMElement.prototype.getFirstElementChild = function () {
             if (!this.hasChildrenElements()) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.firstElementChild);
         };
 
         VanillaHTMLDOMElement.prototype.getLastElementChild = function () {
             if (!this.hasChildrenElements()) {
-                return void 0;
+                return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.lastElementChild);
         };
@@ -261,7 +261,7 @@ limitations under the License.
         VanillaHTMLDOMElement.prototype.getFirstNodeChild = function () {
             var child, children, i, len;
             if (!this.hasChildren()) {
-                return void 0;
+                return null;
             }
             children = this.data.childNodes;
             for (i = 0, len = children.length; i < len; i++) {
@@ -272,24 +272,24 @@ limitations under the License.
                     return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(child);
                 }
             }
-            return void 0;
+            return null;
         };
 
         VanillaHTMLDOMElement.prototype.getLastNodeChild = function () {
             var child, children, i, lastChild, len;
             if (!this.hasChildren()) {
-                return void 0;
+                return null;
             }
             children = this.data.childNodes;
-            lastChild = void 0;
+            lastChild = null;
             for (i = 0, len = children.length; i < len; i++) {
                 child = children[i];
                 if ((child.nodeType === this.data.ownerDocument.TEXT_NODE) || (child.nodeType === this.data.ownerDocument.ELEMENT_NODE)) {
                     lastChild = child;
                 }
             }
-            if (lastChild === void 0) {
-                return void 0;
+            if (lastChild === null) {
+                return null;
             } else if (lastChild.nodeType === this.data.ownerDocument.TEXT_NODE) {
                 return new self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode(lastChild);
             } else if (lastChild.nodeType === this.data.ownerDocument.ELEMENT_NODE) {

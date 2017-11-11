@@ -160,7 +160,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @return [string] The description of element.
   #
   getDescription = (element, parser) ->
-    description = undefined
+    description = null
     if element.hasAttribute('title')
       description = element.getAttribute('title')
     else if element.hasAttribute('aria-label')
@@ -212,7 +212,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         
         container.appendElement(textContainer)
         local.appendElement(container)
-    list = undefined
+    list = null
     if not self.isEmpty(container)
       list = parser.find(container).findChildren('ul').firstResult()
       if self.isEmpty(list)
@@ -303,7 +303,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       
       if not self.isEmpty(referenceBefore)
         referenceBefore.removeNode()
-        referenceBefore = undefined
       
       span = parser.createElement('span')
       span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
@@ -317,7 +316,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       
       if not self.isEmpty(referenceAfter)
         referenceAfter.removeNode()
-        referenceAfter = undefined
       
       span = parser.createElement('span')
       span.setAttribute('class', CLASS_FORCE_READ_AFTER)
@@ -372,7 +370,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   constructor: (@parser, configure, userAgent) ->
     @listShortcutsAdded = false
-    @listShortcuts = undefined
+    @listShortcuts = null
     
     @prefixId = configure.getParameter('prefix-generated-ids')
     
@@ -942,13 +940,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   displayCellHeader: (tableCell) ->
     if tableCell.hasAttribute('headers')
-      textHeader = undefined
+      textHeader = null
       idsHeaders = tableCell.getAttribute('headers')
           .split(new RegExp('[ \n\t\r]+'))
       for idHeader in idsHeaders
         header = @parser.find("##{idHeader}").firstResult()
         if not self.isEmpty(header)
-          if textHeader is undefined
+          if textHeader is null
             textHeader = header.getTextContent()
           else
             textHeader = "#{textHeader} #{header.getTextContent()}"

@@ -149,7 +149,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   #
   getParentElement: () ->
     if self.isEmpty(@data.parentNode)
-      return undefined
+      return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@data.parentNode)
   
