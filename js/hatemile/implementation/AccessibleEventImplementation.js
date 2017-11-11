@@ -22,7 +22,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleEventImplementation = (function () {
-        var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, addEventHandler, clearDropEffect, createDragEvent, createMouseEvent, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, isEnter, keyboardAccess, visit;
+        var CLICK_EVENT, DATA_BLUR_ADDED, DATA_FOCUS_ADDED, DATA_IGNORE, DATA_KEY_DOWN_ADDED, DATA_KEY_PRESSED, DATA_KEY_PRESS_ADDED, DATA_KEY_UP_ADDED, DRAG_EVENT, DROP_EVENT, HOVER_EVENT, clearDropEffect, createDragEvent, createMouseEvent, executeDragEvent, executeEvent, executeMouseEvent, generateDropEffect, hasEvent, isEnter, keyboardAccess;
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
@@ -61,33 +61,6 @@ limitations under the License.
                     element.setAttribute('tabindex', '0');
                 } else if ((tag !== 'A') && (tag !== 'INPUT') && (tag !== 'BUTTON') && (tag !== 'SELECT') && (tag !== 'TEXTAREA')) {
                     element.setAttribute('tabindex', '0');
-                }
-            }
-        };
-
-        addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {
-            var attribute, found, nativeElement;
-            if (!hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
-                found = false;
-                attribute = element.getAttribute(typeDataEvent);
-                nativeElement = element.getData();
-                if (!hasEvent(element, typeEvent)) {
-                    nativeElement["liston" + typeEvent] = [];
-                    nativeElement["on" + typeEvent] = function (event) {
-                        var addedEvent, i, len, ref;
-                        ref = nativeElement["liston" + typeEvent];
-                        for (i = 0, len = ref.length; i < len; i++) {
-                            addedEvent = ref[i];
-                            addedEvent(event);
-                        }
-                    };
-                } else {
-                    found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
-                }
-                if (!found) {
-                    nativeElement["liston" + typeEvent].push(functionForEventHandler);
-                    attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
-                    element.setAttribute(typeDataEvent, attribute);
                 }
             }
         };
@@ -249,7 +222,34 @@ limitations under the License.
             return dragEvent;
         };
 
-        visit = function (element, condition, obj, operation) {
+        AccessibleEventImplementation.prototype.addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, operation) {
+            var attribute, found, nativeElement;
+            if (!hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
+                found = false;
+                attribute = element.getAttribute(typeDataEvent);
+                nativeElement = element.getData();
+                if (!hasEvent(element, typeEvent)) {
+                    nativeElement["liston" + typeEvent] = [];
+                    nativeElement["on" + typeEvent] = function (event) {
+                        var addedEvent, i, len, ref;
+                        ref = nativeElement["liston" + typeEvent];
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            addedEvent = ref[i];
+                            addedEvent(event);
+                        }
+                    };
+                } else {
+                    found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+                }
+                if (!found) {
+                    nativeElement["liston" + typeEvent].push(operation);
+                    attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
+                    element.setAttribute(typeDataEvent, attribute);
+                }
+            }
+        };
+
+        AccessibleEventImplementation.prototype.visit = function (element, condition, obj, operation) {
             var child, children, i, len;
             if (!element.hasAttribute(DATA_IGNORE)) {
                 if (condition(element)) {
@@ -258,7 +258,7 @@ limitations under the License.
                 children = element.getChildrenElements();
                 for (i = 0, len = children.length; i < len; i++) {
                     child = children[i];
-                    visit(child, condition, obj, operation);
+                    this.visit(child, condition, obj, operation);
                 }
             }
         };
@@ -272,21 +272,21 @@ limitations under the License.
             var parser;
             element.setAttribute('aria-dropeffect', 'none');
             parser = this.parser;
-            addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, function (event) {
+            this.addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, function (event) {
                 if (!self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
                     executeDragEvent('dragenter', element, event);
                     executeDragEvent('dragover', element, event);
                     generateDropEffect(parser);
                 }
             });
-            addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, function (event) {
+            this.addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, function (event) {
                 if (!self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
                     executeDragEvent('dragleave', element, event);
                     generateDropEffect(parser);
                 }
             });
             if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT))) {
-                addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, function (event) {
+                this.addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, function (event) {
                     var grabbedElement, grabbedElements, i, len;
                     if ((isEnter(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (!self.isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
                         element.setAttribute(DATA_KEY_PRESSED, 'true');
@@ -302,7 +302,7 @@ limitations under the License.
                         executeDragEvent('drop', element, event);
                     }
                 });
-                addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT, function (event) {
+                this.addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT, function (event) {
                     element.removeAttribute(DATA_KEY_PRESSED);
                 });
             }
@@ -314,7 +314,7 @@ limitations under the License.
             element.setAttribute('aria-grabbed', 'false');
             parser = this.parser;
             if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT))) {
-                addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT, function (event) {
+                this.addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DRAG_EVENT, function (event) {
                     var grabbedElement, grabbedElements, i, len;
                     if ((event.keyCode === ' '.charCodeAt(0)) && (!element.hasAttribute(DATA_KEY_PRESSED))) {
                         grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
@@ -330,13 +330,13 @@ limitations under the License.
                         generateDropEffect(parser);
                     }
                 });
-                addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT, function (event) {
+                this.addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, DRAG_EVENT, function (event) {
                     element.removeAttribute(DATA_KEY_PRESSED);
                 });
             }
             if (!this.cancelDragAdded) {
                 root = this.parser.find('html').firstResult();
-                addEventHandler(root, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function (event) {
+                this.addEventHandler(root, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function (event) {
                     var grabbedElement, grabbedElements, i, len;
                     if (event.keyCode === 27) {
                         grabbedElements = parser.find('[aria-grabbed="true"]').listResults();
@@ -355,26 +355,26 @@ limitations under the License.
         AccessibleEventImplementation.prototype.makeAccessibleAllDragandDropEvents = function () {
             var body;
             body = this.parser.find('body').firstResult();
-            visit(body, function (element) {
+            this.visit(body, function (element) {
                 return hasEvent(element, 'drag') || hasEvent(element, 'dragstart') || hasEvent(element, 'dragend');
             }, this, this.makeAccessibleDragEvents);
-            visit(body, function (element) {
+            this.visit(body, function (element) {
                 return hasEvent(element, 'drop') || hasEvent(element, 'dragenter') || hasEvent(element, 'dragleave') || hasEvent(element, 'dragover');
             }, this, this.makeAccessibleDropEvents);
         };
 
         AccessibleEventImplementation.prototype.makeAccessibleHoverEvents = function (element) {
             keyboardAccess(element);
-            addEventHandler(element, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT, function (event) {
+            this.addEventHandler(element, 'focus', DATA_FOCUS_ADDED, HOVER_EVENT, function (event) {
                 executeMouseEvent('mouseover', element, event);
             });
-            addEventHandler(element, 'blur', DATA_BLUR_ADDED, HOVER_EVENT, function (event) {
+            this.addEventHandler(element, 'blur', DATA_BLUR_ADDED, HOVER_EVENT, function (event) {
                 executeMouseEvent('mouseout', element, event);
             });
         };
 
         AccessibleEventImplementation.prototype.makeAccessibleAllHoverEvents = function () {
-            visit(this.parser.find('body').firstResult(), function (element) {
+            this.visit(this.parser.find('body').firstResult(), function (element) {
                 return hasEvent(element, 'mouseover') || hasEvent(element, 'mouseout');
             }, this, this.makeAccessibleHoverEvents);
         };
@@ -385,7 +385,7 @@ limitations under the License.
             tag = element.getTagName();
             typeButtons = ['submit', 'button', 'reset'];
             if (((tag !== 'INPUT') || (!element.hasAttribute('type')) || (typeButtons.indexOf(element.getAttribute('type').toLowerCase()) === -1)) && (tag !== 'BUTTON') && (tag !== 'A')) {
-                addEventHandler(element, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function (event) {
+                this.addEventHandler(element, 'keypress', DATA_KEY_PRESS_ADDED, CLICK_EVENT, function (event) {
                     if (isEnter(event.keyCode)) {
                         if (hasEvent(element, 'click')) {
                             executeMouseEvent('click', element, event);
@@ -395,12 +395,12 @@ limitations under the License.
                     }
                 });
             }
-            addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, CLICK_EVENT, function (event) {
+            this.addEventHandler(element, 'keyup', DATA_KEY_UP_ADDED, CLICK_EVENT, function (event) {
                 if (isEnter(event.keyCode)) {
                     executeMouseEvent('mouseup', element, event);
                 }
             });
-            addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, CLICK_EVENT, function (event) {
+            this.addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, CLICK_EVENT, function (event) {
                 if (isEnter(event.keyCode)) {
                     executeMouseEvent('mousedown', element, event);
                 }
@@ -408,7 +408,7 @@ limitations under the License.
         };
 
         AccessibleEventImplementation.prototype.makeAccessibleAllClickEvents = function () {
-            visit(this.parser.find('body').firstResult(), function (element) {
+            this.visit(this.parser.find('body').firstResult(), function (element) {
                 return hasEvent(element, 'click') || hasEvent(element, 'mousedown') || hasEvent(element, 'mouseup') || hasEvent(element, 'dblclick');
             }, this, this.makeAccessibleClickEvents);
         };

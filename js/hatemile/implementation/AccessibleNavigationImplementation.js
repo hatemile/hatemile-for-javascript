@@ -22,7 +22,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleNavigationImplementation = (function () {
-        var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING, freeShortcut, generateAnchorFor, generateListHeading, generateListSkippers, getHeadingLevel, isValidHeading;
+        var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
 
         ID_CONTAINER_SKIPPERS = 'container-skippers';
 
@@ -44,7 +44,7 @@ limitations under the License.
 
         DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
-        generateListSkippers = function (parser) {
+        AccessibleNavigationImplementation.prototype.generateListSkippers = function (parser) {
             var container, list, local;
             container = parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
             if (self.isEmpty(container)) {
@@ -66,7 +66,7 @@ limitations under the License.
             return list;
         };
 
-        generateListHeading = function (parser, textHeading) {
+        AccessibleNavigationImplementation.prototype.generateListHeading = function (parser, textHeading) {
             var container, list, local, textContainer;
             container = parser.find("#" + ID_CONTAINER_HEADING).firstResult();
             if (self.isEmpty(container)) {
@@ -92,7 +92,7 @@ limitations under the License.
             return list;
         };
 
-        getHeadingLevel = function (element) {
+        AccessibleNavigationImplementation.prototype.getHeadingLevel = function (element) {
             var tag;
             tag = element.getTagName();
             if (tag === 'H1') {
@@ -112,14 +112,14 @@ limitations under the License.
             }
         };
 
-        isValidHeading = function (parser) {
+        AccessibleNavigationImplementation.prototype.isValidHeading = function (parser) {
             var countMainHeading, element, elements, i, lastLevel, len, level;
             elements = parser.find('h1,h2,h3,h4,h5,h6').listResults();
             lastLevel = 0;
             countMainHeading = 0;
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
-                level = getHeadingLevel(element);
+                level = this.getHeadingLevel(element);
                 if (level === 1) {
                     if (countMainHeading === 1) {
                         return false;
@@ -135,7 +135,7 @@ limitations under the License.
             return true;
         };
 
-        generateAnchorFor = function (element, dataAttribute, anchorClass, parser, prefixId) {
+        AccessibleNavigationImplementation.prototype.generateAnchorFor = function (element, dataAttribute, anchorClass, parser, prefixId) {
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, prefixId);
             anchor = null;
@@ -156,7 +156,7 @@ limitations under the License.
             return anchor;
         };
 
-        freeShortcut = function (shortcut, parser) {
+        AccessibleNavigationImplementation.prototype.freeShortcut = function (shortcut, parser) {
             var alphaNumbers, element, elementWithShortcuts, elements, found, i, j, k, key, len, len1, len2, shortcuts;
             alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz';
             elements = parser.find('[accesskey]').listResults();
@@ -223,11 +223,11 @@ limitations under the License.
             }
             if (skipper !== null) {
                 if (!this.listSkippersAdded) {
-                    this.listSkippers = generateListSkippers(this.parser);
+                    this.listSkippers = this.generateListSkippers(this.parser);
                     this.listSkippersAdded = true;
                 }
                 if (!self.isEmpty(this.listSkippers)) {
-                    anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, this.parser, this.prefixId);
+                    anchor = this.generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, this.parser, this.prefixId);
                     if (!self.isEmpty(anchor)) {
                         itemLink = this.parser.createElement('li');
                         link = this.parser.createElement('a');
@@ -237,7 +237,7 @@ limitations under the License.
                         if (!self.isEmpty(shortcuts)) {
                             shortcut = shortcuts[0];
                             if (!self.isEmpty(shortcut)) {
-                                freeShortcut(shortcut, this.parser);
+                                this.freeShortcut(shortcut, this.parser);
                                 link.setAttribute('accesskey', shortcut);
                             }
                         }
@@ -267,15 +267,15 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.provideNavigationByHeading = function (heading) {
             var anchor, item, level, link, list, superItem;
             if (!this.validateHeading) {
-                this.validHeading = isValidHeading(this.parser);
+                this.validHeading = this.isValidHeading(this.parser);
                 this.validateHeading = true;
             }
             if (this.validHeading) {
-                anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, this.parser, this.prefixId);
+                anchor = this.generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, this.parser, this.prefixId);
                 if (!self.isEmpty(anchor)) {
-                    level = getHeadingLevel(heading);
+                    level = this.getHeadingLevel(heading);
                     if (level === 1) {
-                        list = generateListHeading(this.parser, "" + this.elementsHeadingBefore + this.elementsHeadingAfter);
+                        list = this.generateListHeading(this.parser, "" + this.elementsHeadingBefore + this.elementsHeadingAfter);
                     } else {
                         superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
                         if (!self.isEmpty(superItem)) {

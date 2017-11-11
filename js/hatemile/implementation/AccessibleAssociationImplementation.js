@@ -22,22 +22,22 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleAssociationImplementation = (function () {
-        var DATA_IGNORE, associateDataCellsWithHeaderCellsOfRow, getCellsHeadersIds, getModelRow, getModelTable, getValidModelTable, prepareHeaderCells, validateHeader;
+        var DATA_IGNORE;
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
-        getModelTable = function (part, parser) {
+        AccessibleAssociationImplementation.prototype.getModelTable = function (part, parser) {
             var j, len, row, rows, table;
             table = [];
             rows = parser.find(part).findChildren('tr').listResults();
             for (j = 0, len = rows.length; j < len; j++) {
                 row = rows[j];
-                table.push(getModelRow(parser.find(row).findChildren('th,td').listResults()));
+                table.push(this.getModelRow(parser.find(row).findChildren('th,td').listResults()));
             }
-            return getValidModelTable(table);
+            return this.getValidModelTable(table);
         };
 
-        getValidModelTable = function (originalTable) {
+        AccessibleAssociationImplementation.prototype.getValidModelTable = function (originalTable) {
             var cell, cellIndex, cellsAdded, j, k, lengthRow, lengthTable, newCellIndex, newRow, newRowIndex, newTable, originalRow, ref, ref1, rowIndex, rowspan;
             newTable = [];
             if (!self.isEmpty(originalTable)) {
@@ -78,7 +78,7 @@ limitations under the License.
             return newTable;
         };
 
-        getModelRow = function (originalRow) {
+        AccessibleAssociationImplementation.prototype.getModelRow = function (originalRow) {
             var cellsAdded, colspan, i, j, length, newRow, ref;
             newRow = [];
             if (!self.isEmpty(originalRow)) {
@@ -99,7 +99,7 @@ limitations under the License.
             return newRow;
         };
 
-        validateHeader = function (header) {
+        AccessibleAssociationImplementation.prototype.validateHeader = function (header) {
             var j, len, length, row;
             if (self.isEmpty(header)) {
                 return false;
@@ -118,7 +118,7 @@ limitations under the License.
             return true;
         };
 
-        getCellsHeadersIds = function (header, index) {
+        AccessibleAssociationImplementation.prototype.getCellsHeadersIds = function (header, index) {
             var cell, ids, j, len, row;
             ids = [];
             for (j = 0, len = header.length; j < len; j++) {
@@ -131,9 +131,9 @@ limitations under the License.
             return ids;
         };
 
-        associateDataCellsWithHeaderCellsOfRow = function (element, parser, prefixId) {
+        AccessibleAssociationImplementation.prototype.associateDataCellsWithHeaderCellsOfRow = function (element, parser, prefixId) {
             var cell, headerId, headers, headersIds, j, k, l, len, len1, len2, len3, m, row, table;
-            table = getModelTable(element, parser);
+            table = this.getModelTable(element, parser);
             for (j = 0, len = table.length; j < len; j++) {
                 row = table[j];
                 headersIds = [];
@@ -161,7 +161,7 @@ limitations under the License.
             }
         };
 
-        prepareHeaderCells = function (tableHeader, parser, prefixId) {
+        AccessibleAssociationImplementation.prototype.prepareHeaderCells = function (tableHeader, parser, prefixId) {
             var cell, cells, j, len;
             cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
             for (j = 0, len = cells.length; j < len; j++) {
@@ -184,13 +184,13 @@ limitations under the License.
             body = this.parser.find(table).findChildren('tbody').firstResult();
             footer = this.parser.find(table).findChildren('tfoot').firstResult();
             if (!self.isEmpty(header)) {
-                prepareHeaderCells(header, this.parser, this.prefixId);
-                headerRows = getModelTable(header, this.parser);
-                if ((!self.isEmpty(body)) && (validateHeader(headerRows))) {
+                this.prepareHeaderCells(header, this.parser, this.prefixId);
+                headerRows = this.getModelTable(header, this.parser);
+                if ((!self.isEmpty(body)) && (this.validateHeader(headerRows))) {
                     lengthHeader = headerRows[0].length;
-                    fakeTable = getModelTable(body, this.parser);
+                    fakeTable = this.getModelTable(body, this.parser);
                     if (!self.isEmpty(footer)) {
-                        fakeTable = fakeTable.concat(getModelTable(footer, this.parser));
+                        fakeTable = fakeTable.concat(this.getModelTable(footer, this.parser));
                     }
                     for (j = 0, len = fakeTable.length; j < len; j++) {
                         row = fakeTable[j];
@@ -198,7 +198,7 @@ limitations under the License.
                             i = 0;
                             for (k = 0, len1 = row.length; k < len1; k++) {
                                 cell = row[k];
-                                headersIds = getCellsHeadersIds(headerRows, i);
+                                headersIds = this.getCellsHeadersIds(headerRows, i);
                                 headers = cell.getAttribute('headers');
                                 for (l = 0, len2 = headersIds.length; l < len2; l++) {
                                     headersId = headersIds[l];
@@ -212,10 +212,10 @@ limitations under the License.
                 }
             }
             if (!self.isEmpty(body)) {
-                associateDataCellsWithHeaderCellsOfRow(body, this.parser, this.prefixId);
+                this.associateDataCellsWithHeaderCellsOfRow(body, this.parser, this.prefixId);
             }
             if (!self.isEmpty(footer)) {
-                associateDataCellsWithHeaderCellsOfRow(footer, this.parser, this.prefixId);
+                this.associateDataCellsWithHeaderCellsOfRow(footer, this.parser, this.prefixId);
             }
         };
 

@@ -46,93 +46,6 @@ class @hatemile.implementation.AccessibleFormImplementation
   VALIDATION_PATTERN = 'pattern'
   VALIDATION_LENGTH = 'length'
   
-  # Returns the appropriate value for attribute aria-autocomplete of field.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
-  #
-  # @return [string] The ARIA value of field.
-  #
-  getARIAAutoComplete = (field, parser) ->
-    tagName = field.getTagName()
-    if field.hasAttribute('type')
-      type = field.getAttribute('type').toLowerCase()
-    if (tagName is 'TEXTAREA') or ((tagName is 'INPUT') and \
-        (not (('button' is type) or ('submit' is type) or ('reset' is type) or \
-        ('image' is type) or ('file' is type) or ('checkbox' is type) or \
-        ('radio' is type) or ('hidden' is type))))
-      if field.hasAttribute('autocomplete')
-        value = field.getAttribute('autocomplete').toLowerCase()
-      else
-        form = parser.find(field).findAncestors('form').firstResult()
-        if (self.isEmpty(form)) and (field.hasAttribute('form'))
-          form = parser.find("##{field.getAttribute('form')}").firstResult()
-        if (not self.isEmpty(form)) and (form.hasAttribute('autocomplete'))
-          value = form.getAttribute('autocomplete').toLowerCase()
-      if ('on' is value)
-        return 'both'
-      else if (field.hasAttribute('list')) and \
-          (not self.isEmpty(parser
-          .find("datalist[id=\"#{field.getAttribute('list')}\"]")
-          .firstResult()))
-        return 'list'
-      else if ('off' is value)
-        return 'none'
-    return null
-  
-  # Increase a function on event.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] typeEvent The type of event.
-  # @param [string] typeDataEvent The name of attribute that store the type of
-  # event fixed.
-  # @param [string] typeFix The id of fix method.
-  # @param [function] functionForEventHandler The function.
-  #
-  addEventHandler = (element, typeEvent, typeDataEvent, typeFix, \
-      functionForEventHandler) ->
-    if not hasEvent(element, typeEvent, typeDataEvent, typeFix)
-      found = false
-      attribute = element.getAttribute(typeDataEvent)
-      nativeElement = element.getData()
-      if not hasEvent(element, typeEvent)
-        nativeElement["liston#{typeEvent}"] = []
-        nativeElement["on#{typeEvent}"] = (event) ->
-          for addedEvent in nativeElement["liston#{typeEvent}"]
-            addedEvent(event)
-          return
-      else
-        found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
-      if not found
-        nativeElement["liston#{typeEvent}"].push(functionForEventHandler)
-        attribute = self.hatemile.util.CommonFunctions
-            .increaseInList(attribute, typeFix)
-        element.setAttribute(typeDataEvent, attribute)
-    return
-  
-  # Check that the element has the event added by developer or fixed by
-  # HaTeMiLe.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] typeEvent The type event.
-  # @param [string] typeDataEvent The custom attribute of type of event.
-  # @param [string] typeFix The id of fix method.
-  #
-  # @return [boolean] True if the element has the event added by developer or
-  # fixed by HaTeMiLe or false if the element not has the event.
-  #
-  hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
-    nativeElement = element.getData()
-    if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
-      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or \
-          ((not self.isEmpty(nativeElement.eventListenerList)) and \
-          (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
-    else
-      attribute = element.getAttribute(typeDataEvent)
-      return (hasEvent(element, typeEvent) and \
-          (not element.hasAttribute(typeDataEvent))) or \
-          self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
-  
   # Check that the field is valid.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
@@ -181,22 +94,6 @@ class @hatemile.implementation.AccessibleFormImplementation
     else
       field.setAttribute(dataInvalid, 'true')
       field.setAttribute('aria-invalid', 'true')
-    return
-  
-  # Validate the field when its value change.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [string] dataInvalid The custom attribute used if the element is not
-  # valid.
-  # @param [string] typeFix The id of fix method.
-  # @param [function] validateFunction The validate function.
-  #
-  validate = (field, dataInvalid, typeFix, validateFunction) ->
-    validateNow(field, dataInvalid, validateFunction)
-    addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, \
-        (event) ->
-      validateNow(field, dataInvalid, validateFunction)
-    )
     return
   
   # Check that the value match with regular expression.
@@ -385,6 +282,109 @@ class @hatemile.implementation.AccessibleFormImplementation
   isValidRequired = (field) ->
     return not self.isEmpty(field.getData().value)
   
+  # Returns the appropriate value for attribute aria-autocomplete of field.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] field The field.
+  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+  #
+  # @return [string] The ARIA value of field.
+  #
+  getARIAAutoComplete: (field, parser) ->
+    tagName = field.getTagName()
+    if field.hasAttribute('type')
+      type = field.getAttribute('type').toLowerCase()
+    if (tagName is 'TEXTAREA') or ((tagName is 'INPUT') and \
+        (not (('button' is type) or ('submit' is type) or ('reset' is type) or \
+        ('image' is type) or ('file' is type) or ('checkbox' is type) or \
+        ('radio' is type) or ('hidden' is type))))
+      if field.hasAttribute('autocomplete')
+        value = field.getAttribute('autocomplete').toLowerCase()
+      else
+        form = parser.find(field).findAncestors('form').firstResult()
+        if (self.isEmpty(form)) and (field.hasAttribute('form'))
+          form = parser.find("##{field.getAttribute('form')}").firstResult()
+        if (not self.isEmpty(form)) and (form.hasAttribute('autocomplete'))
+          value = form.getAttribute('autocomplete').toLowerCase()
+      if ('on' is value)
+        return 'both'
+      else if (field.hasAttribute('list')) and \
+          (not self.isEmpty(parser
+          .find("datalist[id=\"#{field.getAttribute('list')}\"]")
+          .firstResult()))
+        return 'list'
+      else if ('off' is value)
+        return 'none'
+    return null
+  
+  # Check that the element has the event added by developer or fixed by
+  # HaTeMiLe.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element.
+  # @param [string] typeEvent The type event.
+  # @param [string] typeDataEvent The custom attribute of type of event.
+  # @param [string] typeFix The id of fix method.
+  #
+  # @return [boolean] True if the element has the event added by developer or
+  # fixed by HaTeMiLe or false if the element not has the event.
+  #
+  hasEvent: (element, typeEvent, typeDataEvent, typeFix) ->
+    nativeElement = element.getData()
+    if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
+      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or \
+          ((not self.isEmpty(nativeElement.eventListenerList)) and \
+          (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
+    else
+      attribute = element.getAttribute(typeDataEvent)
+      return (@hasEvent(element, typeEvent) and \
+          (not element.hasAttribute(typeDataEvent))) or \
+          self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+  
+  # Increase a function on event.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element.
+  # @param [string] typeEvent The type of event.
+  # @param [string] typeDataEvent The name of attribute that store the type of
+  # event fixed.
+  # @param [string] typeFix The id of fix method.
+  # @param [function] operation The function.
+  #
+  addEventHandler: (element, typeEvent, typeDataEvent, typeFix, operation) ->
+    if not @hasEvent(element, typeEvent, typeDataEvent, typeFix)
+      found = false
+      attribute = element.getAttribute(typeDataEvent)
+      nativeElement = element.getData()
+      if not @hasEvent(element, typeEvent)
+        nativeElement["liston#{typeEvent}"] = []
+        nativeElement["on#{typeEvent}"] = (event) ->
+          for addedEvent in nativeElement["liston#{typeEvent}"]
+            addedEvent(event)
+          return
+      else
+        found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix)
+      if not found
+        nativeElement["liston#{typeEvent}"].push(operation)
+        attribute = self.hatemile.util.CommonFunctions
+            .increaseInList(attribute, typeFix)
+        element.setAttribute(typeDataEvent, attribute)
+    return
+  
+  # Validate the field when its value change.
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] field The field.
+  # @param [string] dataInvalid The custom attribute used if the element is not
+  # valid.
+  # @param [string] typeFix The id of fix method.
+  # @param [function] validateFunction The validate function.
+  #
+  validate: (field, dataInvalid, typeFix, validateFunction) ->
+    context = this
+    validateNow(field, dataInvalid, validateFunction)
+    @addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, \
+        (event) ->
+      validateNow(field, dataInvalid, validateFunction)
+    )
+    return
+  
   # Initializes a new object that manipulate the accessibility of the forms of
   # parser.
   #
@@ -448,7 +448,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @see hatemile.AccessibleForm#markAutoCompleteField
   #
   markAutoCompleteField: (autoCompleteField) ->
-    ariaAutoComplete = getARIAAutoComplete(autoCompleteField, @parser)
+    ariaAutoComplete = @getARIAAutoComplete(autoCompleteField, @parser)
     if not self.isEmpty(ariaAutoComplete)
       autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
     return
@@ -476,33 +476,34 @@ class @hatemile.implementation.AccessibleFormImplementation
     if (field.hasAttribute('required')) or \
         ((field.hasAttribute('aria-required')) and \
         (field.getAttribute('aria-required').toLowerCase() is 'true'))
-      validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, \
+      @validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, \
           isValidRequired)
     if field.hasAttribute('pattern')
-      validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern)
+      @validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern)
     if (field.hasAttribute('minlength')) or (field.hasAttribute('maxlength'))
-      validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength)
+      @validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength)
     if (field.hasAttribute('aria-valuemin')) or \
         (field.hasAttribute('aria-valuemax'))
-      validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
+      @validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
     if field.hasAttribute('type')
       type = field.getAttribute('type').toLowerCase()
       if type is 'week'
-        validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek)
+        @validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek)
       else if type is 'month'
-        validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth)
+        @validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth)
       else if (type is 'datetime-local') or (type is 'datetime')
-        validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, isValidDateTime)
+        @validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, \
+            isValidDateTime)
       else if type is 'time'
-        validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime)
+        @validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime)
       else if type is 'date'
-        validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate)
+        @validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate)
       else if (type is 'number') or (type is 'range')
-        validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
+        @validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange)
       else if type is 'email'
-        validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail)
+        @validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail)
       else if type is 'url'
-        validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL)
+        @validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL)
     return
   
   # Mark a solution to display that a fields are invalid.

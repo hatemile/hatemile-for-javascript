@@ -39,13 +39,13 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
   # represents the table.
   #
-  getModelTable = (part, parser) ->
+  getModelTable: (part, parser) ->
     table = []
     rows = parser.find(part).findChildren('tr').listResults()
     for row in rows
-      table.push(getModelRow(parser.find(row).findChildren('th,td')
+      table.push(@getModelRow(parser.find(row).findChildren('th,td')
           .listResults()))
-    return getValidModelTable(table)
+    return @getValidModelTable(table)
   
   # Returns a list that represents the table with the rowspans.
   #
@@ -55,7 +55,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
   # represents the table with the rowspans.
   #
-  getValidModelTable = (originalTable) ->
+  getValidModelTable: (originalTable) ->
     newTable = []
     if not self.isEmpty(originalTable)
       lengthTable = originalTable.length
@@ -93,7 +93,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that represents
   # the line of table with the colspans.
   #
-  getModelRow = (originalRow) ->
+  getModelRow: (originalRow) ->
     newRow = []
     if not self.isEmpty(originalRow)
       newRow = newRow.concat(originalRow)
@@ -116,7 +116,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @return [boolean] True if the table header is valid or false if the table
   # header is not valid.
   #
-  validateHeader = (header) ->
+  validateHeader: (header) ->
     if self.isEmpty(header)
       return false
     length = -1
@@ -137,7 +137,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @return [Array<string>] The list with ids of rows of same column.
   #
-  getCellsHeadersIds = (header, index) ->
+  getCellsHeadersIds: (header, index) ->
     ids = []
     for row in header
       cell = row[index]
@@ -151,8 +151,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   # @param [string] prefixId The prefix of generated id.
   #
-  associateDataCellsWithHeaderCellsOfRow = (element, parser, prefixId) ->
-    table = getModelTable(element, parser)
+  associateDataCellsWithHeaderCellsOfRow: (element, parser, prefixId) ->
+    table = @getModelTable(element, parser)
     for row in table
       headersIds = []
       for cell in row
@@ -177,7 +177,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   # @param [string] prefixId The prefix of generated id.
   #
-  prepareHeaderCells = (tableHeader, parser, prefixId) ->
+  prepareHeaderCells: (tableHeader, parser, prefixId) ->
     cells = parser.find(tableHeader).findChildren('tr').findChildren('th')
         .listResults()
     for cell in cells
@@ -206,19 +206,19 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     body = @parser.find(table).findChildren('tbody').firstResult()
     footer = @parser.find(table).findChildren('tfoot').firstResult()
     if not self.isEmpty(header)
-      prepareHeaderCells(header, @parser, @prefixId)
+      @prepareHeaderCells(header, @parser, @prefixId)
       
-      headerRows = getModelTable(header, @parser)
-      if (not self.isEmpty(body)) and (validateHeader(headerRows))
+      headerRows = @getModelTable(header, @parser)
+      if (not self.isEmpty(body)) and (@validateHeader(headerRows))
         lengthHeader = headerRows[0].length
-        fakeTable = getModelTable(body, @parser)
+        fakeTable = @getModelTable(body, @parser)
         if not self.isEmpty(footer)
-          fakeTable = fakeTable.concat(getModelTable(footer, @parser))
+          fakeTable = fakeTable.concat(@getModelTable(footer, @parser))
         for row in fakeTable
           if row.length is lengthHeader
             i = 0
             for cell in row
-              headersIds = getCellsHeadersIds(headerRows, i)
+              headersIds = @getCellsHeadersIds(headerRows, i)
               headers = cell.getAttribute('headers')
               for headersId in headersIds
                 headers = self.hatemile.util.CommonFunctions
@@ -226,9 +226,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
               cell.setAttribute('headers', headers)
               i = i + 1
     if not self.isEmpty(body)
-      associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
+      @associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
     if not self.isEmpty(footer)
-      associateDataCellsWithHeaderCellsOfRow(footer, @parser, @prefixId)
+      @associateDataCellsWithHeaderCellsOfRow(footer, @parser, @prefixId)
     return
   
   # Associate all data cells with header cells of all tables of page.

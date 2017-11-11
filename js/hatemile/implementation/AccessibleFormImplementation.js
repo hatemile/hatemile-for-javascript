@@ -22,7 +22,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleFormImplementation = (function () {
-        var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, addEventHandler, getARIAAutoComplete, hasEvent, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validate, validateNow;
+        var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validateNow;
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
@@ -57,73 +57,6 @@ limitations under the License.
         VALIDATION_PATTERN = 'pattern';
 
         VALIDATION_LENGTH = 'length';
-
-        getARIAAutoComplete = function (field, parser) {
-            var form, tagName, type, value;
-            tagName = field.getTagName();
-            if (field.hasAttribute('type')) {
-                type = field.getAttribute('type').toLowerCase();
-            }
-            if ((tagName === 'TEXTAREA') || ((tagName === 'INPUT') && (!(('button' === type) || ('submit' === type) || ('reset' === type) || ('image' === type) || ('file' === type) || ('checkbox' === type) || ('radio' === type) || ('hidden' === type))))) {
-                if (field.hasAttribute('autocomplete')) {
-                    value = field.getAttribute('autocomplete').toLowerCase();
-                } else {
-                    form = parser.find(field).findAncestors('form').firstResult();
-                    if ((self.isEmpty(form)) && (field.hasAttribute('form'))) {
-                        form = parser.find("#" + (field.getAttribute('form'))).firstResult();
-                    }
-                    if ((!self.isEmpty(form)) && (form.hasAttribute('autocomplete'))) {
-                        value = form.getAttribute('autocomplete').toLowerCase();
-                    }
-                }
-                if ('on' === value) {
-                    return 'both';
-                } else if ((field.hasAttribute('list')) && (!self.isEmpty(parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult()))) {
-                    return 'list';
-                } else if ('off' === value) {
-                    return 'none';
-                }
-            }
-            return null;
-        };
-
-        addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, functionForEventHandler) {
-            var attribute, found, nativeElement;
-            if (!hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
-                found = false;
-                attribute = element.getAttribute(typeDataEvent);
-                nativeElement = element.getData();
-                if (!hasEvent(element, typeEvent)) {
-                    nativeElement["liston" + typeEvent] = [];
-                    nativeElement["on" + typeEvent] = function (event) {
-                        var addedEvent, i, len, ref;
-                        ref = nativeElement["liston" + typeEvent];
-                        for (i = 0, len = ref.length; i < len; i++) {
-                            addedEvent = ref[i];
-                            addedEvent(event);
-                        }
-                    };
-                } else {
-                    found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
-                }
-                if (!found) {
-                    nativeElement["liston" + typeEvent].push(functionForEventHandler);
-                    attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
-                    element.setAttribute(typeDataEvent, attribute);
-                }
-            }
-        };
-
-        hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
-            var attribute, nativeElement;
-            nativeElement = element.getData();
-            if (self.isEmpty(typeDataEvent) || self.isEmpty(typeFix)) {
-                return (!self.isEmpty(nativeElement["on" + typeEvent])) || ((!self.isEmpty(nativeElement.eventListenerList)) && (!self.isEmpty(nativeElement.eventListenerList[typeEvent])));
-            } else {
-                attribute = element.getAttribute(typeDataEvent);
-                return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
-            }
-        };
 
         isValid = function (field) {
             if (field.hasAttribute(DATA_INVALID_URL)) {
@@ -165,13 +98,6 @@ limitations under the License.
                 field.setAttribute(dataInvalid, 'true');
                 field.setAttribute('aria-invalid', 'true');
             }
-        };
-
-        validate = function (field, dataInvalid, typeFix, validateFunction) {
-            validateNow(field, dataInvalid, validateFunction);
-            addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, function (event) {
-                return validateNow(field, dataInvalid, validateFunction);
-            });
         };
 
         isValidRegularExpression = function (value, pattern) {
@@ -266,6 +192,82 @@ limitations under the License.
             return !self.isEmpty(field.getData().value);
         };
 
+        AccessibleFormImplementation.prototype.getARIAAutoComplete = function (field, parser) {
+            var form, tagName, type, value;
+            tagName = field.getTagName();
+            if (field.hasAttribute('type')) {
+                type = field.getAttribute('type').toLowerCase();
+            }
+            if ((tagName === 'TEXTAREA') || ((tagName === 'INPUT') && (!(('button' === type) || ('submit' === type) || ('reset' === type) || ('image' === type) || ('file' === type) || ('checkbox' === type) || ('radio' === type) || ('hidden' === type))))) {
+                if (field.hasAttribute('autocomplete')) {
+                    value = field.getAttribute('autocomplete').toLowerCase();
+                } else {
+                    form = parser.find(field).findAncestors('form').firstResult();
+                    if ((self.isEmpty(form)) && (field.hasAttribute('form'))) {
+                        form = parser.find("#" + (field.getAttribute('form'))).firstResult();
+                    }
+                    if ((!self.isEmpty(form)) && (form.hasAttribute('autocomplete'))) {
+                        value = form.getAttribute('autocomplete').toLowerCase();
+                    }
+                }
+                if ('on' === value) {
+                    return 'both';
+                } else if ((field.hasAttribute('list')) && (!self.isEmpty(parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult()))) {
+                    return 'list';
+                } else if ('off' === value) {
+                    return 'none';
+                }
+            }
+            return null;
+        };
+
+        AccessibleFormImplementation.prototype.hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
+            var attribute, nativeElement;
+            nativeElement = element.getData();
+            if (self.isEmpty(typeDataEvent) || self.isEmpty(typeFix)) {
+                return (!self.isEmpty(nativeElement["on" + typeEvent])) || ((!self.isEmpty(nativeElement.eventListenerList)) && (!self.isEmpty(nativeElement.eventListenerList[typeEvent])));
+            } else {
+                attribute = element.getAttribute(typeDataEvent);
+                return (this.hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+            }
+        };
+
+        AccessibleFormImplementation.prototype.addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, operation) {
+            var attribute, found, nativeElement;
+            if (!this.hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
+                found = false;
+                attribute = element.getAttribute(typeDataEvent);
+                nativeElement = element.getData();
+                if (!this.hasEvent(element, typeEvent)) {
+                    nativeElement["liston" + typeEvent] = [];
+                    nativeElement["on" + typeEvent] = function (event) {
+                        var addedEvent, i, len, ref;
+                        ref = nativeElement["liston" + typeEvent];
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            addedEvent = ref[i];
+                            addedEvent(event);
+                        }
+                    };
+                } else {
+                    found = self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+                }
+                if (!found) {
+                    nativeElement["liston" + typeEvent].push(operation);
+                    attribute = self.hatemile.util.CommonFunctions.increaseInList(attribute, typeFix);
+                    element.setAttribute(typeDataEvent, attribute);
+                }
+            }
+        };
+
+        AccessibleFormImplementation.prototype.validate = function (field, dataInvalid, typeFix, validateFunction) {
+            var context;
+            context = this;
+            validateNow(field, dataInvalid, validateFunction);
+            this.addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, function (event) {
+                return validateNow(field, dataInvalid, validateFunction);
+            });
+        };
+
         function AccessibleFormImplementation(parser1, configure) {
             this.parser = parser1;
             this.prefixId = configure.getParameter('prefix-generated-ids');
@@ -310,7 +312,7 @@ limitations under the License.
 
         AccessibleFormImplementation.prototype.markAutoCompleteField = function (autoCompleteField) {
             var ariaAutoComplete;
-            ariaAutoComplete = getARIAAutoComplete(autoCompleteField, this.parser);
+            ariaAutoComplete = this.getARIAAutoComplete(autoCompleteField, this.parser);
             if (!self.isEmpty(ariaAutoComplete)) {
                 autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete);
             }
@@ -330,35 +332,35 @@ limitations under the License.
         AccessibleFormImplementation.prototype.markInvalidField = function (field) {
             var type;
             if ((field.hasAttribute('required')) || ((field.hasAttribute('aria-required')) && (field.getAttribute('aria-required').toLowerCase() === 'true'))) {
-                validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired);
+                this.validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired);
             }
             if (field.hasAttribute('pattern')) {
-                validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern);
+                this.validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern);
             }
             if ((field.hasAttribute('minlength')) || (field.hasAttribute('maxlength'))) {
-                validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength);
+                this.validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength);
             }
             if ((field.hasAttribute('aria-valuemin')) || (field.hasAttribute('aria-valuemax'))) {
-                validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
+                this.validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
             }
             if (field.hasAttribute('type')) {
                 type = field.getAttribute('type').toLowerCase();
                 if (type === 'week') {
-                    validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek);
+                    this.validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek);
                 } else if (type === 'month') {
-                    validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth);
+                    this.validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth);
                 } else if ((type === 'datetime-local') || (type === 'datetime')) {
-                    validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, isValidDateTime);
+                    this.validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, isValidDateTime);
                 } else if (type === 'time') {
-                    validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime);
+                    this.validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime);
                 } else if (type === 'date') {
-                    validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate);
+                    this.validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate);
                 } else if ((type === 'number') || (type === 'range')) {
-                    validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
+                    this.validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
                 } else if (type === 'email') {
-                    validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail);
+                    this.validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail);
                 } else if (type === 'url') {
-                    validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL);
+                    this.validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL);
                 }
             }
         };

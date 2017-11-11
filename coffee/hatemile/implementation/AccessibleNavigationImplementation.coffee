@@ -45,7 +45,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @return [hatemile.util.html.HTMLDOMElement] The list of skippers of page.
   #
-  generateListSkippers = (parser) ->
+  generateListSkippers: (parser) ->
     container = parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
     if self.isEmpty(container)
       local = parser.find('body').firstResult()
@@ -69,7 +69,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @return [hatemile.util.html.HTMLDOMElement] The list of heading links of
   # page.
   #
-  generateListHeading = (parser, textHeading) ->
+  generateListHeading: (parser, textHeading) ->
     container = parser.find("##{ID_CONTAINER_HEADING}").firstResult()
     if self.isEmpty(container)
       local = parser.find('body').firstResult()
@@ -97,7 +97,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @return [number] The level of heading.
   #
-  getHeadingLevel = (element) ->
+  getHeadingLevel: (element) ->
     tag = element.getTagName()
     if tag is 'H1'
       return 1
@@ -121,12 +121,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @return [boolean] True if the headings of page are sintatic correct or false
   # if not.
   #
-  isValidHeading = (parser) ->
+  isValidHeading: (parser) ->
     elements = parser.find('h1,h2,h3,h4,h5,h6').listResults()
     lastLevel = 0
     countMainHeading = 0
     for element in elements
-      level = getHeadingLevel(element)
+      level = @getHeadingLevel(element)
       if level is 1
         if countMainHeading is 1
           return false
@@ -148,7 +148,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @return [hatemile.util.html.HTMLDOMElement] The anchor.
   #
-  generateAnchorFor = (element, dataAttribute, anchorClass, parser, prefixId) ->
+  generateAnchorFor: (element, dataAttribute, anchorClass, parser, prefixId) ->
     self.hatemile.util.CommonFunctions.generateId(element, prefixId)
     anchor = null
     if self.isEmpty(parser.find("[#{dataAttribute}=\"" \
@@ -170,7 +170,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @param [hatemile.util.html.HTMLDOMElement] shortcut The shortcut.
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   #
-  freeShortcut = (shortcut, parser) ->
+  freeShortcut: (shortcut, parser) ->
     alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz'
     elements = parser.find('[accesskey]').listResults()
     for element in elements
@@ -236,10 +236,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         break
     if skipper isnt null
       if not @listSkippersAdded
-        @listSkippers = generateListSkippers(@parser)
+        @listSkippers = @generateListSkippers(@parser)
         @listSkippersAdded = true
       if not self.isEmpty(@listSkippers)
-        anchor = generateAnchorFor(element, DATA_ANCHOR_FOR, \
+        anchor = @generateAnchorFor(element, DATA_ANCHOR_FOR, \
             CLASS_SKIPPER_ANCHOR, @parser, @prefixId)
         if not self.isEmpty(anchor)
           itemLink = @parser.createElement('li')
@@ -251,7 +251,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           if not self.isEmpty(shortcuts)
             shortcut = shortcuts[0]
             if not self.isEmpty(shortcut)
-              freeShortcut(shortcut, @parser)
+              @freeShortcut(shortcut, @parser)
               link.setAttribute('accesskey', shortcut)
           self.hatemile.util.CommonFunctions.generateId(link, @prefixId)
 
@@ -279,15 +279,15 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   provideNavigationByHeading: (heading) ->
     if not @validateHeading
-      @validHeading = isValidHeading(@parser)
+      @validHeading = @isValidHeading(@parser)
       @validateHeading = true
     if @validHeading
-      anchor = generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
+      anchor = @generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
           CLASS_HEADING_ANCHOR, @parser, @prefixId)
       if not self.isEmpty(anchor)
-        level = getHeadingLevel(heading)
+        level = @getHeadingLevel(heading)
         if level is 1
-          list = generateListHeading(@parser, \
+          list = @generateListHeading(@parser, \
               "#{@elementsHeadingBefore}#{@elementsHeadingAfter}")
         else
           superItem = @parser.find("##{ID_CONTAINER_HEADING}")
