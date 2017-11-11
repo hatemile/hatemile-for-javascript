@@ -40,10 +40,11 @@ limitations under the License.
             return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+').replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$').replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}').replace('(', '\\(').replace(')', '\\)').replace('|', '\\|').replace('/', '\\/').replace(',', '\\,').replace('!', '\\!').replace('=', '\\=').replace(':', '\\:').replace('-', '\\-');
         };
 
-        AccessibleCSSImplementation.prototype.getDescriptionOfSymbol = function (symbols, symbol) {
-            var _symbol, i, len;
-            for (i = 0, len = symbols.length; i < len; i++) {
-                _symbol = symbols[i];
+        AccessibleCSSImplementation.prototype.getDescriptionOfSymbol = function (symbol) {
+            var _symbol, i, len, ref;
+            ref = this.symbols;
+            for (i = 0, len = ref.length; i < len; i++) {
+                _symbol = ref[i];
                 if (_symbol.symbol === symbol) {
                     return _symbol.description;
                 }
@@ -51,11 +52,12 @@ limitations under the License.
             return null;
         };
 
-        AccessibleCSSImplementation.prototype.getRegularExpressionOfSymbols = function (symbols) {
-            var formatedSymbol, i, len, regularExpression, symbol;
+        AccessibleCSSImplementation.prototype.getRegularExpressionOfSymbols = function () {
+            var formatedSymbol, i, len, ref, regularExpression, symbol;
             regularExpression = null;
-            for (i = 0, len = symbols.length; i < len; i++) {
-                symbol = symbols[i];
+            ref = this.symbols;
+            for (i = 0, len = ref.length; i < len; i++) {
+                symbol = ref[i];
                 formatedSymbol = this.getFormatedSymbol(symbol.symbol);
                 if (self.isEmpty(regularExpression)) {
                     regularExpression = "(" + formatedSymbol + ")";
@@ -74,7 +76,7 @@ limitations under the License.
             return VALID_TAGS.indexOf(element.getTagName()) !== -1;
         };
 
-        AccessibleCSSImplementation.prototype.isolateTextNode = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.isolateTextNode = function (element) {
             var child, children, elementChild, i, j, len, len1, span;
             if ((element.hasChildrenElements()) && (this.isValidElement(element))) {
                 if (this.isValidElement(element)) {
@@ -82,7 +84,7 @@ limitations under the License.
                     for (i = 0, len = children.length; i < len; i++) {
                         child = children[i];
                         if (child instanceof self.hatemile.util.html.vanilla.VanillaHTMLDOMTextNode) {
-                            span = htmlParser.createElement('span');
+                            span = this.htmlParser.createElement('span');
                             span.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
                             span.appendText(child.getTextContent());
                             child.replaceNode(span);
@@ -92,7 +94,7 @@ limitations under the License.
                 children = element.getChildrenElements();
                 for (j = 0, len1 = children.length; j < len1; j++) {
                     elementChild = children[j];
-                    this.isolateTextNode(elementChild, htmlParser);
+                    this.isolateTextNode(elementChild);
                 }
             }
         };
@@ -111,41 +113,41 @@ limitations under the License.
             }
         };
 
-        AccessibleCSSImplementation.prototype.visit = function (element, htmlParser, symbols, operation) {
+        AccessibleCSSImplementation.prototype.visit = function (element, operation) {
             var child, children, i, len;
             if (this.isValidInheritElement(element)) {
                 if (element.hasChildrenElements()) {
                     children = element.getChildrenElements();
                     for (i = 0, len = children.length; i < len; i++) {
                         child = children[i];
-                        this.visit(child, htmlParser, symbols, operation);
+                        this.visit(child, operation);
                     }
                 } else if (this.isValidElement(element)) {
-                    operation.call(this, element, htmlParser, symbols);
+                    operation.call(this, element);
                 }
             }
         };
 
-        AccessibleCSSImplementation.prototype.createContentElement = function (content, dataPropertyValue, htmlParser) {
+        AccessibleCSSImplementation.prototype.createContentElement = function (content, dataPropertyValue) {
             var contentElement;
-            contentElement = htmlParser.createElement('span');
+            contentElement = this.htmlParser.createElement('span');
             contentElement.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
             contentElement.setAttribute(DATA_SPEAK_AS, dataPropertyValue);
             contentElement.appendText(content);
             return contentElement;
         };
 
-        AccessibleCSSImplementation.prototype.createAuralContentElement = function (content, dataPropertyValue, htmlParser) {
+        AccessibleCSSImplementation.prototype.createAuralContentElement = function (content, dataPropertyValue) {
             var contentElement;
-            contentElement = this.createContentElement(content, dataPropertyValue, htmlParser);
+            contentElement = this.createContentElement(content, dataPropertyValue);
             contentElement.setAttribute('unselectable', 'on');
             contentElement.setAttribute('class', 'screen-reader-only');
             return contentElement;
         };
 
-        AccessibleCSSImplementation.prototype.createVisualContentElement = function (content, dataPropertyValue, htmlParser) {
+        AccessibleCSSImplementation.prototype.createVisualContentElement = function (content, dataPropertyValue) {
             var contentElement;
-            contentElement = this.createContentElement(content, dataPropertyValue, htmlParser);
+            contentElement = this.createContentElement(content, dataPropertyValue);
             contentElement.setAttribute('aria-hidden', 'true');
             contentElement.setAttribute('role', 'presentation');
             return contentElement;
@@ -163,8 +165,8 @@ limitations under the License.
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakNormalInherit = function (element, htmlParser) {
-            this.visit(element, htmlParser, null, this.speakNormal);
+        AccessibleCSSImplementation.prototype.speakNormalInherit = function (element) {
+            this.visit(element, this.speakNormal);
             element.normalize();
         };
 
@@ -174,12 +176,12 @@ limitations under the License.
             element.setAttribute(DATA_SPEAK, 'none');
         };
 
-        AccessibleCSSImplementation.prototype.speakNoneInherit = function (element, htmlParser) {
-            this.isolateTextNode(element, htmlParser);
-            this.visit(element, htmlParser, null, this.speakNone);
+        AccessibleCSSImplementation.prototype.speakNoneInherit = function (element) {
+            this.isolateTextNode(element);
+            this.visit(element, this.speakNone);
         };
 
-        AccessibleCSSImplementation.prototype.speakAs = function (element, regularExpression, dataPropertyValue, parser, operation) {
+        AccessibleCSSImplementation.prototype.speakAs = function (element, regularExpression, dataPropertyValue, operation) {
             var child, children, content, i, index, len;
             children = [];
             index = -1;
@@ -196,7 +198,7 @@ limitations under the License.
             }
             if (children.length > 0) {
                 if (content.length > 0) {
-                    children.push(this.createContentElement(content, dataPropertyValue, parser));
+                    children.push(this.createContentElement(content, dataPropertyValue));
                 }
                 while (element.hasChildren()) {
                     element.getFirstNodeChild().removeNode();
@@ -208,15 +210,15 @@ limitations under the License.
             }
         };
 
-        AccessibleCSSImplementation.prototype.reverseSpeakAs = function (element, dataPropertyValue, htmlParser) {
+        AccessibleCSSImplementation.prototype.reverseSpeakAs = function (element, dataPropertyValue) {
             var auxiliarElement, auxiliarElements, contentElement, contentElements, dataProperty, i, j, len, len1;
             dataProperty = "[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"]";
-            auxiliarElements = htmlParser.find(element).findDescendants(dataProperty + "[unselectable=\"on\"]").listResults();
+            auxiliarElements = this.htmlParser.find(element).findDescendants(dataProperty + "[unselectable=\"on\"]").listResults();
             for (i = 0, len = auxiliarElements.length; i < len; i++) {
                 auxiliarElement = auxiliarElements[i];
                 auxiliarElement.removeNode();
             }
-            contentElements = htmlParser.find(element).findDescendants(dataProperty + "[" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
+            contentElements = this.htmlParser.find(element).findDescendants(dataProperty + "[" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
             for (j = 0, len1 = contentElements.length; j < len1; j++) {
                 contentElement = contentElements[j];
                 this.replaceElementByOwnContent(contentElement);
@@ -224,126 +226,126 @@ limitations under the License.
             element.normalize();
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNormal = function (element, htmlParser) {
-            this.reverseSpeakAs(element, 'spell-out', htmlParser);
-            this.reverseSpeakAs(element, 'literal-punctuation', htmlParser);
-            this.reverseSpeakAs(element, 'no-punctuation', htmlParser);
-            this.reverseSpeakAs(element, 'digits', htmlParser);
+        AccessibleCSSImplementation.prototype.speakAsNormal = function (element) {
+            this.reverseSpeakAs(element, 'spell-out');
+            this.reverseSpeakAs(element, 'literal-punctuation');
+            this.reverseSpeakAs(element, 'no-punctuation');
+            this.reverseSpeakAs(element, 'digits');
         };
 
-        AccessibleCSSImplementation.prototype.speakAsSpellOut = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakAsSpellOut = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'spell-out';
-            this.speakAs(element, '[a-zA-Z]', dataPropertyValue, htmlParser, function (content, index, children) {
-                children.push(this.createContentElement(content.substr(0, index + 1), dataPropertyValue, htmlParser));
-                return children.push(this.createAuralContentElement(' ', dataPropertyValue, htmlParser));
+            this.speakAs(element, '[a-zA-Z]', dataPropertyValue, function (content, index, children) {
+                children.push(this.createContentElement(content.substr(0, index + 1), dataPropertyValue));
+                return children.push(this.createAuralContentElement(' ', dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsSpellOutInherit = function (element, htmlParser) {
-            this.reverseSpeakAs(element, 'spell-out', htmlParser);
-            this.isolateTextNode(element, htmlParser);
-            this.visit(element, htmlParser, null, this.speakAsSpellOut);
+        AccessibleCSSImplementation.prototype.speakAsSpellOutInherit = function (element) {
+            this.reverseSpeakAs(element, 'spell-out');
+            this.isolateTextNode(element);
+            this.visit(element, this.speakAsSpellOut);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuation = function (element, htmlParser, symbols) {
+        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuation = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'literal-punctuation';
-            this.speakAs(element, this.getRegularExpressionOfSymbols(symbols), dataPropertyValue, htmlParser, function (content, index, children) {
+            this.speakAs(element, this.getRegularExpressionOfSymbols(), dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
+                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                children.push(this.createAuralContentElement(" " + (this.getDescriptionOfSymbol(symbols, content.charAt(index))) + " ", dataPropertyValue, htmlParser));
-                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue, htmlParser));
+                children.push(this.createAuralContentElement(" " + (this.getDescriptionOfSymbol(content.charAt(index))) + " ", dataPropertyValue));
+                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuationInherit = function (element, htmlParser, symbols) {
-            this.reverseSpeakAs(element, 'literal-punctuation', htmlParser);
-            this.reverseSpeakAs(element, 'no-punctuation', htmlParser);
-            this.isolateTextNode(element, htmlParser);
-            this.visit(element, htmlParser, symbols, this.speakAsLiteralPunctuation);
+        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuationInherit = function (element) {
+            this.reverseSpeakAs(element, 'literal-punctuation');
+            this.reverseSpeakAs(element, 'no-punctuation');
+            this.isolateTextNode(element);
+            this.visit(element, this.speakAsLiteralPunctuation);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNoPunctuation = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakAsNoPunctuation = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'no-punctuation';
-            this.speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, htmlParser, function (content, index, children) {
+            this.speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
+                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue, htmlParser));
+                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNoPunctuationInherit = function (element, htmlParser) {
-            this.reverseSpeakAs(element, 'literal-punctuation', htmlParser);
-            this.reverseSpeakAs(element, 'no-punctuation', htmlParser);
-            this.isolateTextNode(element, htmlParser);
-            this.visit(element, htmlParser, null, this.speakAsNoPunctuation);
+        AccessibleCSSImplementation.prototype.speakAsNoPunctuationInherit = function (element) {
+            this.reverseSpeakAs(element, 'literal-punctuation');
+            this.reverseSpeakAs(element, 'no-punctuation');
+            this.isolateTextNode(element);
+            this.visit(element, this.speakAsNoPunctuation);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsDigits = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakAsDigits = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'digits';
-            this.speakAs(element, '[0-9]', dataPropertyValue, htmlParser, function (content, index, children) {
+            this.speakAs(element, '[0-9]', dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue, htmlParser));
+                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                children.push(this.createAuralContentElement(' ', dataPropertyValue, htmlParser));
-                return children.push(this.createContentElement(content.charAt(index), dataPropertyValue, htmlParser));
+                children.push(this.createAuralContentElement(' ', dataPropertyValue));
+                return children.push(this.createContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsDigitsInherit = function (element, htmlParser) {
-            this.reverseSpeakAs(element, 'digits', htmlParser);
-            this.isolateTextNode(element, htmlParser);
-            this.visit(element, htmlParser, null, this.speakAsDigits);
+        AccessibleCSSImplementation.prototype.speakAsDigitsInherit = function (element) {
+            this.reverseSpeakAs(element, 'digits');
+            this.isolateTextNode(element);
+            this.visit(element, this.speakAsDigits);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsContinuousInherit = function (element, htmlParser) {
-            this.reverseSpeakAs(element, 'digits', htmlParser);
+        AccessibleCSSImplementation.prototype.speakAsContinuousInherit = function (element) {
+            this.reverseSpeakAs(element, 'digits');
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderAlways = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakHeaderAlways = function (element) {
             var header, i, idHeader, idsHeaders, len, textHeader;
             idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'));
             textHeader = '';
             for (i = 0, len = idsHeaders.length; i < len; i++) {
                 idHeader = idsHeaders[i];
-                header = htmlParser.find("#" + idHeader).firstResult();
+                header = this.htmlParser.find("#" + idHeader).firstResult();
                 if (!self.isEmpty(header)) {
                     textHeader = "" + textHeader + (header.getTextContent()) + " ";
                 }
             }
             if (!self.isEmpty(textHeader)) {
-                element.prependElement(this.createAuralContentElement(textHeader, 'always', htmlParser));
+                element.prependElement(this.createAuralContentElement(textHeader, 'always'));
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderAlwaysInherit = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakHeaderAlwaysInherit = function (element) {
             var cellElement, cellElements, i, len;
-            this.speakHeaderOnceInherit(element, htmlParser);
-            cellElements = htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults();
+            this.speakHeaderOnceInherit(element);
+            cellElements = this.htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults();
             for (i = 0, len = cellElements.length; i < len; i++) {
                 cellElement = cellElements[i];
-                this.speakHeaderAlways(cellElement, htmlParser);
+                this.speakHeaderAlways(cellElement);
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderOnceInherit = function (element, htmlParser) {
+        AccessibleCSSImplementation.prototype.speakHeaderOnceInherit = function (element) {
             var headerElement, headerElements, i, len;
-            headerElements = htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
+            headerElements = this.htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
             for (i = 0, len = headerElements.length; i < len; i++) {
                 headerElement = headerElements[i];
                 headerElement.removeNode();
             }
         };
 
-        function AccessibleCSSImplementation(htmlParser1, cssParser, symbols1) {
-            this.htmlParser = htmlParser1;
+        function AccessibleCSSImplementation(htmlParser, cssParser, symbols) {
+            this.htmlParser = htmlParser;
             this.cssParser = cssParser;
-            this.symbols = symbols1;
+            this.symbols = symbols;
         }
 
         AccessibleCSSImplementation.prototype.provideSpeakProperties = function (element) {
@@ -361,11 +363,11 @@ limitations under the License.
                                 declaration = declarations[k];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'none') {
-                                    this.speakNoneInherit(element, this.htmlParser);
+                                    this.speakNoneInherit(element);
                                 } else if (propertyValue === 'normal') {
-                                    this.speakNormalInherit(element, this.htmlParser);
+                                    this.speakNormalInherit(element);
                                 } else if (propertyValue === 'spell-out') {
-                                    this.speakAsSpellOutInherit(element, this.htmlParser);
+                                    this.speakAsSpellOutInherit(element);
                                 }
                             }
                         }
@@ -377,17 +379,17 @@ limitations under the License.
                                 pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|' + '(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)' + '|((digits) ((literal\\-punctuation)|(no\\-punctuation)|' + '(spell\\-out)))|(((literal\\-punctuation)|' + '(no\\-punctuation)|(spell\\-out)) (digits))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out))|((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|((digits) ((literal\\-punctuation)|' + '(no\\-punctuation)) (spell\\-out))|((digits) ' + '(spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|(((literal\\-punctuation)|' + '(no\\-punctuation)) (digits) (spell\\-out))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out) (digits))|((spell\\-out) (digits) ' + '((literal\\-punctuation)|(no\\-punctuation)))|' + '((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)) (digits)))$', 'g');
                                 if (pattern.test(propertyValue)) {
                                     propertyValues = declaration.getValues();
-                                    this.speakAsNormal(element, this.htmlParser);
+                                    this.speakAsNormal(element);
                                     for (m = 0, len4 = propertyValues.length; m < len4; m++) {
                                         propertyValue = propertyValues[m];
                                         if (propertyValue === 'spell-out') {
-                                            this.speakAsSpellOutInherit(element, this.htmlParser);
+                                            this.speakAsSpellOutInherit(element);
                                         } else if (propertyValue === 'literal-punctuation') {
-                                            this.speakAsLiteralPunctuationInherit(element, this.htmlParser, this.symbols);
+                                            this.speakAsLiteralPunctuationInherit(element);
                                         } else if (propertyValue === 'no-punctuation') {
-                                            this.speakAsNoPunctuationInherit(element, this.htmlParser);
+                                            this.speakAsNoPunctuationInherit(element);
                                         } else if (propertyValue === 'digits') {
-                                            this.speakAsDigitsInherit(element, this.htmlParser);
+                                            this.speakAsDigitsInherit(element);
                                         }
                                     }
                                 }
@@ -399,9 +401,9 @@ limitations under the License.
                                 declaration = declarations[n];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'code') {
-                                    this.speakAsLiteralPunctuationInherit(element, this.htmlParser, this.symbols);
+                                    this.speakAsLiteralPunctuationInherit(element);
                                 } else if (propertyValue === 'none') {
-                                    this.speakAsNoPunctuationInherit(element, this.htmlParser);
+                                    this.speakAsNoPunctuationInherit(element);
                                 }
                             }
                         }
@@ -411,9 +413,9 @@ limitations under the License.
                                 declaration = declarations[o];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'digits') {
-                                    this.speakAsDigitsInherit(element, this.htmlParser);
+                                    this.speakAsDigitsInherit(element);
                                 } else if (propertyValue === 'continuous') {
-                                    this.speakAsContinuousInherit(element, this.htmlParser);
+                                    this.speakAsContinuousInherit(element);
                                 }
                             }
                         }
@@ -423,9 +425,9 @@ limitations under the License.
                                 declaration = declarations[p];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'always') {
-                                    this.speakHeaderAlwaysInherit(element, this.htmlParser);
+                                    this.speakHeaderAlwaysInherit(element);
                                 } else if (propertyValue === 'once') {
-                                    this.speakHeaderOnceInherit(element, this.htmlParser);
+                                    this.speakHeaderOnceInherit(element);
                                 }
                             }
                         }

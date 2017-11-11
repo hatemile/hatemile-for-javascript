@@ -44,48 +44,48 @@ limitations under the License.
 
         DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
-        AccessibleNavigationImplementation.prototype.generateListSkippers = function (parser) {
+        AccessibleNavigationImplementation.prototype.generateListSkippers = function () {
             var container, list, local;
-            container = parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
+            container = this.parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
             if (self.isEmpty(container)) {
-                local = parser.find('body').firstResult();
+                local = this.parser.find('body').firstResult();
                 if (!self.isEmpty(local)) {
-                    container = parser.createElement('div');
+                    container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_SKIPPERS);
                     local.getFirstElementChild().insertBefore(container);
                 }
             }
             list = null;
             if (!self.isEmpty(container)) {
-                list = parser.find(container).findChildren('ul').firstResult();
+                list = this.parser.find(container).findChildren('ul').firstResult();
                 if (self.isEmpty(list)) {
-                    list = parser.createElement('ul');
+                    list = this.parser.createElement('ul');
                     container.appendElement(list);
                 }
             }
             return list;
         };
 
-        AccessibleNavigationImplementation.prototype.generateListHeading = function (parser, textHeading) {
+        AccessibleNavigationImplementation.prototype.generateListHeading = function () {
             var container, list, local, textContainer;
-            container = parser.find("#" + ID_CONTAINER_HEADING).firstResult();
+            container = this.parser.find("#" + ID_CONTAINER_HEADING).firstResult();
             if (self.isEmpty(container)) {
-                local = parser.find('body').firstResult();
+                local = this.parser.find('body').firstResult();
                 if (!self.isEmpty(local)) {
-                    container = parser.createElement('div');
+                    container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_HEADING);
-                    textContainer = parser.createElement('span');
+                    textContainer = this.parser.createElement('span');
                     textContainer.setAttribute('id', ID_TEXT_HEADING);
-                    textContainer.appendText(textHeading);
+                    textContainer.appendText(("" + this.elementsHeadingBefore) + ("" + this.elementsHeadingAfter));
                     container.appendElement(textContainer);
                     local.appendElement(container);
                 }
             }
             list = null;
             if (!self.isEmpty(container)) {
-                list = parser.find(container).findChildren('ol').firstResult();
+                list = this.parser.find(container).findChildren('ol').firstResult();
                 if (self.isEmpty(list)) {
-                    list = parser.createElement('ol');
+                    list = this.parser.createElement('ol');
                     container.appendElement(list);
                 }
             }
@@ -112,9 +112,9 @@ limitations under the License.
             }
         };
 
-        AccessibleNavigationImplementation.prototype.isValidHeading = function (parser) {
+        AccessibleNavigationImplementation.prototype.isValidHeading = function () {
             var countMainHeading, element, elements, i, lastLevel, len, level;
-            elements = parser.find('h1,h2,h3,h4,h5,h6').listResults();
+            elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
             lastLevel = 0;
             countMainHeading = 0;
             for (i = 0, len = elements.length; i < len; i++) {
@@ -135,16 +135,16 @@ limitations under the License.
             return true;
         };
 
-        AccessibleNavigationImplementation.prototype.generateAnchorFor = function (element, dataAttribute, anchorClass, parser, prefixId) {
+        AccessibleNavigationImplementation.prototype.generateAnchorFor = function (element, dataAttribute, anchorClass) {
             var anchor;
-            self.hatemile.util.CommonFunctions.generateId(element, prefixId);
+            self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             anchor = null;
-            if (self.isEmpty(parser.find(("[" + dataAttribute + "=\"") + ((element.getAttribute('id')) + "\"]")).firstResult())) {
+            if (self.isEmpty(this.parser.find(("[" + dataAttribute + "=\"") + ((element.getAttribute('id')) + "\"]")).firstResult())) {
                 if (element.getTagName() === 'A') {
                     anchor = element;
                 } else {
-                    anchor = parser.createElement('a');
-                    self.hatemile.util.CommonFunctions.generateId(anchor, prefixId);
+                    anchor = this.parser.createElement('a');
+                    self.hatemile.util.CommonFunctions.generateId(anchor, this.prefixId);
                     anchor.setAttribute('class', anchorClass);
                     element.insertBefore(anchor);
                 }
@@ -156,10 +156,10 @@ limitations under the License.
             return anchor;
         };
 
-        AccessibleNavigationImplementation.prototype.freeShortcut = function (shortcut, parser) {
+        AccessibleNavigationImplementation.prototype.freeShortcut = function (shortcut) {
             var alphaNumbers, element, elementWithShortcuts, elements, found, i, j, k, key, len, len1, len2, shortcuts;
             alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz';
-            elements = parser.find('[accesskey]').listResults();
+            elements = this.parser.find('[accesskey]').listResults();
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
                 shortcuts = element.getAttribute('accesskey').toLowerCase();
@@ -187,8 +187,8 @@ limitations under the License.
             }
         };
 
-        function AccessibleNavigationImplementation(parser1, configure, skippers) {
-            this.parser = parser1;
+        function AccessibleNavigationImplementation(parser, configure, skippers) {
+            this.parser = parser;
             this.skippers = skippers;
             this.prefixId = configure.getParameter('prefix-generated-ids');
             this.attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before');
@@ -223,11 +223,11 @@ limitations under the License.
             }
             if (skipper !== null) {
                 if (!this.listSkippersAdded) {
-                    this.listSkippers = this.generateListSkippers(this.parser);
+                    this.listSkippers = this.generateListSkippers();
                     this.listSkippersAdded = true;
                 }
                 if (!self.isEmpty(this.listSkippers)) {
-                    anchor = this.generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR, this.parser, this.prefixId);
+                    anchor = this.generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR);
                     if (!self.isEmpty(anchor)) {
                         itemLink = this.parser.createElement('li');
                         link = this.parser.createElement('a');
@@ -237,7 +237,7 @@ limitations under the License.
                         if (!self.isEmpty(shortcuts)) {
                             shortcut = shortcuts[0];
                             if (!self.isEmpty(shortcut)) {
-                                this.freeShortcut(shortcut, this.parser);
+                                this.freeShortcut(shortcut);
                                 link.setAttribute('accesskey', shortcut);
                             }
                         }
@@ -267,15 +267,15 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.provideNavigationByHeading = function (heading) {
             var anchor, item, level, link, list, superItem;
             if (!this.validateHeading) {
-                this.validHeading = this.isValidHeading(this.parser);
+                this.validHeading = this.isValidHeading();
                 this.validateHeading = true;
             }
             if (this.validHeading) {
-                anchor = this.generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR, this.parser, this.prefixId);
+                anchor = this.generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);
                 if (!self.isEmpty(anchor)) {
                     level = this.getHeadingLevel(heading);
                     if (level === 1) {
-                        list = this.generateListHeading(this.parser, "" + this.elementsHeadingBefore + this.elementsHeadingAfter);
+                        list = this.generateListHeading();
                     } else {
                         superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
                         if (!self.isEmpty(superItem)) {

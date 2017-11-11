@@ -34,16 +34,15 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] part The table header, table
   # footer or table body.
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   #
   # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
   # represents the table.
   #
-  getModelTable: (part, parser) ->
+  getModelTable: (part) ->
     table = []
-    rows = parser.find(part).findChildren('tr').listResults()
+    rows = @parser.find(part).findChildren('tr').listResults()
     for row in rows
-      table.push(@getModelRow(parser.find(row).findChildren('th,td')
+      table.push(@getModelRow(@parser.find(row).findChildren('th,td')
           .listResults()))
     return @getValidModelTable(table)
   
@@ -148,16 +147,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # Associate the data cell with header cell of row.
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The table body or footer.
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
-  # @param [string] prefixId The prefix of generated id.
   #
-  associateDataCellsWithHeaderCellsOfRow: (element, parser, prefixId) ->
-    table = @getModelTable(element, parser)
+  associateDataCellsWithHeaderCellsOfRow: (element) ->
+    table = @getModelTable(element)
     for row in table
       headersIds = []
       for cell in row
         if cell.getTagName() is 'TH'
-          self.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+          self.hatemile.util.CommonFunctions.generateId(cell, @prefixId)
           headersIds.push(cell.getAttribute('id'))
           
           cell.setAttribute('scope', 'row')
@@ -174,14 +171,12 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # Set the scope of header cells of table header.
   #
   # @param [hatemile.util.html.HTMLDOMElement] tableHeader The table header.
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
-  # @param [string] prefixId The prefix of generated id.
   #
-  prepareHeaderCells: (tableHeader, parser, prefixId) ->
-    cells = parser.find(tableHeader).findChildren('tr').findChildren('th')
+  prepareHeaderCells: (tableHeader) ->
+    cells = @parser.find(tableHeader).findChildren('tr').findChildren('th')
         .listResults()
     for cell in cells
-      self.hatemile.util.CommonFunctions.generateId(cell, prefixId)
+      self.hatemile.util.CommonFunctions.generateId(cell, @prefixId)
       if not cell.hasAttribute('scope')
         cell.setAttribute('scope', 'col')
     return
@@ -206,14 +201,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     body = @parser.find(table).findChildren('tbody').firstResult()
     footer = @parser.find(table).findChildren('tfoot').firstResult()
     if not self.isEmpty(header)
-      @prepareHeaderCells(header, @parser, @prefixId)
+      @prepareHeaderCells(header)
       
-      headerRows = @getModelTable(header, @parser)
+      headerRows = @getModelTable(header)
       if (not self.isEmpty(body)) and (@validateHeader(headerRows))
         lengthHeader = headerRows[0].length
-        fakeTable = @getModelTable(body, @parser)
+        fakeTable = @getModelTable(body)
         if not self.isEmpty(footer)
-          fakeTable = fakeTable.concat(@getModelTable(footer, @parser))
+          fakeTable = fakeTable.concat(@getModelTable(footer))
         for row in fakeTable
           if row.length is lengthHeader
             i = 0
@@ -226,9 +221,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
               cell.setAttribute('headers', headers)
               i = i + 1
     if not self.isEmpty(body)
-      @associateDataCellsWithHeaderCellsOfRow(body, @parser, @prefixId)
+      @associateDataCellsWithHeaderCellsOfRow(body)
     if not self.isEmpty(footer)
-      @associateDataCellsWithHeaderCellsOfRow(footer, @parser, @prefixId)
+      @associateDataCellsWithHeaderCellsOfRow(footer)
     return
   
   # Associate all data cells with header cells of all tables of page.

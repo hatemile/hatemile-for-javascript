@@ -229,7 +229,7 @@ limitations under the License.
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.getDescription = function (element, parser) {
+        AccessibleDisplayScreenReaderImplementation.prototype.getDescription = function (element) {
             var description, descriptionId, descriptionIds, elementDescription, i, len, type;
             description = null;
             if (element.hasAttribute('title')) {
@@ -248,7 +248,7 @@ limitations under the License.
                 }
                 for (i = 0, len = descriptionIds.length; i < len; i++) {
                     descriptionId = descriptionIds[i];
-                    elementDescription = parser.find("#" + descriptionId).firstResult();
+                    elementDescription = this.parser.find("#" + descriptionId).firstResult();
                     if (!self.isEmpty(elementDescription)) {
                         description = elementDescription.getTextContent();
                         break;
@@ -266,117 +266,117 @@ limitations under the License.
             return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.generateListShortcuts = function (parser, textShortcuts) {
+        AccessibleDisplayScreenReaderImplementation.prototype.generateListShortcuts = function () {
             var container, list, local, textContainer;
-            container = parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
+            container = this.parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
             if (self.isEmpty(container)) {
-                local = parser.find('body').firstResult();
+                local = this.parser.find('body').firstResult();
                 if (!self.isEmpty(local)) {
-                    container = parser.createElement('div');
+                    container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
-                    textContainer = parser.createElement('span');
+                    textContainer = this.parser.createElement('span');
                     textContainer.setAttribute('id', ID_TEXT_SHORTCUTS);
-                    textContainer.appendText(textShortcuts);
+                    textContainer.appendText(("" + this.attributeAccesskeyPrefixBefore) + ("" + this.attributeAccesskeySuffixBefore));
                     container.appendElement(textContainer);
                     local.appendElement(container);
                 }
             }
             list = null;
             if (!self.isEmpty(container)) {
-                list = parser.find(container).findChildren('ul').firstResult();
+                list = this.parser.find(container).findChildren('ul').firstResult();
                 if (self.isEmpty(list)) {
-                    list = parser.createElement('ul');
+                    list = this.parser.createElement('ul');
                     container.appendElement(list);
                 }
             }
             return list;
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.insertBefore = function (element, insertedElement, parser) {
+        AccessibleDisplayScreenReaderImplementation.prototype.insertBefore = function (element, insertedElement) {
             var body, controls, i, label, labels, len, tagName, tags;
             tagName = element.getTagName();
             tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
             controls = ['INPUT', 'SELECT', 'TEXTAREA'];
             if (tagName === 'HTML') {
-                body = parser.find('body').firstResult();
+                body = this.parser.find('body').firstResult();
                 if (!self.isEmpty(body)) {
-                    this.insertBefore(body, insertedElement, parser);
+                    this.insertBefore(body, insertedElement);
                 }
             } else if (tags.indexOf(tagName) > -1) {
                 element.prependElement(insertedElement);
             } else if (controls.indexOf(tagName) > -1) {
                 if (element.hasAttribute('id')) {
-                    labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
+                    labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
                 }
                 if (self.isEmpty(labels)) {
-                    labels = parser.find(element).findAncestors('label').listResults();
+                    labels = this.parser.find(element).findAncestors('label').listResults();
                 }
                 for (i = 0, len = labels.length; i < len; i++) {
                     label = labels[i];
-                    this.insertBefore(label, insertedElement, parser);
+                    this.insertBefore(label, insertedElement);
                 }
             } else {
                 element.insertBefore(insertedElement);
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.insertAfter = function (element, insertedElement, parser) {
+        AccessibleDisplayScreenReaderImplementation.prototype.insertAfter = function (element, insertedElement) {
             var appendTags, body, controls, i, label, labels, len, tagName;
             tagName = element.getTagName();
             appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
             controls = ['INPUT', 'SELECT', 'TEXTAREA'];
             if (tagName === 'HTML') {
-                body = parser.find('body').firstResult();
+                body = this.parser.find('body').firstResult();
                 if (!self.isEmpty(body)) {
-                    this.insertAfter(body, insertedElement, parser);
+                    this.insertAfter(body, insertedElement);
                 }
             } else if (appendTags.indexOf(tagName) > -1) {
                 element.appendElement(insertedElement);
             } else if (controls.indexOf(tagName) > -1) {
                 if (element.hasAttribute('id')) {
-                    labels = parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
+                    labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
                 }
                 if (self.isEmpty(labels)) {
-                    labels = parser.find(element).findAncestors('label').listResults();
+                    labels = this.parser.find(element).findAncestors('label').listResults();
                 }
                 for (i = 0, len = labels.length; i < len; i++) {
                     label = labels[i];
-                    this.insertAfter(label, insertedElement, parser);
+                    this.insertAfter(label, insertedElement);
                 }
             } else {
                 element.insertAfter(insertedElement);
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.forceReadSimple = function (element, parser, prefixId, textBefore, textAfter, db, da) {
+        AccessibleDisplayScreenReaderImplementation.prototype.forceReadSimple = function (element, textBefore, textAfter, db, da) {
             var identifier, referenceAfter, referenceBefore, span;
-            self.hatemile.util.CommonFunctions.generateId(element, prefixId);
+            self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             identifier = element.getAttribute('id');
             if (!self.isEmpty(textBefore)) {
-                referenceBefore = parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + db + "=\"" + identifier + "\"]")).firstResult();
+                referenceBefore = this.parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + db + "=\"" + identifier + "\"]")).firstResult();
                 if (!self.isEmpty(referenceBefore)) {
                     referenceBefore.removeNode();
                 }
-                span = parser.createElement('span');
+                span = this.parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
                 span.setAttribute(db, identifier);
                 span.appendText(textBefore);
-                this.insertBefore(element, span, parser);
+                this.insertBefore(element, span);
             }
             if (!self.isEmpty(textAfter)) {
-                referenceAfter = parser.find("." + CLASS_FORCE_READ_AFTER + "[" + da + "=\"" + identifier + "\"]").firstResult();
+                referenceAfter = this.parser.find("." + CLASS_FORCE_READ_AFTER + "[" + da + "=\"" + identifier + "\"]").firstResult();
                 if (!self.isEmpty(referenceAfter)) {
                     referenceAfter.removeNode();
                 }
-                span = parser.createElement('span');
+                span = this.parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_AFTER);
                 span.setAttribute(da, identifier);
                 span.appendText(textAfter);
-                this.insertAfter(element, span, parser);
+                this.insertAfter(element, span);
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype.forceRead = function (e, v, p, pre, tpb, tsb, tpa, tsa, db, da) {
+        AccessibleDisplayScreenReaderImplementation.prototype.forceRead = function (e, v, tpb, tsb, tpa, tsa, db, da) {
             var textAfter, textBefore;
             if ((!self.isEmpty(tpb)) || (!self.isEmpty(tsb))) {
                 textBefore = "" + tpb + v + tsb;
@@ -388,11 +388,11 @@ limitations under the License.
             } else {
                 textAfter = '';
             }
-            this.forceReadSimple(e, p, pre, textBefore, textAfter, db, da);
+            this.forceReadSimple(e, textBefore, textAfter, db, da);
         };
 
-        function AccessibleDisplayScreenReaderImplementation(parser1, configure, userAgent) {
-            this.parser = parser1;
+        function AccessibleDisplayScreenReaderImplementation(parser, configure, userAgent) {
+            this.parser = parser;
             this.listShortcutsAdded = false;
             this.listShortcuts = null;
             this.prefixId = configure.getParameter('prefix-generated-ids');
@@ -776,12 +776,12 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayShortcut = function (element) {
             var description, i, item, key, keys, len;
             if (element.hasAttribute('accesskey')) {
-                description = this.getDescription(element, this.parser);
+                description = this.getDescription(element);
                 if (!element.hasAttribute('title')) {
                     element.setAttribute('title', description);
                 }
                 if (!this.listShortcutsAdded) {
-                    this.listShortcuts = this.generateListShortcuts(this.parser, ("" + this.attributeAccesskeyPrefixBefore) + ("" + this.attributeAccesskeySuffixBefore));
+                    this.listShortcuts = this.generateListShortcuts();
                     this.listShortcutsAdded = true;
                 }
                 if (!self.isEmpty(this.listShortcuts)) {
@@ -818,7 +818,7 @@ limitations under the License.
                 role = element.getAttribute('role');
                 roleDescription = this.roles[role];
                 if (!self.isEmpty(roleDescription)) {
-                    this.forceRead(element, roleDescription, this.parser, this.prefixId, this.attributeRolePrefixBefore, this.attributeRoleSuffixBefore, this.attributeRolePrefixAfter, this.attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF);
+                    this.forceRead(element, roleDescription, this.attributeRolePrefixBefore, this.attributeRoleSuffixBefore, this.attributeRolePrefixAfter, this.attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF);
                 }
             }
         };
@@ -851,7 +851,7 @@ limitations under the License.
                     }
                 }
                 if (!self.isEmpty(textHeader)) {
-                    this.forceRead(tableCell, textHeader, this.parser, this.prefixId, this.attributeHeadersPrefixBefore, this.attributeHeadersSuffixBefore, this.attributeHeadersPrefixAfter, this.attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF);
+                    this.forceRead(tableCell, textHeader, this.attributeHeadersPrefixBefore, this.attributeHeadersSuffixBefore, this.attributeHeadersPrefixAfter, this.attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF);
                 }
             }
         };
@@ -870,136 +870,136 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayWAIARIAStates = function (element) {
             var attributeValue;
             if ((element.hasAttribute('aria-busy')) && (element.getAttribute('aria-busy') === 'true')) {
-                this.forceReadSimple(element, this.parser, this.prefixId, this.ariaBusyTrueBefore, this.ariaBusyTrueAfter, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF);
+                this.forceReadSimple(element, this.ariaBusyTrueBefore, this.ariaBusyTrueAfter, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF);
             }
             if (element.hasAttribute('aria-checked')) {
                 attributeValue = element.getAttribute('aria-checked');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaCheckedTrueBefore, this.ariaCheckedTrueAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaCheckedTrueBefore, this.ariaCheckedTrueAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaCheckedFalseBefore, this.ariaCheckedFalseAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaCheckedFalseBefore, this.ariaCheckedFalseAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
                 } else if (attributeValue === 'mixed') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaCheckedMixedBefore, this.ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaCheckedMixedBefore, this.ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-dropeffect')) {
                 attributeValue = element.getAttribute('aria-dropeffect');
                 if (attributeValue === 'copy') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'move') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'link') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'execute') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'popup') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-expanded')) {
                 attributeValue = element.getAttribute('aria-expanded');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaExpandedTrueBefore, this.ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaExpandedTrueBefore, this.ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaExpandedFalseBefore, this.ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaExpandedFalseBefore, this.ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-grabbed')) {
                 attributeValue = element.getAttribute('aria-grabbed');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
                 }
             }
             if ((element.hasAttribute('aria-haspopup')) && (element.getAttribute('aria-haspopup') === 'true')) {
-                this.forceReadSimple(element, this.parser, this.prefixId, this.ariaHaspopupTrueBefore, this.ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF);
+                this.forceReadSimple(element, this.ariaHaspopupTrueBefore, this.ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF);
             }
             if ((element.hasAttribute('aria-invalid')) && (element.getAttribute('aria-invalid') === 'true')) {
-                this.forceReadSimple(element, this.parser, this.prefixId, this.ariaInvalidTrueBefore, this.ariaInvalidTrueAfter, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF);
+                this.forceReadSimple(element, this.ariaInvalidTrueBefore, this.ariaInvalidTrueAfter, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF);
                 if (element.hasAttribute(DATA_INVALID_LENGTH)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidLengthBefore, this.dataInvalidLengthAfter, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_LENGTH_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidLengthBefore, this.dataInvalidLengthAfter, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_LENGTH_AFTER_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_PATTERN)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidPatternBefore, this.dataInvalidPatternAfter, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_PATTERN_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidPatternBefore, this.dataInvalidPatternAfter, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_PATTERN_AFTER_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_REQUIRED)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidRequiredBefore, this.dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_REQUIRED_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidRequiredBefore, this.dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_REQUIRED_AFTER_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_URL)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidUrlBefore, this.dataInvalidUrlAfter, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_URL_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidUrlBefore, this.dataInvalidUrlAfter, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_URL_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_EMAIL)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidEmailBefore, this.dataInvalidEmailAfter, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_EMAIL_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidEmailBefore, this.dataInvalidEmailAfter, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_EMAIL_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_RANGE)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidRangeBefore, this.dataInvalidRangeAfter, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_RANGE_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidRangeBefore, this.dataInvalidRangeAfter, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_RANGE_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_DATE)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidDateBefore, this.dataInvalidDateAfter, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidDateBefore, this.dataInvalidDateAfter, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_TIME)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidTimeBefore, this.dataInvalidTimeAfter, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_TIME_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidTimeBefore, this.dataInvalidTimeAfter, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_TIME_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_DATETIME)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidDateTimeBefore, this.dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATETIME_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidDateTimeBefore, this.dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATETIME_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_MONTH)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidMonthBefore, this.dataInvalidMonthAfter, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_MONTH_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidMonthBefore, this.dataInvalidMonthAfter, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_MONTH_AFTER_OF);
                 } else if (element.hasAttribute(DATA_INVALID_WEEK)) {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.dataInvalidWeekBefore, this.dataInvalidWeekAfter, DATA_INVALID_WEEK_BEFORE_OF, DATA_INVALID_WEEK_AFTER_OF);
+                    this.forceReadSimple(element, this.dataInvalidWeekBefore, this.dataInvalidWeekAfter, DATA_INVALID_WEEK_BEFORE_OF, DATA_INVALID_WEEK_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-level')) {
-                this.forceRead(element, element.getAttribute('aria-level'), this.parser, this.prefixId, this.ariaLevelPrefixBefore, this.ariaLevelSuffixBefore, this.ariaLevelPrefixAfter, this.ariaLevelSuffixAfter, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF);
+                this.forceRead(element, element.getAttribute('aria-level'), this.ariaLevelPrefixBefore, this.ariaLevelSuffixBefore, this.ariaLevelPrefixAfter, this.ariaLevelSuffixAfter, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF);
             }
             if (element.hasAttribute('aria-orientation')) {
                 attributeValue = element.getAttribute('aria-orientation');
                 if (attributeValue === 'vertical') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaOrientationVerticalBefore, this.ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaOrientationVerticalBefore, this.ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
                 } else if (attributeValue === 'horizontal') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaOrientationHorizontalBefore, this.ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaOrientationHorizontalBefore, this.ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-pressed')) {
                 attributeValue = element.getAttribute('aria-pressed');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaPressedTrueBefore, this.ariaPressedTrueAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaPressedTrueBefore, this.ariaPressedTrueAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaPressedFalseBefore, this.ariaPressedFalseAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaPressedFalseBefore, this.ariaPressedFalseAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
                 } else if (attributeValue === 'mixed') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaPressedMixedBefore, this.ariaPressedMixedAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaPressedMixedBefore, this.ariaPressedMixedAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-selected')) {
                 attributeValue = element.getAttribute('aria-selected');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaSelectedTrueBefore, this.ariaSelectedTrueAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaSelectedTrueBefore, this.ariaSelectedTrueAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaSelectedFalseBefore, this.ariaSelectedFalseAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaSelectedFalseBefore, this.ariaSelectedFalseAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-sort')) {
                 attributeValue = element.getAttribute('aria-sort');
                 if (attributeValue === 'ascending') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaSortAscendingBefore, this.ariaSortAscendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaSortAscendingBefore, this.ariaSortAscendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
                 } else if (attributeValue === 'descending') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaSortDescendingBefore, this.ariaSortDescendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaSortDescendingBefore, this.ariaSortDescendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
                 } else if (attributeValue === 'other') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaSortOtherBefore, this.ariaSortOtherAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaSortOtherBefore, this.ariaSortOtherAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
                 }
             }
             if ((element.hasAttribute('aria-required')) && (element.getAttribute('aria-required') === 'true')) {
-                this.forceReadSimple(element, this.parser, this.prefixId, this.ariaRequiredTrueBefore, this.ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF);
+                this.forceReadSimple(element, this.ariaRequiredTrueBefore, this.ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF);
             }
             if (element.hasAttribute('aria-valuemin')) {
-                this.forceRead(element, element.getAttribute('aria-valuemin'), this.parser, this.prefixId, this.ariaValueMinimumPrefixBefore, this.ariaValueMinimumSuffixBefore, this.ariaValueMinimumPrefixAfter, this.ariaValueMinimumSuffixAfter, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF);
+                this.forceRead(element, element.getAttribute('aria-valuemin'), this.ariaValueMinimumPrefixBefore, this.ariaValueMinimumSuffixBefore, this.ariaValueMinimumPrefixAfter, this.ariaValueMinimumSuffixAfter, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF);
             }
             if (element.hasAttribute('aria-valuemax')) {
-                this.forceRead(element, element.getAttribute('aria-valuemax'), this.parser, this.prefixId, this.ariaValueMaximumPrefixBefore, this.ariaValueMaximumSuffixBefore, this.ariaValueMaximumPrefixAfter, this.ariaValueMaximumSuffixAfter, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF);
+                this.forceRead(element, element.getAttribute('aria-valuemax'), this.ariaValueMaximumPrefixBefore, this.ariaValueMaximumSuffixBefore, this.ariaValueMaximumPrefixAfter, this.ariaValueMaximumSuffixAfter, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF);
             }
             if (element.hasAttribute('aria-autocomplete')) {
                 attributeValue = element.getAttribute('aria-autocomplete');
                 if (attributeValue === 'both') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaAutoCompleteBothBefore, this.ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaAutoCompleteBothBefore, this.ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
                 } else if (attributeValue === 'inline') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaAutoCompleteListBefore, this.ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaAutoCompleteListBefore, this.ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
                 } else if (attributeValue === 'list') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
                 }
             }
         };
@@ -1017,10 +1017,10 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayLinkAttributes = function (link) {
             if (link.hasAttribute('download')) {
-                this.forceReadSimple(link, this.parser, this.prefixId, this.attributeDownloadBefore, this.attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF);
+                this.forceReadSimple(link, this.attributeDownloadBefore, this.attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF);
             }
             if ((link.hasAttribute('target')) && (link.getAttribute('target') === '_blank')) {
-                this.forceReadSimple(link, this.parser, this.prefixId, this.attributeTargetBlankBefore, this.attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF);
+                this.forceReadSimple(link, this.attributeTargetBlankBefore, this.attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF);
             }
         };
 
@@ -1037,7 +1037,7 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayTitle = function (element) {
             if ((element.hasAttribute('title')) && (!self.isEmpty(element.getAttribute('title')))) {
-                this.forceRead(element, element.getAttribute('title'), this.parser, this.prefixId, this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
+                this.forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
             }
         };
 
@@ -1055,38 +1055,38 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayDragAndDrop = function (element) {
             var attributeValue;
             if (element.hasAttribute('draggable')) {
-                this.forceReadSimple(element, this.parser, this.prefixId, this.attributeDraggableBefore, this.attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF);
+                this.forceReadSimple(element, this.attributeDraggableBefore, this.attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF);
             }
             if (element.hasAttribute('dropzone')) {
                 attributeValue = element.getAttribute('dropzone');
                 if (attributeValue === 'copy') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.attributeDropzoneCopyBefore, this.attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this.forceReadSimple(element, this.attributeDropzoneCopyBefore, this.attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
                 } else if (attributeValue === 'move') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.attributeDropzoneMoveBefore, this.attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this.forceReadSimple(element, this.attributeDropzoneMoveBefore, this.attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
                 } else if (attributeValue === 'link') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this.forceReadSimple(element, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-dropeffect')) {
                 attributeValue = element.getAttribute('aria-dropeffect');
                 if (attributeValue === 'copy') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'move') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'link') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'execute') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 } else if (attributeValue === 'popup') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
                 }
             }
             if (element.hasAttribute('aria-grabbed')) {
                 attributeValue = element.getAttribute('aria-grabbed');
                 if (attributeValue === 'true') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
                 } else if (attributeValue === 'false') {
-                    this.forceReadSimple(element, this.parser, this.prefixId, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this.forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
                 }
             }
         };
@@ -1108,13 +1108,13 @@ limitations under the License.
                 languageCode = element.getAttribute('lang');
                 language = this.languages[languageCode];
                 if (!self.isEmpty(language)) {
-                    this.forceRead(element, language, this.parser, this.prefixId, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
+                    this.forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
                 }
             } else if (element.hasAttribute('hreflang')) {
                 languageCode = element.getAttribute('hreflang');
                 language = this.languages[languageCode];
                 if (!self.isEmpty(language)) {
-                    this.forceRead(element, language, this.parser, this.prefixId, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
+                    this.forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
                 }
             }
         };

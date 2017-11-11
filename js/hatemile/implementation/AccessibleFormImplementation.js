@@ -192,7 +192,7 @@ limitations under the License.
             return !self.isEmpty(field.getData().value);
         };
 
-        AccessibleFormImplementation.prototype.getARIAAutoComplete = function (field, parser) {
+        AccessibleFormImplementation.prototype.getARIAAutoComplete = function (field) {
             var form, tagName, type, value;
             tagName = field.getTagName();
             if (field.hasAttribute('type')) {
@@ -202,9 +202,9 @@ limitations under the License.
                 if (field.hasAttribute('autocomplete')) {
                     value = field.getAttribute('autocomplete').toLowerCase();
                 } else {
-                    form = parser.find(field).findAncestors('form').firstResult();
+                    form = this.parser.find(field).findAncestors('form').firstResult();
                     if ((self.isEmpty(form)) && (field.hasAttribute('form'))) {
-                        form = parser.find("#" + (field.getAttribute('form'))).firstResult();
+                        form = this.parser.find("#" + (field.getAttribute('form'))).firstResult();
                     }
                     if ((!self.isEmpty(form)) && (form.hasAttribute('autocomplete'))) {
                         value = form.getAttribute('autocomplete').toLowerCase();
@@ -212,7 +212,7 @@ limitations under the License.
                 }
                 if ('on' === value) {
                     return 'both';
-                } else if ((field.hasAttribute('list')) && (!self.isEmpty(parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult()))) {
+                } else if ((field.hasAttribute('list')) && (!self.isEmpty(this.parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult()))) {
                     return 'list';
                 } else if ('off' === value) {
                     return 'none';
@@ -268,8 +268,8 @@ limitations under the License.
             });
         };
 
-        function AccessibleFormImplementation(parser1, configure) {
-            this.parser = parser1;
+        function AccessibleFormImplementation(parser, configure) {
+            this.parser = parser;
             this.prefixId = configure.getParameter('prefix-generated-ids');
         }
 
@@ -312,7 +312,7 @@ limitations under the License.
 
         AccessibleFormImplementation.prototype.markAutoCompleteField = function (autoCompleteField) {
             var ariaAutoComplete;
-            ariaAutoComplete = this.getARIAAutoComplete(autoCompleteField, this.parser);
+            ariaAutoComplete = this.getARIAAutoComplete(autoCompleteField);
             if (!self.isEmpty(ariaAutoComplete)) {
                 autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete);
             }

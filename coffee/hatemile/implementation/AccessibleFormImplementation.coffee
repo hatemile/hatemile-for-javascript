@@ -285,11 +285,10 @@ class @hatemile.implementation.AccessibleFormImplementation
   # Returns the appropriate value for attribute aria-autocomplete of field.
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   #
   # @return [string] The ARIA value of field.
   #
-  getARIAAutoComplete: (field, parser) ->
+  getARIAAutoComplete: (field) ->
     tagName = field.getTagName()
     if field.hasAttribute('type')
       type = field.getAttribute('type').toLowerCase()
@@ -300,15 +299,15 @@ class @hatemile.implementation.AccessibleFormImplementation
       if field.hasAttribute('autocomplete')
         value = field.getAttribute('autocomplete').toLowerCase()
       else
-        form = parser.find(field).findAncestors('form').firstResult()
+        form = @parser.find(field).findAncestors('form').firstResult()
         if (self.isEmpty(form)) and (field.hasAttribute('form'))
-          form = parser.find("##{field.getAttribute('form')}").firstResult()
+          form = @parser.find("##{field.getAttribute('form')}").firstResult()
         if (not self.isEmpty(form)) and (form.hasAttribute('autocomplete'))
           value = form.getAttribute('autocomplete').toLowerCase()
       if ('on' is value)
         return 'both'
       else if (field.hasAttribute('list')) and \
-          (not self.isEmpty(parser
+          (not self.isEmpty(@parser
           .find("datalist[id=\"#{field.getAttribute('list')}\"]")
           .firstResult()))
         return 'list'
@@ -448,7 +447,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @see hatemile.AccessibleForm#markAutoCompleteField
   #
   markAutoCompleteField: (autoCompleteField) ->
-    ariaAutoComplete = @getARIAAutoComplete(autoCompleteField, @parser)
+    ariaAutoComplete = @getARIAAutoComplete(autoCompleteField)
     if not self.isEmpty(ariaAutoComplete)
       autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
     return

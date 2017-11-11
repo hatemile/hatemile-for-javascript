@@ -26,13 +26,13 @@ limitations under the License.
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
-        AccessibleAssociationImplementation.prototype.getModelTable = function (part, parser) {
+        AccessibleAssociationImplementation.prototype.getModelTable = function (part) {
             var j, len, row, rows, table;
             table = [];
-            rows = parser.find(part).findChildren('tr').listResults();
+            rows = this.parser.find(part).findChildren('tr').listResults();
             for (j = 0, len = rows.length; j < len; j++) {
                 row = rows[j];
-                table.push(this.getModelRow(parser.find(row).findChildren('th,td').listResults()));
+                table.push(this.getModelRow(this.parser.find(row).findChildren('th,td').listResults()));
             }
             return this.getValidModelTable(table);
         };
@@ -131,16 +131,16 @@ limitations under the License.
             return ids;
         };
 
-        AccessibleAssociationImplementation.prototype.associateDataCellsWithHeaderCellsOfRow = function (element, parser, prefixId) {
+        AccessibleAssociationImplementation.prototype.associateDataCellsWithHeaderCellsOfRow = function (element) {
             var cell, headerId, headers, headersIds, j, k, l, len, len1, len2, len3, m, row, table;
-            table = this.getModelTable(element, parser);
+            table = this.getModelTable(element);
             for (j = 0, len = table.length; j < len; j++) {
                 row = table[j];
                 headersIds = [];
                 for (k = 0, len1 = row.length; k < len1; k++) {
                     cell = row[k];
                     if (cell.getTagName() === 'TH') {
-                        self.hatemile.util.CommonFunctions.generateId(cell, prefixId);
+                        self.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
                         headersIds.push(cell.getAttribute('id'));
                         cell.setAttribute('scope', 'row');
                     }
@@ -161,20 +161,20 @@ limitations under the License.
             }
         };
 
-        AccessibleAssociationImplementation.prototype.prepareHeaderCells = function (tableHeader, parser, prefixId) {
+        AccessibleAssociationImplementation.prototype.prepareHeaderCells = function (tableHeader) {
             var cell, cells, j, len;
-            cells = parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
+            cells = this.parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
             for (j = 0, len = cells.length; j < len; j++) {
                 cell = cells[j];
-                self.hatemile.util.CommonFunctions.generateId(cell, prefixId);
+                self.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
                 if (!cell.hasAttribute('scope')) {
                     cell.setAttribute('scope', 'col');
                 }
             }
         };
 
-        function AccessibleAssociationImplementation(parser1, configure) {
-            this.parser = parser1;
+        function AccessibleAssociationImplementation(parser, configure) {
+            this.parser = parser;
             this.prefixId = configure.getParameter('prefix-generated-ids');
         }
 
@@ -184,13 +184,13 @@ limitations under the License.
             body = this.parser.find(table).findChildren('tbody').firstResult();
             footer = this.parser.find(table).findChildren('tfoot').firstResult();
             if (!self.isEmpty(header)) {
-                this.prepareHeaderCells(header, this.parser, this.prefixId);
-                headerRows = this.getModelTable(header, this.parser);
+                this.prepareHeaderCells(header);
+                headerRows = this.getModelTable(header);
                 if ((!self.isEmpty(body)) && (this.validateHeader(headerRows))) {
                     lengthHeader = headerRows[0].length;
-                    fakeTable = this.getModelTable(body, this.parser);
+                    fakeTable = this.getModelTable(body);
                     if (!self.isEmpty(footer)) {
-                        fakeTable = fakeTable.concat(this.getModelTable(footer, this.parser));
+                        fakeTable = fakeTable.concat(this.getModelTable(footer));
                     }
                     for (j = 0, len = fakeTable.length; j < len; j++) {
                         row = fakeTable[j];
@@ -212,10 +212,10 @@ limitations under the License.
                 }
             }
             if (!self.isEmpty(body)) {
-                this.associateDataCellsWithHeaderCellsOfRow(body, this.parser, this.prefixId);
+                this.associateDataCellsWithHeaderCellsOfRow(body);
             }
             if (!self.isEmpty(footer)) {
-                this.associateDataCellsWithHeaderCellsOfRow(footer, this.parser, this.prefixId);
+                this.associateDataCellsWithHeaderCellsOfRow(footer);
             }
         };
 
