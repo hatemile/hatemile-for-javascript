@@ -356,7 +356,6 @@ limitations under the License.
                 referenceBefore = parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + dataBeforeOf + "=\"" + identifier + "\"]")).firstResult();
                 if (!self.isEmpty(referenceBefore)) {
                     referenceBefore.removeNode();
-                    referenceBefore = null;
                 }
                 span = parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
@@ -368,7 +367,6 @@ limitations under the License.
                 referenceAfter = parser.find("." + CLASS_FORCE_READ_AFTER + "[" + dataAfterOf + "=\"" + identifier + "\"]").firstResult();
                 if (!self.isEmpty(referenceAfter)) {
                     referenceAfter.removeNode();
-                    referenceAfter = null;
                 }
                 span = parser.createElement('span');
                 span.setAttribute('class', CLASS_FORCE_READ_AFTER);
