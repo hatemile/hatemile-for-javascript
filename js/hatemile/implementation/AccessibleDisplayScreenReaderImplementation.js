@@ -353,26 +353,30 @@ limitations under the License.
             self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             identifier = element.getAttribute('id');
             if (!self.isEmpty(textBefore)) {
-                referenceBefore = this.parser.find(("." + CLASS_FORCE_READ_BEFORE) + ("[" + db + "=\"" + identifier + "\"]")).firstResult();
-                if (!self.isEmpty(referenceBefore)) {
-                    referenceBefore.removeNode();
+                referenceBefore = this.parser.find("[" + db + "=\"" + identifier + "\"]").firstResult();
+                if (!element.equals(referenceBefore)) {
+                    if (!self.isEmpty(referenceBefore)) {
+                        referenceBefore.removeNode();
+                    }
+                    span = this.parser.createElement('span');
+                    span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
+                    span.setAttribute(db, identifier);
+                    span.appendText(textBefore);
+                    this.insertBefore(element, span);
                 }
-                span = this.parser.createElement('span');
-                span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
-                span.setAttribute(db, identifier);
-                span.appendText(textBefore);
-                this.insertBefore(element, span);
             }
             if (!self.isEmpty(textAfter)) {
-                referenceAfter = this.parser.find("." + CLASS_FORCE_READ_AFTER + "[" + da + "=\"" + identifier + "\"]").firstResult();
-                if (!self.isEmpty(referenceAfter)) {
-                    referenceAfter.removeNode();
+                referenceAfter = this.parser.find("[" + da + "=\"" + identifier + "\"]").firstResult();
+                if (!element.equals(referenceAfter)) {
+                    if (!self.isEmpty(referenceAfter)) {
+                        referenceAfter.removeNode();
+                    }
+                    span = this.parser.createElement('span');
+                    span.setAttribute('class', CLASS_FORCE_READ_AFTER);
+                    span.setAttribute(da, identifier);
+                    span.appendText(textAfter);
+                    this.insertAfter(element, span);
                 }
-                span = this.parser.createElement('span');
-                span.setAttribute('class', CLASS_FORCE_READ_AFTER);
-                span.setAttribute(da, identifier);
-                span.appendText(textAfter);
-                this.insertAfter(element, span);
             }
         };
 

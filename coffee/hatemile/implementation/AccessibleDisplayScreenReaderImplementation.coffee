@@ -290,30 +290,30 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     identifier = element.getAttribute('id')
     
     if not self.isEmpty(textBefore)
-      referenceBefore = @parser.find(".#{CLASS_FORCE_READ_BEFORE}" \
-          + "[#{db}=\"#{identifier}\"]").firstResult()
+      referenceBefore = @parser.find("[#{db}=\"#{identifier}\"]").firstResult()
       
-      if not self.isEmpty(referenceBefore)
-        referenceBefore.removeNode()
-      
-      span = @parser.createElement('span')
-      span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
-      span.setAttribute(db, identifier)
-      span.appendText(textBefore)
-      @insertBefore(element, span)
+      if (not element.equals(referenceBefore))
+        if not self.isEmpty(referenceBefore)
+          referenceBefore.removeNode()
+        
+        span = @parser.createElement('span')
+        span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
+        span.setAttribute(db, identifier)
+        span.appendText(textBefore)
+        @insertBefore(element, span)
+    
     if not self.isEmpty(textAfter)
-      referenceAfter = @parser
-          .find(".#{CLASS_FORCE_READ_AFTER}[#{da}=\"#{identifier}\"]")
-          .firstResult()
+      referenceAfter = @parser.find("[#{da}=\"#{identifier}\"]").firstResult()
       
-      if not self.isEmpty(referenceAfter)
-        referenceAfter.removeNode()
-      
-      span = @parser.createElement('span')
-      span.setAttribute('class', CLASS_FORCE_READ_AFTER)
-      span.setAttribute(da, identifier)
-      span.appendText(textAfter)
-      @insertAfter(element, span)
+      if (not element.equals(referenceAfter))
+        if not self.isEmpty(referenceAfter)
+          referenceAfter.removeNode()
+        
+        span = @parser.createElement('span')
+        span.setAttribute('class', CLASS_FORCE_READ_AFTER)
+        span.setAttribute(da, identifier)
+        span.appendText(textAfter)
+        @insertAfter(element, span)
     return
   
   # Force the screen reader display an information of element with prefixes or
