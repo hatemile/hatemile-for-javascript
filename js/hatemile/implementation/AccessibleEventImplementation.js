@@ -273,14 +273,14 @@ limitations under the License.
             element.setAttribute('aria-dropeffect', 'none');
             parser = this.parser;
             this.addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, function (event) {
-                if (!self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
+                if (parser.find('[aria-grabbed="true"]').firstResult() !== null) {
                     executeDragEvent('dragenter', element, event);
                     executeDragEvent('dragover', element, event);
                     generateDropEffect(parser);
                 }
             });
             this.addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, function (event) {
-                if (!self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())) {
+                if (parser.find('[aria-grabbed="true"]').firstResult() !== null) {
                     executeDragEvent('dragleave', element, event);
                     generateDropEffect(parser);
                 }
@@ -288,7 +288,7 @@ limitations under the License.
             if ((!hasEvent(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT)) && (!hasEvent(element, 'keyup', DATA_KEY_UP_ADDED, DROP_EVENT))) {
                 this.addEventHandler(element, 'keydown', DATA_KEY_DOWN_ADDED, DROP_EVENT, function (event) {
                     var grabbedElement, grabbedElements, i, len;
-                    if ((isEnter(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (!self.isEmpty(parser.find('[aria-grabbed=true]').firstResult()))) {
+                    if ((isEnter(event.keyCode)) && (!element.hasAttribute(DATA_KEY_PRESSED)) && (parser.find('[aria-grabbed=true]').firstResult() !== null)) {
                         element.setAttribute(DATA_KEY_PRESSED, 'true');
                         if (hasEvent(element, 'drop')) {
                             grabbedElements = parser.find('[aria-grabbed="true"]').listResults();

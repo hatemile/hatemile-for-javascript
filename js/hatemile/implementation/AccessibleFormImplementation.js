@@ -203,16 +203,16 @@ limitations under the License.
                     value = field.getAttribute('autocomplete').toLowerCase();
                 } else {
                     form = this.parser.find(field).findAncestors('form').firstResult();
-                    if ((self.isEmpty(form)) && (field.hasAttribute('form'))) {
+                    if ((form === null) && (field.hasAttribute('form'))) {
                         form = this.parser.find("#" + (field.getAttribute('form'))).firstResult();
                     }
-                    if ((!self.isEmpty(form)) && (form.hasAttribute('autocomplete'))) {
+                    if ((form !== null) && (form.hasAttribute('autocomplete'))) {
                         value = form.getAttribute('autocomplete').toLowerCase();
                     }
                 }
                 if ('on' === value) {
                     return 'both';
-                } else if ((field.hasAttribute('list')) && (!self.isEmpty(this.parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult()))) {
+                } else if ((field.hasAttribute('list')) && (this.parser.find("datalist[id=\"" + (field.getAttribute('list')) + "\"]").firstResult() !== null)) {
                     return 'list';
                 } else if ('off' === value) {
                     return 'none';

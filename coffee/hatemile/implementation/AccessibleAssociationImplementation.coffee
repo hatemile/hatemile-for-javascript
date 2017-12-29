@@ -200,14 +200,14 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     header = @parser.find(table).findChildren('thead').firstResult()
     body = @parser.find(table).findChildren('tbody').firstResult()
     footer = @parser.find(table).findChildren('tfoot').firstResult()
-    if not self.isEmpty(header)
+    if header isnt null
       @prepareHeaderCells(header)
       
       headerRows = @getModelTable(header)
-      if (not self.isEmpty(body)) and (@validateHeader(headerRows))
+      if (body isnt null) and (@validateHeader(headerRows))
         lengthHeader = headerRows[0].length
         fakeTable = @getModelTable(body)
-        if not self.isEmpty(footer)
+        if footer isnt null
           fakeTable = fakeTable.concat(@getModelTable(footer))
         for row in fakeTable
           if row.length is lengthHeader
@@ -220,9 +220,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
                     .increaseInList(headers, headersId)
               cell.setAttribute('headers', headers)
               i = i + 1
-    if not self.isEmpty(body)
+    if body isnt null
       @associateDataCellsWithHeaderCellsOfRow(body)
-    if not self.isEmpty(footer)
+    if footer isnt null
       @associateDataCellsWithHeaderCellsOfRow(footer)
     return
   
@@ -234,10 +234,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     tables = @parser.find('table').listResults()
     for table in tables
       if self.hatemile.util.CommonFunctions.isValidElement(table)
-        if self.isEmpty(@parser.find(table).findDescendants( \
-          "thead[#{DATA_IGNORE}],tbody[#{DATA_IGNORE}]," \
-          + "tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}],th[#{DATA_IGNORE}]," \
-          + "td[#{DATA_IGNORE}]").firstResult())
+        if @parser.find(table).findDescendants("thead[#{DATA_IGNORE}]," \
+          + "tbody[#{DATA_IGNORE}],tfoot[#{DATA_IGNORE}],tr[#{DATA_IGNORE}]," \
+          + "th[#{DATA_IGNORE}],td[#{DATA_IGNORE}]").firstResult() is null
             @associateDataCellsWithHeaderCells(table)
     return
   
@@ -255,10 +254,10 @@ class @hatemile.implementation.AccessibleAssociationImplementation
         field = @parser.find(label).findDescendants('input,select,textarea')
             .firstResult()
         
-        if not self.isEmpty(field)
+        if field isnt null
           self.hatemile.util.CommonFunctions.generateId(field, @prefixId)
           label.setAttribute('for', field.getAttribute('id'))
-      if (not self.isEmpty(field)) and (not field.hasAttribute(DATA_IGNORE))
+      if (field isnt null) and (not field.hasAttribute(DATA_IGNORE))
         if not field.hasAttribute('aria-label')
           field.setAttribute('aria-label', label.getTextContent()
               .replace(new RegExp('[ \n\t\r]+', 'g'), ' '))

@@ -458,7 +458,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
     textHeader = ''
     for idHeader in idsHeaders
       header = @htmlParser.find("##{idHeader}").firstResult()
-      if not self.isEmpty(header)
+      if header isnt null
         textHeader = "#{textHeader}#{header.getTextContent()} "
     if not self.isEmpty(textHeader)
       element.prependElement(@createAuralContentElement(textHeader, 'always'))

@@ -183,13 +183,13 @@ limitations under the License.
             header = this.parser.find(table).findChildren('thead').firstResult();
             body = this.parser.find(table).findChildren('tbody').firstResult();
             footer = this.parser.find(table).findChildren('tfoot').firstResult();
-            if (!self.isEmpty(header)) {
+            if (header !== null) {
                 this.prepareHeaderCells(header);
                 headerRows = this.getModelTable(header);
-                if ((!self.isEmpty(body)) && (this.validateHeader(headerRows))) {
+                if ((body !== null) && (this.validateHeader(headerRows))) {
                     lengthHeader = headerRows[0].length;
                     fakeTable = this.getModelTable(body);
-                    if (!self.isEmpty(footer)) {
+                    if (footer !== null) {
                         fakeTable = fakeTable.concat(this.getModelTable(footer));
                     }
                     for (j = 0, len = fakeTable.length; j < len; j++) {
@@ -211,10 +211,10 @@ limitations under the License.
                     }
                 }
             }
-            if (!self.isEmpty(body)) {
+            if (body !== null) {
                 this.associateDataCellsWithHeaderCellsOfRow(body);
             }
-            if (!self.isEmpty(footer)) {
+            if (footer !== null) {
                 this.associateDataCellsWithHeaderCellsOfRow(footer);
             }
         };
@@ -225,7 +225,7 @@ limitations under the License.
             for (j = 0, len = tables.length; j < len; j++) {
                 table = tables[j];
                 if (self.hatemile.util.CommonFunctions.isValidElement(table)) {
-                    if (self.isEmpty(this.parser.find(table).findDescendants(("thead[" + DATA_IGNORE + "],tbody[" + DATA_IGNORE + "],") + ("tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],th[" + DATA_IGNORE + "],") + ("td[" + DATA_IGNORE + "]")).firstResult())) {
+                    if (this.parser.find(table).findDescendants(("thead[" + DATA_IGNORE + "],") + ("tbody[" + DATA_IGNORE + "],tfoot[" + DATA_IGNORE + "],tr[" + DATA_IGNORE + "],") + ("th[" + DATA_IGNORE + "],td[" + DATA_IGNORE + "]")).firstResult() === null) {
                         this.associateDataCellsWithHeaderCells(table);
                     }
                 }
@@ -239,12 +239,12 @@ limitations under the License.
                     field = this.parser.find("#" + (label.getAttribute('for'))).firstResult();
                 } else {
                     field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
-                    if (!self.isEmpty(field)) {
+                    if (field !== null) {
                         self.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
                         label.setAttribute('for', field.getAttribute('id'));
                     }
                 }
-                if ((!self.isEmpty(field)) && (!field.hasAttribute(DATA_IGNORE))) {
+                if ((field !== null) && (!field.hasAttribute(DATA_IGNORE))) {
                     if (!field.hasAttribute('aria-label')) {
                         field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
                     }

@@ -314,7 +314,7 @@ limitations under the License.
             for (i = 0, len = idsHeaders.length; i < len; i++) {
                 idHeader = idsHeaders[i];
                 header = this.htmlParser.find("#" + idHeader).firstResult();
-                if (!self.isEmpty(header)) {
+                if (header !== null) {
                     textHeader = "" + textHeader + (header.getTextContent()) + " ";
                 }
             }

@@ -47,18 +47,18 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.generateListSkippers = function () {
             var container, list, local;
             container = this.parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
-            if (self.isEmpty(container)) {
+            if (container === null) {
                 local = this.parser.find('body').firstResult();
-                if (!self.isEmpty(local)) {
+                if (local !== null) {
                     container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_SKIPPERS);
                     local.getFirstElementChild().insertBefore(container);
                 }
             }
             list = null;
-            if (!self.isEmpty(container)) {
+            if (container !== null) {
                 list = this.parser.find(container).findChildren('ul').firstResult();
-                if (self.isEmpty(list)) {
+                if (list === null) {
                     list = this.parser.createElement('ul');
                     container.appendElement(list);
                 }
@@ -69,9 +69,9 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.generateListHeading = function () {
             var container, list, local, textContainer;
             container = this.parser.find("#" + ID_CONTAINER_HEADING).firstResult();
-            if (self.isEmpty(container)) {
+            if (container === null) {
                 local = this.parser.find('body').firstResult();
-                if (!self.isEmpty(local)) {
+                if (local !== null) {
                     container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_HEADING);
                     textContainer = this.parser.createElement('span');
@@ -82,9 +82,9 @@ limitations under the License.
                 }
             }
             list = null;
-            if (!self.isEmpty(container)) {
+            if (container !== null) {
                 list = this.parser.find(container).findChildren('ol').firstResult();
-                if (self.isEmpty(list)) {
+                if (list === null) {
                     list = this.parser.createElement('ol');
                     container.appendElement(list);
                 }
@@ -139,7 +139,7 @@ limitations under the License.
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             anchor = null;
-            if (self.isEmpty(this.parser.find(("[" + dataAttribute + "=\"") + ((element.getAttribute('id')) + "\"]")).firstResult())) {
+            if (this.parser.find("[" + dataAttribute + "=\"" + (element.getAttribute('id')) + "\"]").firstResult() === null) {
                 if (element.getTagName() === 'A') {
                     anchor = element;
                 } else {
@@ -278,15 +278,15 @@ limitations under the License.
                         list = this.generateListHeading();
                     } else {
                         superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
-                        if (!self.isEmpty(superItem)) {
+                        if (superItem !== null) {
                             list = this.parser.find(superItem).findChildren('ol').firstResult();
-                            if (self.isEmpty(list)) {
+                            if (list === null) {
                                 list = this.parser.createElement('ol');
                                 superItem.appendElement(list);
                             }
                         }
                     }
-                    if (!self.isEmpty(list)) {
+                    if (list !== null) {
                         item = this.parser.createElement('li');
                         item.setAttribute(DATA_HEADING_LEVEL, level.toString());
                         link = this.parser.createElement('a');
@@ -315,7 +315,7 @@ limitations under the License.
             if (image.hasAttribute('longdesc')) {
                 self.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
                 id = image.getAttribute('id');
-                if (self.isEmpty(this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult())) {
+                if (this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult() === null) {
                     if (image.hasAttribute('alt')) {
                         if (!(self.isEmpty(this.attributeLongDescriptionPrefixBefore) && self.isEmpty(this.attributeLongDescriptionSuffixBefore))) {
                             text = (this.attributeLongDescriptionPrefixBefore + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixBefore);

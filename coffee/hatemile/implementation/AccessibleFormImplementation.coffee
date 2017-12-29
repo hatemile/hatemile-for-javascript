@@ -300,16 +300,15 @@ class @hatemile.implementation.AccessibleFormImplementation
         value = field.getAttribute('autocomplete').toLowerCase()
       else
         form = @parser.find(field).findAncestors('form').firstResult()
-        if (self.isEmpty(form)) and (field.hasAttribute('form'))
+        if (form is null) and (field.hasAttribute('form'))
           form = @parser.find("##{field.getAttribute('form')}").firstResult()
-        if (not self.isEmpty(form)) and (form.hasAttribute('autocomplete'))
+        if (form isnt null) and (form.hasAttribute('autocomplete'))
           value = form.getAttribute('autocomplete').toLowerCase()
       if ('on' is value)
         return 'both'
       else if (field.hasAttribute('list')) and \
-          (not self.isEmpty(@parser
-          .find("datalist[id=\"#{field.getAttribute('list')}\"]")
-          .firstResult()))
+          (@parser.find("datalist[id=\"#{field.getAttribute('list')}\"]")
+          .firstResult() isnt null)
         return 'list'
       else if ('off' is value)
         return 'none'

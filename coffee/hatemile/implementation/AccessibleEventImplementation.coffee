@@ -335,7 +335,7 @@ class @hatemile.implementation.AccessibleEventImplementation
     parser = @parser
     
     @addEventHandler(element, 'focus', DATA_FOCUS_ADDED, DROP_EVENT, (event) ->
-      if not self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
+      if parser.find('[aria-grabbed="true"]').firstResult() isnt null
         executeDragEvent('dragenter', element, event)
         executeDragEvent('dragover', element, event)
         
@@ -343,7 +343,7 @@ class @hatemile.implementation.AccessibleEventImplementation
       return
     )
     @addEventHandler(element, 'blur', DATA_BLUR_ADDED, DROP_EVENT, (event) ->
-      if not self.isEmpty(parser.find('[aria-grabbed="true"]').firstResult())
+      if parser.find('[aria-grabbed="true"]').firstResult() isnt null
         executeDragEvent('dragleave', element, event)
         
         generateDropEffect(parser)
@@ -355,7 +355,7 @@ class @hatemile.implementation.AccessibleEventImplementation
           (event) ->
         if (isEnter(event.keyCode)) and \
             (not element.hasAttribute(DATA_KEY_PRESSED)) and \
-            (not self.isEmpty(parser.find('[aria-grabbed=true]').firstResult()))
+            (parser.find('[aria-grabbed=true]').firstResult() isnt null)
           element.setAttribute(DATA_KEY_PRESSED, 'true')
           
           if hasEvent(element, 'drop')

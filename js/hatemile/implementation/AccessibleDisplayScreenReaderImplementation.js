@@ -249,7 +249,7 @@ limitations under the License.
                 for (i = 0, len = descriptionIds.length; i < len; i++) {
                     descriptionId = descriptionIds[i];
                     elementDescription = this.parser.find("#" + descriptionId).firstResult();
-                    if (!self.isEmpty(elementDescription)) {
+                    if (elementDescription !== null) {
                         description = elementDescription.getTextContent();
                         break;
                     }
@@ -269,9 +269,9 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.generateListShortcuts = function () {
             var container, list, local, textContainer;
             container = this.parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
-            if (self.isEmpty(container)) {
+            if (container === null) {
                 local = this.parser.find('body').firstResult();
-                if (!self.isEmpty(local)) {
+                if (local !== null) {
                     container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
                     textContainer = this.parser.createElement('span');
@@ -282,9 +282,9 @@ limitations under the License.
                 }
             }
             list = null;
-            if (!self.isEmpty(container)) {
+            if (container !== null) {
                 list = this.parser.find(container).findChildren('ul').firstResult();
-                if (self.isEmpty(list)) {
+                if (list === null) {
                     list = this.parser.createElement('ul');
                     container.appendElement(list);
                 }
@@ -299,7 +299,7 @@ limitations under the License.
             controls = ['INPUT', 'SELECT', 'TEXTAREA'];
             if (tagName === 'HTML') {
                 body = this.parser.find('body').firstResult();
-                if (!self.isEmpty(body)) {
+                if (body !== null) {
                     this.insertBefore(body, insertedElement);
                 }
             } else if (tags.indexOf(tagName) > -1) {
@@ -327,7 +327,7 @@ limitations under the License.
             controls = ['INPUT', 'SELECT', 'TEXTAREA'];
             if (tagName === 'HTML') {
                 body = this.parser.find('body').firstResult();
-                if (!self.isEmpty(body)) {
+                if (body !== null) {
                     this.insertAfter(body, insertedElement);
                 }
             } else if (appendTags.indexOf(tagName) > -1) {
@@ -355,7 +355,7 @@ limitations under the License.
             if (!self.isEmpty(textBefore)) {
                 referenceBefore = this.parser.find("[" + db + "=\"" + identifier + "\"]").firstResult();
                 if (!element.equals(referenceBefore)) {
-                    if (!self.isEmpty(referenceBefore)) {
+                    if (referenceBefore !== null) {
                         referenceBefore.removeNode();
                     }
                     span = this.parser.createElement('span');
@@ -368,7 +368,7 @@ limitations under the License.
             if (!self.isEmpty(textAfter)) {
                 referenceAfter = this.parser.find("[" + da + "=\"" + identifier + "\"]").firstResult();
                 if (!element.equals(referenceAfter)) {
-                    if (!self.isEmpty(referenceAfter)) {
+                    if (referenceAfter !== null) {
                         referenceAfter.removeNode();
                     }
                     span = this.parser.createElement('span');
@@ -793,7 +793,7 @@ limitations under the License.
                     for (i = 0, len = keys.length; i < len; i++) {
                         key = keys[i];
                         key = key.toUpperCase();
-                        if (self.isEmpty(this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key) + '"]').firstResult())) {
+                        if (this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key) + '"]').firstResult() === null) {
                             item = this.parser.createElement('li');
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key);
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key);
@@ -846,7 +846,7 @@ limitations under the License.
                 for (i = 0, len = idsHeaders.length; i < len; i++) {
                     idHeader = idsHeaders[i];
                     header = this.parser.find("#" + idHeader).firstResult();
-                    if (!self.isEmpty(header)) {
+                    if (header !== null) {
                         if (textHeader === null) {
                             textHeader = header.getTextContent();
                         } else {

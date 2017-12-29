@@ -45,16 +45,16 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   generateListSkippers: () ->
     container = @parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
-    if self.isEmpty(container)
+    if container is null
       local = @parser.find('body').firstResult()
-      if not self.isEmpty(local)
+      if local isnt null
         container = @parser.createElement('div')
         container.setAttribute('id', ID_CONTAINER_SKIPPERS)
         local.getFirstElementChild().insertBefore(container)
     list = null
-    if not self.isEmpty(container)
+    if container isnt null
       list = @parser.find(container).findChildren('ul').firstResult()
-      if self.isEmpty(list)
+      if list is null
         list = @parser.createElement('ul')
         container.appendElement(list)
     return list
@@ -66,9 +66,9 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   generateListHeading: () ->
     container = @parser.find("##{ID_CONTAINER_HEADING}").firstResult()
-    if self.isEmpty(container)
+    if container is null
       local = @parser.find('body').firstResult()
-      if not self.isEmpty(local)
+      if local isnt null
         container = @parser.createElement('div')
         container.setAttribute('id', ID_CONTAINER_HEADING)
         
@@ -80,9 +80,9 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         container.appendElement(textContainer)
         local.appendElement(container)
     list = null
-    if not self.isEmpty(container)
+    if container isnt null
       list = @parser.find(container).findChildren('ol').firstResult()
-      if self.isEmpty(list)
+      if list is null
         list = @parser.createElement('ol')
         container.appendElement(list)
     return list
@@ -143,8 +143,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   generateAnchorFor: (element, dataAttribute, anchorClass) ->
     self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
     anchor = null
-    if self.isEmpty(@parser.find("[#{dataAttribute}=\"" \
-        + "#{element.getAttribute('id')}\"]").firstResult())
+    if @parser.find("[#{dataAttribute}=\"#{element.getAttribute('id')}\"]")
+        .firstResult() is null
       if element.getTagName() is 'A'
         anchor = element
       else
@@ -283,12 +283,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           superItem = @parser.find("##{ID_CONTAINER_HEADING}")
               .findDescendants("[#{DATA_HEADING_LEVEL}=\"" \
               + "#{(level - 1).toString()}\"]").lastResult()
-          if not self.isEmpty(superItem)
+          if superItem isnt null
             list = @parser.find(superItem).findChildren('ol').firstResult()
-            if self.isEmpty(list)
+            if list is null
               list = @parser.createElement('ol')
               superItem.appendElement(list)
-        if not self.isEmpty(list)
+        if list isnt null
           item = @parser.createElement('li')
           item.setAttribute(DATA_HEADING_LEVEL, level.toString())
           
@@ -322,8 +322,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     if image.hasAttribute('longdesc')
       self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
       id = image.getAttribute('id')
-      if self.isEmpty(@parser
-          .find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]").firstResult())
+      if @parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]")
+          .firstResult() is null
         if image.hasAttribute('alt')
           if not (self.isEmpty(@attributeLongDescriptionPrefixBefore) and \
               self.isEmpty(@attributeLongDescriptionSuffixBefore))

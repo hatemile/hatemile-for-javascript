@@ -178,7 +178,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
             .split(new RegExp('[ \n\t\r]+'))
       for descriptionId in descriptionIds
         elementDescription = @parser.find("##{descriptionId}").firstResult()
-        if not self.isEmpty(elementDescription)
+        if elementDescription isnt null
           description = elementDescription.getTextContent()
           break
     else if (element.getTagName() is 'INPUT') and (element.hasAttribute('type'))
@@ -196,9 +196,9 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   generateListShortcuts: () ->
     container = @parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
-    if self.isEmpty(container)
+    if container is null
       local = @parser.find('body').firstResult()
-      if not self.isEmpty(local)
+      if local isnt null
         container = @parser.createElement('div')
         container.setAttribute('id', ID_CONTAINER_SHORTCUTS)
         
@@ -210,9 +210,9 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         container.appendElement(textContainer)
         local.appendElement(container)
     list = null
-    if not self.isEmpty(container)
+    if container isnt null
       list = @parser.find(container).findChildren('ul').firstResult()
-      if self.isEmpty(list)
+      if list is null
         list = @parser.createElement('ul')
         container.appendElement(list)
     return list
@@ -230,7 +230,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     controls = ['INPUT', 'SELECT', 'TEXTAREA']
     if tagName is 'HTML'
       body = @parser.find('body').firstResult()
-      if not self.isEmpty(body)
+      if body isnt null
         @insertBefore(body, insertedElement)
     else if (tags.indexOf(tagName) > -1)
       element.prependElement(insertedElement)
@@ -259,7 +259,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     controls = ['INPUT', 'SELECT', 'TEXTAREA']
     if tagName is 'HTML'
       body = @parser.find('body').firstResult()
-      if not self.isEmpty(body)
+      if body isnt null
         @insertAfter(body, insertedElement)
     else if appendTags.indexOf(tagName) > -1
       element.appendElement(insertedElement)
@@ -293,7 +293,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       referenceBefore = @parser.find("[#{db}=\"#{identifier}\"]").firstResult()
       
       if (not element.equals(referenceBefore))
-        if not self.isEmpty(referenceBefore)
+        if referenceBefore isnt null
           referenceBefore.removeNode()
         
         span = @parser.createElement('span')
@@ -306,7 +306,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       referenceAfter = @parser.find("[#{da}=\"#{identifier}\"]").firstResult()
       
       if (not element.equals(referenceAfter))
-        if not self.isEmpty(referenceAfter)
+        if referenceAfter isnt null
           referenceAfter.removeNode()
         
         span = @parser.createElement('span')
@@ -869,9 +869,9 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
         for key in keys
           key = key.toUpperCase()
-          if self.isEmpty(@parser.find(@listShortcuts)
+          if @parser.find(@listShortcuts)
               .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}" \
-              + '"]').firstResult())
+              + '"]').firstResult() is null
             item = @parser.createElement('li')
             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key)
             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key)
@@ -930,7 +930,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
           .split(new RegExp('[ \n\t\r]+'))
       for idHeader in idsHeaders
         header = @parser.find("##{idHeader}").firstResult()
-        if not self.isEmpty(header)
+        if header isnt null
           if textHeader is null
             textHeader = header.getTextContent()
           else
