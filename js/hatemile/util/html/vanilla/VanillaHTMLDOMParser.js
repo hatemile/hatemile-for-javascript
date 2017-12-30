@@ -31,7 +31,7 @@ limitations under the License.
         isDescendant = function (possibleAncestor, possibleDescendant) {
             var ancestor;
             ancestor = possibleDescendant.parentNode;
-            while (!self.isEmpty(ancestor)) {
+            while ((ancestor !== void 0) && (ancestor !== null)) {
                 if (ancestor === possibleAncestor) {
                     return true;
                 }

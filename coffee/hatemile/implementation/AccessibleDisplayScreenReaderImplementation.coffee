@@ -124,7 +124,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @return [string] The shortcut prefix of browser.
   #
   getShortcutPrefix: (userAgent, defaultPrefix) ->
-    if not self.isEmpty(userAgent)
+    if (userAgent isnt undefined)
       userAgent = userAgent.toLowerCase()
       opera = userAgent.indexOf('opera') > -1
       mac = userAgent.indexOf('mac') > -1
@@ -186,7 +186,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if ((type is 'button') or (type is 'submit') or (type is 'reset')) and \
           (element.hasAttribute('value'))
         description = element.getAttribute('value')
-    if self.isEmpty(description)
+    if description is null
       description = element.getTextContent()
     return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ')
   
@@ -865,7 +865,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         @listShortcuts = @generateListShortcuts()
         @listShortcutsAdded = true
       
-      if not self.isEmpty(@listShortcuts)
+      if @listShortcuts isnt null
         keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
         for key in keys
           key = key.toUpperCase()
@@ -900,7 +900,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if element.hasAttribute('role')
       role = element.getAttribute('role')
       roleDescription = @roles[role]
-      if not self.isEmpty(roleDescription)
+      if roleDescription isnt undefined
         @forceRead(element, roleDescription, @attributeRolePrefixBefore, \
             @attributeRoleSuffixBefore, @attributeRolePrefixAfter, \
             @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
@@ -1309,7 +1309,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if element.hasAttribute('lang')
       languageCode = element.getAttribute('lang')
       language = @languages[languageCode]
-      if not self.isEmpty(language)
+      if language isnt undefined
         @forceRead(element, language, @attributeLanguagePrefixBefore, \
             @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, \
             @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, \
@@ -1317,7 +1317,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     else if element.hasAttribute('hreflang')
       languageCode = element.getAttribute('hreflang')
       language = @languages[languageCode]
-      if not self.isEmpty(language)
+      if language isnt undefined
         @forceRead(element, language, @attributeLanguagePrefixBefore, \
             @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, \
             @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, \

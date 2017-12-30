@@ -200,7 +200,7 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.getShortcutPrefix = function (userAgent, defaultPrefix) {
             var chrome, firefox, ie, konqueror, mac, opera, safari, spoofer, windows;
-            if (!self.isEmpty(userAgent)) {
+            if (userAgent !== void 0) {
                 userAgent = userAgent.toLowerCase();
                 opera = userAgent.indexOf('opera') > -1;
                 mac = userAgent.indexOf('mac') > -1;
@@ -260,7 +260,7 @@ limitations under the License.
                     description = element.getAttribute('value');
                 }
             }
-            if (self.isEmpty(description)) {
+            if (description === null) {
                 description = element.getTextContent();
             }
             return description.replace(new RegExp('[ \n\t\r]+', 'g'), ' ');
@@ -788,7 +788,7 @@ limitations under the License.
                     this.listShortcuts = this.generateListShortcuts();
                     this.listShortcutsAdded = true;
                 }
-                if (!self.isEmpty(this.listShortcuts)) {
+                if (this.listShortcuts !== null) {
                     keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'));
                     for (i = 0, len = keys.length; i < len; i++) {
                         key = keys[i];
@@ -821,7 +821,7 @@ limitations under the License.
             if (element.hasAttribute('role')) {
                 role = element.getAttribute('role');
                 roleDescription = this.roles[role];
-                if (!self.isEmpty(roleDescription)) {
+                if (roleDescription !== void 0) {
                     this.forceRead(element, roleDescription, this.attributeRolePrefixBefore, this.attributeRoleSuffixBefore, this.attributeRolePrefixAfter, this.attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF);
                 }
             }
@@ -1111,13 +1111,13 @@ limitations under the License.
             if (element.hasAttribute('lang')) {
                 languageCode = element.getAttribute('lang');
                 language = this.languages[languageCode];
-                if (!self.isEmpty(language)) {
+                if (language !== void 0) {
                     this.forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
                 }
             } else if (element.hasAttribute('hreflang')) {
                 languageCode = element.getAttribute('hreflang');
                 language = this.languages[languageCode];
-                if (!self.isEmpty(language)) {
+                if (language !== void 0) {
                     this.forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
                 }
             }

@@ -44,9 +44,9 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   constructor: (html, ownerDocument) ->
     @root = jQuery(html)
     @results = null
-    if (not self.isEmpty(ownerDocument))
+    if ownerDocument isnt undefined
       @ownerDocument = ownerDocument
-    else if (not self.isEmpty(html.ownerDocument))
+    else if html.ownerDocument isnt undefined
       @ownerDocument = html.ownerDocument
     else
       @ownerDocument = document

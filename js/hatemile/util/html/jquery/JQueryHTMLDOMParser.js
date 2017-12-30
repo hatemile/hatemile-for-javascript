@@ -29,9 +29,9 @@ limitations under the License.
         function JQueryHTMLDOMParser(html, ownerDocument) {
             this.root = jQuery(html);
             this.results = null;
-            if (!self.isEmpty(ownerDocument)) {
+            if (ownerDocument !== void 0) {
                 this.ownerDocument = ownerDocument;
-            } else if (!self.isEmpty(html.ownerDocument)) {
+            } else if (html.ownerDocument !== void 0) {
                 this.ownerDocument = html.ownerDocument;
             } else {
                 this.ownerDocument = document;

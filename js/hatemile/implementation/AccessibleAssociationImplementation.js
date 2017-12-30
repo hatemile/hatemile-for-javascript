@@ -44,7 +44,7 @@ limitations under the License.
                 lengthTable = originalTable.length;
                 for (rowIndex = j = 0, ref = lengthTable - 1; 0 <= ref ? j <= ref : j >= ref; rowIndex = 0 <= ref ? ++j : --j) {
                     originalRow = originalTable[rowIndex];
-                    if (self.isEmpty(newTable[rowIndex])) {
+                    if (newTable[rowIndex] === void 0) {
                         newTable[rowIndex] = [];
                     }
                     if (!self.isEmpty(originalRow)) {
@@ -54,7 +54,7 @@ limitations under the License.
                             cell = originalRow[cellIndex];
                             newCellIndex = cellIndex + cellsAdded;
                             newRow = newTable[rowIndex];
-                            while (!self.isEmpty(newRow[newCellIndex])) {
+                            while (newRow[newCellIndex] !== void 0) {
                                 cellsAdded = cellsAdded + 1;
                                 newCellIndex = cellIndex + cellsAdded;
                             }
@@ -65,7 +65,7 @@ limitations under the License.
                                 while (rowspan > 1) {
                                     rowspan = rowspan - 1;
                                     newRowIndex = newRowIndex + 1;
-                                    if (self.isEmpty(newTable[newRowIndex])) {
+                                    if (newTable[newRowIndex] === void 0) {
                                         newTable[newRowIndex] = [];
                                     }
                                     newTable[newRowIndex][newCellIndex] = cell;

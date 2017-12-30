@@ -224,8 +224,8 @@ limitations under the License.
         AccessibleFormImplementation.prototype.hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
             var attribute, nativeElement;
             nativeElement = element.getData();
-            if (self.isEmpty(typeDataEvent) || self.isEmpty(typeFix)) {
-                return (!self.isEmpty(nativeElement["on" + typeEvent])) || ((!self.isEmpty(nativeElement.eventListenerList)) && (!self.isEmpty(nativeElement.eventListenerList[typeEvent])));
+            if ((typeDataEvent === void 0) || (typeFix === void 0)) {
+                return (nativeElement["on" + typeEvent] instanceof Function) || ((nativeElement.eventListenerList !== void 0) && (nativeElement.eventListenerList[typeEvent] instanceof Function));
             } else {
                 attribute = element.getAttribute(typeDataEvent);
                 return (this.hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
@@ -313,7 +313,7 @@ limitations under the License.
         AccessibleFormImplementation.prototype.markAutoCompleteField = function (autoCompleteField) {
             var ariaAutoComplete;
             ariaAutoComplete = this.getARIAAutoComplete(autoCompleteField);
-            if (!self.isEmpty(ariaAutoComplete)) {
+            if (ariaAutoComplete !== null) {
                 autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete);
             }
         };

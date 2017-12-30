@@ -85,7 +85,7 @@ limitations under the License.
                 return false;
             } else {
                 parentElement = element.getParentElement();
-                if (!self.isEmpty(parentElement)) {
+                if (parentElement !== null) {
                     tagName = parentElement.getTagName();
                     if ((tagName !== 'BODY') && (tagName !== 'HTML')) {
                         return this.isValidElement(parentElement);

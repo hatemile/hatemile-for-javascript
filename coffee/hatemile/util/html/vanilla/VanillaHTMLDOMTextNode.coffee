@@ -148,10 +148,10 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   # @see hatemile.util.html.HTMLDOMTextNode#getParentElement
   #
   getParentElement: () ->
-    if self.isEmpty(@data.parentNode)
+    parentNode = @data.parentNode
+    if (parentNode is undefined) or (parentNode is null)
       return null
-    return new self.hatemile.util.html.vanilla
-        .VanillaHTMLDOMElement(@data.parentNode)
+    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(parentNode)
   
   # Returns the native object of this node.
   #

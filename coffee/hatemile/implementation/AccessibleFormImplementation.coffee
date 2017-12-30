@@ -327,10 +327,10 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   hasEvent: (element, typeEvent, typeDataEvent, typeFix) ->
     nativeElement = element.getData()
-    if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
-      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or \
-          ((not self.isEmpty(nativeElement.eventListenerList)) and \
-          (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
+    if (typeDataEvent is undefined) or (typeFix is undefined)
+      return (nativeElement["on#{typeEvent}"] instanceof Function) or \
+          ((nativeElement.eventListenerList isnt undefined) and \
+          (nativeElement.eventListenerList[typeEvent] instanceof Function))
     else
       attribute = element.getAttribute(typeDataEvent)
       return (@hasEvent(element, typeEvent) and \
@@ -447,7 +447,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   markAutoCompleteField: (autoCompleteField) ->
     ariaAutoComplete = @getARIAAutoComplete(autoCompleteField)
-    if not self.isEmpty(ariaAutoComplete)
+    if ariaAutoComplete isnt null
       autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete)
     return
   

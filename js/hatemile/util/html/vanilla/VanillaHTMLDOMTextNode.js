@@ -82,10 +82,12 @@ limitations under the License.
         };
 
         VanillaHTMLDOMTextNode.prototype.getParentElement = function () {
-            if (self.isEmpty(this.data.parentNode)) {
+            var parentNode;
+            parentNode = this.data.parentNode;
+            if ((parentNode === void 0) || (parentNode === null)) {
                 return null;
             }
-            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(parentNode);
         };
 
         VanillaHTMLDOMTextNode.prototype.getData = function () {

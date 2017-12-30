@@ -79,10 +79,10 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   hasEvent = (element, typeEvent, typeDataEvent, typeFix) ->
     nativeElement = element.getData()
-    if self.isEmpty(typeDataEvent) or self.isEmpty(typeFix)
-      return (not self.isEmpty(nativeElement["on#{typeEvent}"])) or \
-          ((not self.isEmpty(nativeElement.eventListenerList)) and \
-          (not self.isEmpty(nativeElement.eventListenerList[typeEvent])))
+    if (typeDataEvent is undefined) or (typeFix is undefined)
+      return (nativeElement["on#{typeEvent}"] instanceof Function) or \
+          ((nativeElement.eventListenerList isnt undefined) and \
+          (nativeElement.eventListenerList[typeEvent] instanceof Function))
     else
       attribute = element.getAttribute(typeDataEvent)
       return (hasEvent(element, typeEvent) and \
@@ -157,7 +157,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   # @param [function] event The original event.
   #
   executeDragEvent = (type, element, event) ->
-    if self.isEmpty(self.__dragEventDataTransfer__)
+    if self.__dragEventDataTransfer__ is undefined
       self.__dragEventDataTransfer__ = {
         'files': null,
         'types': null,
@@ -175,7 +175,7 @@ class @hatemile.implementation.AccessibleEventImplementation
       self.__dragEventDataTransfer__.getData = (format) ->
         return self.__dragEventDataTransfer__._data[format]
       self.__dragEventDataTransfer__.clearData = (format) ->
-        if self.isEmpty(format)
+        if format is undefined
           self.__dragEventDataTransfer__._data = {}
         else
           self.__dragEventDataTransfer__._data[format] = undefined
@@ -193,12 +193,12 @@ class @hatemile.implementation.AccessibleEventImplementation
     nativeElement = element.getData()
     if hasEvent(element, event.type)
       handlerEvent = nativeElement["on#{event.type}"]
-      if not self.isEmpty(handlerEvent)
+      if handlerEvent instanceof Function
         try
           handlerEvent.call(nativeElement, event)
         catch error
-      if (not self.isEmpty(nativeElement.eventListenerList)) and \
-          (not self.isEmpty(nativeElement.eventListenerList[event.type]))
+      if (nativeElement.eventListenerList isnt undefined) and \
+          (nativeElement.eventListenerList[event.type] instanceof Function)
         for listenerEvent in nativeElement.eventListenerList[event.type]
           try
             listenerEvent.call(nativeElement, event)

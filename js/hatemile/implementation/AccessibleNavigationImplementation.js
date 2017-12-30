@@ -226,9 +226,9 @@ limitations under the License.
                     this.listSkippers = this.generateListSkippers();
                     this.listSkippersAdded = true;
                 }
-                if (!self.isEmpty(this.listSkippers)) {
+                if (this.listSkippers !== null) {
                     anchor = this.generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR);
-                    if (!self.isEmpty(anchor)) {
+                    if (anchor !== null) {
                         itemLink = this.parser.createElement('li');
                         link = this.parser.createElement('a');
                         link.setAttribute('href', "#" + (anchor.getAttribute('name')));
@@ -272,7 +272,7 @@ limitations under the License.
             }
             if (this.validHeading) {
                 anchor = this.generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);
-                if (!self.isEmpty(anchor)) {
+                if (anchor !== null) {
                     level = this.getHeadingLevel(heading);
                     if (level === 1) {
                         list = this.generateListHeading();

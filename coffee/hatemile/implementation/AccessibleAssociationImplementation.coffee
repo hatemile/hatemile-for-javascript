@@ -60,7 +60,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
       lengthTable = originalTable.length
       for rowIndex in [0..lengthTable - 1]
         originalRow = originalTable[rowIndex]
-        if self.isEmpty(newTable[rowIndex])
+        if newTable[rowIndex] is undefined
           newTable[rowIndex] = []
         if not self.isEmpty(originalRow)
           cellsAdded = 0
@@ -69,7 +69,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
             cell = originalRow[cellIndex]
             newCellIndex = cellIndex + cellsAdded
             newRow = newTable[rowIndex]
-            while not self.isEmpty(newRow[newCellIndex])
+            while newRow[newCellIndex] isnt undefined
               cellsAdded = cellsAdded + 1
               newCellIndex = cellIndex + cellsAdded
             newRow[newCellIndex] = cell
@@ -79,7 +79,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
               while (rowspan > 1)
                 rowspan = rowspan - 1
                 newRowIndex = newRowIndex + 1
-                if self.isEmpty(newTable[newRowIndex])
+                if newTable[newRowIndex] is undefined
                   newTable[newRowIndex] = []
                 newTable[newRowIndex][newCellIndex] = cell
     return newTable

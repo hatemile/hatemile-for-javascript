@@ -135,10 +135,10 @@ limitations under the License.
 
         getContentFromElement = function (element) {
             var child, childs, i, len, text;
-            if (!self.isEmpty(element.textContent)) {
+            if (element.textContent !== void 0) {
                 return element.textContent;
             }
-            if (!self.isEmpty(element.innerText)) {
+            if (element.innerText !== void 0) {
                 return element.innerText;
             }
             text = '';

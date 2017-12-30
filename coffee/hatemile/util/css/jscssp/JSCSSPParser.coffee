@@ -144,9 +144,9 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   # @return [string] The text content of element.
   #
   getContentFromElement = (element) ->
-    if not self.isEmpty(element.textContent)
+    if element.textContent isnt undefined
       return element.textContent
-    if not self.isEmpty(element.innerText)
+    if element.innerText isnt undefined
       return element.innerText
     text = ''
     childs = element.childNodes

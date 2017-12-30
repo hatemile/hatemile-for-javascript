@@ -107,7 +107,7 @@ class @hatemile.util.CommonFunctions
       return false
     else
       parentElement = element.getParentElement()
-      if not self.isEmpty(parentElement)
+      if parentElement isnt null
         tagName = parentElement.getTagName()
         if (tagName isnt 'BODY') and (tagName isnt 'HTML')
           return @isValidElement(parentElement)

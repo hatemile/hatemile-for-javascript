@@ -1,5 +1,5 @@
 (function () {
-    if (isEmpty(Element.prototype.eventListenerList)) {
+    if (Element.prototype.eventListenerList === void 0) {
         Element.prototype.eventListenerList = {};
         Element.prototype.__eventListenerListAdded = false;
         Element.prototype.__addEventListener = Element.prototype.addEventListener;
@@ -8,7 +8,7 @@
                 this.eventListenerList = {};
                 this.__eventListenerListAdded = true;
             }
-            if (isEmpty(this.eventListenerList[arguments[0]])) {
+            if (this.eventListenerList[arguments[0]] === void 0) {
                 this.eventListenerList[arguments[0]] = [];
             }
             this.eventListenerList[arguments[0]].push(arguments[1]);
@@ -18,7 +18,7 @@
         Element.prototype.removeEventListener = function () {
             var found, i, key, len, ref;
             found = false;
-            if (isEmpty(this.eventListenerList[arguments[0]])) {
+            if (this.eventListenerList[arguments[0]] === void 0) {
                 this.eventListenerList[arguments[0]] = [];
             }
             ref = this.eventListenerList[arguments[0]];

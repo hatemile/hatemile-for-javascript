@@ -62,10 +62,10 @@ limitations under the License.
 
         VanillaHTMLDOMElement.prototype.getTextContent = function () {
             var child, childs, elementChild, i, len, text;
-            if (!self.isEmpty(this.data.textContent)) {
+            if (this.data.textContent !== void 0) {
                 return this.data.textContent;
             }
-            if (!self.isEmpty(this.data.innerText)) {
+            if (this.data.innerText !== void 0) {
                 return this.data.innerText;
             }
             text = '';
@@ -209,12 +209,14 @@ limitations under the License.
         };
 
         VanillaHTMLDOMElement.prototype.getParentElement = function () {
+            var parentNode;
+            parentNode = this.data.parentNode;
             if (this.getTagName() === 'HTML') {
                 return null;
-            } else if (self.isEmpty(this.data.parentNode)) {
+            } else if ((parentNode === void 0) || (parentNode === null)) {
                 return null;
             }
-            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.parentNode);
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(parentNode);
         };
 
         VanillaHTMLDOMElement.prototype.getInnerHTML = function () {

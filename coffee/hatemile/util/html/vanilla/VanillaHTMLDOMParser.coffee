@@ -48,7 +48,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   isDescendant = (possibleAncestor, possibleDescendant) ->
     ancestor = possibleDescendant.parentNode
-    while not self.isEmpty(ancestor)
+    while (ancestor isnt undefined) and (ancestor isnt null)
       if ancestor is possibleAncestor
         return true
       ancestor = ancestor.parentNode

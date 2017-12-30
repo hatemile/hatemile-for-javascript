@@ -116,9 +116,9 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   # @see hatemile.util.html.HTMLDOMElement#getTextContent
   #
   getTextContent: () ->
-    if not self.isEmpty(@data.textContent)
+    if @data.textContent isnt undefined
       return @data.textContent
-    if not self.isEmpty(@data.innerText)
+    if @data.innerText isnt undefined
       return @data.innerText
     text = ''
     childs = @data.childNodes
@@ -334,12 +334,12 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   # @see hatemile.util.html.HTMLDOMElement#getParentElement
   #
   getParentElement: () ->
+    parentNode = @data.parentNode
     if @getTagName() is 'HTML'
       return null
-    else if self.isEmpty(@data.parentNode)
+    else if (parentNode is undefined) or (parentNode is null)
       return null
-    return new self.hatemile.util.html.vanilla
-        .VanillaHTMLDOMElement(@data.parentNode)
+    return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(parentNode)
   
   # Returns the inner HTML code of this element.
   #

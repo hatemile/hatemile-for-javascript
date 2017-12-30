@@ -229,10 +229,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
       if not @listSkippersAdded
         @listSkippers = @generateListSkippers()
         @listSkippersAdded = true
-      if not self.isEmpty(@listSkippers)
+      if @listSkippers isnt null
         anchor = @generateAnchorFor(element, DATA_ANCHOR_FOR, \
             CLASS_SKIPPER_ANCHOR)
-        if not self.isEmpty(anchor)
+        if anchor isnt null
           itemLink = @parser.createElement('li')
           link = @parser.createElement('a')
           link.setAttribute('href', "##{anchor.getAttribute('name')}")
@@ -275,7 +275,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     if @validHeading
       anchor = @generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
           CLASS_HEADING_ANCHOR)
-      if not self.isEmpty(anchor)
+      if anchor isnt null
         level = @getHeadingLevel(heading)
         if level is 1
           list = @generateListHeading()

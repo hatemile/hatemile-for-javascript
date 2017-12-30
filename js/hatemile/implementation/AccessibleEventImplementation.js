@@ -68,8 +68,8 @@ limitations under the License.
         hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
             var attribute, nativeElement;
             nativeElement = element.getData();
-            if (self.isEmpty(typeDataEvent) || self.isEmpty(typeFix)) {
-                return (!self.isEmpty(nativeElement["on" + typeEvent])) || ((!self.isEmpty(nativeElement.eventListenerList)) && (!self.isEmpty(nativeElement.eventListenerList[typeEvent])));
+            if ((typeDataEvent === void 0) || (typeFix === void 0)) {
+                return (nativeElement["on" + typeEvent] instanceof Function) || ((nativeElement.eventListenerList !== void 0) && (nativeElement.eventListenerList[typeEvent] instanceof Function));
             } else {
                 attribute = element.getAttribute(typeDataEvent);
                 return (hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
@@ -121,7 +121,7 @@ limitations under the License.
         };
 
         executeDragEvent = function (type, element, event) {
-            if (self.isEmpty(self.__dragEventDataTransfer__)) {
+            if (self.__dragEventDataTransfer__ === void 0) {
                 self.__dragEventDataTransfer__ = {
                     'files': null,
                     'types': null,
@@ -138,7 +138,7 @@ limitations under the License.
                     return self.__dragEventDataTransfer__._data[format];
                 };
                 self.__dragEventDataTransfer__.clearData = function (format) {
-                    if (self.isEmpty(format)) {
+                    if (format === void 0) {
                         self.__dragEventDataTransfer__._data = {};
                     } else {
                         self.__dragEventDataTransfer__._data[format] = void 0;
@@ -153,14 +153,14 @@ limitations under the License.
             nativeElement = element.getData();
             if (hasEvent(element, event.type)) {
                 handlerEvent = nativeElement["on" + event.type];
-                if (!self.isEmpty(handlerEvent)) {
+                if (handlerEvent instanceof Function) {
                     try {
                         handlerEvent.call(nativeElement, event);
                     } catch (error1) {
                         error = error1;
                     }
                 }
-                if ((!self.isEmpty(nativeElement.eventListenerList)) && (!self.isEmpty(nativeElement.eventListenerList[event.type]))) {
+                if ((nativeElement.eventListenerList !== void 0) && (nativeElement.eventListenerList[event.type] instanceof Function)) {
                     ref = nativeElement.eventListenerList[event.type];
                     for (i = 0, len = ref.length; i < len; i++) {
                         listenerEvent = ref[i];
