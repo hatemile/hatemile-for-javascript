@@ -83,7 +83,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
     regularExpression = null
     for symbol in @symbols
       formatedSymbol = @getFormatedSymbol(symbol.symbol)
-      if self.isEmpty(regularExpression)
+      if regularExpression is null
         regularExpression = "(#{formatedSymbol})"
       else
         regularExpression = "#{regularExpression}|(#{formatedSymbol})"
@@ -460,7 +460,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
       header = @htmlParser.find("##{idHeader}").firstResult()
       if header isnt null
         textHeader = "#{textHeader}#{header.getTextContent()} "
-    if not self.isEmpty(textHeader)
+    if textHeader.length > 0
       element.prependElement(@createAuralContentElement(textHeader, 'always'))
     return
   

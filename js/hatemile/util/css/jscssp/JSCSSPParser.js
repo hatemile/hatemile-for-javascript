@@ -89,7 +89,7 @@ limitations under the License.
         getContentFromURL = function (url) {
             var content, e, error, error1, httpRequest;
             content = '';
-            if (!self.isEmpty(url)) {
+            if (url.length > 0) {
                 httpRequest = false;
                 if (window.XMLHttpRequest) {
                     httpRequest = new XMLHttpRequest();
@@ -157,7 +157,7 @@ limitations under the License.
         JSCSSPParser.prototype.getRules = function (properties) {
             var i, j, k, len, len1, len2, nativeRule, property, ref, ref1, rule, rules;
             rules = [];
-            if (self.isEmpty(properties)) {
+            if ((properties === void 0) || (properties.length === 0)) {
                 ref = this.parser.cssRules;
                 for (i = 0, len = ref.length; i < len; i++) {
                     nativeRule = ref[i];

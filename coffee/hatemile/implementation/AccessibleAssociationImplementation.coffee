@@ -56,15 +56,15 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   getValidModelTable: (originalTable) ->
     newTable = []
-    if not self.isEmpty(originalTable)
-      lengthTable = originalTable.length
+    lengthTable = originalTable.length
+    if lengthTable > 0
       for rowIndex in [0..lengthTable - 1]
         originalRow = originalTable[rowIndex]
         if newTable[rowIndex] is undefined
           newTable[rowIndex] = []
-        if not self.isEmpty(originalRow)
+        lengthRow = originalRow.length
+        if lengthRow > 0
           cellsAdded = 0
-          lengthRow = originalRow.length
           for cellIndex in [0..lengthRow - 1]
             cell = originalRow[cellIndex]
             newCellIndex = cellIndex + cellsAdded
@@ -94,9 +94,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   getModelRow: (originalRow) ->
     newRow = []
-    if not self.isEmpty(originalRow)
+    length = originalRow.length
+    if length > 0
       newRow = newRow.concat(originalRow)
-      length = originalRow.length
       cellsAdded = 0
       for i in [0..length - 1]
         if originalRow[i].hasAttribute('colspan')
@@ -116,11 +116,11 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # header is not valid.
   #
   validateHeader: (header) ->
-    if self.isEmpty(header)
+    if header.length is 0
       return false
     length = -1
     for row in header
-      if self.isEmpty(row)
+      if row.length is 0
         return false
       else if length is -1
         length = row.length
@@ -158,7 +158,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
           headersIds.push(cell.getAttribute('id'))
           
           cell.setAttribute('scope', 'row')
-      if not self.isEmpty(headersIds)
+      if headersIds.length > 0
         for cell in row
           if cell.getTagName() is 'TD'
             headers = cell.getAttribute('headers')

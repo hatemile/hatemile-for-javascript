@@ -28,7 +28,7 @@ limitations under the License.
     this.hatemile.util.html.jquery.JQueryHTMLDOMParser = (function () {
         function JQueryHTMLDOMParser(html, ownerDocument) {
             this.root = jQuery(html);
-            this.results = null;
+            this.results = [];
             if (ownerDocument !== void 0) {
                 this.ownerDocument = ownerDocument;
             } else if (html.ownerDocument !== void 0) {
@@ -71,14 +71,14 @@ limitations under the License.
         };
 
         JQueryHTMLDOMParser.prototype.firstResult = function () {
-            if (self.isEmpty(this.results)) {
+            if (this.results.length === 0) {
                 return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(0));
         };
 
         JQueryHTMLDOMParser.prototype.lastResult = function () {
-            if (self.isEmpty(this.results)) {
+            if (this.results.length === 0) {
                 return null;
             }
             return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.results.get(this.results.length - 1));
@@ -87,7 +87,7 @@ limitations under the License.
         JQueryHTMLDOMParser.prototype.listResults = function () {
             var array, i, len, ref, result;
             array = [];
-            if (!self.isEmpty(this.results)) {
+            if (this.results.length > 0) {
                 ref = this.results;
                 for (i = 0, len = ref.length; i < len; i++) {
                     result = ref[i];
@@ -110,7 +110,7 @@ limitations under the License.
         };
 
         JQueryHTMLDOMParser.prototype.clearParser = function () {
-            this.results = null;
+            this.results = [];
         };
 
         return JQueryHTMLDOMParser;

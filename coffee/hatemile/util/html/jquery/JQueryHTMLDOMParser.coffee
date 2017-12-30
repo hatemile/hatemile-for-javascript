@@ -43,7 +43,7 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   #
   constructor: (html, ownerDocument) ->
     @root = jQuery(html)
-    @results = null
+    @results = []
     if ownerDocument isnt undefined
       @ownerDocument = ownerDocument
     else if html.ownerDocument isnt undefined
@@ -123,7 +123,7 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#firstResult
   #
   firstResult: () ->
-    if self.isEmpty(@results)
+    if @results.length is 0
       return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results.get(0))
@@ -136,7 +136,7 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#lastResult
   #
   lastResult: () ->
-    if self.isEmpty(@results)
+    if @results.length is 0
       return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results.get(@results.length - 1))
@@ -150,7 +150,7 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   #
   listResults: () ->
     array = []
-    if not self.isEmpty(@results)
+    if @results.length > 0
       for result in @results
         array.push(new self.hatemile.util.html.vanilla
             .VanillaHTMLDOMElement(result))
@@ -192,5 +192,5 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#clearParser
   #
   clearParser: () ->
-    @results = null
+    @results = []
     return

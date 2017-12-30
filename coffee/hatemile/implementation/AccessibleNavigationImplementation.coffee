@@ -239,11 +239,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           link.appendText(skipper['description'])
 
           shortcuts = skipper['shortcut']
-          if not self.isEmpty(shortcuts)
+          if (shortcuts isnt undefined) and (shortcuts.length > 0)
             shortcut = shortcuts[0]
-            if not self.isEmpty(shortcut)
-              @freeShortcut(shortcut)
-              link.setAttribute('accesskey', shortcut)
+            @freeShortcut(shortcut)
+            link.setAttribute('accesskey', shortcut)
           self.hatemile.util.CommonFunctions.generateId(link, @prefixId)
 
           itemLink.appendElement(link)
@@ -325,8 +324,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
       if @parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]")
           .firstResult() is null
         if image.hasAttribute('alt')
-          if not (self.isEmpty(@attributeLongDescriptionPrefixBefore) and \
-              self.isEmpty(@attributeLongDescriptionSuffixBefore))
+          if (@attributeLongDescriptionPrefixBefore.length > 0) or \
+              (@attributeLongDescriptionSuffixBefore.length > 0)
             text = "#{@attributeLongDescriptionPrefixBefore} " \
                 + "#{image.getAttribute('alt')} " \
                 + "#{@attributeLongDescriptionSuffixBefore}"
@@ -337,8 +336,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
             anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
             anchor.appendText(text)
             image.insertBefore(anchor)
-          if not (self.isEmpty(@attributeLongDescriptionPrefixAfter) and \
-              self.isEmpty(@attributeLongDescriptionSuffixAfter))
+          if (@attributeLongDescriptionPrefixAfter.length > 0) or \
+              (@attributeLongDescriptionSuffixAfter.length > 0)
             text = "#{@attributeLongDescriptionPrefixAfter} " \
                 + "#{image.getAttribute('alt')} " \
                 + "#{@attributeLongDescriptionSuffixAfter}"

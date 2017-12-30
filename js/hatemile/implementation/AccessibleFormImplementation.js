@@ -107,7 +107,7 @@ limitations under the License.
         };
 
         isValidURL = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
         };
 
         isValidEmail = function (field) {
@@ -116,32 +116,32 @@ limitations under the License.
             if (field.hasAttribute('multiple')) {
                 regularExpression = regularExpression + "( *, *" + regularExpression + ")*";
             }
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
         };
 
         isValidDate = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01])))))))?$');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01])))))))?$');
         };
 
         isValidTime = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|' + '(2[0-3])):[0-5][0-9])?$');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|' + '(2[0-3])):[0-5][0-9])?$');
         };
 
         isValidDateTime = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' + '[0-9].[0-9])|(Z))?)?$');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' + '[0-9].[0-9])|(Z))?)?$');
         };
 
         isValidMonth = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-' + '((0[1-9])|(1[0-2])))?$');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-' + '((0[1-9])|(1[0-2])))?$');
         };
 
         isValidWeek = function (field) {
-            return self.isEmpty(field.getData().value) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
+            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
         };
 
         isValidRange = function (field) {
             var maxValue, minValue, value;
-            if (!self.isEmpty(field.getData().value)) {
+            if (field.getData().value.length > 0) {
                 if (!isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')) {
                     return false;
                 }
@@ -189,7 +189,7 @@ limitations under the License.
         };
 
         isValidRequired = function (field) {
-            return !self.isEmpty(field.getData().value);
+            return field.getData().value.length > 0;
         };
 
         AccessibleFormImplementation.prototype.getARIAAutoComplete = function (field) {

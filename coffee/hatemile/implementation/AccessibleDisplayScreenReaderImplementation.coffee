@@ -238,7 +238,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if element.hasAttribute('id')
         labels = @parser.find("label[for=\"#{element.getAttribute('id')}\"]")
             .listResults()
-      if self.isEmpty(labels)
+      if labels.length is 0
         labels = @parser.find(element).findAncestors('label').listResults()
       for label in labels
         @insertBefore(label, insertedElement)
@@ -267,7 +267,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if element.hasAttribute('id')
         labels = @parser.find("label[for=\"#{element.getAttribute('id')}\"]")
             .listResults()
-      if self.isEmpty(labels)
+      if labels.length is 0
         labels = @parser.find(element).findAncestors('label').listResults()
       for label in labels
         @insertAfter(label, insertedElement)
@@ -289,7 +289,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
     identifier = element.getAttribute('id')
     
-    if not self.isEmpty(textBefore)
+    if textBefore.length > 0
       referenceBefore = @parser.find("[#{db}=\"#{identifier}\"]").firstResult()
       
       if (not element.equals(referenceBefore))
@@ -302,7 +302,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         span.appendText(textBefore)
         @insertBefore(element, span)
     
-    if not self.isEmpty(textAfter)
+    if textAfter.length > 0
       referenceAfter = @parser.find("[#{da}=\"#{identifier}\"]").firstResult()
       
       if (not element.equals(referenceAfter))
@@ -335,13 +335,11 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # content with element.
   #
   forceRead: (e, v, tpb, tsb, tpa, tsa, db, da) ->
-    if (not self.isEmpty(tpb)) or \
-        (not self.isEmpty(tsb))
+    if (tpb.length > 0) or (tsb.length > 0)
       textBefore = "#{tpb}#{v}#{tsb}"
     else
       textBefore = ''
-    if (not self.isEmpty(tpa)) or (not self
-        .isEmpty(tsa))
+    if (tpa.length > 0) or (tsa.length > 0)
       textAfter = "#{tpa}#{v}#{tsa}"
     else
       textAfter = ''
@@ -935,7 +933,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
             textHeader = header.getTextContent()
           else
             textHeader = "#{textHeader} #{header.getTextContent()}"
-      if not self.isEmpty(textHeader)
+      if (textHeader isnt null) and (textHeader.length > 0)
         @forceRead(tableCell, textHeader, @attributeHeadersPrefixBefore, \
             @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, \
             @attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, \
@@ -1209,7 +1207,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   displayTitle: (element) ->
     if (element.hasAttribute('title')) and \
-        (not self.isEmpty(element.getAttribute('title')))
+        (element.getAttribute('title').length > 0)
       @forceRead(element, element.getAttribute('title'), \
           @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, \
           @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, \

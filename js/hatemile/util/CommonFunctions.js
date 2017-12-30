@@ -52,13 +52,13 @@ limitations under the License.
         };
 
         CommonFunctions.increaseInList = function (list, stringToIncrease) {
-            if (!(self.isEmpty(list) || self.isEmpty(stringToIncrease))) {
+            if ((list !== null) && (list.length > 0) && (stringToIncrease !== null) && (stringToIncrease.length > 0)) {
                 if (this.inList(list, stringToIncrease)) {
                     return list;
                 } else {
                     return list + " " + stringToIncrease;
                 }
-            } else if (self.isEmpty(list)) {
+            } else if ((stringToIncrease !== null) && (stringToIncrease.length > 0)) {
                 return stringToIncrease;
             } else {
                 return list;
@@ -67,7 +67,7 @@ limitations under the License.
 
         CommonFunctions.inList = function (list, stringToSearch) {
             var array, i, item, len;
-            if (!(self.isEmpty(list) || self.isEmpty(stringToSearch))) {
+            if ((list !== null) && (list.length > 0) && (stringToSearch !== null) && (stringToSearch.length > 0)) {
                 array = list.split(new RegExp('[ \n\t\r]+'));
                 for (i = 0, len = array.length; i < len; i++) {
                     item = array[i];

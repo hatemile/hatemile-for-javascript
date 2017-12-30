@@ -210,7 +210,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   # @see hatemile.util.html.HTMLDOMElement#prependElement
   #
   prependElement: (element) ->
-    if self.isEmpty(@data.childNodes)
+    if @data.childNodes.length is 0
       @appendElement(element)
     else
       @data.insertBefore(element.getData(), @data.childNodes[0])
@@ -306,7 +306,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   # @see hatemile.util.html.HTMLDOMElement#hasChildrenElements
   #
   hasChildrenElements: () ->
-    return not self.isEmpty(@data.children)
+    return @data.children.length > 0
   
   # Check that the element has children.
   #

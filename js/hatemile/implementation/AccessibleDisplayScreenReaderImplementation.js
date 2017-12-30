@@ -308,7 +308,7 @@ limitations under the License.
                 if (element.hasAttribute('id')) {
                     labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
                 }
-                if (self.isEmpty(labels)) {
+                if (labels.length === 0) {
                     labels = this.parser.find(element).findAncestors('label').listResults();
                 }
                 for (i = 0, len = labels.length; i < len; i++) {
@@ -336,7 +336,7 @@ limitations under the License.
                 if (element.hasAttribute('id')) {
                     labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
                 }
-                if (self.isEmpty(labels)) {
+                if (labels.length === 0) {
                     labels = this.parser.find(element).findAncestors('label').listResults();
                 }
                 for (i = 0, len = labels.length; i < len; i++) {
@@ -352,7 +352,7 @@ limitations under the License.
             var identifier, referenceAfter, referenceBefore, span;
             self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             identifier = element.getAttribute('id');
-            if (!self.isEmpty(textBefore)) {
+            if (textBefore.length > 0) {
                 referenceBefore = this.parser.find("[" + db + "=\"" + identifier + "\"]").firstResult();
                 if (!element.equals(referenceBefore)) {
                     if (referenceBefore !== null) {
@@ -365,7 +365,7 @@ limitations under the License.
                     this.insertBefore(element, span);
                 }
             }
-            if (!self.isEmpty(textAfter)) {
+            if (textAfter.length > 0) {
                 referenceAfter = this.parser.find("[" + da + "=\"" + identifier + "\"]").firstResult();
                 if (!element.equals(referenceAfter)) {
                     if (referenceAfter !== null) {
@@ -382,12 +382,12 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.forceRead = function (e, v, tpb, tsb, tpa, tsa, db, da) {
             var textAfter, textBefore;
-            if ((!self.isEmpty(tpb)) || (!self.isEmpty(tsb))) {
+            if ((tpb.length > 0) || (tsb.length > 0)) {
                 textBefore = "" + tpb + v + tsb;
             } else {
                 textBefore = '';
             }
-            if ((!self.isEmpty(tpa)) || (!self.isEmpty(tsa))) {
+            if ((tpa.length > 0) || (tsa.length > 0)) {
                 textAfter = "" + tpa + v + tsa;
             } else {
                 textAfter = '';
@@ -854,7 +854,7 @@ limitations under the License.
                         }
                     }
                 }
-                if (!self.isEmpty(textHeader)) {
+                if ((textHeader !== null) && (textHeader.length > 0)) {
                     this.forceRead(tableCell, textHeader, this.attributeHeadersPrefixBefore, this.attributeHeadersSuffixBefore, this.attributeHeadersPrefixAfter, this.attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF);
                 }
             }
@@ -1040,7 +1040,7 @@ limitations under the License.
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayTitle = function (element) {
-            if ((element.hasAttribute('title')) && (!self.isEmpty(element.getAttribute('title')))) {
+            if ((element.hasAttribute('title')) && (element.getAttribute('title').length > 0)) {
                 this.forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
             }
         };

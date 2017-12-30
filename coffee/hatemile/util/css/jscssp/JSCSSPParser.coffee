@@ -104,7 +104,7 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   #
   getContentFromURL = (url) ->
     content = ''
-    if not self.isEmpty(url)
+    if url.length > 0
       httpRequest = false
       if window.XMLHttpRequest
         httpRequest = new XMLHttpRequest()
@@ -167,7 +167,7 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   #
   getRules: (properties) ->
     rules = []
-    if self.isEmpty(properties)
+    if (properties is undefined) or (properties.length is 0)
       for nativeRule in @parser.cssRules
         if nativeRule.type is 1
           rules.push(new self.hatemile.util.css.jscssp.JSCSSPRule(nativeRule))

@@ -116,7 +116,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid URL value.
   #
   isValidURL = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, \
         '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' \
         + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' \
@@ -143,7 +143,7 @@ class @hatemile.implementation.AccessibleFormImplementation
         + '\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])'
     if field.hasAttribute('multiple')
       regularExpression = "#{regularExpression}( *, *#{regularExpression})*"
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, \
         "^(#{regularExpression})?$")
   
@@ -155,7 +155,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid date value.
   #
   isValidDate = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' \
         + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' \
         + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' \
@@ -170,7 +170,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid time value.
   #
   isValidTime = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, '^((([01][0-9])|' \
         + '(2[0-3])):[0-5][0-9])?$')
   
@@ -182,7 +182,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # if the field have not a valid date and time value.
   #
   isValidDateTime = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' \
         + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' \
         + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' \
@@ -198,7 +198,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid month value.
   #
   isValidMonth = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, '^([0-9]{4}-' \
         + '((0[1-9])|(1[0-2])))?$')
   
@@ -210,7 +210,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # field have not a valid week value.
   #
   isValidWeek = (field) ->
-    return self.isEmpty(field.getData().value) or \
+    return (field.getData().value.length is 0) or \
         isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' \
         + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$')
   
@@ -222,7 +222,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # if the value in field is not between its range.
   #
   isValidRange = (field) ->
-    if not self.isEmpty(field.getData().value)
+    if field.getData().value.length > 0
       if not isValidRegularExpression(field.getData().value, \
           '^[-+]?[0-9]+([.,][0-9]+)?$')
         return false
@@ -280,7 +280,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # has a value.
   #
   isValidRequired = (field) ->
-    return not self.isEmpty(field.getData().value)
+    return field.getData().value.length > 0
   
   # Returns the appropriate value for attribute aria-autocomplete of field.
   #

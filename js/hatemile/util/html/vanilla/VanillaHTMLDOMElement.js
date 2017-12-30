@@ -121,7 +121,7 @@ limitations under the License.
         };
 
         VanillaHTMLDOMElement.prototype.prependElement = function (element) {
-            if (self.isEmpty(this.data.childNodes)) {
+            if (this.data.childNodes.length === 0) {
                 this.appendElement(element);
             } else {
                 this.data.insertBefore(element.getData(), this.data.childNodes[0]);
@@ -189,7 +189,7 @@ limitations under the License.
         };
 
         VanillaHTMLDOMElement.prototype.hasChildrenElements = function () {
-            return !self.isEmpty(this.data.children);
+            return this.data.children.length > 0;
         };
 
         VanillaHTMLDOMElement.prototype.hasChildren = function () {

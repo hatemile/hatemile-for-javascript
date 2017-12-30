@@ -40,16 +40,16 @@ limitations under the License.
         AccessibleAssociationImplementation.prototype.getValidModelTable = function (originalTable) {
             var cell, cellIndex, cellsAdded, j, k, lengthRow, lengthTable, newCellIndex, newRow, newRowIndex, newTable, originalRow, ref, ref1, rowIndex, rowspan;
             newTable = [];
-            if (!self.isEmpty(originalTable)) {
-                lengthTable = originalTable.length;
+            lengthTable = originalTable.length;
+            if (lengthTable > 0) {
                 for (rowIndex = j = 0, ref = lengthTable - 1; 0 <= ref ? j <= ref : j >= ref; rowIndex = 0 <= ref ? ++j : --j) {
                     originalRow = originalTable[rowIndex];
                     if (newTable[rowIndex] === void 0) {
                         newTable[rowIndex] = [];
                     }
-                    if (!self.isEmpty(originalRow)) {
+                    lengthRow = originalRow.length;
+                    if (lengthRow > 0) {
                         cellsAdded = 0;
-                        lengthRow = originalRow.length;
                         for (cellIndex = k = 0, ref1 = lengthRow - 1; 0 <= ref1 ? k <= ref1 : k >= ref1; cellIndex = 0 <= ref1 ? ++k : --k) {
                             cell = originalRow[cellIndex];
                             newCellIndex = cellIndex + cellsAdded;
@@ -81,9 +81,9 @@ limitations under the License.
         AccessibleAssociationImplementation.prototype.getModelRow = function (originalRow) {
             var cellsAdded, colspan, i, j, length, newRow, ref;
             newRow = [];
-            if (!self.isEmpty(originalRow)) {
+            length = originalRow.length;
+            if (length > 0) {
                 newRow = newRow.concat(originalRow);
-                length = originalRow.length;
                 cellsAdded = 0;
                 for (i = j = 0, ref = length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
                     if (originalRow[i].hasAttribute('colspan')) {
@@ -101,13 +101,13 @@ limitations under the License.
 
         AccessibleAssociationImplementation.prototype.validateHeader = function (header) {
             var j, len, length, row;
-            if (self.isEmpty(header)) {
+            if (header.length === 0) {
                 return false;
             }
             length = -1;
             for (j = 0, len = header.length; j < len; j++) {
                 row = header[j];
-                if (self.isEmpty(row)) {
+                if (row.length === 0) {
                     return false;
                 } else if (length === -1) {
                     length = row.length;
@@ -145,7 +145,7 @@ limitations under the License.
                         cell.setAttribute('scope', 'row');
                     }
                 }
-                if (!self.isEmpty(headersIds)) {
+                if (headersIds.length > 0) {
                     for (l = 0, len2 = row.length; l < len2; l++) {
                         cell = row[l];
                         if (cell.getTagName() === 'TD') {

@@ -234,12 +234,10 @@ limitations under the License.
                         link.setAttribute('href', "#" + (anchor.getAttribute('name')));
                         link.appendText(skipper['description']);
                         shortcuts = skipper['shortcut'];
-                        if (!self.isEmpty(shortcuts)) {
+                        if ((shortcuts !== void 0) && (shortcuts.length > 0)) {
                             shortcut = shortcuts[0];
-                            if (!self.isEmpty(shortcut)) {
-                                this.freeShortcut(shortcut);
-                                link.setAttribute('accesskey', shortcut);
-                            }
+                            this.freeShortcut(shortcut);
+                            link.setAttribute('accesskey', shortcut);
                         }
                         self.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
                         itemLink.appendElement(link);
@@ -317,7 +315,7 @@ limitations under the License.
                 id = image.getAttribute('id');
                 if (this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult() === null) {
                     if (image.hasAttribute('alt')) {
-                        if (!(self.isEmpty(this.attributeLongDescriptionPrefixBefore) && self.isEmpty(this.attributeLongDescriptionSuffixBefore))) {
+                        if ((this.attributeLongDescriptionPrefixBefore.length > 0) || (this.attributeLongDescriptionSuffixBefore.length > 0)) {
                             text = (this.attributeLongDescriptionPrefixBefore + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixBefore);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));
@@ -327,7 +325,7 @@ limitations under the License.
                             anchor.appendText(text);
                             image.insertBefore(anchor);
                         }
-                        if (!(self.isEmpty(this.attributeLongDescriptionPrefixAfter) && self.isEmpty(this.attributeLongDescriptionSuffixAfter))) {
+                        if ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0)) {
                             text = (this.attributeLongDescriptionPrefixAfter + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixAfter);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));

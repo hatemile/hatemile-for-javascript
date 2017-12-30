@@ -69,12 +69,13 @@ class @hatemile.util.CommonFunctions
   # contained in list.
   #
   @increaseInList: (list, stringToIncrease) ->
-    if not (self.isEmpty(list) or self.isEmpty(stringToIncrease))
+    if (list isnt null) and (list.length > 0) and (stringToIncrease isnt null) \
+        and (stringToIncrease.length > 0)
       if @inList(list, stringToIncrease)
         return list
       else
         return "#{list} #{stringToIncrease}"
-    else if self.isEmpty(list)
+    else if (stringToIncrease isnt null) and (stringToIncrease.length > 0)
       return stringToIncrease
     else
       return list
@@ -88,7 +89,8 @@ class @hatemile.util.CommonFunctions
   # contains.
   #
   @inList: (list, stringToSearch) ->
-    if not (self.isEmpty(list) or self.isEmpty(stringToSearch))
+    if (list isnt null) and (list.length > 0) and (stringToSearch isnt null) \
+        and (stringToSearch.length > 0)
       array = list.split(new RegExp('[ \n\t\r]+'))
       for item in array
         if item is stringToSearch

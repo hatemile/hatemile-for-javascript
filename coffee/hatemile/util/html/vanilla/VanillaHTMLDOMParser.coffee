@@ -96,7 +96,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
           if selector.getData() is resultChild
             children.push(selector.getData())
             break
-        if not self.isEmpty(children)
+        if children.length > 0
           break
     else
       for result in @results
@@ -166,7 +166,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#firstResult
   #
   firstResult: () ->
-    if self.isEmpty(@results)
+    if @results.length is 0
       return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results[0])
@@ -179,7 +179,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # @see hatemile.util.html.HTMLDOMParser#lastResult
   #
   lastResult: () ->
-    if self.isEmpty(@results)
+    if @results.length is 0
       return null
     return new self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement(@results[@results.length - 1])

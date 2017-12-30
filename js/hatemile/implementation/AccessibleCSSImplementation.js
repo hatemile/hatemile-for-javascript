@@ -59,7 +59,7 @@ limitations under the License.
             for (i = 0, len = ref.length; i < len; i++) {
                 symbol = ref[i];
                 formatedSymbol = this.getFormatedSymbol(symbol.symbol);
-                if (self.isEmpty(regularExpression)) {
+                if (regularExpression === null) {
                     regularExpression = "(" + formatedSymbol + ")";
                 } else {
                     regularExpression = regularExpression + "|(" + formatedSymbol + ")";
@@ -318,7 +318,7 @@ limitations under the License.
                     textHeader = "" + textHeader + (header.getTextContent()) + " ";
                 }
             }
-            if (!self.isEmpty(textHeader)) {
+            if (textHeader.length > 0) {
                 element.prependElement(this.createAuralContentElement(textHeader, 'always'));
             }
         };
