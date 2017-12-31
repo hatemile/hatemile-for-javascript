@@ -298,7 +298,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # content with element.
   #
   _forceReadSimple: (element, textBefore, textAfter, db, da) ->
-    self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
+    @idGenerator.generateId(element)
     identifier = element.getAttribute('id')
     
     if textBefore.length > 0
@@ -372,7 +372,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     @listShortcutsAdded = false
     @listShortcuts = null
     
-    @prefixId = configure.getParameter('prefix-generated-ids')
+    @idGenerator = new hatemile.util.IDGenerator('display')
     
     @attributeTitlePrefixBefore = configure
         .getParameter('attribute-title-prefix-before')
@@ -1362,7 +1362,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         image.setAttribute('title', image.getAttribute('alt'))
       else if (image.hasAttribute('title')) and (not image.hasAttribute('alt'))
         image.setAttribute('alt', image.getAttribute('title'))
-      self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+      @idGenerator.generateId(image)
       image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, \
           image.getAttribute('id'))
       image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, \

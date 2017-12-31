@@ -137,14 +137,14 @@ limitations under the License.
 
         AccessibleNavigationImplementation.prototype._generateAnchorFor = function (element, dataAttribute, anchorClass) {
             var anchor;
-            self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
+            this.idGenerator.generateId(element);
             anchor = null;
             if (this.parser.find("[" + dataAttribute + "=\"" + (element.getAttribute('id')) + "\"]").firstResult() === null) {
                 if (element.getTagName() === 'A') {
                     anchor = element;
                 } else {
                     anchor = this.parser.createElement('a');
-                    self.hatemile.util.CommonFunctions.generateId(anchor, this.prefixId);
+                    this.idGenerator.generateId(anchor);
                     anchor.setAttribute('class', anchorClass);
                     element.insertBefore(anchor);
                 }
@@ -190,7 +190,7 @@ limitations under the License.
         function AccessibleNavigationImplementation(parser, configure, skippers) {
             this.parser = parser;
             this.skippers = skippers;
-            this.prefixId = configure.getParameter('prefix-generated-ids');
+            this.idGenerator = new hatemile.util.IDGenerator('navigation');
             this.attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before');
             this.attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before');
             this.attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after');
@@ -239,7 +239,7 @@ limitations under the License.
                             this._freeShortcut(shortcut);
                             link.setAttribute('accesskey', shortcut);
                         }
-                        self.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
+                        this.idGenerator.generateId(link);
                         itemLink.appendElement(link);
                         this.listSkippers.appendElement(itemLink);
                     }
@@ -311,7 +311,7 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.provideNavigationToLongDescription = function (image) {
             var anchor, id, text;
             if (image.hasAttribute('longdesc')) {
-                self.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+                this.idGenerator.generateId(image);
                 id = image.getAttribute('id');
                 if (this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult() === null) {
                     if (image.hasAttribute('alt')) {

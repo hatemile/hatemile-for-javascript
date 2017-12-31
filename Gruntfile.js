@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                     'js/hatemile/implementation/AccessibleNavigationImplementation.js': 'coffee/hatemile/implementation/AccessibleNavigationImplementation.coffee',
                     'js/hatemile/util/CommonFunctions.js': 'coffee/hatemile/util/CommonFunctions.coffee',
                     'js/hatemile/util/Configure.js': 'coffee/hatemile/util/Configure.coffee',
+                    'js/hatemile/util/IDGenerator.js': 'coffee/hatemile/util/IDGenerator.coffee',
                     'js/hatemile/util/css/StyleSheetDeclaration.js': 'coffee/hatemile/util/css/StyleSheetDeclaration.coffee',
                     'js/hatemile/util/css/StyleSheetParser.js': 'coffee/hatemile/util/css/StyleSheetParser.coffee',
                     'js/hatemile/util/css/StyleSheetRule.js': 'coffee/hatemile/util/css/StyleSheetRule.coffee',

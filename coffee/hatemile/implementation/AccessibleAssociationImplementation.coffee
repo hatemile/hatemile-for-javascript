@@ -166,7 +166,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
       headersIds = []
       for cell in row
         if cell.getTagName() is 'TH'
-          self.hatemile.util.CommonFunctions.generateId(cell, @prefixId)
+          @idGenerator.generateId(cell)
           headersIds.push(cell.getAttribute('id'))
           
           cell.setAttribute('scope', 'row')
@@ -191,7 +191,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     cells = @parser.find(tableHeader).findChildren('tr').findChildren('th')
         .listResults()
     for cell in cells
-      self.hatemile.util.CommonFunctions.generateId(cell, @prefixId)
+      @idGenerator.generateId(cell)
       if not cell.hasAttribute('scope')
         cell.setAttribute('scope', 'col')
     return
@@ -203,7 +203,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
   #
   constructor: (@parser, configure) ->
-    @prefixId = configure.getParameter('prefix-generated-ids')
+    @idGenerator = new hatemile.util.IDGenerator('association')
   
   # Associate all data cells with header cells of table.
   #
@@ -271,13 +271,13 @@ class @hatemile.implementation.AccessibleAssociationImplementation
             .firstResult()
         
         if field isnt null
-          self.hatemile.util.CommonFunctions.generateId(field, @prefixId)
+          @idGenerator.generateId(field)
           label.setAttribute('for', field.getAttribute('id'))
       if (field isnt null) and (not field.hasAttribute(DATA_IGNORE))
         if not field.hasAttribute('aria-label')
           field.setAttribute('aria-label', label.getTextContent()
               .replace(new RegExp('[ \n\t\r]+', 'g'), ' '))
-        self.hatemile.util.CommonFunctions.generateId(label, @prefixId)
+        @idGenerator.generateId(label)
         field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions
             .increaseInList(field.getAttribute('aria-labelledby'), \
             label.getAttribute('id')))

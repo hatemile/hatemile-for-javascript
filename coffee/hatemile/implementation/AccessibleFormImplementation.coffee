@@ -426,7 +426,6 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
   #
   constructor: (@parser, configure) ->
-    @prefixId = configure.getParameter('prefix-generated-ids')
   
   # Mark that the field is required.
   #

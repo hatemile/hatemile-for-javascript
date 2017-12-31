@@ -151,7 +151,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @return [hatemile.util.html.HTMLDOMElement] The anchor.
   #
   _generateAnchorFor: (element, dataAttribute, anchorClass) ->
-    self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
+    @idGenerator.generateId(element)
     anchor = null
     if @parser.find("[#{dataAttribute}=\"#{element.getAttribute('id')}\"]")
         .firstResult() is null
@@ -159,7 +159,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         anchor = element
       else
         anchor = @parser.createElement('a')
-        self.hatemile.util.CommonFunctions.generateId(anchor, @prefixId)
+        @idGenerator.generateId(anchor)
         anchor.setAttribute('class', anchorClass)
         element.insertBefore(anchor)
       if not anchor.hasAttribute('name')
@@ -205,7 +205,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @option Array<skippers> [string] shortcut The skipper shortcut.
   #
   constructor: (@parser, configure, @skippers) ->
-    @prefixId = configure.getParameter('prefix-generated-ids')
+    @idGenerator = new hatemile.util.IDGenerator('navigation')
     @attributeLongDescriptionPrefixBefore = configure
         .getParameter('attribute-longdescription-prefix-before')
     @attributeLongDescriptionSuffixBefore = configure
@@ -255,7 +255,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
             shortcut = shortcuts[0]
             @_freeShortcut(shortcut)
             link.setAttribute('accesskey', shortcut)
-          self.hatemile.util.CommonFunctions.generateId(link, @prefixId)
+          @idGenerator.generateId(link)
 
           itemLink.appendElement(link)
           @listSkippers.appendElement(itemLink)
@@ -331,7 +331,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   provideNavigationToLongDescription: (image) ->
     if image.hasAttribute('longdesc')
-      self.hatemile.util.CommonFunctions.generateId(image, @prefixId)
+      @idGenerator.generateId(image)
       id = image.getAttribute('id')
       if @parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]")
           .firstResult() is null

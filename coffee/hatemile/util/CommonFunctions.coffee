@@ -26,24 +26,6 @@ self = this
 class @hatemile.util.CommonFunctions
   
   DATA_IGNORE = 'data-ignoreaccessibilityfix'
-  _count = 0
-  
-  # Generate a id for a element.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] prefix The prefix of id.
-  #
-  @generateId: (element, prefix) ->
-    if not element.hasAttribute('id')
-      element.setAttribute('id', prefix + _count.toString())
-      _count = _count + 1
-    return
-  
-  # Reset the count number of ids.
-  #
-  @resetCount: () ->
-    _count = 0
-    return
   
   # Copy a list of attributes of a element for other element.
   #

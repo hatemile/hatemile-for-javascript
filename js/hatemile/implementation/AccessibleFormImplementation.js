@@ -270,7 +270,6 @@ limitations under the License.
 
         function AccessibleFormImplementation(parser, configure) {
             this.parser = parser;
-            this.prefixId = configure.getParameter('prefix-generated-ids');
         }
 
         AccessibleFormImplementation.prototype.markRequiredField = function (requiredField) {

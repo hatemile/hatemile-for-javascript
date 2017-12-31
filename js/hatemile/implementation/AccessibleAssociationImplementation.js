@@ -140,7 +140,7 @@ limitations under the License.
                 for (k = 0, len1 = row.length; k < len1; k++) {
                     cell = row[k];
                     if (cell.getTagName() === 'TH') {
-                        self.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
+                        this.idGenerator.generateId(cell);
                         headersIds.push(cell.getAttribute('id'));
                         cell.setAttribute('scope', 'row');
                     }
@@ -168,7 +168,7 @@ limitations under the License.
             cells = this.parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
             for (j = 0, len = cells.length; j < len; j++) {
                 cell = cells[j];
-                self.hatemile.util.CommonFunctions.generateId(cell, this.prefixId);
+                this.idGenerator.generateId(cell);
                 if (!cell.hasAttribute('scope')) {
                     cell.setAttribute('scope', 'col');
                 }
@@ -177,7 +177,7 @@ limitations under the License.
 
         function AccessibleAssociationImplementation(parser, configure) {
             this.parser = parser;
-            this.prefixId = configure.getParameter('prefix-generated-ids');
+            this.idGenerator = new hatemile.util.IDGenerator('association');
         }
 
         AccessibleAssociationImplementation.prototype.associateDataCellsWithHeaderCells = function (table) {
@@ -244,7 +244,7 @@ limitations under the License.
                 } else {
                     field = this.parser.find(label).findDescendants('input,select,textarea').firstResult();
                     if (field !== null) {
-                        self.hatemile.util.CommonFunctions.generateId(field, this.prefixId);
+                        this.idGenerator.generateId(field);
                         label.setAttribute('for', field.getAttribute('id'));
                     }
                 }
@@ -252,7 +252,7 @@ limitations under the License.
                     if (!field.hasAttribute('aria-label')) {
                         field.setAttribute('aria-label', label.getTextContent().replace(new RegExp('[ \n\t\r]+', 'g'), ' '));
                     }
-                    self.hatemile.util.CommonFunctions.generateId(label, this.prefixId);
+                    this.idGenerator.generateId(label);
                     field.setAttribute('aria-labelledby', self.hatemile.util.CommonFunctions.increaseInList(field.getAttribute('aria-labelledby'), label.getAttribute('id')));
                 }
             }

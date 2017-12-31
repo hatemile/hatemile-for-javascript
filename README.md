@@ -34,6 +34,7 @@ Include the configuration, dependencies and solutions scripts and styles:
 <script type="text/javascript" src="/path/to/js/eventlistener.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/CommonFunctions.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/Configure.js"></script>
+<script type="text/javascript" src="/path/to/js/hatemile/util/IDGenerator.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/html/vanilla/VanillaHTMLDOMParser.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/html/vanilla/VanillaHTMLDOMElement.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/html/vanilla/VanillaHTMLDOMTextNode.js"></script>

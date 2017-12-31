@@ -350,7 +350,7 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype._forceReadSimple = function (element, textBefore, textAfter, db, da) {
             var identifier, referenceAfter, referenceBefore, span;
-            self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
+            this.idGenerator.generateId(element);
             identifier = element.getAttribute('id');
             if (textBefore.length > 0) {
                 referenceBefore = this.parser.find("[" + db + "=\"" + identifier + "\"]").firstResult();
@@ -399,7 +399,7 @@ limitations under the License.
             this.parser = parser;
             this.listShortcutsAdded = false;
             this.listShortcuts = null;
-            this.prefixId = configure.getParameter('prefix-generated-ids');
+            this.idGenerator = new hatemile.util.IDGenerator('display');
             this.attributeTitlePrefixBefore = configure.getParameter('attribute-title-prefix-before');
             this.attributeTitleSuffixBefore = configure.getParameter('attribute-title-suffix-before');
             this.attributeTitlePrefixAfter = configure.getParameter('attribute-title-prefix-after');
@@ -1141,7 +1141,7 @@ limitations under the License.
                 } else if ((image.hasAttribute('title')) && (!image.hasAttribute('alt'))) {
                     image.setAttribute('alt', image.getAttribute('title'));
                 }
-                self.hatemile.util.CommonFunctions.generateId(image, this.prefixId);
+                this.idGenerator.generateId(image);
                 image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'));
                 image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'));
             } else {

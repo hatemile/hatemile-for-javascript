@@ -22,24 +22,11 @@ limitations under the License.
     (base = this.hatemile).util || (base.util = {});
 
     this.hatemile.util.CommonFunctions = (function () {
-        var DATA_IGNORE, _count;
+        var DATA_IGNORE;
 
         function CommonFunctions() {}
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
-
-        _count = 0;
-
-        CommonFunctions.generateId = function (element, prefix) {
-            if (!element.hasAttribute('id')) {
-                element.setAttribute('id', prefix + _count.toString());
-                _count = _count + 1;
-            }
-        };
-
-        CommonFunctions.resetCount = function () {
-            _count = 0;
-        };
 
         CommonFunctions.setListAttributes = function (element1, element2, attributes) {
             var attribute, i, len;
