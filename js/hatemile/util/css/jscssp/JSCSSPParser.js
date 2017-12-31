@@ -62,25 +62,17 @@ limitations under the License.
             }
         };
 
-        _getCSSContent = function (doc, currentURL) {
-            var child, content, head, i, j, len, len1, ref, style, styles, tagName;
+        _getCSSContent = function (htmlParser, currentURL) {
+            var content, element, elements, i, len;
             content = '';
-            head = doc.getElementsByTagName('head')[0];
-            ref = head.children;
-            for (i = 0, len = ref.length; i < len; i++) {
-                child = ref[i];
-                tagName = child.tagName.toUpperCase();
-                if ((tagName === 'LINK') && (child.hasAttribute('rel')) && (child.getAttribute('rel') === 'stylesheet')) {
-                    content += _getContentFromURL(_getAbsolutePath(currentURL, child.getAttribute('href')));
-                } else if (tagName === 'STYLE') {
-                    content += getContentFromElement(child);
+            elements = htmlParser.find('style,link[rel=stylesheet]').listResults();
+            for (i = 0, len = elements.length; i < len; i++) {
+                element = elements[i];
+                if (element.getTagName() === 'STYLE') {
+                    content += element.getTextContent();
                 }
-            }
-            styles = doc.getElementsByTagName('style');
-            for (j = 0, len1 = styles.length; j < len1; j++) {
-                style = styles[j];
-                if (style.parentNode !== head) {
-                    content += getContentFromElement(style);
+                if ((element.hasAttribute('rel')) && (element.getAttribute('rel') === 'stylesheet')) {
+                    content += _getContentFromURL(_getAbsolutePath(currentURL, element.getAttribute('href')));
                 }
             }
             return content;
@@ -124,7 +116,7 @@ limitations under the License.
             this.currentURL = currentURL1;
             if (!(this.parser instanceof jscsspStylesheet)) {
                 parser = new CSSParser();
-                if (this.parser instanceof HTMLDocument) {
+                if ((this.parser.find instanceof Function) && (this.parser.listResults instanceof Function) && (this.parser.getParser instanceof Function)) {
                     this.parser = _getCSSContent(this.parser, this.currentURL);
                 }
                 if (typeof this.parser === typeof '') {

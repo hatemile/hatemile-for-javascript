@@ -79,25 +79,20 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   #
   # @private
   #
-  # @param [HTMLDocument] doc The document.
+  # @param [HTMLDOMParser] htmlParser The HTML parser.
   #
   # @return [string] The text content of document.
   #
-  _getCSSContent = (doc, currentURL) ->
+  _getCSSContent = (htmlParser, currentURL) ->
     content = ''
-    head = doc.getElementsByTagName('head')[0]
-    for child in head.children
-      tagName = child.tagName.toUpperCase()
-      if (tagName is 'LINK') and (child.hasAttribute('rel')) and \
-          (child.getAttribute('rel') is 'stylesheet')
+    elements = htmlParser.find('style,link[rel=stylesheet]').listResults()
+    for element in elements
+      if element.getTagName() is 'STYLE'
+        content += element.getTextContent()
+      if (element.hasAttribute('rel')) and \
+          (element.getAttribute('rel') is 'stylesheet')
         content += _getContentFromURL(_getAbsolutePath(currentURL, \
-            child.getAttribute('href')))
-      else if tagName is 'STYLE'
-        content += getContentFromElement(child)
-    styles = doc.getElementsByTagName('style')
-    for style in styles
-      if style.parentNode isnt head
-        content += getContentFromElement(style)
+            element.getAttribute('href')))
     return content
   
   # Returns the text content of URL.
@@ -131,14 +126,16 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   
   # Initializes a new object that encapsulate the CSS parser.
   #
-  # @param [jscsspStylesheet, HTMLDocument, string] parser The JSCSSP parser,
-  # the document object or a string with CSS rules.
+  # @param [jscsspStylesheet, HTMLDOMParser, string] parser The JSCSSP parser,
+  # the HTMLDOMParser object or a string with CSS rules.
   # @param [string] currentURL The current URL of page.
   #
   constructor: (@parser, @currentURL) ->
     if not (@parser instanceof jscsspStylesheet)
       parser = new CSSParser()
-      if (@parser instanceof HTMLDocument)
+      if (@parser.find  instanceof Function) and \
+          (@parser.listResults instanceof Function) and \
+          (@parser.getParser instanceof Function)
         @parser = _getCSSContent(@parser, @currentURL)
       if (typeof @parser is typeof '')
         @parser = parser.parse("body{}#{@parser}", false, false)
