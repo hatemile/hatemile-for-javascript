@@ -26,9 +26,9 @@ limitations under the License.
     (base2 = this.hatemile.util.html).vanilla || (base2.vanilla = {});
 
     this.hatemile.util.html.vanilla.VanillaHTMLDOMParser = (function () {
-        var isDescendant;
+        var _isDescendant;
 
-        isDescendant = function (possibleAncestor, possibleDescendant) {
+        _isDescendant = function (possibleAncestor, possibleDescendant) {
             var ancestor;
             ancestor = possibleDescendant.parentNode;
             while ((ancestor !== void 0) && (ancestor !== null)) {
@@ -97,7 +97,7 @@ limitations under the License.
                 ref = this.results;
                 for (i = 0, len = ref.length; i < len; i++) {
                     result = ref[i];
-                    if (isDescendant(result, selector.getData())) {
+                    if (_isDescendant(result, selector.getData())) {
                         descendants.push(selector.getData());
                         break;
                     }
@@ -124,7 +124,7 @@ limitations under the License.
                 ref = this.results;
                 for (i = 0, len = ref.length; i < len; i++) {
                     result = ref[i];
-                    if (isDescendant(selector.getData(), result)) {
+                    if (_isDescendant(selector.getData(), result)) {
                         ancestors.push(selector.getData());
                         break;
                     }
@@ -136,7 +136,7 @@ limitations under the License.
                     result = ref1[j];
                     for (k = 0, len2 = elements.length; k < len2; k++) {
                         element = elements[k];
-                        if (isDescendant(element, result)) {
+                        if (_isDescendant(element, result)) {
                             ancestors.push(element);
                         }
                     }

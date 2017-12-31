@@ -118,12 +118,14 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Returns the shortcut prefix of browser.
   #
+  # @private
+  #
   # @param [string] userAgent The user agent of browser.
   # @param [string] defaultPrefix The default prefix.
   #
   # @return [string] The shortcut prefix of browser.
   #
-  getShortcutPrefix: (userAgent, defaultPrefix) ->
+  _getShortcutPrefix: (userAgent, defaultPrefix) ->
     if (userAgent isnt undefined)
       userAgent = userAgent.toLowerCase()
       opera = userAgent.indexOf('opera') > -1
@@ -154,11 +156,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Returns the description of element.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
   # @return [string] The description of element.
   #
-  getDescription: (element) ->
+  _getDescription: (element) ->
     description = null
     if element.hasAttribute('title')
       description = element.getAttribute('title')
@@ -192,9 +196,11 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Generate the list of shortcuts of page.
   #
+  # @private
+  #
   # @return [hatemile.util.html.HTMLDOMElement] The list of shortcuts of page.
   #
-  generateListShortcuts: () ->
+  _generateListShortcuts: () ->
     container = @parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
     if container is null
       local = @parser.find('body').firstResult()
@@ -219,11 +225,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Insert a element before other element.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that
   # be inserted.
   #
-  insertBefore: (element, insertedElement) ->
+  _insertBefore: (element, insertedElement) ->
     tagName = element.getTagName()
     tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', \
         'TD', 'TH']
@@ -231,7 +239,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if tagName is 'HTML'
       body = @parser.find('body').firstResult()
       if body isnt null
-        @insertBefore(body, insertedElement)
+        @_insertBefore(body, insertedElement)
     else if (tags.indexOf(tagName) > -1)
       element.prependElement(insertedElement)
     else if (controls.indexOf(tagName) > -1)
@@ -241,18 +249,20 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if labels.length is 0
         labels = @parser.find(element).findAncestors('label').listResults()
       for label in labels
-        @insertBefore(label, insertedElement)
+        @_insertBefore(label, insertedElement)
     else
       element.insertBefore(insertedElement)
     return
   
   # Insert a element after other element.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that
   # be inserted.
   #
-  insertAfter: (element, insertedElement) ->
+  _insertAfter: (element, insertedElement) ->
     tagName = element.getTagName()
     appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', \
         'OPTION', 'TD', 'TH']
@@ -260,7 +270,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if tagName is 'HTML'
       body = @parser.find('body').firstResult()
       if body isnt null
-        @insertAfter(body, insertedElement)
+        @_insertAfter(body, insertedElement)
     else if appendTags.indexOf(tagName) > -1
       element.appendElement(insertedElement)
     else if (controls.indexOf(tagName) > -1)
@@ -270,12 +280,14 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if labels.length is 0
         labels = @parser.find(element).findAncestors('label').listResults()
       for label in labels
-        @insertAfter(label, insertedElement)
+        @_insertAfter(label, insertedElement)
     else
       element.insertAfter(insertedElement)
     return
   
   # Force the screen reader display an information of element.
+  #
+  # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [string] textBefore The text content to show before the element.
@@ -285,7 +297,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @param [string] da The name of attribute that links the after
   # content with element.
   #
-  forceReadSimple: (element, textBefore, textAfter, db, da) ->
+  _forceReadSimple: (element, textBefore, textAfter, db, da) ->
     self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
     identifier = element.getAttribute('id')
     
@@ -300,7 +312,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
         span.setAttribute(db, identifier)
         span.appendText(textBefore)
-        @insertBefore(element, span)
+        @_insertBefore(element, span)
     
     if textAfter.length > 0
       referenceAfter = @parser.find("[#{da}=\"#{identifier}\"]").firstResult()
@@ -313,11 +325,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         span.setAttribute('class', CLASS_FORCE_READ_AFTER)
         span.setAttribute(da, identifier)
         span.appendText(textAfter)
-        @insertAfter(element, span)
+        @_insertAfter(element, span)
     return
   
   # Force the screen reader display an information of element with prefixes or
   # suffixes.
+  #
+  # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] e The reference element.
   # @param [string] v The value to be show.
@@ -334,7 +348,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @param [string] da The name of attribute that links the after
   # content with element.
   #
-  forceRead: (e, v, tpb, tsb, tpa, tsa, db, da) ->
+  _forceRead: (e, v, tpb, tsb, tpa, tsa, db, da) ->
     if (tpb.length > 0) or (tsb.length > 0)
       textBefore = "#{tpb}#{v}#{tsb}"
     else
@@ -343,7 +357,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       textAfter = "#{tpa}#{v}#{tsa}"
     else
       textAfter = ''
-    @forceReadSimple(e, textBefore, textAfter, \
+    @_forceReadSimple(e, textBefore, textAfter, \
         db, da)
     return
   
@@ -845,7 +859,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       'zu': configure.getParameter('language-zu')
     }
     
-    @shortcutPrefix = @getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
+    @shortcutPrefix = @_getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
   
   # Display the shortcut of element.
   #
@@ -855,12 +869,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   displayShortcut: (element) ->
     if element.hasAttribute('accesskey')
-      description = @getDescription(element)
+      description = @_getDescription(element)
       if not element.hasAttribute('title')
         element.setAttribute('title', description)
       
       if not @listShortcutsAdded
-        @listShortcuts = @generateListShortcuts()
+        @listShortcuts = @_generateListShortcuts()
         @listShortcutsAdded = true
       
       if @listShortcuts isnt null
@@ -899,7 +913,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       role = element.getAttribute('role')
       roleDescription = @roles[role]
       if roleDescription isnt undefined
-        @forceRead(element, roleDescription, @attributeRolePrefixBefore, \
+        @_forceRead(element, roleDescription, @attributeRolePrefixBefore, \
             @attributeRoleSuffixBefore, @attributeRolePrefixAfter, \
             @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
     return
@@ -934,7 +948,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
           else
             textHeader = "#{textHeader} #{header.getTextContent()}"
       if (textHeader isnt null) and (textHeader.length > 0)
-        @forceRead(tableCell, textHeader, @attributeHeadersPrefixBefore, \
+        @_forceRead(tableCell, textHeader, @attributeHeadersPrefixBefore, \
             @attributeHeadersSuffixBefore, @attributeHeadersPrefixAfter, \
             @attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, \
             DATA_ATTRIBUTE_HEADERS_AFTER_OF)
@@ -961,195 +975,197 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   displayWAIARIAStates: (element) ->
     if (element.hasAttribute('aria-busy')) and \
         (element.getAttribute('aria-busy') is 'true')
-      @forceReadSimple(element, @ariaBusyTrueBefore, @ariaBusyTrueAfter, \
+      @_forceReadSimple(element, @ariaBusyTrueBefore, @ariaBusyTrueAfter, \
           DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF)
     if element.hasAttribute('aria-checked')
       attributeValue = element.getAttribute('aria-checked')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaCheckedTrueBefore, \
+        @_forceReadSimple(element, @ariaCheckedTrueBefore, \
             @ariaCheckedTrueAfter, DATA_ARIA_CHECKED_BEFORE_OF, \
             DATA_ARIA_CHECKED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaCheckedFalseBefore, \
+        @_forceReadSimple(element, @ariaCheckedFalseBefore, \
             @ariaCheckedFalseAfter, DATA_ARIA_CHECKED_BEFORE_OF, \
             DATA_ARIA_CHECKED_AFTER_OF)
       else if attributeValue is 'mixed'
-        @forceReadSimple(element, @ariaCheckedMixedBefore, \
+        @_forceReadSimple(element, @ariaCheckedMixedBefore, \
             @ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, \
             DATA_ARIA_CHECKED_AFTER_OF)
     if element.hasAttribute('aria-dropeffect')
       attributeValue = element.getAttribute('aria-dropeffect')
       if attributeValue is 'copy'
-        @forceReadSimple(element, @ariaDropeffectCopyBefore, \
+        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
             @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'move'
-        @forceReadSimple(element, @ariaDropeffectMoveBefore, \
+        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
             @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'link'
-        @forceReadSimple(element, @ariaDropeffectLinkBefore, \
+        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
             @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'execute'
-        @forceReadSimple(element, @ariaDropeffectExecuteBefore, \
+        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
             @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'popup'
-        @forceReadSimple(element, @ariaDropeffectPopupBefore, \
+        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
             @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
     if element.hasAttribute('aria-expanded')
       attributeValue = element.getAttribute('aria-expanded')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaExpandedTrueBefore, \
+        @_forceReadSimple(element, @ariaExpandedTrueBefore, \
             @ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, \
             DATA_ARIA_EXPANDED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaExpandedFalseBefore, \
+        @_forceReadSimple(element, @ariaExpandedFalseBefore, \
             @ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, \
             DATA_ARIA_EXPANDED_AFTER_OF)
     if element.hasAttribute('aria-grabbed')
       attributeValue = element.getAttribute('aria-grabbed')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaGrabbedTrueBefore, \
+        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
             @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
             DATA_ARIA_GRABBED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaGrabbedFalseBefore, \
+        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
             @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
             DATA_ARIA_GRABBED_AFTER_OF)
     if (element.hasAttribute('aria-haspopup')) and \
         (element.getAttribute('aria-haspopup') is 'true')
-      @forceReadSimple(element, @ariaHaspopupTrueBefore, \
+      @_forceReadSimple(element, @ariaHaspopupTrueBefore, \
           @ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_BEFORE_OF, \
           DATA_ARIA_HASPOPUP_AFTER_OF)
     if (element.hasAttribute('aria-invalid')) and \
         (element.getAttribute('aria-invalid') is 'true')
-      @forceReadSimple(element, @ariaInvalidTrueBefore, @ariaInvalidTrueAfter, \
-          DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF)
+      @_forceReadSimple(element, @ariaInvalidTrueBefore, \
+          @ariaInvalidTrueAfter, DATA_ARIA_INVALID_BEFORE_OF, \
+          DATA_ARIA_INVALID_AFTER_OF)
       if element.hasAttribute(DATA_INVALID_LENGTH)
-        @forceReadSimple(element, @dataInvalidLengthBefore, \
+        @_forceReadSimple(element, @dataInvalidLengthBefore, \
             @dataInvalidLengthAfter, DATA_INVALID_LENGTH_BEFORE_OF, \
             DATA_INVALID_LENGTH_AFTER_OF)
       if element.hasAttribute(DATA_INVALID_PATTERN)
-        @forceReadSimple(element, @dataInvalidPatternBefore, \
+        @_forceReadSimple(element, @dataInvalidPatternBefore, \
             @dataInvalidPatternAfter, DATA_INVALID_PATTERN_BEFORE_OF, \
             DATA_INVALID_PATTERN_AFTER_OF)
       if element.hasAttribute(DATA_INVALID_REQUIRED)
-        @forceReadSimple(element, @dataInvalidRequiredBefore, \
+        @_forceReadSimple(element, @dataInvalidRequiredBefore, \
             @dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_BEFORE_OF, \
             DATA_INVALID_REQUIRED_AFTER_OF)
       if element.hasAttribute(DATA_INVALID_URL)
-        @forceReadSimple(element, @dataInvalidUrlBefore, @dataInvalidUrlAfter, \
-            DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_URL_AFTER_OF)
+        @_forceReadSimple(element, @dataInvalidUrlBefore, \
+            @dataInvalidUrlAfter, DATA_INVALID_URL_BEFORE_OF, \
+            DATA_INVALID_URL_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_EMAIL)
-        @forceReadSimple(element, @dataInvalidEmailBefore, \
+        @_forceReadSimple(element, @dataInvalidEmailBefore, \
             @dataInvalidEmailAfter, DATA_INVALID_EMAIL_BEFORE_OF, \
             DATA_INVALID_EMAIL_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_RANGE)
-        @forceReadSimple(element, @dataInvalidRangeBefore, \
+        @_forceReadSimple(element, @dataInvalidRangeBefore, \
             @dataInvalidRangeAfter, DATA_INVALID_RANGE_BEFORE_OF, \
             DATA_INVALID_RANGE_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_DATE)
-        @forceReadSimple(element, @dataInvalidDateBefore, \
+        @_forceReadSimple(element, @dataInvalidDateBefore, \
             @dataInvalidDateAfter, DATA_INVALID_DATE_BEFORE_OF, \
             DATA_INVALID_DATE_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_TIME)
-        @forceReadSimple(element, @dataInvalidTimeBefore, \
+        @_forceReadSimple(element, @dataInvalidTimeBefore, \
             @dataInvalidTimeAfter, DATA_INVALID_TIME_BEFORE_OF, \
             DATA_INVALID_TIME_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_DATETIME)
-        @forceReadSimple(element, @dataInvalidDateTimeBefore, \
+        @_forceReadSimple(element, @dataInvalidDateTimeBefore, \
             @dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_BEFORE_OF, \
             DATA_INVALID_DATETIME_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_MONTH)
-        @forceReadSimple(element, @dataInvalidMonthBefore, \
+        @_forceReadSimple(element, @dataInvalidMonthBefore, \
             @dataInvalidMonthAfter, DATA_INVALID_MONTH_BEFORE_OF, \
             DATA_INVALID_MONTH_AFTER_OF)
       else if element.hasAttribute(DATA_INVALID_WEEK)
-        @forceReadSimple(element, @dataInvalidWeekBefore, \
+        @_forceReadSimple(element, @dataInvalidWeekBefore, \
             @dataInvalidWeekAfter, DATA_INVALID_WEEK_BEFORE_OF, \
             DATA_INVALID_WEEK_AFTER_OF)
     if element.hasAttribute('aria-level')
-      @forceRead(element, element.getAttribute('aria-level'), \
+      @_forceRead(element, element.getAttribute('aria-level'), \
           @ariaLevelPrefixBefore, @ariaLevelSuffixBefore, \
           @ariaLevelPrefixAfter, @ariaLevelSuffixAfter, \
           DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF)
     if element.hasAttribute('aria-orientation')
       attributeValue = element.getAttribute('aria-orientation')
       if attributeValue is 'vertical'
-        @forceReadSimple(element, @ariaOrientationVerticalBefore, \
+        @_forceReadSimple(element, @ariaOrientationVerticalBefore, \
             @ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, \
             DATA_ARIA_ORIENTATION_AFTER_OF)
       else if attributeValue is 'horizontal'
-        @forceReadSimple(element, @ariaOrientationHorizontalBefore, \
+        @_forceReadSimple(element, @ariaOrientationHorizontalBefore, \
             @ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, \
             DATA_ARIA_ORIENTATION_AFTER_OF)
     if element.hasAttribute('aria-pressed')
       attributeValue = element.getAttribute('aria-pressed')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaPressedTrueBefore, \
+        @_forceReadSimple(element, @ariaPressedTrueBefore, \
             @ariaPressedTrueAfter, DATA_ARIA_PRESSED_BEFORE_OF, \
             DATA_ARIA_PRESSED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaPressedFalseBefore, \
+        @_forceReadSimple(element, @ariaPressedFalseBefore, \
             @ariaPressedFalseAfter, DATA_ARIA_PRESSED_BEFORE_OF, \
             DATA_ARIA_PRESSED_AFTER_OF)
       else if attributeValue is 'mixed'
-        @forceReadSimple(element, @ariaPressedMixedBefore, \
+        @_forceReadSimple(element, @ariaPressedMixedBefore, \
             @ariaPressedMixedAfter, DATA_ARIA_PRESSED_BEFORE_OF, \
             DATA_ARIA_PRESSED_AFTER_OF)
     if element.hasAttribute('aria-selected')
       attributeValue = element.getAttribute('aria-selected')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaSelectedTrueBefore, \
+        @_forceReadSimple(element, @ariaSelectedTrueBefore, \
             @ariaSelectedTrueAfter, DATA_ARIA_SELECTED_BEFORE_OF, \
             DATA_ARIA_SELECTED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaSelectedFalseBefore, \
+        @_forceReadSimple(element, @ariaSelectedFalseBefore, \
             @ariaSelectedFalseAfter, DATA_ARIA_SELECTED_BEFORE_OF, \
             DATA_ARIA_SELECTED_AFTER_OF)
     if element.hasAttribute('aria-sort')
       attributeValue = element.getAttribute('aria-sort')
       if attributeValue is 'ascending'
-        @forceReadSimple(element, @ariaSortAscendingBefore, \
+        @_forceReadSimple(element, @ariaSortAscendingBefore, \
             @ariaSortAscendingAfter, DATA_ARIA_SORT_BEFORE_OF, \
             DATA_ARIA_SORT_AFTER_OF)
       else if attributeValue is 'descending'
-        @forceReadSimple(element, @ariaSortDescendingBefore, \
+        @_forceReadSimple(element, @ariaSortDescendingBefore, \
             @ariaSortDescendingAfter, DATA_ARIA_SORT_BEFORE_OF, \
             DATA_ARIA_SORT_AFTER_OF)
       else if attributeValue is 'other'
-        @forceReadSimple(element, @ariaSortOtherBefore, @ariaSortOtherAfter, \
+        @_forceReadSimple(element, @ariaSortOtherBefore, @ariaSortOtherAfter, \
             DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF)
     if (element.hasAttribute('aria-required')) and \
         (element.getAttribute('aria-required') is 'true')
-      @forceReadSimple(element, @ariaRequiredTrueBefore, \
+      @_forceReadSimple(element, @ariaRequiredTrueBefore, \
           @ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, \
           DATA_ATTRIBUTE_REQUIRED_AFTER_OF)
     if element.hasAttribute('aria-valuemin')
-      @forceRead(element, element.getAttribute('aria-valuemin'), \
+      @_forceRead(element, element.getAttribute('aria-valuemin'), \
           @ariaValueMinimumPrefixBefore, @ariaValueMinimumSuffixBefore, \
           @ariaValueMinimumPrefixAfter, @ariaValueMinimumSuffixAfter, \
           DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF)
     if element.hasAttribute('aria-valuemax')
-      @forceRead(element, element.getAttribute('aria-valuemax'), \
+      @_forceRead(element, element.getAttribute('aria-valuemax'), \
           @ariaValueMaximumPrefixBefore, @ariaValueMaximumSuffixBefore, \
           @ariaValueMaximumPrefixAfter, @ariaValueMaximumSuffixAfter, \
           DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF)
     if element.hasAttribute('aria-autocomplete')
       attributeValue = element.getAttribute('aria-autocomplete')
       if attributeValue is 'both'
-        @forceReadSimple(element, @ariaAutoCompleteBothBefore, \
+        @_forceReadSimple(element, @ariaAutoCompleteBothBefore, \
             @ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
       else if attributeValue is 'inline'
-        @forceReadSimple(element, @ariaAutoCompleteListBefore, \
+        @_forceReadSimple(element, @ariaAutoCompleteListBefore, \
             @ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
       else if attributeValue is 'list'
-        @forceReadSimple(element, @ariaAutoCompleteInlineBefore, \
+        @_forceReadSimple(element, @ariaAutoCompleteInlineBefore, \
             @ariaAutoCompleteInlineAfter, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
@@ -1178,12 +1194,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   displayLinkAttributes: (link) ->
     if link.hasAttribute('download')
-      @forceReadSimple(link, @attributeDownloadBefore, \
+      @_forceReadSimple(link, @attributeDownloadBefore, \
           @attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, \
           DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF)
     if (link.hasAttribute('target')) and \
         (link.getAttribute('target') is '_blank')
-      @forceReadSimple(link, @attributeTargetBlankBefore, \
+      @_forceReadSimple(link, @attributeTargetBlankBefore, \
           @attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, \
           DATA_ATTRIBUTE_TARGET_AFTER_OF)
     return
@@ -1208,7 +1224,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   displayTitle: (element) ->
     if (element.hasAttribute('title')) and \
         (element.getAttribute('title').length > 0)
-      @forceRead(element, element.getAttribute('title'), \
+      @_forceRead(element, element.getAttribute('title'), \
           @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, \
           @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, \
           DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
@@ -1234,53 +1250,53 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   displayDragAndDrop: (element) ->
     if element.hasAttribute('draggable')
-      @forceReadSimple(element, @attributeDraggableBefore, \
+      @_forceReadSimple(element, @attributeDraggableBefore, \
           @attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, \
           DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF)
     if element.hasAttribute('dropzone')
       attributeValue = element.getAttribute('dropzone')
       if attributeValue is 'copy'
-        @forceReadSimple(element, @attributeDropzoneCopyBefore, \
+        @_forceReadSimple(element, @attributeDropzoneCopyBefore, \
             @attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, \
             DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
       else if attributeValue is 'move'
-        @forceReadSimple(element, @attributeDropzoneMoveBefore, \
+        @_forceReadSimple(element, @attributeDropzoneMoveBefore, \
             @attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, \
             DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
       else if attributeValue is 'link'
-        @forceReadSimple(element, @attributeDropzoneLinkBefore, \
+        @_forceReadSimple(element, @attributeDropzoneLinkBefore, \
             @attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, \
             DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
     if element.hasAttribute('aria-dropeffect')
       attributeValue = element.getAttribute('aria-dropeffect')
       if attributeValue is 'copy'
-        @forceReadSimple(element, @ariaDropeffectCopyBefore, \
+        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
             @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'move'
-        @forceReadSimple(element, @ariaDropeffectMoveBefore, \
+        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
             @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'link'
-        @forceReadSimple(element, @ariaDropeffectLinkBefore, \
+        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
             @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'execute'
-        @forceReadSimple(element, @ariaDropeffectExecuteBefore, \
+        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
             @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
       else if attributeValue is 'popup'
-        @forceReadSimple(element, @ariaDropeffectPopupBefore, \
+        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
             @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
             DATA_ARIA_DROPEFFECT_AFTER_OF)
     if element.hasAttribute('aria-grabbed')
       attributeValue = element.getAttribute('aria-grabbed')
       if attributeValue is 'true'
-        @forceReadSimple(element, @ariaGrabbedTrueBefore, \
+        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
             @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
             DATA_ARIA_GRABBED_AFTER_OF)
       else if attributeValue is 'false'
-        @forceReadSimple(element, @ariaGrabbedFalseBefore, \
+        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
             @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
             DATA_ARIA_GRABBED_AFTER_OF)
     return
@@ -1308,7 +1324,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       languageCode = element.getAttribute('lang')
       language = @languages[languageCode]
       if language isnt undefined
-        @forceRead(element, language, @attributeLanguagePrefixBefore, \
+        @_forceRead(element, language, @attributeLanguagePrefixBefore, \
             @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, \
             @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, \
             DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)
@@ -1316,7 +1332,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       languageCode = element.getAttribute('hreflang')
       language = @languages[languageCode]
       if language isnt undefined
-        @forceRead(element, language, @attributeLanguagePrefixBefore, \
+        @_forceRead(element, language, @attributeLanguagePrefixBefore, \
             @attributeLanguageSuffixBefore, @attributeLanguagePrefixAfter, \
             @attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, \
             DATA_ATTRIBUTE_LANGUAGE_AFTER_OF)

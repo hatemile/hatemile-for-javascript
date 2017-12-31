@@ -41,9 +41,11 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Generate the list of skippers of page.
   #
+  # @private
+  #
   # @return [hatemile.util.html.HTMLDOMElement] The list of skippers of page.
   #
-  generateListSkippers: () ->
+  _generateListSkippers: () ->
     container = @parser.find("##{ID_CONTAINER_SKIPPERS}").firstResult()
     if container is null
       local = @parser.find('body').firstResult()
@@ -61,10 +63,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Generate the list of heading links of page.
   #
+  # @private
+  #
   # @return [hatemile.util.html.HTMLDOMElement] The list of heading links of
   # page.
   #
-  generateListHeading: () ->
+  _generateListHeading: () ->
     container = @parser.find("##{ID_CONTAINER_HEADING}").firstResult()
     if container is null
       local = @parser.find('body').firstResult()
@@ -89,11 +93,13 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Returns the level of heading.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The heading.
   #
   # @return [number] The level of heading.
   #
-  getHeadingLevel: (element) ->
+  _getHeadingLevel: (element) ->
     tag = element.getTagName()
     if tag is 'H1'
       return 1
@@ -112,15 +118,17 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Check that the headings of page are sintatic correct.
   #
+  # @private
+  #
   # @return [boolean] True if the headings of page are sintatic correct or false
   # if not.
   #
-  isValidHeading: () ->
+  _isValidHeading: () ->
     elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
     lastLevel = 0
     countMainHeading = 0
     for element in elements
-      level = @getHeadingLevel(element)
+      level = @_getHeadingLevel(element)
       if level is 1
         if countMainHeading is 1
           return false
@@ -133,6 +141,8 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Generate an anchor for the element.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] dataAttribute The custom attribute that links the element
   # with the anchor.
@@ -140,7 +150,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @return [hatemile.util.html.HTMLDOMElement] The anchor.
   #
-  generateAnchorFor: (element, dataAttribute, anchorClass) ->
+  _generateAnchorFor: (element, dataAttribute, anchorClass) ->
     self.hatemile.util.CommonFunctions.generateId(element, @prefixId)
     anchor = null
     if @parser.find("[#{dataAttribute}=\"#{element.getAttribute('id')}\"]")
@@ -159,9 +169,11 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Replace the shortcut of elements, that has the shortcut passed.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] shortcut The shortcut.
   #
-  freeShortcut: (shortcut) ->
+  _freeShortcut: (shortcut) ->
     alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz'
     elements = @parser.find('[accesskey]').listResults()
     for element in elements
@@ -227,10 +239,10 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         break
     if skipper isnt null
       if not @listSkippersAdded
-        @listSkippers = @generateListSkippers()
+        @listSkippers = @_generateListSkippers()
         @listSkippersAdded = true
       if @listSkippers isnt null
-        anchor = @generateAnchorFor(element, DATA_ANCHOR_FOR, \
+        anchor = @_generateAnchorFor(element, DATA_ANCHOR_FOR, \
             CLASS_SKIPPER_ANCHOR)
         if anchor isnt null
           itemLink = @parser.createElement('li')
@@ -241,7 +253,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           shortcuts = skipper['shortcut']
           if (shortcuts isnt undefined) and (shortcuts.length > 0)
             shortcut = shortcuts[0]
-            @freeShortcut(shortcut)
+            @_freeShortcut(shortcut)
             link.setAttribute('accesskey', shortcut)
           self.hatemile.util.CommonFunctions.generateId(link, @prefixId)
 
@@ -269,15 +281,15 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   provideNavigationByHeading: (heading) ->
     if not @validateHeading
-      @validHeading = @isValidHeading()
+      @validHeading = @_isValidHeading()
       @validateHeading = true
     if @validHeading
-      anchor = @generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
+      anchor = @_generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
           CLASS_HEADING_ANCHOR)
       if anchor isnt null
-        level = @getHeadingLevel(heading)
+        level = @_getHeadingLevel(heading)
         if level is 1
-          list = @generateListHeading()
+          list = @_generateListHeading()
         else
           superItem = @parser.find("##{ID_CONTAINER_HEADING}")
               .findDescendants("[#{DATA_HEADING_LEVEL}=\"" \

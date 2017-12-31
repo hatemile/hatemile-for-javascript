@@ -26,18 +26,18 @@ limitations under the License.
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
-        AccessibleAssociationImplementation.prototype.getModelTable = function (part) {
+        AccessibleAssociationImplementation.prototype._getModelTable = function (part) {
             var j, len, row, rows, table;
             table = [];
             rows = this.parser.find(part).findChildren('tr').listResults();
             for (j = 0, len = rows.length; j < len; j++) {
                 row = rows[j];
-                table.push(this.getModelRow(this.parser.find(row).findChildren('th,td').listResults()));
+                table.push(this._getModelRow(this.parser.find(row).findChildren('th,td').listResults()));
             }
-            return this.getValidModelTable(table);
+            return this._getValidModelTable(table);
         };
 
-        AccessibleAssociationImplementation.prototype.getValidModelTable = function (originalTable) {
+        AccessibleAssociationImplementation.prototype._getValidModelTable = function (originalTable) {
             var cell, cellIndex, cellsAdded, j, k, lengthRow, lengthTable, newCellIndex, newRow, newRowIndex, newTable, originalRow, ref, ref1, rowIndex, rowspan;
             newTable = [];
             lengthTable = originalTable.length;
@@ -78,7 +78,7 @@ limitations under the License.
             return newTable;
         };
 
-        AccessibleAssociationImplementation.prototype.getModelRow = function (originalRow) {
+        AccessibleAssociationImplementation.prototype._getModelRow = function (originalRow) {
             var cellsAdded, colspan, i, j, length, newRow, ref;
             newRow = [];
             length = originalRow.length;
@@ -99,7 +99,7 @@ limitations under the License.
             return newRow;
         };
 
-        AccessibleAssociationImplementation.prototype.validateHeader = function (header) {
+        AccessibleAssociationImplementation.prototype._validateHeader = function (header) {
             var j, len, length, row;
             if (header.length === 0) {
                 return false;
@@ -118,7 +118,7 @@ limitations under the License.
             return true;
         };
 
-        AccessibleAssociationImplementation.prototype.getCellsHeadersIds = function (header, index) {
+        AccessibleAssociationImplementation.prototype._getCellsHeadersIds = function (header, index) {
             var cell, ids, j, len, row;
             ids = [];
             for (j = 0, len = header.length; j < len; j++) {
@@ -131,9 +131,9 @@ limitations under the License.
             return ids;
         };
 
-        AccessibleAssociationImplementation.prototype.associateDataCellsWithHeaderCellsOfRow = function (element) {
+        AccessibleAssociationImplementation.prototype._associateDataCellsWithHeaderCellsOfRow = function (element) {
             var cell, headerId, headers, headersIds, j, k, l, len, len1, len2, len3, m, row, table;
-            table = this.getModelTable(element);
+            table = this._getModelTable(element);
             for (j = 0, len = table.length; j < len; j++) {
                 row = table[j];
                 headersIds = [];
@@ -163,7 +163,7 @@ limitations under the License.
             }
         };
 
-        AccessibleAssociationImplementation.prototype.prepareHeaderCells = function (tableHeader) {
+        AccessibleAssociationImplementation.prototype._prepareHeaderCells = function (tableHeader) {
             var cell, cells, j, len;
             cells = this.parser.find(tableHeader).findChildren('tr').findChildren('th').listResults();
             for (j = 0, len = cells.length; j < len; j++) {
@@ -186,13 +186,13 @@ limitations under the License.
             body = this.parser.find(table).findChildren('tbody').firstResult();
             footer = this.parser.find(table).findChildren('tfoot').firstResult();
             if (header !== null) {
-                this.prepareHeaderCells(header);
-                headerRows = this.getModelTable(header);
-                if ((body !== null) && (this.validateHeader(headerRows))) {
+                this._prepareHeaderCells(header);
+                headerRows = this._getModelTable(header);
+                if ((body !== null) && (this._validateHeader(headerRows))) {
                     lengthHeader = headerRows[0].length;
-                    fakeTable = this.getModelTable(body);
+                    fakeTable = this._getModelTable(body);
                     if (footer !== null) {
-                        fakeTable = fakeTable.concat(this.getModelTable(footer));
+                        fakeTable = fakeTable.concat(this._getModelTable(footer));
                     }
                     for (j = 0, len = fakeTable.length; j < len; j++) {
                         row = fakeTable[j];
@@ -200,7 +200,7 @@ limitations under the License.
                             i = 0;
                             for (k = 0, len1 = row.length; k < len1; k++) {
                                 cell = row[k];
-                                headersIds = this.getCellsHeadersIds(headerRows, i);
+                                headersIds = this._getCellsHeadersIds(headerRows, i);
                                 headers = cell.getAttribute('headers');
                                 for (l = 0, len2 = headersIds.length; l < len2; l++) {
                                     headersId = headersIds[l];
@@ -216,10 +216,10 @@ limitations under the License.
                 }
             }
             if (body !== null) {
-                this.associateDataCellsWithHeaderCellsOfRow(body);
+                this._associateDataCellsWithHeaderCellsOfRow(body);
             }
             if (footer !== null) {
-                this.associateDataCellsWithHeaderCellsOfRow(footer);
+                this._associateDataCellsWithHeaderCellsOfRow(footer);
             }
         };
 

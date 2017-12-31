@@ -50,11 +50,13 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Returns the symbol formated to be searched by regular expression.
   #
+  # @private
+  #
   # @param [string] symbol The symbol.
   #
   # @return [string] The symbol formated.
   #
-  getFormatedSymbol: (symbol) ->
+  _getFormatedSymbol: (symbol) ->
     return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+')
         .replace('*', '\\*').replace('?', '\\?').replace('^', '\\^')
         .replace('$', '\\$').replace('[', '\\[').replace(']', '\\[')
@@ -65,11 +67,13 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Returns the description of symbol.
   #
+  # @private
+  #
   # @param [string] symbol The symbol.
   #
   # @return [string] The description of symbol.
   #
-  getDescriptionOfSymbol: (symbol) ->
+  _getDescriptionOfSymbol: (symbol) ->
     for _symbol in @symbols
       if _symbol.symbol is symbol
         return _symbol.description
@@ -77,12 +81,14 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Returns the regular expression to search all symbols.
   #
+  # @private
+  #
   # @return [string] The regular expression to search all symbols.
   #
-  getRegularExpressionOfSymbols: () ->
+  _getRegularExpressionOfSymbols: () ->
     regularExpression = null
     for symbol in @symbols
-      formatedSymbol = @getFormatedSymbol(symbol.symbol)
+      formatedSymbol = @_getFormatedSymbol(symbol.symbol)
       if regularExpression is null
         regularExpression = "(#{formatedSymbol})"
       else
@@ -92,17 +98,21 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # Check that the children of element can be manipulated to apply the CSS
   # properties.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
   # @return [boolean] True if the children of element can be manipulated to
   # apply the CSS properties or false if the children of element cannot be
   # manipulated to apply the CSS properties.
   #
-  isValidInheritElement: (element) ->
+  _isValidInheritElement: (element) ->
     return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) isnt -1) \
         and (not element.hasAttribute(DATA_IGNORE))
   
   # Check that the element can be manipulated to apply the CSS properties.
+  #
+  # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
@@ -110,16 +120,18 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # properties or false if the element cannot be manipulated to apply the CSS
   # properties.
   #
-  isValidElement: (element) ->
+  _isValidElement: (element) ->
     return VALID_TAGS.indexOf(element.getTagName()) isnt -1
   
   # Isolate text nodes of element nodes.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  isolateTextNode: (element) ->
-    if (element.hasChildrenElements()) and (@isValidElement(element))
-      if @isValidElement(element)
+  _isolateTextNode: (element) ->
+    if (element.hasChildrenElements()) and (@_isValidElement(element))
+      if @_isValidElement(element)
         children = element.getChildren()
         for child in children
           if child instanceof self.hatemile.util.html.vanilla
@@ -131,14 +143,16 @@ class @hatemile.implementation.AccessibleCSSImplementation
             child.replaceNode(span)
       children = element.getChildrenElements()
       for elementChild in children
-        @isolateTextNode(elementChild)
+        @_isolateTextNode(elementChild)
     return
   
   # Replace the element by own text content.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  replaceElementByOwnContent: (element) ->
+  _replaceElementByOwnContent: (element) ->
     if element.hasChildrenElements()
       children = element.getChildrenElements()
       for child in children
@@ -150,20 +164,24 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Visit and execute a operation in element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [function] operation The operation to be executed.
   #
-  visit: (element, operation) ->
-    if @isValidInheritElement(element)
+  _visit: (element, operation) ->
+    if @_isValidInheritElement(element)
       if element.hasChildrenElements()
         children = element.getChildrenElements()
         for child in children
-          @visit(child, operation)
-      else if @isValidElement(element)
+          @_visit(child, operation)
+      else if @_isValidElement(element)
         operation.call(this, element)
     return
   
   # Create a element to show the content.
+  #
+  # @private
   #
   # @param [string] content The text content of element.
   # @param [string] dataPropertyValue The value of custom attribute used to
@@ -171,7 +189,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
-  createContentElement: (content, dataPropertyValue) ->
+  _createContentElement: (content, dataPropertyValue) ->
     contentElement = @htmlParser.createElement('span')
     contentElement.setAttribute(DATA_ISOLATOR_ELEMENT, 'true')
     contentElement.setAttribute(DATA_SPEAK_AS, dataPropertyValue)
@@ -180,37 +198,43 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Create a element to show the content, only to aural displays.
   #
+  # @private
+  #
   # @param [string] content The text content of element.
   # @param [string] dataPropertyValue The value of custom attribute used to
   # identify the fix.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
-  createAuralContentElement: (content, dataPropertyValue) ->
-    contentElement = @createContentElement(content, dataPropertyValue)
+  _createAuralContentElement: (content, dataPropertyValue) ->
+    contentElement = @_createContentElement(content, dataPropertyValue)
     contentElement.setAttribute('unselectable', 'on')
     contentElement.setAttribute('class', 'screen-reader-only')
     return contentElement
   
   # Create a element to show the content, only to visual displays.
   #
+  # @private
+  #
   # @param [string] content The text content of element.
   # @param [string] dataPropertyValue The value of custom attribute used to
   # identify the fix.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
-  createVisualContentElement: (content, dataPropertyValue) ->
-    contentElement = @createContentElement(content, dataPropertyValue)
+  _createVisualContentElement: (content, dataPropertyValue) ->
+    contentElement = @_createContentElement(content, dataPropertyValue)
     contentElement.setAttribute('aria-hidden', 'true')
     contentElement.setAttribute('role', 'presentation')
     return contentElement
   
   # Speak the content of element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakNormal: (element) ->
+  _speakNormal: (element) ->
     if element.hasAttribute(DATA_SPEAK)
       if (element.getAttribute(DATA_SPEAK) is 'none') \
           and (not element.hasAttribute(DATA_ISOLATOR_ELEMENT))
@@ -218,24 +242,28 @@ class @hatemile.implementation.AccessibleCSSImplementation
         element.removeAttribute('aria-hidden')
         element.removeAttribute(DATA_SPEAK)
       else
-        @replaceElementByOwnContent(element)
+        @_replaceElementByOwnContent(element)
     return
   
   # Speak the content of element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakNormalInherit: (element) ->
-    @visit(element, @speakNormal)
+  _speakNormalInherit: (element) ->
+    @_visit(element, @_speakNormal)
     
     element.normalize()
     return
   
   # No speak any content of element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakNone: (element) ->
+  _speakNone: (element) ->
     element.setAttribute('role', 'presentation')
     element.setAttribute('aria-hidden', 'true')
     element.setAttribute(DATA_SPEAK, 'none')
@@ -243,15 +271,19 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # No speak any content of element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakNoneInherit: (element) ->
-    @isolateTextNode(element)
+  _speakNoneInherit: (element) ->
+    @_isolateTextNode(element)
     
-    @visit(element, @speakNone)
+    @_visit(element, @_speakNone)
     return
   
   # Execute a operation by regular expression for element only.
+  #
+  # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] regularExpression The regular expression.
@@ -259,7 +291,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # identify the fix.
   # @param [function] operation The operation to be executed.
   #
-  speakAs: (element, regularExpression, dataPropertyValue, operation) ->
+  _speakAs: (element, regularExpression, dataPropertyValue, operation) ->
     children = []
     index = -1
     content = element.getTextContent()
@@ -275,7 +307,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
     
     if children.length > 0
       if content.length > 0
-        children.push(@createContentElement(content, dataPropertyValue))
+        children.push(@_createContentElement(content, dataPropertyValue))
       
       while (element.hasChildren())
         element.getFirstNodeChild().removeNode()
@@ -286,11 +318,13 @@ class @hatemile.implementation.AccessibleCSSImplementation
   
   # Revert changes of a speakAs method for element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] dataPropertyValue The value of custom attribute used to
   # identify the fix.
   #
-  reverseSpeakAs: (element, dataPropertyValue) ->
+  _reverseSpeakAs: (element, dataPropertyValue) ->
     dataProperty = "[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"]"
     auxiliarElements = @htmlParser.find(element)
         .findDescendants("#{dataProperty}[unselectable=\"on\"]").listResults()
@@ -301,7 +335,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
         .findDescendants("#{dataProperty}[#{DATA_ISOLATOR_ELEMENT}=\"true\"]")
         .listResults()
     for contentElement in contentElements
-      @replaceElementByOwnContent(contentElement)
+      @_replaceElementByOwnContent(contentElement)
     
     element.normalize()
     return
@@ -309,151 +343,173 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # Use the default speak configuration of user agent for element and
   # descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsNormal: (element) ->
-    @reverseSpeakAs(element, 'spell-out')
-    @reverseSpeakAs(element, 'literal-punctuation')
-    @reverseSpeakAs(element, 'no-punctuation')
-    @reverseSpeakAs(element, 'digits')
+  _speakAsNormal: (element) ->
+    @_reverseSpeakAs(element, 'spell-out')
+    @_reverseSpeakAs(element, 'literal-punctuation')
+    @_reverseSpeakAs(element, 'no-punctuation')
+    @_reverseSpeakAs(element, 'digits')
     return
   
   # Speak one letter at a time for each word for element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsSpellOut: (element) ->
+  _speakAsSpellOut: (element) ->
     dataPropertyValue = 'spell-out'
-    @speakAs(element, '[a-zA-Z]', dataPropertyValue, (content, index, \
+    @_speakAs(element, '[a-zA-Z]', dataPropertyValue, (content, index, \
         children) ->
-      children.push(@createContentElement(content.substr(0, index + 1), \
+      children.push(@_createContentElement(content.substr(0, index + 1), \
           dataPropertyValue))
       
       children
-          .push(@createAuralContentElement(' ', dataPropertyValue))
+          .push(@_createAuralContentElement(' ', dataPropertyValue))
     )
     return
   
   # Speak one letter at a time for each word for elements and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsSpellOutInherit: (element) ->
-    @reverseSpeakAs(element, 'spell-out')
+  _speakAsSpellOutInherit: (element) ->
+    @_reverseSpeakAs(element, 'spell-out')
     
-    @isolateTextNode(element)
+    @_isolateTextNode(element)
     
-    @visit(element, @speakAsSpellOut)
+    @_visit(element, @_speakAsSpellOut)
     return
   
   # Speak the punctuation for elements only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsLiteralPunctuation: (element) ->
+  _speakAsLiteralPunctuation: (element) ->
     dataPropertyValue = 'literal-punctuation'
-    @speakAs(element, @getRegularExpressionOfSymbols(), dataPropertyValue, \
+    @_speakAs(element, @_getRegularExpressionOfSymbols(), dataPropertyValue, \
         (content, index, children) ->
       if index isnt 0
-        children.push(@createContentElement(content.substr(0, \
+        children.push(@_createContentElement(content.substr(0, \
             index), dataPropertyValue))
       
-      children.push(@createAuralContentElement( \
-          " #{@getDescriptionOfSymbol(content.charAt(index))} ", \
+      children.push(@_createAuralContentElement( \
+          " #{@_getDescriptionOfSymbol(content.charAt(index))} ", \
           dataPropertyValue))
       
-      children.push(@createVisualContentElement(content
+      children.push(@_createVisualContentElement(content
           .charAt(index), dataPropertyValue))
     )
     return
   
   # Speak the punctuation for elements and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsLiteralPunctuationInherit: (element) ->
-    @reverseSpeakAs(element, 'literal-punctuation')
-    @reverseSpeakAs(element, 'no-punctuation')
+  _speakAsLiteralPunctuationInherit: (element) ->
+    @_reverseSpeakAs(element, 'literal-punctuation')
+    @_reverseSpeakAs(element, 'no-punctuation')
     
-    @isolateTextNode(element)
+    @_isolateTextNode(element)
     
-    @visit(element, @speakAsLiteralPunctuation)
+    @_visit(element, @_speakAsLiteralPunctuation)
     return
   
   # No speak the punctuation for element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsNoPunctuation: (element) ->
+  _speakAsNoPunctuation: (element) ->
     dataPropertyValue = 'no-punctuation'
-    @speakAs(element, \
+    @_speakAs(element, \
         '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', \
         dataPropertyValue, (content, index, children) ->
       if index isnt 0
-        children.push(@createContentElement(content
+        children.push(@_createContentElement(content
             .substr(0, index), dataPropertyValue))
       
-      children.push(@createVisualContentElement(content
+      children.push(@_createVisualContentElement(content
           .charAt(index), dataPropertyValue))
     )
     return
   
   # No speak the punctuation for element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsNoPunctuationInherit: (element) ->
-    @reverseSpeakAs(element, 'literal-punctuation')
-    @reverseSpeakAs(element, 'no-punctuation')
+  _speakAsNoPunctuationInherit: (element) ->
+    @_reverseSpeakAs(element, 'literal-punctuation')
+    @_reverseSpeakAs(element, 'no-punctuation')
     
-    @isolateTextNode(element)
+    @_isolateTextNode(element)
     
-    @visit(element, @speakAsNoPunctuation)
+    @_visit(element, @_speakAsNoPunctuation)
     return
   
   # Speak the digit at a time for each number for element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsDigits: (element) ->
+  _speakAsDigits: (element) ->
     dataPropertyValue = 'digits'
-    @speakAs(element, '[0-9]', dataPropertyValue, (content, index, children) ->
+    @_speakAs(element, '[0-9]', dataPropertyValue, (content, index, children) ->
       if index isnt 0
-        children.push(@createContentElement(content
+        children.push(@_createContentElement(content
             .substr(0, index), dataPropertyValue))
       
-      children.push(@createAuralContentElement(' ', dataPropertyValue))
+      children.push(@_createAuralContentElement(' ', dataPropertyValue))
       
-      children.push(@createContentElement(content
+      children.push(@_createContentElement(content
           .charAt(index), dataPropertyValue))
     )
     return
   
   # Speak the digit at a time for each number for element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsDigitsInherit: (element) ->
-    @reverseSpeakAs(element, 'digits')
+  _speakAsDigitsInherit: (element) ->
+    @_reverseSpeakAs(element, 'digits')
     
-    @isolateTextNode(element)
+    @_isolateTextNode(element)
     
-    @visit(element, @speakAsDigits)
+    @_visit(element, @_speakAsDigits)
     return
   
   # Speaks the numbers for element and descendants as a word number.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakAsContinuousInherit: (element) ->
-    @reverseSpeakAs(element, 'digits')
+  _speakAsContinuousInherit: (element) ->
+    @_reverseSpeakAs(element, 'digits')
     return
   
   # The cells headers of data cell will be spoken for element only.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakHeaderAlways: (element) ->
+  _speakHeaderAlways: (element) ->
     idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'))
     textHeader = ''
     for idHeader in idsHeaders
@@ -461,28 +517,32 @@ class @hatemile.implementation.AccessibleCSSImplementation
       if header isnt null
         textHeader = "#{textHeader}#{header.getTextContent()} "
     if textHeader.length > 0
-      element.prependElement(@createAuralContentElement(textHeader, 'always'))
+      element.prependElement(@_createAuralContentElement(textHeader, 'always'))
     return
   
   # The cells headers will be spoken for every data cell for element and
   # descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakHeaderAlwaysInherit: (element) ->
-    @speakHeaderOnceInherit(element)
+  _speakHeaderAlwaysInherit: (element) ->
+    @_speakHeaderOnceInherit(element)
     
     cellElements = @htmlParser.find(element)
         .findDescendants('td[headers],th[headers]').listResults()
     for cellElement in cellElements
-      @speakHeaderAlways(cellElement)
+      @_speakHeaderAlways(cellElement)
     return
   
   # The cells headers will be spoken one time for element and descendants.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  speakHeaderOnceInherit: (element) ->
+  _speakHeaderOnceInherit: (element) ->
     headerElements = @htmlParser.find(element)
         .findDescendants("span[#{DATA_SPEAK_AS}=\"always\"]").listResults()
     for headerElement in headerElements
@@ -518,11 +578,11 @@ class @hatemile.implementation.AccessibleCSSImplementation
             for declaration in declarations
               propertyValue = declaration.getValue()
               if propertyValue is 'none'
-                @speakNoneInherit(element)
+                @_speakNoneInherit(element)
               else if propertyValue is 'normal'
-                @speakNormalInherit(element)
+                @_speakNormalInherit(element)
               else if propertyValue is 'spell-out'
-                @speakAsSpellOutInherit(element)
+                @_speakAsSpellOutInherit(element)
           if rule.hasProperty('speak-as')
             declarations = rule.getDeclarations('speak-as')
             for declaration in declarations
@@ -546,40 +606,40 @@ class @hatemile.implementation.AccessibleCSSImplementation
                   + '(no\\-punctuation)) (digits)))$', 'g')
               if pattern.test(propertyValue)
                 propertyValues = declaration.getValues()
-                @speakAsNormal(element)
+                @_speakAsNormal(element)
                 for propertyValue in propertyValues
                   if propertyValue is 'spell-out'
-                    @speakAsSpellOutInherit(element)
+                    @_speakAsSpellOutInherit(element)
                   else if propertyValue is 'literal-punctuation'
-                    @speakAsLiteralPunctuationInherit(element)
+                    @_speakAsLiteralPunctuationInherit(element)
                   else if propertyValue is 'no-punctuation'
-                    @speakAsNoPunctuationInherit(element)
+                    @_speakAsNoPunctuationInherit(element)
                   else if propertyValue is 'digits'
-                    @speakAsDigitsInherit(element)
+                    @_speakAsDigitsInherit(element)
           if rule.hasProperty('speak-punctuation')
             declarations = rule.getDeclarations('speak-punctuation')
             for declaration in declarations
               propertyValue = declaration.getValue()
               if propertyValue is 'code'
-                @speakAsLiteralPunctuationInherit(element)
+                @_speakAsLiteralPunctuationInherit(element)
               else if propertyValue is 'none'
-                @speakAsNoPunctuationInherit(element)
+                @_speakAsNoPunctuationInherit(element)
           if rule.hasProperty('speak-numeral')
             declarations = rule.getDeclarations('speak-numeral')
             for declaration in declarations
               propertyValue = declaration.getValue()
               if propertyValue is 'digits'
-                @speakAsDigitsInherit(element)
+                @_speakAsDigitsInherit(element)
               else if propertyValue is 'continuous'
-                @speakAsContinuousInherit(element)
+                @_speakAsContinuousInherit(element)
           if rule.hasProperty('speak-header')
             declarations = rule.getDeclarations('speak-header')
             for declaration in declarations
               propertyValue = declaration.getValue()
               if propertyValue is 'always'
-                @speakHeaderAlwaysInherit(element)
+                @_speakHeaderAlwaysInherit(element)
               else if propertyValue is 'once'
-                @speakHeaderOnceInherit(element)
+                @_speakHeaderOnceInherit(element)
     return
   
   # Provide the CSS features of speaking and speech properties in all elements

@@ -36,11 +36,11 @@ limitations under the License.
 
         VALID_TAGS = ['SPAN', 'A', 'RT', 'DFN', 'ABBR', 'Q', 'CITE', 'EM', 'TIME', 'VAR', 'SAMP', 'I', 'B', 'SUB', 'SUP', 'SMALL', 'STRONG', 'MARK', 'RUBY', 'INS', 'DEL', 'KBD', 'BDO', 'CODE', 'P', 'FIGCAPTION', 'FIGURE', 'PRE', 'DIV', 'LI', 'BLOCKQUOTE', 'DT', 'DD', 'FIELDSET', 'LEGEND', 'LABEL', 'FORM', 'BODY', 'ASIDE', 'ADDRESS', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SECTION', 'HEADER', 'NAV', 'ARTICLE', 'FOOTER', 'CAPTION', 'SUMMARY', 'DETAILS', 'TD', 'TH'];
 
-        AccessibleCSSImplementation.prototype.getFormatedSymbol = function (symbol) {
+        AccessibleCSSImplementation.prototype._getFormatedSymbol = function (symbol) {
             return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+').replace('*', '\\*').replace('?', '\\?').replace('^', '\\^').replace('$', '\\$').replace('[', '\\[').replace(']', '\\[').replace('{', '\\{').replace('}', '\\}').replace('(', '\\(').replace(')', '\\)').replace('|', '\\|').replace('/', '\\/').replace(',', '\\,').replace('!', '\\!').replace('=', '\\=').replace(':', '\\:').replace('-', '\\-');
         };
 
-        AccessibleCSSImplementation.prototype.getDescriptionOfSymbol = function (symbol) {
+        AccessibleCSSImplementation.prototype._getDescriptionOfSymbol = function (symbol) {
             var _symbol, i, len, ref;
             ref = this.symbols;
             for (i = 0, len = ref.length; i < len; i++) {
@@ -52,13 +52,13 @@ limitations under the License.
             return null;
         };
 
-        AccessibleCSSImplementation.prototype.getRegularExpressionOfSymbols = function () {
+        AccessibleCSSImplementation.prototype._getRegularExpressionOfSymbols = function () {
             var formatedSymbol, i, len, ref, regularExpression, symbol;
             regularExpression = null;
             ref = this.symbols;
             for (i = 0, len = ref.length; i < len; i++) {
                 symbol = ref[i];
-                formatedSymbol = this.getFormatedSymbol(symbol.symbol);
+                formatedSymbol = this._getFormatedSymbol(symbol.symbol);
                 if (regularExpression === null) {
                     regularExpression = "(" + formatedSymbol + ")";
                 } else {
@@ -68,18 +68,18 @@ limitations under the License.
             return regularExpression;
         };
 
-        AccessibleCSSImplementation.prototype.isValidInheritElement = function (element) {
+        AccessibleCSSImplementation.prototype._isValidInheritElement = function (element) {
             return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) !== -1) && (!element.hasAttribute(DATA_IGNORE));
         };
 
-        AccessibleCSSImplementation.prototype.isValidElement = function (element) {
+        AccessibleCSSImplementation.prototype._isValidElement = function (element) {
             return VALID_TAGS.indexOf(element.getTagName()) !== -1;
         };
 
-        AccessibleCSSImplementation.prototype.isolateTextNode = function (element) {
+        AccessibleCSSImplementation.prototype._isolateTextNode = function (element) {
             var child, children, elementChild, i, j, len, len1, span;
-            if ((element.hasChildrenElements()) && (this.isValidElement(element))) {
-                if (this.isValidElement(element)) {
+            if ((element.hasChildrenElements()) && (this._isValidElement(element))) {
+                if (this._isValidElement(element)) {
                     children = element.getChildren();
                     for (i = 0, len = children.length; i < len; i++) {
                         child = children[i];
@@ -94,12 +94,12 @@ limitations under the License.
                 children = element.getChildrenElements();
                 for (j = 0, len1 = children.length; j < len1; j++) {
                     elementChild = children[j];
-                    this.isolateTextNode(elementChild);
+                    this._isolateTextNode(elementChild);
                 }
             }
         };
 
-        AccessibleCSSImplementation.prototype.replaceElementByOwnContent = function (element) {
+        AccessibleCSSImplementation.prototype._replaceElementByOwnContent = function (element) {
             var child, children, i, len;
             if (element.hasChildrenElements()) {
                 children = element.getChildrenElements();
@@ -113,22 +113,22 @@ limitations under the License.
             }
         };
 
-        AccessibleCSSImplementation.prototype.visit = function (element, operation) {
+        AccessibleCSSImplementation.prototype._visit = function (element, operation) {
             var child, children, i, len;
-            if (this.isValidInheritElement(element)) {
+            if (this._isValidInheritElement(element)) {
                 if (element.hasChildrenElements()) {
                     children = element.getChildrenElements();
                     for (i = 0, len = children.length; i < len; i++) {
                         child = children[i];
-                        this.visit(child, operation);
+                        this._visit(child, operation);
                     }
-                } else if (this.isValidElement(element)) {
+                } else if (this._isValidElement(element)) {
                     operation.call(this, element);
                 }
             }
         };
 
-        AccessibleCSSImplementation.prototype.createContentElement = function (content, dataPropertyValue) {
+        AccessibleCSSImplementation.prototype._createContentElement = function (content, dataPropertyValue) {
             var contentElement;
             contentElement = this.htmlParser.createElement('span');
             contentElement.setAttribute(DATA_ISOLATOR_ELEMENT, 'true');
@@ -137,51 +137,51 @@ limitations under the License.
             return contentElement;
         };
 
-        AccessibleCSSImplementation.prototype.createAuralContentElement = function (content, dataPropertyValue) {
+        AccessibleCSSImplementation.prototype._createAuralContentElement = function (content, dataPropertyValue) {
             var contentElement;
-            contentElement = this.createContentElement(content, dataPropertyValue);
+            contentElement = this._createContentElement(content, dataPropertyValue);
             contentElement.setAttribute('unselectable', 'on');
             contentElement.setAttribute('class', 'screen-reader-only');
             return contentElement;
         };
 
-        AccessibleCSSImplementation.prototype.createVisualContentElement = function (content, dataPropertyValue) {
+        AccessibleCSSImplementation.prototype._createVisualContentElement = function (content, dataPropertyValue) {
             var contentElement;
-            contentElement = this.createContentElement(content, dataPropertyValue);
+            contentElement = this._createContentElement(content, dataPropertyValue);
             contentElement.setAttribute('aria-hidden', 'true');
             contentElement.setAttribute('role', 'presentation');
             return contentElement;
         };
 
-        AccessibleCSSImplementation.prototype.speakNormal = function (element) {
+        AccessibleCSSImplementation.prototype._speakNormal = function (element) {
             if (element.hasAttribute(DATA_SPEAK)) {
                 if ((element.getAttribute(DATA_SPEAK) === 'none') && (!element.hasAttribute(DATA_ISOLATOR_ELEMENT))) {
                     element.removeAttribute('role');
                     element.removeAttribute('aria-hidden');
                     element.removeAttribute(DATA_SPEAK);
                 } else {
-                    this.replaceElementByOwnContent(element);
+                    this._replaceElementByOwnContent(element);
                 }
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakNormalInherit = function (element) {
-            this.visit(element, this.speakNormal);
+        AccessibleCSSImplementation.prototype._speakNormalInherit = function (element) {
+            this._visit(element, this._speakNormal);
             element.normalize();
         };
 
-        AccessibleCSSImplementation.prototype.speakNone = function (element) {
+        AccessibleCSSImplementation.prototype._speakNone = function (element) {
             element.setAttribute('role', 'presentation');
             element.setAttribute('aria-hidden', 'true');
             element.setAttribute(DATA_SPEAK, 'none');
         };
 
-        AccessibleCSSImplementation.prototype.speakNoneInherit = function (element) {
-            this.isolateTextNode(element);
-            this.visit(element, this.speakNone);
+        AccessibleCSSImplementation.prototype._speakNoneInherit = function (element) {
+            this._isolateTextNode(element);
+            this._visit(element, this._speakNone);
         };
 
-        AccessibleCSSImplementation.prototype.speakAs = function (element, regularExpression, dataPropertyValue, operation) {
+        AccessibleCSSImplementation.prototype._speakAs = function (element, regularExpression, dataPropertyValue, operation) {
             var child, children, content, i, index, len;
             children = [];
             index = -1;
@@ -198,7 +198,7 @@ limitations under the License.
             }
             if (children.length > 0) {
                 if (content.length > 0) {
-                    children.push(this.createContentElement(content, dataPropertyValue));
+                    children.push(this._createContentElement(content, dataPropertyValue));
                 }
                 while (element.hasChildren()) {
                     element.getFirstNodeChild().removeNode();
@@ -210,7 +210,7 @@ limitations under the License.
             }
         };
 
-        AccessibleCSSImplementation.prototype.reverseSpeakAs = function (element, dataPropertyValue) {
+        AccessibleCSSImplementation.prototype._reverseSpeakAs = function (element, dataPropertyValue) {
             var auxiliarElement, auxiliarElements, contentElement, contentElements, dataProperty, i, j, len, len1;
             dataProperty = "[" + DATA_SPEAK_AS + "=\"" + dataPropertyValue + "\"]";
             auxiliarElements = this.htmlParser.find(element).findDescendants(dataProperty + "[unselectable=\"on\"]").listResults();
@@ -221,93 +221,93 @@ limitations under the License.
             contentElements = this.htmlParser.find(element).findDescendants(dataProperty + "[" + DATA_ISOLATOR_ELEMENT + "=\"true\"]").listResults();
             for (j = 0, len1 = contentElements.length; j < len1; j++) {
                 contentElement = contentElements[j];
-                this.replaceElementByOwnContent(contentElement);
+                this._replaceElementByOwnContent(contentElement);
             }
             element.normalize();
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNormal = function (element) {
-            this.reverseSpeakAs(element, 'spell-out');
-            this.reverseSpeakAs(element, 'literal-punctuation');
-            this.reverseSpeakAs(element, 'no-punctuation');
-            this.reverseSpeakAs(element, 'digits');
+        AccessibleCSSImplementation.prototype._speakAsNormal = function (element) {
+            this._reverseSpeakAs(element, 'spell-out');
+            this._reverseSpeakAs(element, 'literal-punctuation');
+            this._reverseSpeakAs(element, 'no-punctuation');
+            this._reverseSpeakAs(element, 'digits');
         };
 
-        AccessibleCSSImplementation.prototype.speakAsSpellOut = function (element) {
+        AccessibleCSSImplementation.prototype._speakAsSpellOut = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'spell-out';
-            this.speakAs(element, '[a-zA-Z]', dataPropertyValue, function (content, index, children) {
-                children.push(this.createContentElement(content.substr(0, index + 1), dataPropertyValue));
-                return children.push(this.createAuralContentElement(' ', dataPropertyValue));
+            this._speakAs(element, '[a-zA-Z]', dataPropertyValue, function (content, index, children) {
+                children.push(this._createContentElement(content.substr(0, index + 1), dataPropertyValue));
+                return children.push(this._createAuralContentElement(' ', dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsSpellOutInherit = function (element) {
-            this.reverseSpeakAs(element, 'spell-out');
-            this.isolateTextNode(element);
-            this.visit(element, this.speakAsSpellOut);
+        AccessibleCSSImplementation.prototype._speakAsSpellOutInherit = function (element) {
+            this._reverseSpeakAs(element, 'spell-out');
+            this._isolateTextNode(element);
+            this._visit(element, this._speakAsSpellOut);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuation = function (element) {
+        AccessibleCSSImplementation.prototype._speakAsLiteralPunctuation = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'literal-punctuation';
-            this.speakAs(element, this.getRegularExpressionOfSymbols(), dataPropertyValue, function (content, index, children) {
+            this._speakAs(element, this._getRegularExpressionOfSymbols(), dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
+                    children.push(this._createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                children.push(this.createAuralContentElement(" " + (this.getDescriptionOfSymbol(content.charAt(index))) + " ", dataPropertyValue));
-                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue));
+                children.push(this._createAuralContentElement(" " + (this._getDescriptionOfSymbol(content.charAt(index))) + " ", dataPropertyValue));
+                return children.push(this._createVisualContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsLiteralPunctuationInherit = function (element) {
-            this.reverseSpeakAs(element, 'literal-punctuation');
-            this.reverseSpeakAs(element, 'no-punctuation');
-            this.isolateTextNode(element);
-            this.visit(element, this.speakAsLiteralPunctuation);
+        AccessibleCSSImplementation.prototype._speakAsLiteralPunctuationInherit = function (element) {
+            this._reverseSpeakAs(element, 'literal-punctuation');
+            this._reverseSpeakAs(element, 'no-punctuation');
+            this._isolateTextNode(element);
+            this._visit(element, this._speakAsLiteralPunctuation);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNoPunctuation = function (element) {
+        AccessibleCSSImplementation.prototype._speakAsNoPunctuation = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'no-punctuation';
-            this.speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, function (content, index, children) {
+            this._speakAs(element, '[!"#$%&\'\\(\\)\\*\\+,-\\./:;<=>?@\\[\\\\\\]\\^_`\\{\\|\\}\\~]', dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
+                    children.push(this._createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                return children.push(this.createVisualContentElement(content.charAt(index), dataPropertyValue));
+                return children.push(this._createVisualContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsNoPunctuationInherit = function (element) {
-            this.reverseSpeakAs(element, 'literal-punctuation');
-            this.reverseSpeakAs(element, 'no-punctuation');
-            this.isolateTextNode(element);
-            this.visit(element, this.speakAsNoPunctuation);
+        AccessibleCSSImplementation.prototype._speakAsNoPunctuationInherit = function (element) {
+            this._reverseSpeakAs(element, 'literal-punctuation');
+            this._reverseSpeakAs(element, 'no-punctuation');
+            this._isolateTextNode(element);
+            this._visit(element, this._speakAsNoPunctuation);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsDigits = function (element) {
+        AccessibleCSSImplementation.prototype._speakAsDigits = function (element) {
             var dataPropertyValue;
             dataPropertyValue = 'digits';
-            this.speakAs(element, '[0-9]', dataPropertyValue, function (content, index, children) {
+            this._speakAs(element, '[0-9]', dataPropertyValue, function (content, index, children) {
                 if (index !== 0) {
-                    children.push(this.createContentElement(content.substr(0, index), dataPropertyValue));
+                    children.push(this._createContentElement(content.substr(0, index), dataPropertyValue));
                 }
-                children.push(this.createAuralContentElement(' ', dataPropertyValue));
-                return children.push(this.createContentElement(content.charAt(index), dataPropertyValue));
+                children.push(this._createAuralContentElement(' ', dataPropertyValue));
+                return children.push(this._createContentElement(content.charAt(index), dataPropertyValue));
             });
         };
 
-        AccessibleCSSImplementation.prototype.speakAsDigitsInherit = function (element) {
-            this.reverseSpeakAs(element, 'digits');
-            this.isolateTextNode(element);
-            this.visit(element, this.speakAsDigits);
+        AccessibleCSSImplementation.prototype._speakAsDigitsInherit = function (element) {
+            this._reverseSpeakAs(element, 'digits');
+            this._isolateTextNode(element);
+            this._visit(element, this._speakAsDigits);
         };
 
-        AccessibleCSSImplementation.prototype.speakAsContinuousInherit = function (element) {
-            this.reverseSpeakAs(element, 'digits');
+        AccessibleCSSImplementation.prototype._speakAsContinuousInherit = function (element) {
+            this._reverseSpeakAs(element, 'digits');
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderAlways = function (element) {
+        AccessibleCSSImplementation.prototype._speakHeaderAlways = function (element) {
             var header, i, idHeader, idsHeaders, len, textHeader;
             idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'));
             textHeader = '';
@@ -319,21 +319,21 @@ limitations under the License.
                 }
             }
             if (textHeader.length > 0) {
-                element.prependElement(this.createAuralContentElement(textHeader, 'always'));
+                element.prependElement(this._createAuralContentElement(textHeader, 'always'));
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderAlwaysInherit = function (element) {
+        AccessibleCSSImplementation.prototype._speakHeaderAlwaysInherit = function (element) {
             var cellElement, cellElements, i, len;
-            this.speakHeaderOnceInherit(element);
+            this._speakHeaderOnceInherit(element);
             cellElements = this.htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults();
             for (i = 0, len = cellElements.length; i < len; i++) {
                 cellElement = cellElements[i];
-                this.speakHeaderAlways(cellElement);
+                this._speakHeaderAlways(cellElement);
             }
         };
 
-        AccessibleCSSImplementation.prototype.speakHeaderOnceInherit = function (element) {
+        AccessibleCSSImplementation.prototype._speakHeaderOnceInherit = function (element) {
             var headerElement, headerElements, i, len;
             headerElements = this.htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
             for (i = 0, len = headerElements.length; i < len; i++) {
@@ -363,11 +363,11 @@ limitations under the License.
                                 declaration = declarations[k];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'none') {
-                                    this.speakNoneInherit(element);
+                                    this._speakNoneInherit(element);
                                 } else if (propertyValue === 'normal') {
-                                    this.speakNormalInherit(element);
+                                    this._speakNormalInherit(element);
                                 } else if (propertyValue === 'spell-out') {
-                                    this.speakAsSpellOutInherit(element);
+                                    this._speakAsSpellOutInherit(element);
                                 }
                             }
                         }
@@ -379,17 +379,17 @@ limitations under the License.
                                 pattern = new RegExp('^((normal)|(inherit)|(initial)|(digits)|' + '(literal\\-punctuation)|(no\\-punctuation)|(spell\\-out)' + '|((digits) ((literal\\-punctuation)|(no\\-punctuation)|' + '(spell\\-out)))|(((literal\\-punctuation)|' + '(no\\-punctuation)|(spell\\-out)) (digits))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out))|((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|((digits) ((literal\\-punctuation)|' + '(no\\-punctuation)) (spell\\-out))|((digits) ' + '(spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)))|(((literal\\-punctuation)|' + '(no\\-punctuation)) (digits) (spell\\-out))|' + '(((literal\\-punctuation)|(no\\-punctuation)) ' + '(spell\\-out) (digits))|((spell\\-out) (digits) ' + '((literal\\-punctuation)|(no\\-punctuation)))|' + '((spell\\-out) ((literal\\-punctuation)|' + '(no\\-punctuation)) (digits)))$', 'g');
                                 if (pattern.test(propertyValue)) {
                                     propertyValues = declaration.getValues();
-                                    this.speakAsNormal(element);
+                                    this._speakAsNormal(element);
                                     for (m = 0, len4 = propertyValues.length; m < len4; m++) {
                                         propertyValue = propertyValues[m];
                                         if (propertyValue === 'spell-out') {
-                                            this.speakAsSpellOutInherit(element);
+                                            this._speakAsSpellOutInherit(element);
                                         } else if (propertyValue === 'literal-punctuation') {
-                                            this.speakAsLiteralPunctuationInherit(element);
+                                            this._speakAsLiteralPunctuationInherit(element);
                                         } else if (propertyValue === 'no-punctuation') {
-                                            this.speakAsNoPunctuationInherit(element);
+                                            this._speakAsNoPunctuationInherit(element);
                                         } else if (propertyValue === 'digits') {
-                                            this.speakAsDigitsInherit(element);
+                                            this._speakAsDigitsInherit(element);
                                         }
                                     }
                                 }
@@ -401,9 +401,9 @@ limitations under the License.
                                 declaration = declarations[n];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'code') {
-                                    this.speakAsLiteralPunctuationInherit(element);
+                                    this._speakAsLiteralPunctuationInherit(element);
                                 } else if (propertyValue === 'none') {
-                                    this.speakAsNoPunctuationInherit(element);
+                                    this._speakAsNoPunctuationInherit(element);
                                 }
                             }
                         }
@@ -413,9 +413,9 @@ limitations under the License.
                                 declaration = declarations[o];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'digits') {
-                                    this.speakAsDigitsInherit(element);
+                                    this._speakAsDigitsInherit(element);
                                 } else if (propertyValue === 'continuous') {
-                                    this.speakAsContinuousInherit(element);
+                                    this._speakAsContinuousInherit(element);
                                 }
                             }
                         }
@@ -425,9 +425,9 @@ limitations under the License.
                                 declaration = declarations[p];
                                 propertyValue = declaration.getValue();
                                 if (propertyValue === 'always') {
-                                    this.speakHeaderAlwaysInherit(element);
+                                    this._speakHeaderAlwaysInherit(element);
                                 } else if (propertyValue === 'once') {
-                                    this.speakHeaderOnceInherit(element);
+                                    this._speakHeaderOnceInherit(element);
                                 }
                             }
                         }

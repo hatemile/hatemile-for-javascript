@@ -38,12 +38,14 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   
   # Returns the absolute path of a URL.
   #
+  # @private
+  #
   # @param [string] currentURL The current URL of document.
   # @param [string] otherURL The other URL.
   #
   # @return [string] The absolute path of other URL.
   #
-  getAbsolutePath = (currentURL, otherURL) ->
+  _getAbsolutePath = (currentURL, otherURL) ->
     if otherURL.indexOf('//') is 0
       if currentURL.indexOf('https://') is 0
         return "https:#{otherURL}"
@@ -75,18 +77,20 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   
   # Returns the text content of document.
   #
+  # @private
+  #
   # @param [HTMLDocument] doc The document.
   #
   # @return [string] The text content of document.
   #
-  getCSSContent = (doc, currentURL) ->
+  _getCSSContent = (doc, currentURL) ->
     content = ''
     head = doc.getElementsByTagName('head')[0]
     for child in head.children
       tagName = child.tagName.toUpperCase()
       if (tagName is 'LINK') and (child.hasAttribute('rel')) and \
           (child.getAttribute('rel') is 'stylesheet')
-        content += getContentFromURL(getAbsolutePath(currentURL, \
+        content += _getContentFromURL(_getAbsolutePath(currentURL, \
             child.getAttribute('href')))
       else if tagName is 'STYLE'
         content += getContentFromElement(child)
@@ -98,11 +102,13 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   
   # Returns the text content of URL.
   #
+  # @private
+  #
   # @param [string] url The URL.
   #
   # @return [string] The text content of URL.
   #
-  getContentFromURL = (url) ->
+  _getContentFromURL = (url) ->
     content = ''
     if url.length > 0
       httpRequest = false
@@ -133,7 +139,7 @@ class @hatemile.util.css.jscssp.JSCSSPParser
     if not (@parser instanceof jscsspStylesheet)
       parser = new CSSParser()
       if (@parser instanceof HTMLDocument)
-        @parser = getCSSContent(@parser, @currentURL)
+        @parser = _getCSSContent(@parser, @currentURL)
       if (typeof @parser is typeof '')
         @parser = parser.parse("body{}#{@parser}", false, false)
   

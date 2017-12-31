@@ -26,9 +26,9 @@ limitations under the License.
     (base2 = this.hatemile.util.css).jscssp || (base2.jscssp = {});
 
     this.hatemile.util.css.jscssp.JSCSSPParser = (function () {
-        var getAbsolutePath, getCSSContent, getContentFromElement, getContentFromURL;
+        var _getAbsolutePath, _getCSSContent, _getContentFromURL, getContentFromElement;
 
-        getAbsolutePath = function (currentURL, otherURL) {
+        _getAbsolutePath = function (currentURL, otherURL) {
             var i, len, relativePart, relativeParts, stackURL, urlRegularExpression;
             if (otherURL.indexOf('//') === 0) {
                 if (currentURL.indexOf('https://') === 0) {
@@ -62,7 +62,7 @@ limitations under the License.
             }
         };
 
-        getCSSContent = function (doc, currentURL) {
+        _getCSSContent = function (doc, currentURL) {
             var child, content, head, i, j, len, len1, ref, style, styles, tagName;
             content = '';
             head = doc.getElementsByTagName('head')[0];
@@ -71,7 +71,7 @@ limitations under the License.
                 child = ref[i];
                 tagName = child.tagName.toUpperCase();
                 if ((tagName === 'LINK') && (child.hasAttribute('rel')) && (child.getAttribute('rel') === 'stylesheet')) {
-                    content += getContentFromURL(getAbsolutePath(currentURL, child.getAttribute('href')));
+                    content += _getContentFromURL(_getAbsolutePath(currentURL, child.getAttribute('href')));
                 } else if (tagName === 'STYLE') {
                     content += getContentFromElement(child);
                 }
@@ -86,7 +86,7 @@ limitations under the License.
             return content;
         };
 
-        getContentFromURL = function (url) {
+        _getContentFromURL = function (url) {
             var content, e, error, error1, httpRequest;
             content = '';
             if (url.length > 0) {
@@ -125,7 +125,7 @@ limitations under the License.
             if (!(this.parser instanceof jscsspStylesheet)) {
                 parser = new CSSParser();
                 if (this.parser instanceof HTMLDocument) {
-                    this.parser = getCSSContent(this.parser, this.currentURL);
+                    this.parser = _getCSSContent(this.parser, this.currentURL);
                 }
                 if (typeof this.parser === typeof '') {
                     this.parser = parser.parse("body{}" + this.parser, false, false);

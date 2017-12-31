@@ -22,7 +22,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleFormImplementation = (function () {
-        var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, isValid, isValidDate, isValidDateTime, isValidEmail, isValidLength, isValidMonth, isValidPattern, isValidRange, isValidRegularExpression, isValidRequired, isValidTime, isValidURL, isValidWeek, validateNow;
+        var DATA_EVENT_CHANGE_ADDED, DATA_IGNORE, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_EMAIL, DATA_INVALID_LENGTH, DATA_INVALID_MONTH, DATA_INVALID_PATTERN, DATA_INVALID_RANGE, DATA_INVALID_REQUIRED, DATA_INVALID_TIME, DATA_INVALID_URL, DATA_INVALID_WEEK, VALIDATION_LENGTH, VALIDATION_PATTERN, VALIDATION_REQUIRED, VALIDATION_TYPE, _isValid, _isValidDate, _isValidDateTime, _isValidEmail, _isValidLength, _isValidMonth, _isValidPattern, _isValidRange, _isValidRegularExpression, _isValidRequired, _isValidTime, _isValidURL, _isValidWeek, _validateNow;
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
@@ -58,7 +58,7 @@ limitations under the License.
 
         VALIDATION_LENGTH = 'length';
 
-        isValid = function (field) {
+        _isValid = function (field) {
             if (field.hasAttribute(DATA_INVALID_URL)) {
                 return false;
             } else if (field.hasAttribute(DATA_INVALID_EMAIL)) {
@@ -86,11 +86,11 @@ limitations under the License.
             }
         };
 
-        validateNow = function (field, dataInvalid, validateFunction) {
+        _validateNow = function (field, dataInvalid, validateFunction) {
             if (validateFunction(field)) {
                 if (field.hasAttribute(dataInvalid)) {
                     field.removeAttribute(dataInvalid);
-                    if ((field.hasAttribute('aria-invalid')) && (isValid(field))) {
+                    if ((field.hasAttribute('aria-invalid')) && (_isValid(field))) {
                         field.removeAttribute('aria-invalid');
                     }
                 }
@@ -100,49 +100,49 @@ limitations under the License.
             }
         };
 
-        isValidRegularExpression = function (value, pattern) {
+        _isValidRegularExpression = function (value, pattern) {
             var regularExpression;
             regularExpression = new RegExp(pattern);
             return regularExpression.test(value);
         };
 
-        isValidURL = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
+        _isValidURL = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '([a-zA-Z][a-zA-Z0-9\\+\\.\\-]*):(\\/\\/)?(?:(?:(?:[a-zA-Z0-9_\\.' + '\\-\\+!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+:)*(?:[a-zA-Z0-9_\\.\\-\\+' + '%!$&\'\\(\\)*\\+,;=]|%[0-9a-f]{2})+@)?(?:(?:[a-z0-9\\-\\.]|%' + '[0-9a-f]{2})+|(?:\\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\\]))' + '(?::[0-9]+)?(?:[\\/|\\?](?:[a-zA-Z0-9_#!:\\.\\?\\+=&@!$\'~*,;\\/' + '\\(\\)\\[\\]\\-]|%[0-9a-f]{2})*)?');
         };
 
-        isValidEmail = function (field) {
+        _isValidEmail = function (field) {
             var regularExpression;
             regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&' + '\'*+\/=?^_`{|}~-]+)*|"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21' + '\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*")' + '@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*' + '[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}' + '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:' + '[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|' + '\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])';
             if (field.hasAttribute('multiple')) {
                 regularExpression = regularExpression + "( *, *" + regularExpression + ")*";
             }
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, "^(" + regularExpression + ")?$");
         };
 
-        isValidDate = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01])))))))?$');
+        _isValidDate = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01])))))))?$');
         };
 
-        isValidTime = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^((([01][0-9])|' + '(2[0-3])):[0-5][0-9])?$');
+        _isValidTime = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '^((([01][0-9])|' + '(2[0-3])):[0-5][0-9])?$');
         };
 
-        isValidDateTime = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' + '[0-9].[0-9])|(Z))?)?$');
+        _isValidDateTime = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '^([0-9]{2}((((' + '[02468][048])|([13579][26]))-(02)-((0[1-9])|([12][0-9])))|' + '(([0-9]{2})-((02-((0[1-9])|(1[0-9])|(2[0-8])))|(((0[469])|(11))-' + '((0[1-9])|([12][0-9])|(30)))|(((0[13578])|(10)|(12))-((0[1-9])|' + '([12][0-9])|(3[01]))))))T(([01][0-9])|(2[0-3])):[0-5][0-9]((:[0-5]' + '[0-9].[0-9])|(Z))?)?$');
         };
 
-        isValidMonth = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-' + '((0[1-9])|(1[0-2])))?$');
+        _isValidMonth = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '^([0-9]{4}-' + '((0[1-9])|(1[0-2])))?$');
         };
 
-        isValidWeek = function (field) {
-            return (field.getData().value.length === 0) || isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
+        _isValidWeek = function (field) {
+            return (field.getData().value.length === 0) || _isValidRegularExpression(field.getData().value, '^([0-9]{4}-W' + '((0[1-9])|([1-4][0-9])|(5[0-3])))?$');
         };
 
-        isValidRange = function (field) {
+        _isValidRange = function (field) {
             var maxValue, minValue, value;
             if (field.getData().value.length > 0) {
-                if (!isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')) {
+                if (!_isValidRegularExpression(field.getData().value, '^[-+]?[0-9]+([.,][0-9]+)?$')) {
                     return false;
                 }
                 value = parseFloat(field.getData().value);
@@ -170,7 +170,7 @@ limitations under the License.
             return true;
         };
 
-        isValidLength = function (field) {
+        _isValidLength = function (field) {
             if (field.hasAttribute('minlength')) {
                 if (field.getData().value.length < parseInt(field.getAttribute('minlength'))) {
                     return false;
@@ -184,15 +184,15 @@ limitations under the License.
             return true;
         };
 
-        isValidPattern = function (field) {
-            return isValidRegularExpression(field.getData().value, field.getAttribute('pattern'));
+        _isValidPattern = function (field) {
+            return _isValidRegularExpression(field.getData().value, field.getAttribute('pattern'));
         };
 
-        isValidRequired = function (field) {
+        _isValidRequired = function (field) {
             return field.getData().value.length > 0;
         };
 
-        AccessibleFormImplementation.prototype.getARIAAutoComplete = function (field) {
+        AccessibleFormImplementation.prototype._getARIAAutoComplete = function (field) {
             var form, tagName, type, value;
             tagName = field.getTagName();
             if (field.hasAttribute('type')) {
@@ -221,24 +221,24 @@ limitations under the License.
             return null;
         };
 
-        AccessibleFormImplementation.prototype.hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
+        AccessibleFormImplementation.prototype._hasEvent = function (element, typeEvent, typeDataEvent, typeFix) {
             var attribute, nativeElement;
             nativeElement = element.getData();
             if ((typeDataEvent === void 0) || (typeFix === void 0)) {
                 return (nativeElement["on" + typeEvent] instanceof Function) || ((nativeElement.eventListenerList !== void 0) && (nativeElement.eventListenerList[typeEvent] instanceof Function));
             } else {
                 attribute = element.getAttribute(typeDataEvent);
-                return (this.hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
+                return (this._hasEvent(element, typeEvent) && (!element.hasAttribute(typeDataEvent))) || self.hatemile.util.CommonFunctions.inList(attribute, typeFix);
             }
         };
 
-        AccessibleFormImplementation.prototype.addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, operation) {
+        AccessibleFormImplementation.prototype._addEventHandler = function (element, typeEvent, typeDataEvent, typeFix, operation) {
             var attribute, found, nativeElement;
-            if (!this.hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
+            if (!this._hasEvent(element, typeEvent, typeDataEvent, typeFix)) {
                 found = false;
                 attribute = element.getAttribute(typeDataEvent);
                 nativeElement = element.getData();
-                if (!this.hasEvent(element, typeEvent)) {
+                if (!this._hasEvent(element, typeEvent)) {
                     nativeElement["liston" + typeEvent] = [];
                     nativeElement["on" + typeEvent] = function (event) {
                         var addedEvent, i, len, ref;
@@ -259,12 +259,12 @@ limitations under the License.
             }
         };
 
-        AccessibleFormImplementation.prototype.validate = function (field, dataInvalid, typeFix, validateFunction) {
+        AccessibleFormImplementation.prototype._validate = function (field, dataInvalid, typeFix, validateFunction) {
             var context;
             context = this;
-            validateNow(field, dataInvalid, validateFunction);
-            this.addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, function (event) {
-                return validateNow(field, dataInvalid, validateFunction);
+            _validateNow(field, dataInvalid, validateFunction);
+            this._addEventHandler(field, 'change', DATA_EVENT_CHANGE_ADDED, typeFix, function (event) {
+                return _validateNow(field, dataInvalid, validateFunction);
             });
         };
 
@@ -312,7 +312,7 @@ limitations under the License.
 
         AccessibleFormImplementation.prototype.markAutoCompleteField = function (autoCompleteField) {
             var ariaAutoComplete;
-            ariaAutoComplete = this.getARIAAutoComplete(autoCompleteField);
+            ariaAutoComplete = this._getARIAAutoComplete(autoCompleteField);
             if (ariaAutoComplete !== null) {
                 autoCompleteField.setAttribute('aria-autocomplete', ariaAutoComplete);
             }
@@ -332,35 +332,35 @@ limitations under the License.
         AccessibleFormImplementation.prototype.markInvalidField = function (field) {
             var type;
             if ((field.hasAttribute('required')) || ((field.hasAttribute('aria-required')) && (field.getAttribute('aria-required').toLowerCase() === 'true'))) {
-                this.validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, isValidRequired);
+                this._validate(field, DATA_INVALID_REQUIRED, VALIDATION_REQUIRED, _isValidRequired);
             }
             if (field.hasAttribute('pattern')) {
-                this.validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, isValidPattern);
+                this._validate(field, DATA_INVALID_PATTERN, VALIDATION_PATTERN, _isValidPattern);
             }
             if ((field.hasAttribute('minlength')) || (field.hasAttribute('maxlength'))) {
-                this.validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, isValidLength);
+                this._validate(field, DATA_INVALID_LENGTH, VALIDATION_LENGTH, _isValidLength);
             }
             if ((field.hasAttribute('aria-valuemin')) || (field.hasAttribute('aria-valuemax'))) {
-                this.validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
+                this._validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, _isValidRange);
             }
             if (field.hasAttribute('type')) {
                 type = field.getAttribute('type').toLowerCase();
                 if (type === 'week') {
-                    this.validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, isValidWeek);
+                    this._validate(field, DATA_INVALID_WEEK, VALIDATION_TYPE, _isValidWeek);
                 } else if (type === 'month') {
-                    this.validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, isValidMonth);
+                    this._validate(field, DATA_INVALID_MONTH, VALIDATION_TYPE, _isValidMonth);
                 } else if ((type === 'datetime-local') || (type === 'datetime')) {
-                    this.validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, isValidDateTime);
+                    this._validate(field, DATA_INVALID_DATETIME, VALIDATION_TYPE, _isValidDateTime);
                 } else if (type === 'time') {
-                    this.validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, isValidTime);
+                    this._validate(field, DATA_INVALID_TIME, VALIDATION_TYPE, _isValidTime);
                 } else if (type === 'date') {
-                    this.validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, isValidDate);
+                    this._validate(field, DATA_INVALID_DATE, VALIDATION_TYPE, _isValidDate);
                 } else if ((type === 'number') || (type === 'range')) {
-                    this.validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, isValidRange);
+                    this._validate(field, DATA_INVALID_RANGE, VALIDATION_TYPE, _isValidRange);
                 } else if (type === 'email') {
-                    this.validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, isValidEmail);
+                    this._validate(field, DATA_INVALID_EMAIL, VALIDATION_TYPE, _isValidEmail);
                 } else if (type === 'url') {
-                    this.validate(field, DATA_INVALID_URL, VALIDATION_TYPE, isValidURL);
+                    this._validate(field, DATA_INVALID_URL, VALIDATION_TYPE, _isValidURL);
                 }
             }
         };

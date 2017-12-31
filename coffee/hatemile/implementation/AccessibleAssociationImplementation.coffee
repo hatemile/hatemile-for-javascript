@@ -32,21 +32,25 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Returns a list that represents the table.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] part The table header, table
   # footer or table body.
   #
   # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
   # represents the table.
   #
-  getModelTable: (part) ->
+  _getModelTable: (part) ->
     table = []
     rows = @parser.find(part).findChildren('tr').listResults()
     for row in rows
-      table.push(@getModelRow(@parser.find(row).findChildren('th,td')
+      table.push(@_getModelRow(@parser.find(row).findChildren('th,td')
           .listResults()))
-    return @getValidModelTable(table)
+    return @_getValidModelTable(table)
   
   # Returns a list that represents the table with the rowspans.
+  #
+  # @private
   #
   # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] originalTable The
   # list that represents the table without the rowspans.
@@ -54,7 +58,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
   # represents the table with the rowspans.
   #
-  getValidModelTable: (originalTable) ->
+  _getValidModelTable: (originalTable) ->
     newTable = []
     lengthTable = originalTable.length
     if lengthTable > 0
@@ -86,13 +90,15 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Returns a list that represents the line of table with the colspans.
   #
+  # @private
+  #
   # @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list that
   # represents the line of table without the colspans.
   #
   # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that represents
   # the line of table with the colspans.
   #
-  getModelRow: (originalRow) ->
+  _getModelRow: (originalRow) ->
     newRow = []
     length = originalRow.length
     if length > 0
@@ -109,13 +115,15 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Validate the model that represents the table header.
   #
+  # @private
+  #
   # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
   # that represents the table header.
   #
   # @return [boolean] True if the table header is valid or false if the table
   # header is not valid.
   #
-  validateHeader: (header) ->
+  _validateHeader: (header) ->
     if header.length is 0
       return false
     length = -1
@@ -130,13 +138,15 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Returns a list with ids of rows of same column.
   #
+  # @private
+  #
   # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
   # that represents the table header.
   # @param [number] index The index of columns.
   #
   # @return [Array<string>] The list with ids of rows of same column.
   #
-  getCellsHeadersIds: (header, index) ->
+  _getCellsHeadersIds: (header, index) ->
     ids = []
     for row in header
       cell = row[index]
@@ -146,10 +156,12 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Associate the data cell with header cell of row.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] element The table body or footer.
   #
-  associateDataCellsWithHeaderCellsOfRow: (element) ->
-    table = @getModelTable(element)
+  _associateDataCellsWithHeaderCellsOfRow: (element) ->
+    table = @_getModelTable(element)
     for row in table
       headersIds = []
       for cell in row
@@ -171,9 +183,11 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   
   # Set the scope of header cells of table header.
   #
+  # @private
+  #
   # @param [hatemile.util.html.HTMLDOMElement] tableHeader The table header.
   #
-  prepareHeaderCells: (tableHeader) ->
+  _prepareHeaderCells: (tableHeader) ->
     cells = @parser.find(tableHeader).findChildren('tr').findChildren('th')
         .listResults()
     for cell in cells
@@ -202,19 +216,19 @@ class @hatemile.implementation.AccessibleAssociationImplementation
     body = @parser.find(table).findChildren('tbody').firstResult()
     footer = @parser.find(table).findChildren('tfoot').firstResult()
     if header isnt null
-      @prepareHeaderCells(header)
+      @_prepareHeaderCells(header)
       
-      headerRows = @getModelTable(header)
-      if (body isnt null) and (@validateHeader(headerRows))
+      headerRows = @_getModelTable(header)
+      if (body isnt null) and (@_validateHeader(headerRows))
         lengthHeader = headerRows[0].length
-        fakeTable = @getModelTable(body)
+        fakeTable = @_getModelTable(body)
         if footer isnt null
-          fakeTable = fakeTable.concat(@getModelTable(footer))
+          fakeTable = fakeTable.concat(@_getModelTable(footer))
         for row in fakeTable
           if row.length is lengthHeader
             i = 0
             for cell in row
-              headersIds = @getCellsHeadersIds(headerRows, i)
+              headersIds = @_getCellsHeadersIds(headerRows, i)
               headers = cell.getAttribute('headers')
               for headersId in headersIds
                 headers = self.hatemile.util.CommonFunctions
@@ -223,9 +237,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
                 cell.setAttribute('headers', headers)
               i = i + 1
     if body isnt null
-      @associateDataCellsWithHeaderCellsOfRow(body)
+      @_associateDataCellsWithHeaderCellsOfRow(body)
     if footer isnt null
-      @associateDataCellsWithHeaderCellsOfRow(footer)
+      @_associateDataCellsWithHeaderCellsOfRow(footer)
     return
   
   # Associate all data cells with header cells of all tables of page.

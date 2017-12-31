@@ -38,6 +38,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   
   # Check that the element is descendant of other.
   #
+  # @private
+  #
   # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleAncestor
   # The possible ancestor.
   # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleDescendant
@@ -46,7 +48,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   # @return [boolean] True if the element is descendant of other or false if the
   # element is not descendant of other.
   #
-  isDescendant = (possibleAncestor, possibleDescendant) ->
+  _isDescendant = (possibleAncestor, possibleDescendant) ->
     ancestor = possibleDescendant.parentNode
     while (ancestor isnt undefined) and (ancestor isnt null)
       if ancestor is possibleAncestor
@@ -121,7 +123,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
     if (selector instanceof self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement)
       for result in @results
-        if isDescendant(result, selector.getData())
+        if _isDescendant(result, selector.getData())
           descendants.push(selector.getData())
           break
     else
@@ -146,14 +148,14 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
     if (selector instanceof self.hatemile.util.html.vanilla
         .VanillaHTMLDOMElement)
       for result in @results
-        if isDescendant(selector.getData(), result)
+        if _isDescendant(selector.getData(), result)
           ancestors.push(selector.getData())
           break
     else
       elements = @ownerDocument.querySelectorAll(selector)
       for result in @results
         for element in elements
-          if isDescendant(element, result)
+          if _isDescendant(element, result)
             ancestors.push(element)
     @results = ancestors
     return this

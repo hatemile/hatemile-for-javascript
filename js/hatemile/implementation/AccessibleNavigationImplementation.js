@@ -44,7 +44,7 @@ limitations under the License.
 
         DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
 
-        AccessibleNavigationImplementation.prototype.generateListSkippers = function () {
+        AccessibleNavigationImplementation.prototype._generateListSkippers = function () {
             var container, list, local;
             container = this.parser.find("#" + ID_CONTAINER_SKIPPERS).firstResult();
             if (container === null) {
@@ -66,7 +66,7 @@ limitations under the License.
             return list;
         };
 
-        AccessibleNavigationImplementation.prototype.generateListHeading = function () {
+        AccessibleNavigationImplementation.prototype._generateListHeading = function () {
             var container, list, local, textContainer;
             container = this.parser.find("#" + ID_CONTAINER_HEADING).firstResult();
             if (container === null) {
@@ -92,7 +92,7 @@ limitations under the License.
             return list;
         };
 
-        AccessibleNavigationImplementation.prototype.getHeadingLevel = function (element) {
+        AccessibleNavigationImplementation.prototype._getHeadingLevel = function (element) {
             var tag;
             tag = element.getTagName();
             if (tag === 'H1') {
@@ -112,14 +112,14 @@ limitations under the License.
             }
         };
 
-        AccessibleNavigationImplementation.prototype.isValidHeading = function () {
+        AccessibleNavigationImplementation.prototype._isValidHeading = function () {
             var countMainHeading, element, elements, i, lastLevel, len, level;
             elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
             lastLevel = 0;
             countMainHeading = 0;
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
-                level = this.getHeadingLevel(element);
+                level = this._getHeadingLevel(element);
                 if (level === 1) {
                     if (countMainHeading === 1) {
                         return false;
@@ -135,7 +135,7 @@ limitations under the License.
             return true;
         };
 
-        AccessibleNavigationImplementation.prototype.generateAnchorFor = function (element, dataAttribute, anchorClass) {
+        AccessibleNavigationImplementation.prototype._generateAnchorFor = function (element, dataAttribute, anchorClass) {
             var anchor;
             self.hatemile.util.CommonFunctions.generateId(element, this.prefixId);
             anchor = null;
@@ -156,7 +156,7 @@ limitations under the License.
             return anchor;
         };
 
-        AccessibleNavigationImplementation.prototype.freeShortcut = function (shortcut) {
+        AccessibleNavigationImplementation.prototype._freeShortcut = function (shortcut) {
             var alphaNumbers, element, elementWithShortcuts, elements, found, i, j, k, key, len, len1, len2, shortcuts;
             alphaNumbers = '1234567890abcdefghijklmnopqrstuvwxyz';
             elements = this.parser.find('[accesskey]').listResults();
@@ -223,11 +223,11 @@ limitations under the License.
             }
             if (skipper !== null) {
                 if (!this.listSkippersAdded) {
-                    this.listSkippers = this.generateListSkippers();
+                    this.listSkippers = this._generateListSkippers();
                     this.listSkippersAdded = true;
                 }
                 if (this.listSkippers !== null) {
-                    anchor = this.generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR);
+                    anchor = this._generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR);
                     if (anchor !== null) {
                         itemLink = this.parser.createElement('li');
                         link = this.parser.createElement('a');
@@ -236,7 +236,7 @@ limitations under the License.
                         shortcuts = skipper['shortcut'];
                         if ((shortcuts !== void 0) && (shortcuts.length > 0)) {
                             shortcut = shortcuts[0];
-                            this.freeShortcut(shortcut);
+                            this._freeShortcut(shortcut);
                             link.setAttribute('accesskey', shortcut);
                         }
                         self.hatemile.util.CommonFunctions.generateId(link, this.prefixId);
@@ -265,15 +265,15 @@ limitations under the License.
         AccessibleNavigationImplementation.prototype.provideNavigationByHeading = function (heading) {
             var anchor, item, level, link, list, superItem;
             if (!this.validateHeading) {
-                this.validHeading = this.isValidHeading();
+                this.validHeading = this._isValidHeading();
                 this.validateHeading = true;
             }
             if (this.validHeading) {
-                anchor = this.generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);
+                anchor = this._generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);
                 if (anchor !== null) {
-                    level = this.getHeadingLevel(heading);
+                    level = this._getHeadingLevel(heading);
                     if (level === 1) {
-                        list = this.generateListHeading();
+                        list = this._generateListHeading();
                     } else {
                         superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
                         if (superItem !== null) {
