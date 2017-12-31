@@ -165,7 +165,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
             for headerId in headersIds
               headers = self.hatemile.util.CommonFunctions
                   .increaseInList(headers, headerId)
-            cell.setAttribute('headers', headers)
+            if headers isnt null
+              cell.setAttribute('headers', headers)
     return
   
   # Set the scope of header cells of table header.
