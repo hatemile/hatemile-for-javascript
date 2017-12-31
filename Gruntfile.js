@@ -8,7 +8,6 @@ module.exports = function(grunt) {
             },
             compile: {
                 files: {
-                    'js/common.js': 'coffee/common.coffee',
                     'js/eventlistener.js': 'coffee/eventlistener.coffee',
                     'js/hatemile/AccessibleAssociation.js': 'coffee/hatemile/AccessibleAssociation.coffee',
                     'js/hatemile/AccessibleCSS.js': 'coffee/hatemile/AccessibleCSS.coffee',
