@@ -74,6 +74,7 @@ If you want submit your code to HaTeMiLe for JavaScript you need follow the code
   * :octocat: `:octocat:` GitHub especific resource
   * :bookmark: `:bookmark:` Version Tag
   * :wrench: `:wrench:` Tooling
+  * :lock: `:lock:` Security
 
 #### CoffeeScript styleguide
 
