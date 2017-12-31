@@ -204,7 +204,9 @@ limitations under the License.
                                     headersId = headersIds[l];
                                     headers = self.hatemile.util.CommonFunctions.increaseInList(headers, headersId);
                                 }
-                                cell.setAttribute('headers', headers);
+                                if (headers !== null) {
+                                    cell.setAttribute('headers', headers);
+                                }
                                 i = i + 1;
                             }
                         }

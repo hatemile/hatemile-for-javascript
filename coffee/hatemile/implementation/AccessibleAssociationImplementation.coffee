@@ -218,7 +218,8 @@ class @hatemile.implementation.AccessibleAssociationImplementation
               for headersId in headersIds
                 headers = self.hatemile.util.CommonFunctions
                     .increaseInList(headers, headersId)
-              cell.setAttribute('headers', headers)
+              if headers isnt null
+                cell.setAttribute('headers', headers)
               i = i + 1
     if body isnt null
       @associateDataCellsWithHeaderCellsOfRow(body)
