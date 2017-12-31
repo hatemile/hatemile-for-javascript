@@ -26,7 +26,7 @@ limitations under the License.
     (base2 = this.hatemile.util.css).jscssp || (base2.jscssp = {});
 
     this.hatemile.util.css.jscssp.JSCSSPParser = (function () {
-        var _getAbsolutePath, _getCSSContent, _getContentFromURL, getContentFromElement;
+        var _getAbsolutePath, _getCSSContent, _getContentFromURL;
 
         _getAbsolutePath = function (currentURL, otherURL) {
             var i, len, relativePart, relativeParts, stackURL, urlRegularExpression;
@@ -124,27 +124,6 @@ limitations under the License.
                 }
             }
         }
-
-        getContentFromElement = function (element) {
-            var child, childs, i, len, text;
-            if (element.textContent !== void 0) {
-                return element.textContent;
-            }
-            if (element.innerText !== void 0) {
-                return element.innerText;
-            }
-            text = '';
-            childs = element.childNodes;
-            for (i = 0, len = childs.length; i < len; i++) {
-                child = childs[i];
-                if (child.nodeType === element.ownerDocument.TEXT_NODE) {
-                    text += child.nodeValue;
-                } else if (child.nodeType === element.ownerDocument.ELEMENT_NODE) {
-                    text += getContentFromElement(elementChild);
-                }
-            }
-            return text;
-        };
 
         JSCSSPParser.prototype.getRules = function (properties) {
             var i, j, k, len, len1, len2, nativeRule, property, ref, ref1, rule, rules;

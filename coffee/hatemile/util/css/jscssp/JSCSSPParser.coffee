@@ -140,26 +140,6 @@ class @hatemile.util.css.jscssp.JSCSSPParser
       if (typeof @parser is typeof '')
         @parser = parser.parse("body{}#{@parser}", false, false)
   
-  # Returns the text content of element.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  #
-  # @return [string] The text content of element.
-  #
-  getContentFromElement = (element) ->
-    if element.textContent isnt undefined
-      return element.textContent
-    if element.innerText isnt undefined
-      return element.innerText
-    text = ''
-    childs = element.childNodes
-    for child in childs
-      if (child.nodeType is element.ownerDocument.TEXT_NODE)
-        text += child.nodeValue
-      else if (child.nodeType is element.ownerDocument.ELEMENT_NODE)
-        text += getContentFromElement(elementChild)
-    return text
-  
   # Returns the rules of parser by properties.
   #
   # @param [Array<string>] properties The properties.
