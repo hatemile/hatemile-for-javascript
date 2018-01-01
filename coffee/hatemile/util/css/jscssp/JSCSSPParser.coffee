@@ -63,17 +63,18 @@ class @hatemile.util.css.jscssp.JSCSSPParser
       if urlRegularExpression.test(otherURL)
         return otherURL
       else
-        if currentURL.indexOf('/') is -1
-          currentURL += '/'
         stackURL = currentURL.split('/')
         stackURL.pop()
-        relativeParts = otherURL.split('/')
-        for relativePart in relativeParts
-          if relativePart is '..'
-            stackURL.pop()
-          else if relativePart isnt '.'
-            stackURL.push(relativePart)
-        return stackURL.join('/')
+        if otherURL.indexOf('/') is 0
+          return "#{stackURL[0]}//#{stackURL[2]}#{otherURL}"
+        else
+          relativeParts = otherURL.split('/')
+          for relativePart in relativeParts
+            if relativePart is '..'
+              stackURL.pop()
+            else if relativePart isnt '.'
+              stackURL.push(relativePart)
+          return stackURL.join('/')
   
   # Returns the text content of document.
   #

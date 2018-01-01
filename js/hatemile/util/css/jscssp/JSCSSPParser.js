@@ -43,21 +43,22 @@ limitations under the License.
                 if (urlRegularExpression.test(otherURL)) {
                     return otherURL;
                 } else {
-                    if (currentURL.indexOf('/') === -1) {
-                        currentURL += '/';
-                    }
                     stackURL = currentURL.split('/');
                     stackURL.pop();
-                    relativeParts = otherURL.split('/');
-                    for (i = 0, len = relativeParts.length; i < len; i++) {
-                        relativePart = relativeParts[i];
-                        if (relativePart === '..') {
-                            stackURL.pop();
-                        } else if (relativePart !== '.') {
-                            stackURL.push(relativePart);
+                    if (otherURL.indexOf('/') === 0) {
+                        return stackURL[0] + "//" + stackURL[2] + otherURL;
+                    } else {
+                        relativeParts = otherURL.split('/');
+                        for (i = 0, len = relativeParts.length; i < len; i++) {
+                            relativePart = relativeParts[i];
+                            if (relativePart === '..') {
+                                stackURL.pop();
+                            } else if (relativePart !== '.') {
+                                stackURL.push(relativePart);
+                            }
                         }
+                        return stackURL.join('/');
                     }
-                    return stackURL.join('/');
                 }
             }
         };
