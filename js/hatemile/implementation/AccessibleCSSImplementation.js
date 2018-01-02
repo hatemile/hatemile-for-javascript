@@ -22,7 +22,11 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleCSSImplementation = (function () {
-        var DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS;
+        var DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS;
+
+        DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof';
+
+        DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof';
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
@@ -307,38 +311,23 @@ limitations under the License.
             this._reverseSpeakAs(element, 'digits');
         };
 
-        AccessibleCSSImplementation.prototype._speakHeaderAlways = function (element) {
-            var header, i, idHeader, idsHeaders, len, textHeader;
-            idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'));
-            textHeader = '';
-            for (i = 0, len = idsHeaders.length; i < len; i++) {
-                idHeader = idsHeaders[i];
-                header = this.htmlParser.find("#" + idHeader).firstResult();
-                if (header !== null) {
-                    textHeader = "" + textHeader + (header.getTextContent()) + " ";
-                }
-            }
-            if (textHeader.length > 0) {
-                element.prependElement(this._createAuralContentElement(textHeader, 'always'));
-            }
-        };
-
         AccessibleCSSImplementation.prototype._speakHeaderAlwaysInherit = function (element) {
-            var cellElement, cellElements, i, len;
+            var accessibleDisplay, elements, i, len;
             this._speakHeaderOnceInherit(element);
-            cellElements = this.htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults();
-            for (i = 0, len = cellElements.length; i < len; i++) {
-                cellElement = cellElements[i];
-                this._speakHeaderAlways(cellElement);
+            elements = this.htmlParser.find(element).findDescendants('td[headers],th[headers]').listResults();
+            accessibleDisplay = new self.hatemile.implementation.AccessibleDisplayScreenReaderImplementation(this.htmlParser, this.configure);
+            for (i = 0, len = elements.length; i < len; i++) {
+                element = elements[i];
+                accessibleDisplay.displayCellHeader(element);
             }
         };
 
         AccessibleCSSImplementation.prototype._speakHeaderOnceInherit = function (element) {
-            var headerElement, headerElements, i, len;
-            headerElements = this.htmlParser.find(element).findDescendants("span[" + DATA_SPEAK_AS + "=\"always\"]").listResults();
-            for (i = 0, len = headerElements.length; i < len; i++) {
-                headerElement = headerElements[i];
-                headerElement.removeNode();
+            var elements, i, len;
+            elements = this.htmlParser.find(element).findDescendants(("[" + DATA_ATTRIBUTE_HEADERS_BEFORE_OF + "],") + ("[" + DATA_ATTRIBUTE_HEADERS_AFTER_OF + "]")).listResults();
+            for (i = 0, len = elements.length; i < len; i++) {
+                element = elements[i];
+                element.removeNode();
             }
         };
 

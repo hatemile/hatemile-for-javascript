@@ -28,6 +28,8 @@ self = this
 #
 class @hatemile.implementation.AccessibleCSSImplementation
   
+  DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof'
+  DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof'
   DATA_IGNORE = 'data-ignoreaccessibilityfix'
   DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
   DATA_SPEAK = 'data-cssspeak'
@@ -503,23 +505,6 @@ class @hatemile.implementation.AccessibleCSSImplementation
     @_reverseSpeakAs(element, 'digits')
     return
   
-  # The cells headers of data cell will be spoken for element only.
-  #
-  # @private
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  #
-  _speakHeaderAlways: (element) ->
-    idsHeaders = element.getAttribute('headers').split(new RegExp('[ \n\t\r]+'))
-    textHeader = ''
-    for idHeader in idsHeaders
-      header = @htmlParser.find("##{idHeader}").firstResult()
-      if header isnt null
-        textHeader = "#{textHeader}#{header.getTextContent()} "
-    if textHeader.length > 0
-      element.prependElement(@_createAuralContentElement(textHeader, 'always'))
-    return
-  
   # The cells headers will be spoken for every data cell for element and
   # descendants.
   #
@@ -530,10 +515,12 @@ class @hatemile.implementation.AccessibleCSSImplementation
   _speakHeaderAlwaysInherit: (element) ->
     @_speakHeaderOnceInherit(element)
     
-    cellElements = @htmlParser.find(element)
+    elements = @htmlParser.find(element)
         .findDescendants('td[headers],th[headers]').listResults()
-    for cellElement in cellElements
-      @_speakHeaderAlways(cellElement)
+    accessibleDisplay = new self.hatemile.implementation
+        .AccessibleDisplayScreenReaderImplementation(@htmlParser, @configure)
+    for element in elements
+      accessibleDisplay.displayCellHeader(element)
     return
   
   # The cells headers will be spoken one time for element and descendants.
@@ -543,10 +530,11 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
   _speakHeaderOnceInherit: (element) ->
-    headerElements = @htmlParser.find(element)
-        .findDescendants("span[#{DATA_SPEAK_AS}=\"always\"]").listResults()
-    for headerElement in headerElements
-      headerElement.removeNode()
+    elements = @htmlParser.find(element)
+        .findDescendants("[#{DATA_ATTRIBUTE_HEADERS_BEFORE_OF}]," \
+          + "[#{DATA_ATTRIBUTE_HEADERS_AFTER_OF}]").listResults()
+    for element in elements
+      element.removeNode()
     return
   
   # Initializes a new object that manipulate the accessibility of the CSS of
