@@ -380,6 +380,48 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         db, da)
     return
   
+  # Display that the element has WAI-ARIA drag-and-drop state.
+  #
+  # @private
+  #
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA
+  # drag-and-drop state.
+  #
+  _displayWAIARIADragandDrop: (element) ->
+    if element.hasAttribute('aria-dropeffect')
+      attributeValue = element.getAttribute('aria-dropeffect')
+      if attributeValue is 'copy'
+        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
+            @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
+            DATA_ARIA_DROPEFFECT_AFTER_OF)
+      else if attributeValue is 'move'
+        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
+            @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
+            DATA_ARIA_DROPEFFECT_AFTER_OF)
+      else if attributeValue is 'link'
+        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
+            @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
+            DATA_ARIA_DROPEFFECT_AFTER_OF)
+      else if attributeValue is 'execute'
+        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
+            @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
+            DATA_ARIA_DROPEFFECT_AFTER_OF)
+      else if attributeValue is 'popup'
+        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
+            @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
+            DATA_ARIA_DROPEFFECT_AFTER_OF)
+    if element.hasAttribute('aria-grabbed')
+      attributeValue = element.getAttribute('aria-grabbed')
+      if attributeValue is 'true'
+        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
+            @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
+            DATA_ARIA_GRABBED_AFTER_OF)
+      else if attributeValue is 'false'
+        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
+            @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
+            DATA_ARIA_GRABBED_AFTER_OF)
+    return
+  
   # Initializes a new object that manipulate the display for screen readers of
   # parser.
   #
@@ -823,28 +865,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         @_forceReadSimple(element, @ariaCheckedMixedBefore, \
             @ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, \
             DATA_ARIA_CHECKED_AFTER_OF)
-    if element.hasAttribute('aria-dropeffect')
-      attributeValue = element.getAttribute('aria-dropeffect')
-      if attributeValue is 'copy'
-        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
-            @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'move'
-        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
-            @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'link'
-        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
-            @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'execute'
-        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
-            @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'popup'
-        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
-            @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
     if element.hasAttribute('aria-expanded')
       attributeValue = element.getAttribute('aria-expanded')
       if attributeValue is 'true'
@@ -855,16 +875,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         @_forceReadSimple(element, @ariaExpandedFalseBefore, \
             @ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, \
             DATA_ARIA_EXPANDED_AFTER_OF)
-    if element.hasAttribute('aria-grabbed')
-      attributeValue = element.getAttribute('aria-grabbed')
-      if attributeValue is 'true'
-        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
-            @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
-            DATA_ARIA_GRABBED_AFTER_OF)
-      else if attributeValue is 'false'
-        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
-            @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
-            DATA_ARIA_GRABBED_AFTER_OF)
     if (element.hasAttribute('aria-haspopup')) and \
         (element.getAttribute('aria-haspopup') is 'true')
       @_forceReadSimple(element, @ariaHaspopupTrueBefore, \
@@ -1001,6 +1011,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
             @ariaAutoCompleteInlineAfter, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, \
             DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF)
+    @_displayWAIARIADragandDrop(element)
     return
   
   # Display the WAI-ARIA attributes of all elements of page.
@@ -1099,38 +1110,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         @_forceReadSimple(element, @attributeDropzoneLinkBefore, \
             @attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, \
             DATA_ATTRIBUTE_DROPZONE_AFTER_OF)
-    if element.hasAttribute('aria-dropeffect')
-      attributeValue = element.getAttribute('aria-dropeffect')
-      if attributeValue is 'copy'
-        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
-            @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'move'
-        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
-            @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'link'
-        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
-            @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'execute'
-        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
-            @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-      else if attributeValue is 'popup'
-        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
-            @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, \
-            DATA_ARIA_DROPEFFECT_AFTER_OF)
-    if element.hasAttribute('aria-grabbed')
-      attributeValue = element.getAttribute('aria-grabbed')
-      if attributeValue is 'true'
-        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
-            @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
-            DATA_ARIA_GRABBED_AFTER_OF)
-      else if attributeValue is 'false'
-        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
-            @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, \
-            DATA_ARIA_GRABBED_AFTER_OF)
+    @_displayWAIARIADragandDrop(element)
     return
   
   # Display that an elements of page have drag-and-drop events.

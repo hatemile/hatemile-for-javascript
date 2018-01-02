@@ -410,6 +410,32 @@ limitations under the License.
             this._forceReadSimple(e, textBefore, textAfter, db, da);
         };
 
+        AccessibleDisplayScreenReaderImplementation.prototype._displayWAIARIADragandDrop = function (element) {
+            var attributeValue;
+            if (element.hasAttribute('aria-dropeffect')) {
+                attributeValue = element.getAttribute('aria-dropeffect');
+                if (attributeValue === 'copy') {
+                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                } else if (attributeValue === 'move') {
+                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                } else if (attributeValue === 'link') {
+                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                } else if (attributeValue === 'execute') {
+                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                } else if (attributeValue === 'popup') {
+                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                }
+            }
+            if (element.hasAttribute('aria-grabbed')) {
+                attributeValue = element.getAttribute('aria-grabbed');
+                if (attributeValue === 'true') {
+                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                } else if (attributeValue === 'false') {
+                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                }
+            }
+        };
+
         function AccessibleDisplayScreenReaderImplementation(parser, configure1, userAgent) {
             this.parser = parser;
             this.configure = configure1;
@@ -716,34 +742,12 @@ limitations under the License.
                     this._forceReadSimple(element, this.ariaCheckedMixedBefore, this.ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
                 }
             }
-            if (element.hasAttribute('aria-dropeffect')) {
-                attributeValue = element.getAttribute('aria-dropeffect');
-                if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'execute') {
-                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'popup') {
-                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                }
-            }
             if (element.hasAttribute('aria-expanded')) {
                 attributeValue = element.getAttribute('aria-expanded');
                 if (attributeValue === 'true') {
                     this._forceReadSimple(element, this.ariaExpandedTrueBefore, this.ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
                 } else if (attributeValue === 'false') {
                     this._forceReadSimple(element, this.ariaExpandedFalseBefore, this.ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
-                }
-            }
-            if (element.hasAttribute('aria-grabbed')) {
-                attributeValue = element.getAttribute('aria-grabbed');
-                if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
-                } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
                 }
             }
             if ((element.hasAttribute('aria-haspopup')) && (element.getAttribute('aria-haspopup') === 'true')) {
@@ -836,6 +840,7 @@ limitations under the License.
                     this._forceReadSimple(element, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
                 }
             }
+            this._displayWAIARIADragandDrop(element);
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayAllWAIARIAStates = function () {
@@ -901,28 +906,7 @@ limitations under the License.
                     this._forceReadSimple(element, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
                 }
             }
-            if (element.hasAttribute('aria-dropeffect')) {
-                attributeValue = element.getAttribute('aria-dropeffect');
-                if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'execute') {
-                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                } else if (attributeValue === 'popup') {
-                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
-                }
-            }
-            if (element.hasAttribute('aria-grabbed')) {
-                attributeValue = element.getAttribute('aria-grabbed');
-                if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
-                } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
-                }
-            }
+            this._displayWAIARIADragandDrop(element);
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayAllDragsAndDrops = function () {
