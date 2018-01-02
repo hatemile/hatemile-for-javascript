@@ -40,6 +40,16 @@ class @hatemile.util.Configure
       clonedParameters[key] = value
     return clonedParameters
   
+  # Check that the configuration has an parameter.
+  #
+  # @param [string] parameter The name of parameter.
+  #
+  # @return [boolean] True if the configuration has the parameter false if the
+  # configuration not has the parameter.
+  #
+  hasParameter: (parameter) ->
+    return @parameters[parameter] isnt undefined
+  
   # Returns the value of a parameter of configuration.
   #
   # @param [string] name The parameter.
@@ -47,4 +57,6 @@ class @hatemile.util.Configure
   # @return [string] The value of the parameter.
   #
   getParameter: (name) ->
+    if not @hasParameter(name)
+      throw new Error("Parameter '#{name}' not found.")
     return @parameters[name]

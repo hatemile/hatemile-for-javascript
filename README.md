@@ -29,7 +29,7 @@ Include the configuration, dependencies and solutions scripts and styles:
 <!-- Configuration -->
 <script type="text/javascript" src="/path/to/_locales/en_US/js/configurations.js"></script>
 <script type="text/javascript" src="/path/to/_locales/en_US/js/skippers.js"></script>
-<script type="text/javascript" src="/path/to/_locales/en_US/js/symbols.js"></script>
+<script type="text/javascript" src="/path/to/js/hatemile-symbols.js"></script>
 <!-- Dependencies -->
 <script type="text/javascript" src="/path/to/js/eventlistener.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile/util/CommonFunctions.js"></script>

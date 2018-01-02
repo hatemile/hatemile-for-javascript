@@ -76,7 +76,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   _getDescriptionOfSymbol: (symbol) ->
     for _symbol in @symbols
       if _symbol.symbol is symbol
-        return _symbol.description
+        return configure.getParameter(_symbol.description)
     return null
   
   # Returns the regular expression to search all symbols.
@@ -554,11 +554,12 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   # @param [hatemile.util.css.StyleSheetParser] cssParser The CSS parser.
+  # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
   # @param [Array<object>] symbols The symbols with descriptions.
   # @option Array<symbols> [string] symbol The symbol.
   # @option Array<symbols> [string] description The description of symbol.
   #
-  constructor: (@htmlParser, @cssParser, @symbols) ->
+  constructor: (@htmlParser, @cssParser, @configure, @symbols) ->
   
   # Provide the CSS features of speaking and speech properties in element.
   #

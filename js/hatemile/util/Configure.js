@@ -35,7 +35,14 @@ limitations under the License.
             return clonedParameters;
         };
 
+        Configure.prototype.hasParameter = function (parameter) {
+            return this.parameters[parameter] !== void 0;
+        };
+
         Configure.prototype.getParameter = function (name) {
+            if (!this.hasParameter(name)) {
+                throw new Error("Parameter '" + name + "' not found.");
+            }
             return this.parameters[name];
         };
 
