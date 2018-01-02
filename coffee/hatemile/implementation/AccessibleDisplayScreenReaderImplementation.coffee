@@ -1067,10 +1067,13 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   displayTitle: (element) ->
     if (element.hasAttribute('title')) and \
         (element.getAttribute('title').length > 0)
-      @_forceRead(element, element.getAttribute('title'), \
-          @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, \
-          @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, \
-          DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
+      if element.getTagName() is 'IMG'
+        @displayAlternativeTextImage(element)
+      else
+        @_forceRead(element, element.getAttribute('title'), \
+            @attributeTitlePrefixBefore, @attributeTitleSuffixBefore, \
+            @attributeTitlePrefixAfter, @attributeTitleSuffixAfter, \
+            DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF)
     return
   
   # Display the titles of all elements of page.

@@ -876,7 +876,11 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayTitle = function (element) {
             if ((element.hasAttribute('title')) && (element.getAttribute('title').length > 0)) {
-                this._forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
+                if (element.getTagName() === 'IMG') {
+                    this.displayAlternativeTextImage(element);
+                } else {
+                    this._forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
+                }
             }
         };
 
