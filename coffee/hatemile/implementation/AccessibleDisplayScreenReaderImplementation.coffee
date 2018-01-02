@@ -154,6 +154,21 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     else
       return defaultPrefix
   
+  # Returns the description of role.
+  #
+  # @private
+  #
+  # @param [string] role The role.
+  #
+  # @return [string] The description of role.
+  #
+  _getRoleDescription: (role) ->
+    parameter = "role-#{role.toLowerCase()}"
+    if @configure.hasParameter(parameter)
+      return @configure.getParameter(parameter)
+    else
+      return null
+  
   # Returns the description of language.
   #
   # @private
@@ -669,70 +684,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     @dataInvalidWeekAfter = configure
         .getParameter('attribute-data-invalid-week-after')
     
-    @roles = {
-      'alert': configure.getParameter('role-alert')
-      'alertdialog': configure.getParameter('role-alertdialog')
-      'application': configure.getParameter('role-application')
-      'article': configure.getParameter('role-article')
-      'banner': configure.getParameter('role-banner')
-      'button': configure.getParameter('role-button')
-      'checkbox': configure.getParameter('role-checkbox')
-      'columnheader': configure.getParameter('role-columnheader')
-      'combobox': configure.getParameter('role-combobox')
-      'complementary': configure.getParameter('role-complementary')
-      'contentinfo': configure.getParameter('role-contentinfo')
-      'definition': configure.getParameter('role-definition')
-      'dialog': configure.getParameter('role-dialog')
-      'directory': configure.getParameter('role-directory')
-      'document': configure.getParameter('role-document')
-      'form': configure.getParameter('role-form')
-      'grid': configure.getParameter('role-grid')
-      'gridcell': configure.getParameter('role-gridcell')
-      'group': configure.getParameter('role-group')
-      'heading': configure.getParameter('role-heading')
-      'img': configure.getParameter('role-img')
-      'link': configure.getParameter('role-link')
-      'list': configure.getParameter('role-list')
-      'listbox': configure.getParameter('role-listbox')
-      'listitem': configure.getParameter('role-listitem')
-      'log': configure.getParameter('role-log')
-      'main': configure.getParameter('role-main')
-      'marquee': configure.getParameter('role-marquee')
-      'math': configure.getParameter('role-math')
-      'menu': configure.getParameter('role-menu')
-      'menubar': configure.getParameter('role-menubar')
-      'menuitem': configure.getParameter('role-menuitem')
-      'menuitemcheckbox': configure.getParameter('role-menuitemcheckbox')
-      'menuitemradio': configure.getParameter('role-menuitemradio')
-      'navigation': configure.getParameter('role-navigation')
-      'note': configure.getParameter('role-note')
-      'option': configure.getParameter('role-option')
-      'presentation': configure.getParameter('role-presentation')
-      'progressbar': configure.getParameter('role-progressbar')
-      'radio': configure.getParameter('role-radio')
-      'radiogroup': configure.getParameter('role-radiogroup')
-      'region': configure.getParameter('role-region')
-      'row': configure.getParameter('role-row')
-      'rowgroup': configure.getParameter('role-rowgroup')
-      'rowheader': configure.getParameter('role-rowheader')
-      'scrollbar': configure.getParameter('role-scrollbar')
-      'search': configure.getParameter('role-search')
-      'separator': configure.getParameter('role-separator')
-      'slider': configure.getParameter('role-slider')
-      'spinbutton': configure.getParameter('role-spinbutton')
-      'status': configure.getParameter('role-status')
-      'tab': configure.getParameter('role-tab')
-      'tablist': configure.getParameter('role-tablist')
-      'tabpanel': configure.getParameter('role-tabpanel')
-      'textbox': configure.getParameter('role-textbox')
-      'timer': configure.getParameter('role-timer')
-      'toolbar': configure.getParameter('role-toolbar')
-      'tooltip': configure.getParameter('role-tooltip')
-      'tree': configure.getParameter('role-tree')
-      'treegrid': configure.getParameter('role-treegrid')
-      'treeitem': configure.getParameter('role-treeitem')
-    }
-    
     @shortcutPrefix = @_getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
   
   # Display the shortcut of element.
@@ -785,8 +736,8 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   displayRole: (element) ->
     if element.hasAttribute('role')
       role = element.getAttribute('role')
-      roleDescription = @roles[role]
-      if roleDescription isnt undefined
+      roleDescription = @_getRoleDescription(role)
+      if roleDescription isnt null
         @_forceRead(element, roleDescription, @attributeRolePrefixBefore, \
             @attributeRoleSuffixBefore, @attributeRolePrefixAfter, \
             @attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF)
