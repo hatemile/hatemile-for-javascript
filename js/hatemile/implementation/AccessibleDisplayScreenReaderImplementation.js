@@ -229,6 +229,21 @@ limitations under the License.
             }
         };
 
+        AccessibleDisplayScreenReaderImplementation.prototype._getLanguageDescription = function (languageCode) {
+            var language, parameter;
+            language = languageCode.toLowerCase();
+            parameter = "language-" + language;
+            if (this.configure.hasParameter(parameter)) {
+                return this.configure.getParameter(parameter);
+            } else if (language.indexOf('-') > -1) {
+                parameter = 'language-' + language.split('-')[0];
+                if (this.configure.hasParameter(parameter)) {
+                    return this.configure.getParameter(parameter);
+                }
+            }
+            return null;
+        };
+
         AccessibleDisplayScreenReaderImplementation.prototype._getDescription = function (element) {
             var description, descriptionId, descriptionIds, elementDescription, i, len, type;
             description = null;
@@ -395,8 +410,9 @@ limitations under the License.
             this._forceReadSimple(e, textBefore, textAfter, db, da);
         };
 
-        function AccessibleDisplayScreenReaderImplementation(parser, configure, userAgent) {
+        function AccessibleDisplayScreenReaderImplementation(parser, configure1, userAgent) {
             this.parser = parser;
+            this.configure = configure1;
             this.listShortcutsAdded = false;
             this.listShortcuts = null;
             this.idGenerator = new hatemile.util.IDGenerator('display');
@@ -587,192 +603,6 @@ limitations under the License.
                 'tree': configure.getParameter('role-tree'),
                 'treegrid': configure.getParameter('role-treegrid'),
                 'treeitem': configure.getParameter('role-treeitem')
-            };
-            this.languages = {
-                'aa': configure.getParameter('language-aa'),
-                'ab': configure.getParameter('language-ab'),
-                'ae': configure.getParameter('language-ae'),
-                'af': configure.getParameter('language-af'),
-                'ak': configure.getParameter('language-ak'),
-                'am': configure.getParameter('language-am'),
-                'an': configure.getParameter('language-an'),
-                'ar': configure.getParameter('language-ar'),
-                'as': configure.getParameter('language-as'),
-                'av': configure.getParameter('language-av'),
-                'ay': configure.getParameter('language-ay'),
-                'az': configure.getParameter('language-az'),
-                'ba': configure.getParameter('language-ba'),
-                'be': configure.getParameter('language-be'),
-                'bg': configure.getParameter('language-bg'),
-                'bh': configure.getParameter('language-bh'),
-                'bi': configure.getParameter('language-bi'),
-                'bm': configure.getParameter('language-bm'),
-                'bn': configure.getParameter('language-bn'),
-                'bo': configure.getParameter('language-bo'),
-                'br': configure.getParameter('language-br'),
-                'bs': configure.getParameter('language-bs'),
-                'ca': configure.getParameter('language-ca'),
-                'ce': configure.getParameter('language-ce'),
-                'ch': configure.getParameter('language-ch'),
-                'co': configure.getParameter('language-co'),
-                'cr': configure.getParameter('language-cr'),
-                'cs': configure.getParameter('language-cs'),
-                'cu': configure.getParameter('language-cu'),
-                'cv': configure.getParameter('language-cv'),
-                'cy': configure.getParameter('language-cy'),
-                'da': configure.getParameter('language-da'),
-                'de': configure.getParameter('language-de'),
-                'dv': configure.getParameter('language-dv'),
-                'dz': configure.getParameter('language-dz'),
-                'ee': configure.getParameter('language-ee'),
-                'el': configure.getParameter('language-el'),
-                'en': configure.getParameter('language-en'),
-                'eo': configure.getParameter('language-eo'),
-                'es': configure.getParameter('language-es'),
-                'et': configure.getParameter('language-et'),
-                'eu': configure.getParameter('language-eu'),
-                'fa': configure.getParameter('language-fa'),
-                'ff': configure.getParameter('language-ff'),
-                'fi': configure.getParameter('language-fi'),
-                'fj': configure.getParameter('language-fj'),
-                'fo': configure.getParameter('language-fo'),
-                'fr': configure.getParameter('language-fr'),
-                'fy': configure.getParameter('language-fy'),
-                'ga': configure.getParameter('language-ga'),
-                'gd': configure.getParameter('language-gd'),
-                'gl': configure.getParameter('language-gl'),
-                'gn': configure.getParameter('language-gn'),
-                'gu': configure.getParameter('language-gu'),
-                'gv': configure.getParameter('language-gv'),
-                'ha': configure.getParameter('language-ha'),
-                'he': configure.getParameter('language-he'),
-                'hi': configure.getParameter('language-hi'),
-                'ho': configure.getParameter('language-ho'),
-                'hr': configure.getParameter('language-hr'),
-                'ht': configure.getParameter('language-ht'),
-                'hu': configure.getParameter('language-hu'),
-                'hy': configure.getParameter('language-hy'),
-                'hz': configure.getParameter('language-hz'),
-                'ia': configure.getParameter('language-ia'),
-                'id': configure.getParameter('language-id'),
-                'ie': configure.getParameter('language-ie'),
-                'ig': configure.getParameter('language-ig'),
-                'ii': configure.getParameter('language-ii'),
-                'ik': configure.getParameter('language-ik'),
-                'io': configure.getParameter('language-io'),
-                'is': configure.getParameter('language-is'),
-                'it': configure.getParameter('language-it'),
-                'iu': configure.getParameter('language-iu'),
-                'ja': configure.getParameter('language-ja'),
-                'jv': configure.getParameter('language-jv'),
-                'ka': configure.getParameter('language-ka'),
-                'kg': configure.getParameter('language-kg'),
-                'ki': configure.getParameter('language-ki'),
-                'kj': configure.getParameter('language-kj'),
-                'kk': configure.getParameter('language-kk'),
-                'kl': configure.getParameter('language-kl'),
-                'km': configure.getParameter('language-km'),
-                'kn': configure.getParameter('language-kn'),
-                'ko': configure.getParameter('language-ko'),
-                'kr': configure.getParameter('language-kr'),
-                'ks': configure.getParameter('language-ks'),
-                'ku': configure.getParameter('language-ku'),
-                'kv': configure.getParameter('language-kv'),
-                'kw': configure.getParameter('language-kw'),
-                'ky': configure.getParameter('language-ky'),
-                'la': configure.getParameter('language-la'),
-                'lb': configure.getParameter('language-lb'),
-                'lg': configure.getParameter('language-lg'),
-                'li': configure.getParameter('language-li'),
-                'ln': configure.getParameter('language-ln'),
-                'lo': configure.getParameter('language-lo'),
-                'lt': configure.getParameter('language-lt'),
-                'lu': configure.getParameter('language-lu'),
-                'lv': configure.getParameter('language-lv'),
-                'mg': configure.getParameter('language-mg'),
-                'mh': configure.getParameter('language-mh'),
-                'mi': configure.getParameter('language-mi'),
-                'mk': configure.getParameter('language-mk'),
-                'ml': configure.getParameter('language-ml'),
-                'mn': configure.getParameter('language-mn'),
-                'mr': configure.getParameter('language-mr'),
-                'ms': configure.getParameter('language-ms'),
-                'mt': configure.getParameter('language-mt'),
-                'my': configure.getParameter('language-my'),
-                'na': configure.getParameter('language-na'),
-                'nb': configure.getParameter('language-nb'),
-                'nd': configure.getParameter('language-nd'),
-                'ne': configure.getParameter('language-ne'),
-                'ng': configure.getParameter('language-ng'),
-                'nl': configure.getParameter('language-nl'),
-                'nn': configure.getParameter('language-nn'),
-                'no': configure.getParameter('language-no'),
-                'nr': configure.getParameter('language-nr'),
-                'nv': configure.getParameter('language-nv'),
-                'ny': configure.getParameter('language-ny'),
-                'oc': configure.getParameter('language-oc'),
-                'oj': configure.getParameter('language-oj'),
-                'om': configure.getParameter('language-om'),
-                'or': configure.getParameter('language-or'),
-                'os': configure.getParameter('language-os'),
-                'pa': configure.getParameter('language-pa'),
-                'pi': configure.getParameter('language-pi'),
-                'pl': configure.getParameter('language-pl'),
-                'ps': configure.getParameter('language-ps'),
-                'pt': configure.getParameter('language-pt'),
-                'qu': configure.getParameter('language-qu'),
-                'rm': configure.getParameter('language-rm'),
-                'rn': configure.getParameter('language-rn'),
-                'ro': configure.getParameter('language-ro'),
-                'ru': configure.getParameter('language-ru'),
-                'rw': configure.getParameter('language-rw'),
-                'sa': configure.getParameter('language-sa'),
-                'sc': configure.getParameter('language-sc'),
-                'sd': configure.getParameter('language-sd'),
-                'se': configure.getParameter('language-se'),
-                'sg': configure.getParameter('language-sg'),
-                'si': configure.getParameter('language-si'),
-                'sk': configure.getParameter('language-sk'),
-                'sl': configure.getParameter('language-sl'),
-                'sm': configure.getParameter('language-sm'),
-                'sn': configure.getParameter('language-sn'),
-                'so': configure.getParameter('language-so'),
-                'sq': configure.getParameter('language-sq'),
-                'sr': configure.getParameter('language-sr'),
-                'ss': configure.getParameter('language-ss'),
-                'st': configure.getParameter('language-st'),
-                'su': configure.getParameter('language-su'),
-                'sv': configure.getParameter('language-sv'),
-                'sw': configure.getParameter('language-sw'),
-                'ta': configure.getParameter('language-ta'),
-                'te': configure.getParameter('language-te'),
-                'tg': configure.getParameter('language-tg'),
-                'th': configure.getParameter('language-th'),
-                'ti': configure.getParameter('language-ti'),
-                'tk': configure.getParameter('language-tk'),
-                'tl': configure.getParameter('language-tl'),
-                'tn': configure.getParameter('language-tn'),
-                'to': configure.getParameter('language-to'),
-                'tr': configure.getParameter('language-tr'),
-                'ts': configure.getParameter('language-ts'),
-                'tt': configure.getParameter('language-tt'),
-                'tw': configure.getParameter('language-tw'),
-                'ty': configure.getParameter('language-ty'),
-                'ug': configure.getParameter('language-ug'),
-                'uk': configure.getParameter('language-uk'),
-                'ur': configure.getParameter('language-ur'),
-                'uz': configure.getParameter('language-uz'),
-                've': configure.getParameter('language-ve'),
-                'vi': configure.getParameter('language-vi'),
-                'vo': configure.getParameter('language-vo'),
-                'wa': configure.getParameter('language-wa'),
-                'wo': configure.getParameter('language-wo'),
-                'xh': configure.getParameter('language-xh'),
-                'yi': configure.getParameter('language-yi'),
-                'yo': configure.getParameter('language-yo'),
-                'za': configure.getParameter('language-za'),
-                'zh': configure.getParameter('language-zh'),
-                'zu': configure.getParameter('language-zu')
             };
             this.shortcutPrefix = this._getShortcutPrefix(userAgent, this.attributeAccesskeyDefault);
         }
@@ -1108,16 +938,15 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayLanguage = function (element) {
             var language, languageCode;
+            languageCode = null;
             if (element.hasAttribute('lang')) {
                 languageCode = element.getAttribute('lang');
-                language = this.languages[languageCode];
-                if (language !== void 0) {
-                    this._forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
-                }
             } else if (element.hasAttribute('hreflang')) {
                 languageCode = element.getAttribute('hreflang');
-                language = this.languages[languageCode];
-                if (language !== void 0) {
+            }
+            if (languageCode !== null) {
+                language = this._getLanguageDescription(languageCode);
+                if (language !== null) {
                     this._forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
                 }
             }
