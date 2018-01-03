@@ -1,8 +1,9 @@
 @charset 'UTF-8';
 
-.longdescription-link,
 .force-read-before,
 .force-read-after,
+.force-link-before,
+.force-link-after,
 .screen-reader-only,
 #container-heading,
 #container-skippers,

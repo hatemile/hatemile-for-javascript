@@ -33,11 +33,15 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   ID_TEXT_HEADING = 'text-heading'
   CLASS_SKIPPER_ANCHOR = 'skipper-anchor'
   CLASS_HEADING_ANCHOR = 'heading-anchor'
+  CLASS_FORCE_LINK_BEFORE = 'force-link-before'
+  CLASS_FORCE_LINK_AFTER = 'force-link-after'
   DATA_ANCHOR_FOR = 'data-anchorfor'
   DATA_HEADING_ANCHOR_FOR = 'data-headinganchorfor'
   DATA_HEADING_LEVEL = 'data-headinglevel'
-  CLASS_LONG_DESCRIPTION_LINK = 'longdescription-link'
-  DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor'
+  DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF = \
+      'data-attributelongdescriptionbeforeof'
+  DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF = \
+      'data-attributelongdescriptionafterof'
   
   # Generate the list of skippers of page.
   #
@@ -333,31 +337,35 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     if image.hasAttribute('longdesc')
       @idGenerator.generateId(image)
       id = image.getAttribute('id')
-      if @parser.find("[#{DATA_LONG_DESCRIPTION_FOR_IMAGE}=\"#{id}\"]")
-          .firstResult() is null
-        if image.hasAttribute('alt')
+      if image.hasAttribute('alt')
+        if @parser
+            .find("[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF}=\"#{id}\"]")
+            .firstResult() is null
           if (@attributeLongDescriptionPrefixBefore.length > 0) or \
               (@attributeLongDescriptionSuffixBefore.length > 0)
-            text = "#{@attributeLongDescriptionPrefixBefore} " \
-                + "#{image.getAttribute('alt')} " \
+            beforeText = "#{@attributeLongDescriptionPrefixBefore}" \
+                + "#{image.getAttribute('alt')}" \
                 + "#{@attributeLongDescriptionSuffixBefore}"
             anchor = @parser.createElement('a')
             anchor.setAttribute('href', image.getAttribute('longdesc'))
             anchor.setAttribute('target', '_blank')
-            anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id)
-            anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
-            anchor.appendText(text)
+            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, id)
+            anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE)
+            anchor.appendText(beforeText)
             image.insertBefore(anchor)
+        if @parser
+            .find("[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF}=\"#{id}\"]")
+            .firstResult() is null
           if (@attributeLongDescriptionPrefixAfter.length > 0) or \
               (@attributeLongDescriptionSuffixAfter.length > 0)
-            text = "#{@attributeLongDescriptionPrefixAfter} " \
-                + "#{image.getAttribute('alt')} " \
+            text = "#{@attributeLongDescriptionPrefixAfter}" \
+                + "#{image.getAttribute('alt')}" \
                 + "#{@attributeLongDescriptionSuffixAfter}"
             anchor = @parser.createElement('a')
             anchor.setAttribute('href', image.getAttribute('longdesc'))
             anchor.setAttribute('target', '_blank')
-            anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id)
-            anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK)
+            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id)
+            anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER)
             anchor.appendText(text)
             image.insertAfter(anchor)
     return

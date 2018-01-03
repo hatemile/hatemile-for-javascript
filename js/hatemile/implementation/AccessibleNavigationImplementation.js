@@ -22,7 +22,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleNavigationImplementation = (function () {
-        var CLASS_HEADING_ANCHOR, CLASS_LONG_DESCRIPTION_LINK, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, DATA_LONG_DESCRIPTION_FOR_IMAGE, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
+        var CLASS_FORCE_LINK_AFTER, CLASS_FORCE_LINK_BEFORE, CLASS_HEADING_ANCHOR, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
 
         ID_CONTAINER_SKIPPERS = 'container-skippers';
 
@@ -34,15 +34,19 @@ limitations under the License.
 
         CLASS_HEADING_ANCHOR = 'heading-anchor';
 
+        CLASS_FORCE_LINK_BEFORE = 'force-link-before';
+
+        CLASS_FORCE_LINK_AFTER = 'force-link-after';
+
         DATA_ANCHOR_FOR = 'data-anchorfor';
 
         DATA_HEADING_ANCHOR_FOR = 'data-headinganchorfor';
 
         DATA_HEADING_LEVEL = 'data-headinglevel';
 
-        CLASS_LONG_DESCRIPTION_LINK = 'longdescription-link';
+        DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF = 'data-attributelongdescriptionbeforeof';
 
-        DATA_LONG_DESCRIPTION_FOR_IMAGE = 'data-longdescriptionfor';
+        DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF = 'data-attributelongdescriptionafterof';
 
         AccessibleNavigationImplementation.prototype._generateListSkippers = function () {
             var container, list, local;
@@ -309,29 +313,31 @@ limitations under the License.
         };
 
         AccessibleNavigationImplementation.prototype.provideNavigationToLongDescription = function (image) {
-            var anchor, id, text;
+            var anchor, beforeText, id, text;
             if (image.hasAttribute('longdesc')) {
                 this.idGenerator.generateId(image);
                 id = image.getAttribute('id');
-                if (this.parser.find("[" + DATA_LONG_DESCRIPTION_FOR_IMAGE + "=\"" + id + "\"]").firstResult() === null) {
-                    if (image.hasAttribute('alt')) {
+                if (image.hasAttribute('alt')) {
+                    if (this.parser.find("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF + "=\"" + id + "\"]").firstResult() === null) {
                         if ((this.attributeLongDescriptionPrefixBefore.length > 0) || (this.attributeLongDescriptionSuffixBefore.length > 0)) {
-                            text = (this.attributeLongDescriptionPrefixBefore + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixBefore);
+                            beforeText = ("" + this.attributeLongDescriptionPrefixBefore) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixBefore);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));
                             anchor.setAttribute('target', '_blank');
-                            anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id);
-                            anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK);
-                            anchor.appendText(text);
+                            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, id);
+                            anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE);
+                            anchor.appendText(beforeText);
                             image.insertBefore(anchor);
                         }
+                    }
+                    if (this.parser.find("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF + "=\"" + id + "\"]").firstResult() === null) {
                         if ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0)) {
-                            text = (this.attributeLongDescriptionPrefixAfter + " ") + ((image.getAttribute('alt')) + " ") + ("" + this.attributeLongDescriptionSuffixAfter);
+                            text = ("" + this.attributeLongDescriptionPrefixAfter) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixAfter);
                             anchor = this.parser.createElement('a');
                             anchor.setAttribute('href', image.getAttribute('longdesc'));
                             anchor.setAttribute('target', '_blank');
-                            anchor.setAttribute(DATA_LONG_DESCRIPTION_FOR_IMAGE, id);
-                            anchor.setAttribute('class', CLASS_LONG_DESCRIPTION_LINK);
+                            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id);
+                            anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER);
                             anchor.appendText(text);
                             image.insertAfter(anchor);
                         }
