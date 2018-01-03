@@ -80,9 +80,15 @@ limitations under the License.
                     container.setAttribute('id', ID_CONTAINER_HEADING);
                     textContainer = this.parser.createElement('span');
                     textContainer.setAttribute('id', ID_TEXT_HEADING);
-                    textContainer.appendText(("" + this.elementsHeadingBefore) + ("" + this.elementsHeadingAfter));
                     container.appendElement(textContainer);
-                    local.appendElement(container);
+                    if (this.elementsHeadingBefore.length > 0) {
+                        textContainer.appendText(this.elementsHeadingBefore);
+                        local.prependElement(container);
+                    }
+                    if (this.elementsHeadingAfter.length > 0) {
+                        textContainer.appendText(this.elementsHeadingAfter);
+                        local.appendElement(container);
+                    }
                 }
             }
             list = null;
@@ -118,6 +124,7 @@ limitations under the License.
 
         AccessibleNavigationImplementation.prototype._isValidHeading = function () {
             var countMainHeading, element, elements, i, lastLevel, len, level;
+            this.validateHeading = true;
             elements = this.parser.find('h1,h2,h3,h4,h5,h6').listResults();
             lastLevel = 0;
             countMainHeading = 0;
@@ -270,7 +277,6 @@ limitations under the License.
             var anchor, item, level, link, list, superItem;
             if (!this.validateHeading) {
                 this.validHeading = this._isValidHeading();
-                this.validateHeading = true;
             }
             if (this.validHeading) {
                 anchor = this._generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);

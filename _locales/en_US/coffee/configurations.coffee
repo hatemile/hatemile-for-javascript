@@ -140,8 +140,8 @@
   'attribute-longdescription-prefix-after': ' (Long description of '
   'attribute-longdescription-suffix-after': ') '
   
-  'elements-heading-before': 'Table of contents'
-  'elements-heading-after': ''
+  'elements-heading-before': ''
+  'elements-heading-after': 'Table of contents'
 
   'language-aa': 'Afar'
   'language-ab': 'Abkhazian'

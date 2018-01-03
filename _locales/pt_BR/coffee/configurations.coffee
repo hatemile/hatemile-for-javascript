@@ -148,8 +148,8 @@
   'attribute-longdescription-prefix-after': ' (Descrição longa de'
   'attribute-longdescription-suffix-after': ') '
   
-  'elements-heading-before': 'Sumário'
-  'elements-heading-after': ''
+  'elements-heading-before': ''
+  'elements-heading-after': 'Sumário'
 
   'language-aa': 'Afar'
   'language-ab': 'Abcázia'

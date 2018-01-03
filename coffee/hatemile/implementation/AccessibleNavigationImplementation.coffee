@@ -82,11 +82,15 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         
         textContainer = @parser.createElement('span')
         textContainer.setAttribute('id', ID_TEXT_HEADING)
-        textContainer.appendText("#{@elementsHeadingBefore}" \
-            + "#{@elementsHeadingAfter}")
         
         container.appendElement(textContainer)
-        local.appendElement(container)
+        
+        if @elementsHeadingBefore.length > 0
+          textContainer.appendText(@elementsHeadingBefore)
+          local.prependElement(container)
+        if @elementsHeadingAfter.length > 0
+          textContainer.appendText(@elementsHeadingAfter)
+          local.appendElement(container)
     list = null
     if container isnt null
       list = @parser.find(container).findChildren('ol').firstResult()
@@ -128,6 +132,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # if not.
   #
   _isValidHeading: () ->
+    @validateHeading = true
     elements = @parser.find('h1,h2,h3,h4,h5,h6').listResults()
     lastLevel = 0
     countMainHeading = 0
@@ -286,7 +291,6 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   provideNavigationByHeading: (heading) ->
     if not @validateHeading
       @validHeading = @_isValidHeading()
-      @validateHeading = true
     if @validHeading
       anchor = @_generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
           CLASS_HEADING_ANCHOR)
