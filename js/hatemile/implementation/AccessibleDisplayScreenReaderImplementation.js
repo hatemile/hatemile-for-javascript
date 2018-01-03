@@ -301,9 +301,15 @@ limitations under the License.
                     container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
                     textContainer = this.parser.createElement('span');
                     textContainer.setAttribute('id', ID_TEXT_SHORTCUTS);
-                    textContainer.appendText(("" + this.attributeAccesskeyPrefixBefore) + ("" + this.attributeAccesskeySuffixBefore));
                     container.appendElement(textContainer);
-                    local.appendElement(container);
+                    if (this.attributeAccesskeyBefore.length > 0) {
+                        textContainer.appendText(this.attributeAccesskeyBefore);
+                        local.prependElement(container);
+                    }
+                    if (this.attributeAccesskeyAfter.length > 0) {
+                        textContainer.appendText(this.attributeAccesskeyAfter);
+                        local.appendElement(container);
+                    }
                 }
             }
             list = null;
@@ -314,6 +320,7 @@ limitations under the License.
                     container.appendElement(list);
                 }
             }
+            this.listShortcutsAdded = true;
             return list;
         };
 
@@ -457,6 +464,8 @@ limitations under the License.
             this.attributeTitlePrefixAfter = configure.getParameter('attribute-title-prefix-after');
             this.attributeTitleSuffixAfter = configure.getParameter('attribute-title-suffix-after');
             this.attributeAccesskeyDefault = configure.getParameter('attribute-accesskey-default');
+            this.attributeAccesskeyBefore = configure.getParameter('attribute-accesskey-before');
+            this.attributeAccesskeyAfter = configure.getParameter('attribute-accesskey-after');
             this.attributeAccesskeyPrefixBefore = configure.getParameter('attribute-accesskey-prefix-before');
             this.attributeAccesskeySuffixBefore = configure.getParameter('attribute-accesskey-suffix-before');
             this.attributeAccesskeyPrefixAfter = configure.getParameter('attribute-accesskey-prefix-after');
@@ -581,7 +590,7 @@ limitations under the License.
         }
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayShortcut = function (element) {
-            var description, i, item, key, keys, len;
+            var description, i, item, key, keys, len, shortcut;
             if (element.hasAttribute('accesskey')) {
                 description = this._getDescription(element);
                 if (!element.hasAttribute('title')) {
@@ -592,18 +601,19 @@ limitations under the License.
                 }
                 if (!this.listShortcutsAdded) {
                     this.listShortcuts = this._generateListShortcuts();
-                    this.listShortcutsAdded = true;
                 }
-                if (this.listShortcuts !== null) {
-                    keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'));
-                    for (i = 0, len = keys.length; i < len; i++) {
-                        key = keys[i];
-                        key = key.toUpperCase();
-                        if (this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key) + '"]').firstResult() === null) {
+                keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'));
+                for (i = 0, len = keys.length; i < len; i++) {
+                    key = keys[i];
+                    key = key.toUpperCase();
+                    if (this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key + "\"]") + (",[" + DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF + "=\"" + key + "\"]")).firstResult() === null) {
+                        shortcut = this.shortcutPrefix + " + " + key;
+                        this._forceRead(element, shortcut, this.attributeAccesskeyPrefixBefore, this.attributeAccesskeySuffixBefore, this.attributeAccesskeyPrefixAfter, this.attributeAccesskeySuffixAfter, DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF);
+                        if (this.listShortcuts !== null) {
                             item = this.parser.createElement('li');
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key);
                             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key);
-                            item.appendText(this.shortcutPrefix + " + " + key + ": " + description);
+                            item.appendText(shortcut + ": " + description);
                             this.listShortcuts.appendElement(item);
                         }
                     }

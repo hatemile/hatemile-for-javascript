@@ -244,17 +244,24 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         
         textContainer = @parser.createElement('span')
         textContainer.setAttribute('id', ID_TEXT_SHORTCUTS)
-        textContainer.appendText("#{@attributeAccesskeyPrefixBefore}" \
-            + "#{@attributeAccesskeySuffixBefore}")
         
         container.appendElement(textContainer)
-        local.appendElement(container)
+        
+        if @attributeAccesskeyBefore.length > 0
+          textContainer.appendText(@attributeAccesskeyBefore)
+          local.prependElement(container)
+        if @attributeAccesskeyAfter.length > 0
+          textContainer.appendText(@attributeAccesskeyAfter)
+          local.appendElement(container)
     list = null
     if container isnt null
       list = @parser.find(container).findChildren('ul').firstResult()
       if list is null
         list = @parser.createElement('ul')
         container.appendElement(list)
+    
+    @listShortcutsAdded = true
+    
     return list
   
   # Insert a element before other element.
@@ -460,6 +467,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         .getParameter('attribute-title-suffix-after')
     @attributeAccesskeyDefault = configure
         .getParameter('attribute-accesskey-default')
+    @attributeAccesskeyBefore = configure
+        .getParameter('attribute-accesskey-before')
+    @attributeAccesskeyAfter = configure
+        .getParameter('attribute-accesskey-after')
     @attributeAccesskeyPrefixBefore = configure
         .getParameter('attribute-accesskey-prefix-before')
     @attributeAccesskeySuffixBefore = configure
@@ -705,19 +716,26 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       
       if not @listShortcutsAdded
         @listShortcuts = @_generateListShortcuts()
-        @listShortcutsAdded = true
       
-      if @listShortcuts isnt null
-        keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
-        for key in keys
-          key = key.toUpperCase()
-          if @parser.find(@listShortcuts)
-              .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}" \
-              + '"]').firstResult() is null
+      keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
+      for key in keys
+        key = key.toUpperCase()
+        if @parser.find(@listShortcuts)
+            .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}\"]" \
+            + ",[#{DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF}=\"#{key}\"]")
+            .firstResult() is null
+          shortcut = "#{@shortcutPrefix} + #{key}"
+          @_forceRead(element, shortcut, @attributeAccesskeyPrefixBefore, \
+              @attributeAccesskeySuffixBefore, @attributeAccesskeyPrefixAfter, \
+              @attributeAccesskeySuffixAfter, \
+              DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, \
+              DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF)
+          
+          if @listShortcuts isnt null
             item = @parser.createElement('li')
             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key)
             item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key)
-            item.appendText("#{@shortcutPrefix} + #{key}: #{description}")
+            item.appendText("#{shortcut}: #{description}")
             @listShortcuts.appendElement(item)
     return
   
