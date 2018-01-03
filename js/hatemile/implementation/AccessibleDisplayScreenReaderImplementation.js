@@ -585,6 +585,9 @@ limitations under the License.
             if (element.hasAttribute('accesskey')) {
                 description = this._getDescription(element);
                 if (!element.hasAttribute('title')) {
+                    this.idGenerator.generateId(element);
+                    element.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, element.getAttribute('id'));
+                    element.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, element.getAttribute('id'));
                     element.setAttribute('title', description);
                 }
                 if (!this.listShortcutsAdded) {

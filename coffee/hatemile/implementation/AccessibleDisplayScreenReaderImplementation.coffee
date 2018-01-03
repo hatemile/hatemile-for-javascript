@@ -696,6 +696,11 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if element.hasAttribute('accesskey')
       description = @_getDescription(element)
       if not element.hasAttribute('title')
+        @idGenerator.generateId(element)
+        element.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, \
+            element.getAttribute('id'))
+        element.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, \
+            element.getAttribute('id'))
         element.setAttribute('title', description)
       
       if not @listShortcutsAdded
