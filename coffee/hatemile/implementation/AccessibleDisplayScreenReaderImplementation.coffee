@@ -264,46 +264,16 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     
     return list
   
-  # Insert a element before other element.
+  # Insert a element before or after other element.
   #
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that
   # be inserted.
+  # @param [boolean] before To insert the element before the other element.
   #
-  _insertBefore: (element, insertedElement) ->
-    tagName = element.getTagName()
-    tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', \
-        'TD', 'TH']
-    controls = ['INPUT', 'SELECT', 'TEXTAREA']
-    if tagName is 'HTML'
-      body = @parser.find('body').firstResult()
-      if body isnt null
-        @_insertBefore(body, insertedElement)
-    else if (tags.indexOf(tagName) > -1)
-      element.prependElement(insertedElement)
-    else if (controls.indexOf(tagName) > -1)
-      if element.hasAttribute('id')
-        labels = @parser.find("label[for=\"#{element.getAttribute('id')}\"]")
-            .listResults()
-      if labels.length is 0
-        labels = @parser.find(element).findAncestors('label').listResults()
-      for label in labels
-        @_insertBefore(label, insertedElement)
-    else
-      element.insertBefore(insertedElement)
-    return
-  
-  # Insert a element after other element.
-  #
-  # @private
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
-  # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that
-  # be inserted.
-  #
-  _insertAfter: (element, insertedElement) ->
+  _insert: (element, insertedElement, before) ->
     tagName = element.getTagName()
     appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', \
         'OPTION', 'TD', 'TH']
@@ -311,9 +281,12 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     if tagName is 'HTML'
       body = @parser.find('body').firstResult()
       if body isnt null
-        @_insertAfter(body, insertedElement)
+        @_insert(body, insertedElement, before)
     else if appendTags.indexOf(tagName) > -1
-      element.appendElement(insertedElement)
+      if before
+        element.prependElement(insertedElement)
+      else
+        element.appendElement(insertedElement)
     else if (controls.indexOf(tagName) > -1)
       if element.hasAttribute('id')
         labels = @parser.find("label[for=\"#{element.getAttribute('id')}\"]")
@@ -321,7 +294,9 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       if labels.length is 0
         labels = @parser.find(element).findAncestors('label').listResults()
       for label in labels
-        @_insertAfter(label, insertedElement)
+        @_insert(label, insertedElement, before)
+    else if before
+      element.insertBefore(insertedElement)
     else
       element.insertAfter(insertedElement)
     return
@@ -333,10 +308,10 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [string] textBefore The text content to show before the element.
   # @param [string] textAfter The text content to show after the element.
-  # @param [string] db The name of attribute that links the before
-  # content with element.
-  # @param [string] da The name of attribute that links the after
-  # content with element.
+  # @param [string] db The name of attribute that links the before content with
+  # element.
+  # @param [string] da The name of attribute that links the after content with
+  # element.
   #
   _forceReadSimple: (element, textBefore, textAfter, db, da) ->
     @idGenerator.generateId(element)
@@ -353,7 +328,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         span.setAttribute('class', CLASS_FORCE_READ_BEFORE)
         span.setAttribute(db, identifier)
         span.appendText(textBefore)
-        @_insertBefore(element, span)
+        @_insert(element, span, true)
     
     if textAfter.length > 0
       referenceAfter = @parser.find("[#{da}=\"#{identifier}\"]").firstResult()
@@ -366,7 +341,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         span.setAttribute('class', CLASS_FORCE_READ_AFTER)
         span.setAttribute(da, identifier)
         span.appendText(textAfter)
-        @_insertAfter(element, span)
+        @_insert(element, span, false)
     return
   
   # Force the screen reader display an information of element with prefixes or
@@ -376,18 +351,14 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] e The reference element.
   # @param [string] v The value to be show.
-  # @param [string] tpb The prefix of value to show before the
+  # @param [string] tpb The prefix of value to show before the element.
+  # @param [string] tsb The suffix of value to show before the element.
+  # @param [string] tpa The prefix of value to show after the element.
+  # @param [string] tsa The suffix of value to show after the element.
+  # @param [string] db The name of attribute that links the before content with
   # element.
-  # @param [string] tsb The suffix of value to show before the
+  # @param [string] da The name of attribute that links the after content with
   # element.
-  # @param [string] tpa The prefix of value to show after the
-  # element.
-  # @param [string] tsa The suffix of value to show after the
-  # element.
-  # @param [string] db The name of attribute that links the before
-  # content with element.
-  # @param [string] da The name of attribute that links the after
-  # content with element.
   #
   _forceRead: (e, v, tpb, tsb, tpa, tsa, db, da) ->
     if (tpb.length > 0) or (tsb.length > 0)
@@ -398,8 +369,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       textAfter = "#{tpa}#{v}#{tsa}"
     else
       textAfter = ''
-    @_forceReadSimple(e, textBefore, textAfter, \
-        db, da)
+    @_forceReadSimple(e, textBefore, textAfter, db, da)
     return
   
   # Display that the element has WAI-ARIA drag-and-drop state.

@@ -324,35 +324,7 @@ limitations under the License.
             return list;
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype._insertBefore = function (element, insertedElement) {
-            var body, controls, i, label, labels, len, tagName, tags;
-            tagName = element.getTagName();
-            tags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
-            controls = ['INPUT', 'SELECT', 'TEXTAREA'];
-            if (tagName === 'HTML') {
-                body = this.parser.find('body').firstResult();
-                if (body !== null) {
-                    this._insertBefore(body, insertedElement);
-                }
-            } else if (tags.indexOf(tagName) > -1) {
-                element.prependElement(insertedElement);
-            } else if (controls.indexOf(tagName) > -1) {
-                if (element.hasAttribute('id')) {
-                    labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
-                }
-                if (labels.length === 0) {
-                    labels = this.parser.find(element).findAncestors('label').listResults();
-                }
-                for (i = 0, len = labels.length; i < len; i++) {
-                    label = labels[i];
-                    this._insertBefore(label, insertedElement);
-                }
-            } else {
-                element.insertBefore(insertedElement);
-            }
-        };
-
-        AccessibleDisplayScreenReaderImplementation.prototype._insertAfter = function (element, insertedElement) {
+        AccessibleDisplayScreenReaderImplementation.prototype._insert = function (element, insertedElement, before) {
             var appendTags, body, controls, i, label, labels, len, tagName;
             tagName = element.getTagName();
             appendTags = ['BODY', 'A', 'FIGCAPTION', 'LI', 'DT', 'DD', 'LABEL', 'OPTION', 'TD', 'TH'];
@@ -360,10 +332,14 @@ limitations under the License.
             if (tagName === 'HTML') {
                 body = this.parser.find('body').firstResult();
                 if (body !== null) {
-                    this._insertAfter(body, insertedElement);
+                    this._insert(body, insertedElement, before);
                 }
             } else if (appendTags.indexOf(tagName) > -1) {
-                element.appendElement(insertedElement);
+                if (before) {
+                    element.prependElement(insertedElement);
+                } else {
+                    element.appendElement(insertedElement);
+                }
             } else if (controls.indexOf(tagName) > -1) {
                 if (element.hasAttribute('id')) {
                     labels = this.parser.find("label[for=\"" + (element.getAttribute('id')) + "\"]").listResults();
@@ -373,8 +349,10 @@ limitations under the License.
                 }
                 for (i = 0, len = labels.length; i < len; i++) {
                     label = labels[i];
-                    this._insertAfter(label, insertedElement);
+                    this._insert(label, insertedElement, before);
                 }
+            } else if (before) {
+                element.insertBefore(insertedElement);
             } else {
                 element.insertAfter(insertedElement);
             }
@@ -394,7 +372,7 @@ limitations under the License.
                     span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
                     span.setAttribute(db, identifier);
                     span.appendText(textBefore);
-                    this._insertBefore(element, span);
+                    this._insert(element, span, true);
                 }
             }
             if (textAfter.length > 0) {
@@ -407,7 +385,7 @@ limitations under the License.
                     span.setAttribute('class', CLASS_FORCE_READ_AFTER);
                     span.setAttribute(da, identifier);
                     span.appendText(textAfter);
-                    this._insertAfter(element, span);
+                    this._insert(element, span, false);
                 }
             }
         };
