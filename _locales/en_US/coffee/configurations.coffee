@@ -137,8 +137,8 @@
   'attribute-headers-suffix-after': ''
   'attribute-longdescription-prefix-before': ''
   'attribute-longdescription-suffix-before': ''
-  'attribute-longdescription-prefix-after': ''
-  'attribute-longdescription-suffix-after': '[d]'
+  'attribute-longdescription-prefix-after': ' (Long description of '
+  'attribute-longdescription-suffix-after': ') '
   
   'elements-heading-before': 'Table of contents'
   'elements-heading-after': ''
