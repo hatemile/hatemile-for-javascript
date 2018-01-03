@@ -56,7 +56,7 @@ limitations under the License.
                 if (local !== null) {
                     container = this.parser.createElement('div');
                     container.setAttribute('id', ID_CONTAINER_SKIPPERS);
-                    local.getFirstElementChild().insertBefore(container);
+                    local.prependElement(container);
                 }
             }
             list = null;
@@ -67,6 +67,7 @@ limitations under the License.
                     container.appendElement(list);
                 }
             }
+            this.listSkippersAdded = true;
             return list;
         };
 
@@ -198,8 +199,9 @@ limitations under the License.
             }
         };
 
-        function AccessibleNavigationImplementation(parser, configure, skippers) {
+        function AccessibleNavigationImplementation(parser, configure1, skippers) {
             this.parser = parser;
+            this.configure = configure1;
             this.skippers = skippers;
             this.idGenerator = new hatemile.util.IDGenerator('navigation');
             this.attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before');
@@ -223,7 +225,7 @@ limitations under the License.
                 auxiliarElements = this.parser.find(auxiliarSkipper['selector']).listResults();
                 for (j = 0, len1 = auxiliarElements.length; j < len1; j++) {
                     auxiliarElement = auxiliarElements[j];
-                    if (auxiliarElement.getData() === element.getData()) {
+                    if (auxiliarElement.equals(element)) {
                         skipper = auxiliarSkipper;
                         break;
                     }
@@ -235,7 +237,6 @@ limitations under the License.
             if (skipper !== null) {
                 if (!this.listSkippersAdded) {
                     this.listSkippers = this._generateListSkippers();
-                    this.listSkippersAdded = true;
                 }
                 if (this.listSkippers !== null) {
                     anchor = this._generateAnchorFor(element, DATA_ANCHOR_FOR, CLASS_SKIPPER_ANCHOR);
@@ -243,7 +244,7 @@ limitations under the License.
                         itemLink = this.parser.createElement('li');
                         link = this.parser.createElement('a');
                         link.setAttribute('href', "#" + (anchor.getAttribute('name')));
-                        link.appendText(skipper['description']);
+                        link.appendText(this.configure.getParameter(skipper['description']));
                         shortcuts = skipper['shortcut'];
                         if ((shortcuts !== void 0) && (shortcuts.length > 0)) {
                             shortcut = shortcuts[0];

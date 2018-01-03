@@ -398,6 +398,10 @@
   'role-treegrid': 'linha da árvore'
   'role-treeitem': 'item da árvore'
   
+  'skipper-main-content': 'Ir para o conteúdo principal'
+  'skipper-shortcuts-list': 'Ir para a lista de atalhos'
+  'skipper-table-contents': 'Ir para o sumário'
+  
   'symbol-exclamation-mark': 'Sinal de exclamação'
   'symbol-double-quotes': 'Aspas duplas'
   'symbol-number': 'Cerquilha'

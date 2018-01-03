@@ -10,6 +10,7 @@ module.exports = function(grunt) {
                 files: {
                     'js/eventlistener.js': 'coffee/eventlistener.coffee',
                     'js/hatemile-symbols.js': 'coffee/hatemile-symbols.coffee',
+                    'js/hatemile-skippers.js': 'coffee/hatemile-skippers.coffee',
                     'js/hatemile/AccessibleAssociation.js': 'coffee/hatemile/AccessibleAssociation.coffee',
                     'js/hatemile/AccessibleCSS.js': 'coffee/hatemile/AccessibleCSS.coffee',
                     'js/hatemile/AccessibleDisplay.js': 'coffee/hatemile/AccessibleDisplay.coffee',
@@ -40,9 +41,7 @@ module.exports = function(grunt) {
                     'js/hatemile/util/html/vanilla/VanillaHTMLDOMParser.js': 'coffee/hatemile/util/html/vanilla/VanillaHTMLDOMParser.coffee',
                     'js/hatemile/util/html/vanilla/VanillaHTMLDOMTextNode.js': 'coffee/hatemile/util/html/vanilla/VanillaHTMLDOMTextNode.coffee',
                     '_locales/en_US/js/configurations.js': '_locales/en_US/coffee/configurations.coffee',
-                    '_locales/en_US/js/skippers.js': '_locales/en_US/coffee/skippers.coffee',
-                    '_locales/pt_BR/js/configurations.js': '_locales/pt_BR/coffee/configurations.coffee',
-                    '_locales/pt_BR/js/skippers.js': '_locales/pt_BR/coffee/skippers.coffee'
+                    '_locales/pt_BR/js/configurations.js': '_locales/pt_BR/coffee/configurations.coffee'
                 }
             }
         },

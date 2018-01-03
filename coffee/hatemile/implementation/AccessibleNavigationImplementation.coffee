@@ -56,13 +56,16 @@ class @hatemile.implementation.AccessibleNavigationImplementation
       if local isnt null
         container = @parser.createElement('div')
         container.setAttribute('id', ID_CONTAINER_SKIPPERS)
-        local.getFirstElementChild().insertBefore(container)
+        local.prependElement(container)
     list = null
     if container isnt null
       list = @parser.find(container).findChildren('ul').firstResult()
       if list is null
         list = @parser.createElement('ul')
         container.appendElement(list)
+    
+    @listSkippersAdded = true
+    
     return list
   
   # Generate the list of heading links of page.
@@ -213,7 +216,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @option Array<skippers> [string] description The description of skipper.
   # @option Array<skippers> [string] shortcut The skipper shortcut.
   #
-  constructor: (@parser, configure, @skippers) ->
+  constructor: (@parser, @configure, @skippers) ->
     @idGenerator = new hatemile.util.IDGenerator('navigation')
     @attributeLongDescriptionPrefixBefore = configure
         .getParameter('attribute-longdescription-prefix-before')
@@ -241,7 +244,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     for auxiliarSkipper in @skippers
       auxiliarElements = @parser.find(auxiliarSkipper['selector']).listResults()
       for auxiliarElement in auxiliarElements
-        if auxiliarElement.getData() is element.getData()
+        if auxiliarElement.equals(element)
           skipper = auxiliarSkipper
           break
       if skipper isnt null
@@ -249,7 +252,6 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     if skipper isnt null
       if not @listSkippersAdded
         @listSkippers = @_generateListSkippers()
-        @listSkippersAdded = true
       if @listSkippers isnt null
         anchor = @_generateAnchorFor(element, DATA_ANCHOR_FOR, \
             CLASS_SKIPPER_ANCHOR)
@@ -257,7 +259,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
           itemLink = @parser.createElement('li')
           link = @parser.createElement('a')
           link.setAttribute('href', "##{anchor.getAttribute('name')}")
-          link.appendText(skipper['description'])
+          link.appendText(@configure.getParameter(skipper['description']))
 
           shortcuts = skipper['shortcut']
           if (shortcuts isnt undefined) and (shortcuts.length > 0)

@@ -28,7 +28,7 @@ Include the configuration, dependencies and solutions scripts and styles:
 <link rel="stylesheet" type="text/css" href="/path/to/css/hide_changes.css" />
 <!-- Configuration -->
 <script type="text/javascript" src="/path/to/_locales/en_US/js/configurations.js"></script>
-<script type="text/javascript" src="/path/to/_locales/en_US/js/skippers.js"></script>
+<script type="text/javascript" src="/path/to/js/hatemile-skippers.js"></script>
 <script type="text/javascript" src="/path/to/js/hatemile-symbols.js"></script>
 <!-- Dependencies -->
 <script type="text/javascript" src="/path/to/js/eventlistener.js"></script>

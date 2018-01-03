@@ -390,6 +390,10 @@
   'role-treegrid': 'tree grid'
   'role-treeitem': 'tree item'
   
+  'skipper-main-content': 'Go to main content'
+  'skipper-shortcuts-list': 'Go to shortcuts list'
+  'skipper-table-contents': 'Go to table of contents'
+  
   'symbol-exclamation-mark': 'Exclamation mark'
   'symbol-double-quotes': 'Double quotes'
   'symbol-number': 'Number'
