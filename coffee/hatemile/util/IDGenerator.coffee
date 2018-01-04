@@ -21,7 +21,7 @@ self = this
 #
 @hatemile.util or= {}
 
-# The IDGenerator class generate ids for hatemile.util.html.HTMLDOMElement.
+# The IDGenerator class generate ids for {hatemile.util.html.HTMLDOMElement}.
 #
 class @hatemile.util.IDGenerator
   
