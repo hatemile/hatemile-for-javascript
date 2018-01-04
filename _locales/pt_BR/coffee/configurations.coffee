@@ -79,7 +79,7 @@
   'attribute-title-suffix-before': ') '
   'attribute-title-prefix-after': ''
   'attribute-title-suffix-after': ''
-  'attribute-accesskey-default': 'ALT'
+  'attribute-accesskey-default': 'PREFIXO DE ATALHO'
   'attribute-accesskey-before': ''
   'attribute-accesskey-after': 'Lista de atalhos da página: '
   'attribute-accesskey-prefix-before': ''
