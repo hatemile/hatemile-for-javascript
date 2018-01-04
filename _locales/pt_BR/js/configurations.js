@@ -1,6 +1,5 @@
 (function () {
     this.hatemile_configuration = {
-        'prefix-generated-ids': 'id-cs-',
         'aria-autocomplete-both-before': '',
         'aria-autocomplete-both-after': ' (Auto completar em lista ou em linha)',
         'aria-autocomplete-inline-before': '',
