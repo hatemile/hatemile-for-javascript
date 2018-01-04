@@ -44,8 +44,8 @@ class @hatemile.util.Configure
   #
   # @param [string] parameter The name of parameter.
   #
-  # @return [boolean] True if the configuration has the parameter false if the
-  # configuration not has the parameter.
+  # @return [boolean] True if the configuration has the parameter or false if
+  # the configuration not has the parameter.
   #
   hasParameter: (parameter) ->
     return @parameters[parameter] isnt undefined

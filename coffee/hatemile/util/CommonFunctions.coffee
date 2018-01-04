@@ -83,8 +83,8 @@ class @hatemile.util.CommonFunctions
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  # @return [boolean] True if element can be manipulated or false if element and
-  # element can be manipulated.
+  # @return [boolean] True if element can be manipulated or false if element
+  # cannot be manipulated.
   #
   @isValidElement: (element) ->
     if element.hasAttribute(DATA_IGNORE)
