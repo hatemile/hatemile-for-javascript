@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleNavigationImplementation class is official implementation of
-# AccessibleNavigation interface.
+# {hatemile.AccessibleNavigation}.
 #
 # @extend hatemile.AccessibleNavigation
 #

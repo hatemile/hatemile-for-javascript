@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.html.jquery or= {}
 
-# The class JQueryHTMLDOMParser is official implementation of HTMLDOMParser
-# interface for the jQuery library.
+# The class JQueryHTMLDOMParser is official implementation of
+# {hatemile.util.html.HTMLDOMParser} interface for the jQuery library.
 #
 # @extend hatemile.util.html.HTMLDOMParser
 #

@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleCSSImplementation class is official implementation of
-# AccessibleCSS interface.
+# {hatemile.AccessibleCSS}.
 #
 # @extend hatemile.AccessibleCSS
 #

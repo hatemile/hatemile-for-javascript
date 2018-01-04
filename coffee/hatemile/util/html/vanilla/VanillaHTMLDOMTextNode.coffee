@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.html.vanilla or= {}
 
-# The VanillaHTMLDOMTextNode class is official implementation of HTMLDOMTextNode
-# interface for the Javascript.
+# The VanillaHTMLDOMTextNode class is official implementation of
+# {hatemile.util.html.HTMLDOMTextNode} interface for the Javascript.
 #
 # @extend hatemile.util.html.HTMLDOMTextNode
 #

@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleEventImplementation class is official implementation of
-# AccessibleEvent interface.
+# {hatemile.AccessibleEvent}.
 #
 # @extend hatemile.AccessibleEvent
 #

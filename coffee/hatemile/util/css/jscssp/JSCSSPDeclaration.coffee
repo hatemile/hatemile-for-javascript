@@ -29,7 +29,7 @@ limitations under the License.
 @hatemile.util.css.jscssp or= {}
 
 # The JSCSSPDeclaration class is official implementation of
-# StyleSheetDeclaration interface for JSCSSP.
+# {hatemile.util.css.StyleSheetDeclaration} interface for JSCSSP.
 #
 # @extend hatemile.util.css.StyleSheetDeclaration
 #

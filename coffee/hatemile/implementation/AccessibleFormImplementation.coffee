@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleFormImplementation class is official implementation of
-# AccessibleForm interface.
+# {hatemile.AccessibleForm}.
 #
 # @extend hatemile.AccessibleForm
 #

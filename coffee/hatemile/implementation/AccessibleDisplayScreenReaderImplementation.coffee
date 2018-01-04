@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleDisplayScreenReaderImplementation class is official
-# implementation of AccessibleDisplay interface for screen readers.
+# implementation of {hatemile.AccessibleDisplay} for screen readers.
 #
 # @extend hatemile.AccessibleDisplay
 #

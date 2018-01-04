@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.css.jscssp or= {}
 
-# The JSCSSPParser class is official implementation of StyleSheetParser
-# interface for JSCSSP.
+# The JSCSSPParser class is official implementation of
+# {hatemile.util.css.StyleSheetParser} interface for JSCSSP.
 #
 # @extend hatemile.util.css.StyleSheetParser
 #

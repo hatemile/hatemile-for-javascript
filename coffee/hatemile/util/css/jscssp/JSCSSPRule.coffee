@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.css.jscssp or= {}
 
-# The JSCSSPRule class is official implementation of StyleSheetRule interface
-# for JSCSSP.
+# The JSCSSPRule class is official implementation of
+# {hatemile.util.css.StyleSheetRule} interface for JSCSSP.
 #
 # @extend hatemile.util.css.StyleSheetRule
 #

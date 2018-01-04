@@ -22,7 +22,7 @@ self = this
 @hatemile.implementation or= {}
 
 # The AccessibleAssociationImplementation class is official implementation of
-# AccessibleAssociation.
+# {hatemile.AccessibleAssociation}.
 #
 # @extend hatemile.AccessibleAssociation
 #

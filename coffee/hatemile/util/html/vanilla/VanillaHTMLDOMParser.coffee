@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.html.vanilla or= {}
 
-# The class VanillaHTMLDOMParser is official implementation of HTMLDOMParser
-# interface for JavaScript.
+# The class VanillaHTMLDOMParser is official implementation of
+# {hatemile.util.html.HTMLDOMParser} interface for JavaScript.
 #
 # @extend hatemile.util.html.HTMLDOMParser
 #

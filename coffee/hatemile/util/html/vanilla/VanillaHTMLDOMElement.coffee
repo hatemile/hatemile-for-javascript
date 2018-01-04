@@ -29,8 +29,8 @@ self = this
 #
 @hatemile.util.html.vanilla or= {}
 
-# The VanillaHTMLDOMElement class is official implementation of HTMLDOMElement
-# interface for the Javascript.
+# The VanillaHTMLDOMElement class is official implementation of
+# {hatemile.util.html.HTMLDOMElement} interface for the Javascript.
 #
 # @extend hatemile.util.html.HTMLDOMElement
 #
