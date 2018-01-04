@@ -143,8 +143,8 @@
   'attribute-headers-suffix-after': ''
   'attribute-longdescription-prefix-before': ''
   'attribute-longdescription-suffix-before': ''
-  'attribute-longdescription-prefix-after': ' (Descrição longa de'
-  'attribute-longdescription-suffix-after': ') '
+  'attribute-longdescription-prefix-after': ' (Descrição longa de '
+  'attribute-longdescription-suffix-after': ')'
   
   'elements-heading-before': ''
   'elements-heading-after': 'Sumário'
