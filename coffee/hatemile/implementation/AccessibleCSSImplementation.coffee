@@ -169,7 +169,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] operation The operation to be executed.
+  # @param [Function] operation The operation to be executed.
   #
   _visit: (element, operation) ->
     if @_isValidInheritElement(element)
@@ -291,7 +291,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [string] regularExpression The regular expression.
   # @param [string] dataPropertyValue The value of custom attribute used to
   # identify the fix.
-  # @param [function] operation The operation to be executed.
+  # @param [Function] operation The operation to be executed.
   #
   _speakAs: (element, regularExpression, dataPropertyValue, operation) ->
     children = []
@@ -543,7 +543,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
   # @param [hatemile.util.css.StyleSheetParser] cssParser The CSS parser.
   # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
-  # @param [Array<object>] symbols The symbols with descriptions.
+  # @param [Array<Object>] symbols The symbols with descriptions.
   # @option Array<symbols> [string] symbol The symbol.
   # @option Array<symbols> [string] description The description of symbol.
   #

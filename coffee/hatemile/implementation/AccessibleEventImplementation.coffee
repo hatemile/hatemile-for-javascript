@@ -156,7 +156,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [string] type The type of event.
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] event The original event.
+  # @param [Function] event The original event.
   #
   _executeMouseEvent = (type, element, event) ->
     _executeEvent(element, _createMouseEvent(type, element, event))
@@ -168,7 +168,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [string] type The type of event.
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] event The original event.
+  # @param [Function] event The original event.
   #
   _executeDragEvent = (type, element, event) ->
     if self.__dragEventDataTransfer__ is undefined
@@ -203,7 +203,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] event The original event.
+  # @param [Function] event The original event.
   #
   _executeEvent = (element, event) ->
     nativeElement = element.getData()
@@ -227,9 +227,9 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [string] type The type of event.
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] event The original event.
+  # @param [Function] event The original event.
   #
-  # @return [object] The proxy of original event, simulating the mouse event.
+  # @return [Object] The proxy of original event, simulating the mouse event.
   #
   _createMouseEvent = (type, element, event) ->
     data = {
@@ -277,9 +277,9 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [string] type The type of event.
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] event The original event.
+  # @param [Function] event The original event.
   #
-  # @return [object] The proxy of original event, simulating the drag event.
+  # @return [Object] The proxy of original event, simulating the drag event.
   #
   _createDragEvent = (type, element, event) ->
     dragEvent = _createMouseEvent(type, element, event)
@@ -296,7 +296,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   # @param [string] typeDataEvent The name of attribute that store the type of
   # event fixed.
   # @param [string] typeFix The id of fix method.
-  # @param [function] operation The function.
+  # @param [Function] operation The function.
   #
   _addEventHandler: (element, typeEvent, typeDataEvent, typeFix, operation) ->
     if not _hasEvent(element, typeEvent, typeDataEvent, typeFix)
@@ -323,11 +323,11 @@ class @hatemile.implementation.AccessibleEventImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [function] condition The condition to execute operation in element
+  # @param [Function] condition The condition to execute operation in element
   # and descendants.
   # @param [hatemile.implementation.AccessibleEventImplementation] obj The
   # object that be execute the operation.
-  # @param [function] operation The operation.
+  # @param [Function] operation The operation.
   #
   _visit: (element, condition, obj, operation) ->
     if not element.hasAttribute(DATA_IGNORE)

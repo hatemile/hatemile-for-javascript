@@ -26,13 +26,13 @@ class @hatemile.util.Configure
   
   # Initializes a new object that contains the configuration of HaTeMiLe.
   #
-  # @param [object] parameters The JSON configuration.
+  # @param [Object] parameters The JSON configuration.
   #
   constructor: (@parameters) ->
   
   # Returns the parameters of configuration.
   #
-  # @return [object] The parameters of configuration.
+  # @return [Object] The parameters of configuration.
   #
   getParameters: () ->
     clonedParameters = {}

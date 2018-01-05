@@ -471,7 +471,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Indicates whether some other object is equal to this one.
   #
-  # @param [object] node The reference object with which to compare.
+  # @param [Object] node The reference object with which to compare.
   #
   # @return [boolean] True if the node is the other object is equals to this one
   # or if the node is not the other object is equals to this one.

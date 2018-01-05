@@ -103,7 +103,7 @@ class @hatemile.util.html.HTMLDOMParser
   
   # Returns the parser.
   #
-  # @return [object] The parser or root element of the parser.
+  # @return [Object] The parser or root element of the parser.
   #
   getParser: () ->
   

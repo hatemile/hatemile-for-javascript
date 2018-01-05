@@ -211,7 +211,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
   # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
-  # @param [Array<object>] skippers The skippers.
+  # @param [Array<Object>] skippers The skippers.
   # @option Array<skippers> [string] selector The skipper selector.
   # @option Array<skippers> [string] description The description of skipper.
   # @option Array<skippers> [string] shortcut The skipper shortcut.

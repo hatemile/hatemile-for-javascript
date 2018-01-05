@@ -180,7 +180,7 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   
   # Returns the parser.
   #
-  # @return [object] The parser or root element of the parser.
+  # @return [Object] The parser or root element of the parser.
   #
   # @see hatemile.util.html.HTMLDOMParser#getParser
   #

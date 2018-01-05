@@ -87,7 +87,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   # @param [string] dataInvalid The custom attribute used if the element is not
   # valid.
-  # @param [function] validateFunction The validate function.
+  # @param [Function] validateFunction The validate function.
   #
   _validateNow = (field, dataInvalid, validateFunction) ->
     if validateFunction(field)
@@ -378,7 +378,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [string] typeDataEvent The name of attribute that store the type of
   # event fixed.
   # @param [string] typeFix The id of fix method.
-  # @param [function] operation The function.
+  # @param [Function] operation The function.
   #
   _addEventHandler: (element, typeEvent, typeDataEvent, typeFix, operation) ->
     if not @_hasEvent(element, typeEvent, typeDataEvent, typeFix)
@@ -408,7 +408,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [string] dataInvalid The custom attribute used if the element is not
   # valid.
   # @param [string] typeFix The id of fix method.
-  # @param [function] validateFunction The validate function.
+  # @param [Function] validateFunction The validate function.
   #
   _validate: (field, dataInvalid, typeFix, validateFunction) ->
     context = this

@@ -91,19 +91,19 @@ class @hatemile.util.html.HTMLDOMNode
   
   # Returns the native object of this node.
   #
-  # @return [object] The native object of this node.
+  # @return [Object] The native object of this node.
   #
   getData: () ->
   
   # Modify the native object of this node.
   #
-  # @param [object] data The native object of this node.
+  # @param [Object] data The native object of this node.
   #
   setData: (data) ->
   
   # Indicates whether some other object is equal to this one.
   #
-  # @param [object] node The reference object with which to compare.
+  # @param [Object] node The reference object with which to compare.
   #
   # @return [boolean] True if the node is the other object is equals to this one
   # or if the node is not the other object is equals to this one.
