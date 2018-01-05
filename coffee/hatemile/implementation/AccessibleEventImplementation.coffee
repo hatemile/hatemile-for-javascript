@@ -46,8 +46,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [number] keyCode The code of key pressed.
   #
-  # @return [boolean] True if the key pressed is enter or false if the key
-  # pressed isn't enter.
+  # @return [boolean] True if the key pressed is enter or false if the key pressed isn't enter.
   #
   _isEnter = (keyCode) ->
     enter1 = '\n'.charCodeAt(0)
@@ -301,8 +300,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] typeEvent The type of event.
-  # @param [string] typeDataEvent The name of attribute that store the type of
-  # event fixed.
+  # @param [string] typeDataEvent The name of attribute that store the type of event fixed.
   # @param [string] typeFix The id of fix method.
   # @param [Function] operation The function.
   #
@@ -331,10 +329,8 @@ class @hatemile.implementation.AccessibleEventImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [Function] condition The condition to execute operation in element
-  # and descendants.
-  # @param [hatemile.implementation.AccessibleEventImplementation] obj The
-  # object that be execute the operation.
+  # @param [Function] condition The condition to execute operation in element and descendants.
+  # @param [hatemile.implementation.AccessibleEventImplementation] obj The object that be execute the operation.
   # @param [Function] operation The operation.
   #
   _visit: (element, condition, obj, operation) ->
@@ -357,8 +353,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   
   # Make the drop events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drop
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drop events.
   #
   # @see hatemile.AccessibleEvent#makeAccessibleDropEvents
   #
@@ -410,8 +405,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   
   # Make the drag events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag events.
   #
   # @see hatemile.AccessibleEvent#makeAccessibleDragEvents
   #
@@ -481,8 +475,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   
   # Make the hover events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with hover
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with hover events.
   #
   # @see hatemile.AccessibleEvent#makeAccessibleHoverEvents
   #
@@ -512,8 +505,7 @@ class @hatemile.implementation.AccessibleEventImplementation
   
   # Make the click events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with click
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with click events.
   #
   # @see hatemile.AccessibleEvent#makeAccessibleClickEvents
   #

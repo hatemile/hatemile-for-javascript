@@ -44,8 +44,7 @@ class @hatemile.AccessibleNavigation
   
   # Provide an alternative way to access the long description of element.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] image The image with long
-  # description.
+  # @param [hatemile.util.html.HTMLDOMElement] image The image with long description.
   #
   provideNavigationToLongDescription: (image) ->
   

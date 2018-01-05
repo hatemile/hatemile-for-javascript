@@ -104,9 +104,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  # @return [boolean] True if the children of element can be manipulated to
-  # apply the CSS properties or false if the children of element cannot be
-  # manipulated to apply the CSS properties.
+  # @return [boolean] True if the children of element can be manipulated to apply the CSS properties or false if the children of element cannot be manipulated to apply the CSS properties.
   #
   _isValidInheritElement: (element) ->
     return (VALID_INHERIT_TAGS.indexOf(element.getTagName()) isnt -1) \
@@ -118,9 +116,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  # @return [boolean] True if the element can be manipulated to apply the CSS
-  # properties or false if the element cannot be manipulated to apply the CSS
-  # properties.
+  # @return [boolean] True if the element can be manipulated to apply the CSS properties or false if the element cannot be manipulated to apply the CSS properties.
   #
   _isValidElement: (element) ->
     return VALID_TAGS.indexOf(element.getTagName()) isnt -1
@@ -186,8 +182,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @private
   #
   # @param [string] content The text content of element.
-  # @param [string] dataPropertyValue The value of custom attribute used to
-  # identify the fix.
+  # @param [string] dataPropertyValue The value of custom attribute used to identify the fix.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
@@ -203,8 +198,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @private
   #
   # @param [string] content The text content of element.
-  # @param [string] dataPropertyValue The value of custom attribute used to
-  # identify the fix.
+  # @param [string] dataPropertyValue The value of custom attribute used to identify the fix.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
@@ -219,8 +213,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @private
   #
   # @param [string] content The text content of element.
-  # @param [string] dataPropertyValue The value of custom attribute used to
-  # identify the fix.
+  # @param [string] dataPropertyValue The value of custom attribute used to identify the fix.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The element to show the content.
   #
@@ -289,8 +282,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] regularExpression The regular expression.
-  # @param [string] dataPropertyValue The value of custom attribute used to
-  # identify the fix.
+  # @param [string] dataPropertyValue The value of custom attribute used to identify the fix.
   # @param [Function] operation The operation to be executed.
   #
   _speakAs: (element, regularExpression, dataPropertyValue, operation) ->
@@ -323,8 +315,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] dataPropertyValue The value of custom attribute used to
-  # identify the fix.
+  # @param [string] dataPropertyValue The value of custom attribute used to identify the fix.
   #
   _reverseSpeakAs: (element, dataPropertyValue) ->
     dataProperty = "[#{DATA_SPEAK_AS}=\"#{dataPropertyValue}\"]"

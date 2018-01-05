@@ -90,6 +90,9 @@ module.exports = function(grunt) {
                 },
                 'spacing_after_comma': {
                     'level': 'error'
+                },
+                'max_line_length': {
+                    'limitComments': false
                 }
             }
         }

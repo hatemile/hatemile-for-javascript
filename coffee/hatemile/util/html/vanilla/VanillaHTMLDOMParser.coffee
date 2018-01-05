@@ -40,13 +40,10 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   # @private
   #
-  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleAncestor
-  # The possible ancestor.
-  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleDescendant
-  # The possible descendant.
+  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleAncestor The possible ancestor.
+  # @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] possibleDescendant The possible descendant.
   #
-  # @return [boolean] True if the element is descendant of other or false if the
-  # element is not descendant of other.
+  # @return [boolean] True if the element is descendant of other or false if the element is not descendant of other.
   #
   _isDescendant = (possibleAncestor, possibleDescendant) ->
     ancestor = possibleDescendant.parentNode
@@ -195,8 +192,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   
   # Returns the first element found.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element
-  # found or null if not have elements found.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element found or null if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#firstResult
   #
@@ -208,8 +204,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   
   # Returns the last element found.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element
-  # found or null if not have elements found.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element found or null if not have elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#lastResult
   #
@@ -221,8 +216,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   
   # Returns a list with all elements found.
   #
-  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The list
-  # with all elements found.
+  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The list with all elements found.
   #
   # @see hatemile.util.html.HTMLDOMParser#listResults
   #
@@ -237,8 +231,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMParser
   #
   # @param [string] tag The tag of element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The element
-  # created.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The element created.
   #
   # @see hatemile.util.html.HTMLDOMParser#createElement
   #

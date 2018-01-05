@@ -34,11 +34,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @private
   #
-  # @param [hatemile.util.html.HTMLDOMElement] part The table header, table
-  # footer or table body.
+  # @param [hatemile.util.html.HTMLDOMElement] part The table header, table footer or table body.
   #
-  # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
-  # represents the table.
+  # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that represents the table.
   #
   _getModelTable: (part) ->
     table = []
@@ -52,11 +50,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @private
   #
-  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] originalTable The
-  # list that represents the table without the rowspans.
+  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] originalTable The list that represents the table without the rowspans.
   #
-  # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that
-  # represents the table with the rowspans.
+  # @return [Array<Array<hatemile.util.html.HTMLDOMElement>>] The list that represents the table with the rowspans.
   #
   _getValidModelTable: (originalTable) ->
     newTable = []
@@ -92,11 +88,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @private
   #
-  # @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list that
-  # represents the line of table without the colspans.
+  # @param [Array<hatemile.util.html.HTMLDOMElement>] originalRow The list that represents the line of table without the colspans.
   #
-  # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that represents
-  # the line of table with the colspans.
+  # @return [Array<hatemile.util.html.HTMLDOMElement>] The list that represents the line of table with the colspans.
   #
   _getModelRow: (originalRow) ->
     newRow = []
@@ -117,11 +111,9 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @private
   #
-  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
-  # that represents the table header.
+  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list that represents the table header.
   #
-  # @return [boolean] True if the table header is valid or false if the table
-  # header is not valid.
+  # @return [boolean] True if the table header is valid or false if the table header is not valid.
   #
   _validateHeader: (header) ->
     if header.length is 0
@@ -140,8 +132,7 @@ class @hatemile.implementation.AccessibleAssociationImplementation
   #
   # @private
   #
-  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list
-  # that represents the table header.
+  # @param [Array<Array<hatemile.util.html.HTMLDOMElement>>] header The list that represents the table header.
   # @param [number] index The index of columns.
   #
   # @return [Array<string>] The list with ids of rows of same column.

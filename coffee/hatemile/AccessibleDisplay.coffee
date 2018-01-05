@@ -54,8 +54,7 @@ class @hatemile.AccessibleDisplay
   
   # Display the WAI-ARIA attributes of element.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA
-  # attributes.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA attributes.
   #
   displayWAIARIAStates: (element) ->
   
@@ -85,8 +84,7 @@ class @hatemile.AccessibleDisplay
   
   # Display that the element has drag-and-drop event.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or
-  # drop events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or drop events.
   #
   displayDragAndDrop: (element) ->
   

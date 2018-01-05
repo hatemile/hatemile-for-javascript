@@ -72,8 +72,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @private
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The list of heading links of
-  # page.
+  # @return [hatemile.util.html.HTMLDOMElement] The list of heading links of page.
   #
   _generateListHeading: () ->
     container = @parser.find("##{ID_CONTAINER_HEADING}").firstResult()
@@ -131,8 +130,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @private
   #
-  # @return [boolean] True if the headings of page are sintatic correct or false
-  # if not.
+  # @return [boolean] True if the headings of page are sintatic correct or false if not.
   #
   _isValidHeading: () ->
     @validateHeading = true
@@ -156,8 +154,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] dataAttribute The custom attribute that links the element
-  # with the anchor.
+  # @param [string] dataAttribute The custom attribute that links the element with the anchor.
   # @param [string] anchorClass The HTML class of anchor.
   #
   # @return [hatemile.util.html.HTMLDOMElement] The anchor.
@@ -334,8 +331,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   
   # Provide an alternative way to access the long description of element.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] image The image with long
-  # description.
+  # @param [hatemile.util.html.HTMLDOMElement] image The image with long description.
   #
   # @see hatemile.AccessibleNavigation#provideNavigationToLongDescription
   #

@@ -91,8 +91,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   # @param [string] name The name of attribute.
   #
-  # @return [boolean] True if the element has the attribute or false if the
-  # element not has the attribute.
+  # @return [boolean] True if the element has the attribute or false if the element not has the attribute.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasAttribute
   #
@@ -101,8 +100,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Check that the element has attributes.
   #
-  # @return [boolean] True if the element has attributes or false if the element
-  # not has attributes.
+  # @return [boolean] True if the element has attributes or false if the element not has attributes.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasAttributes
   #
@@ -176,8 +174,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Replace this element for other node.
   #
-  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this
-  # element.
+  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this element.
   #
   # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] This element.
   #
@@ -189,8 +186,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Append a element child.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element that be
-  # inserted.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element that be inserted.
   #
   # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] This element.
   #
@@ -202,8 +198,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Prepend a element child.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element that be
-  # inserted.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element that be inserted.
   #
   # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] This element.
   #
@@ -218,8 +213,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the elements children of this element.
   #
-  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The
-  # elements children of this element.
+  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The elements children of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getChildrenElements
   #
@@ -233,8 +227,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the children of this element.
   #
-  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The
-  # children of this element.
+  # @return [Array<hatemile.util.html.vanilla.VanillaHTMLDOMElement>] The children of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getChildren
   #
@@ -300,8 +293,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Check that the element has elements children.
   #
-  # @return [boolean] True if the element has elements children or false if the
-  # element not has elements children.
+  # @return [boolean] True if the element has elements children or false if the element not has elements children.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasChildrenElements
   #
@@ -310,8 +302,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Check that the element has children.
   #
-  # @return [boolean] True if the element has children or false if the element
-  # not has children.
+  # @return [boolean] True if the element has children or false if the element not has children.
   #
   # @see hatemile.util.html.HTMLDOMElement#hasChildren
   #
@@ -328,8 +319,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the parent element of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The parent
-  # element of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The parent element of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getParentElement
   #
@@ -402,8 +392,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the first element child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element
-  # child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first element child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getFirstElementChild
   #
@@ -415,8 +404,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the last element child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element
-  # child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last element child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getLastElementChild
   #
@@ -428,8 +416,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the first node child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first node
-  # child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The first node child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getFirstNodeChild
   #
@@ -446,8 +433,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   
   # Returns the last node child of this element.
   #
-  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last node
-  # child of this element.
+  # @return [hatemile.util.html.vanilla.VanillaHTMLDOMElement] The last node child of this element.
   #
   # @see hatemile.util.html.HTMLDOMElement#getLastNodeChild
   #
@@ -473,8 +459,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   #
   # @param [Object] node The reference object with which to compare.
   #
-  # @return [boolean] True if the node is the other object is equals to this one
-  # or if the node is not the other object is equals to this one.
+  # @return [boolean] True if the node is the other object is equals to this one or if the node is not the other object is equals to this one.
   #
   # @see hatemile.util.html.HTMLDOMElement#equals
   #

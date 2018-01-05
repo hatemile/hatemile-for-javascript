@@ -29,12 +29,9 @@ class @hatemile.util.CommonFunctions
   
   # Copy a list of attributes of a element for other element.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element1 The element that have
-  # attributes copied.
-  # @param [hatemile.util.html.HTMLDOMElement] element2 The element that copy
-  # the attributes.
-  # @param [Array<string>] attributes The list of attributes that will be
-  # copied.
+  # @param [hatemile.util.html.HTMLDOMElement] element1 The element that have attributes copied.
+  # @param [hatemile.util.html.HTMLDOMElement] element2 The element that copy the attributes.
+  # @param [Array<string>] attributes The list of attributes that will be copied.
   #
   @setListAttributes: (element1, element2, attributes) ->
     for attribute in attributes
@@ -47,8 +44,7 @@ class @hatemile.util.CommonFunctions
   # @param [string] list The list.
   # @param [string] stringToIncrease The value of item.
   #
-  # @return [string] The HTML list with the item added, if the item not was
-  # contained in list.
+  # @return [string] The HTML list with the item added, if the item not was contained in list.
   #
   @increaseInList: (list, stringToIncrease) ->
     if (list isnt null) and (list.length > 0) and (stringToIncrease isnt null) \
@@ -67,8 +63,7 @@ class @hatemile.util.CommonFunctions
   # @param [string] list The list.
   # @param [string] stringToSearch The value of item.
   #
-  # @return [boolean] True if the list contains the item or false is not
-  # contains.
+  # @return [boolean] True if the list contains the item or false is not contains.
   #
   @inList: (list, stringToSearch) ->
     if (list isnt null) and (list.length > 0) and (stringToSearch isnt null) \
@@ -83,8 +78,7 @@ class @hatemile.util.CommonFunctions
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   #
-  # @return [boolean] True if element can be manipulated or false if element
-  # cannot be manipulated.
+  # @return [boolean] True if element can be manipulated or false if element cannot be manipulated.
   #
   @isValidElement: (element) ->
     if element.hasAttribute(DATA_IGNORE)

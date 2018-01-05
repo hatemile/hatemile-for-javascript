@@ -46,8 +46,7 @@ class @hatemile.util.css.jscssp.JSCSSPRule
   #
   # @param [string] propertyName The name of property.
   #
-  # @return [boolean] True if the rule has a declaration with the property or
-  # false if the rule not has a declaration with the property.
+  # @return [boolean] True if the rule has a declaration with the property or false if the rule not has a declaration with the property.
   #
   # @see hatemile.util.css.StyleSheetRule#hasProperty
   #
@@ -61,8 +60,7 @@ class @hatemile.util.css.jscssp.JSCSSPRule
   
   # Returns that the rule has declarations.
   #
-  # @return [boolean] True if the rule has the property or false if the rule not
-  # has declarations.
+  # @return [boolean] True if the rule has the property or false if the rule not has declarations.
   #
   # @see hatemile.util.css.StyleSheetRule#hasDeclarations
   #
@@ -73,8 +71,7 @@ class @hatemile.util.css.jscssp.JSCSSPRule
   #
   # @param [string] propertyName The property.
   #
-  # @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The declarations
-  # with the property.
+  # @return [Array<hatemile.util.css.jscssp.JSCSSPDeclaration>] The declarations with the property.
   #
   # @see hatemile.util.css.StyleSheetRule#getDeclarations
   #

@@ -25,15 +25,13 @@ class @hatemile.AccessibleEvent
   
   # Make the drop events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drop
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drop events.
   #
   makeAccessibleDropEvents: (element) ->
   
   # Make the drag events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag events.
   #
   makeAccessibleDragEvents: (element) ->
   
@@ -43,8 +41,7 @@ class @hatemile.AccessibleEvent
   
   # Make the hover events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with hover
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with hover events.
   #
   makeAccessibleHoverEvents: (element) ->
   
@@ -54,8 +51,7 @@ class @hatemile.AccessibleEvent
   
   # Make the click events of element available from a keyboard.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with click
-  # events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with click events.
   #
   makeAccessibleClickEvents: (element) ->
   

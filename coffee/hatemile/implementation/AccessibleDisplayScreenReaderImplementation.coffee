@@ -269,8 +269,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
-  # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that
-  # be inserted.
+  # @param [hatemile.util.html.HTMLDOMElement] insertedElement The element that be inserted.
   # @param [boolean] before To insert the element before the other element.
   #
   _insert: (element, insertedElement, before) ->
@@ -308,10 +307,8 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @param [hatemile.util.html.HTMLDOMElement] element The reference element.
   # @param [string] textBefore The text content to show before the element.
   # @param [string] textAfter The text content to show after the element.
-  # @param [string] db The name of attribute that links the before content with
-  # element.
-  # @param [string] da The name of attribute that links the after content with
-  # element.
+  # @param [string] db The name of attribute that links the before content with element.
+  # @param [string] da The name of attribute that links the after content with element.
   #
   _forceReadSimple: (element, textBefore, textAfter, db, da) ->
     @idGenerator.generateId(element)
@@ -355,10 +352,8 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # @param [string] tsb The suffix of value to show before the element.
   # @param [string] tpa The prefix of value to show after the element.
   # @param [string] tsa The suffix of value to show after the element.
-  # @param [string] db The name of attribute that links the before content with
-  # element.
-  # @param [string] da The name of attribute that links the after content with
-  # element.
+  # @param [string] db The name of attribute that links the before content with element.
+  # @param [string] da The name of attribute that links the after content with element.
   #
   _forceRead: (e, v, tpb, tsb, tpa, tsa, db, da) ->
     if (tpb.length > 0) or (tsb.length > 0)
@@ -376,8 +371,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   # @private
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA
-  # drag-and-drop state.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA drag-and-drop state.
   #
   _displayWAIARIADragandDrop: (element) ->
     if element.hasAttribute('aria-dropeffect')
@@ -793,8 +787,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Display the WAI-ARIA attributes of element.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA
-  # attributes.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA attributes.
   #
   # @see hatemile.AccessibleDisplay#displayWAIARIAStates
   #
@@ -1041,8 +1034,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
   # Display that the element has drag-and-drop event.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or
-  # drop events.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or drop events.
   #
   # @see hatemile.AccessibleDisplay#displayDragAndDrop
   #

@@ -34,15 +34,13 @@ class @hatemile.util.css.StyleSheetRule
   #
   # @param [string] propertyName The name of property.
   #
-  # @return [boolean] True if the rule has a declaration with the property or
-  # false if the rule not has a declaration with the property.
+  # @return [boolean] True if the rule has a declaration with the property or false if the rule not has a declaration with the property.
   #
   hasProperty: (propertyName) ->
   
   # Returns that the rule has declarations.
   #
-  # @return [boolean] True if the rule has the property or false if the rule not
-  # has declarations.
+  # @return [boolean] True if the rule has the property or false if the rule not has declarations.
   #
   hasDeclarations: () ->
   
@@ -50,8 +48,7 @@ class @hatemile.util.css.StyleSheetRule
   #
   # @param [string] propertyName The property.
   #
-  # @return [Array<hatemile.util.css.StyleSheetDeclaration>] The declarations
-  # with the property.
+  # @return [Array<hatemile.util.css.StyleSheetDeclaration>] The declarations with the property.
   #
   getDeclarations: (propertyName) ->
   

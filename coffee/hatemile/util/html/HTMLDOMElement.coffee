@@ -61,22 +61,19 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   #
   # @param [string] name The name of attribute.
   #
-  # @return [boolean] True if the element has the attribute or false if the
-  # element not has the attribute.
+  # @return [boolean] True if the element has the attribute or false if the element not has the attribute.
   #
   hasAttribute: (name) ->
   
   # Check that the element has attributes.
   #
-  # @return [boolean] True if the element has attributes or false if the element
-  # not has attributes.
+  # @return [boolean] True if the element has attributes or false if the element not has attributes.
   #
   hasAttributes: () ->
   
   # Append a element child.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element that be
-  # inserted.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element that be inserted.
   #
   # @return [hatemile.util.html.HTMLDOMElement] This element.
   #
@@ -84,8 +81,7 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Prepend a element child.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element that be
-  # inserted.
+  # @param [hatemile.util.html.HTMLDOMElement] element The element that be inserted.
   #
   # @return [hatemile.util.html.HTMLDOMElement] This element.
   #
@@ -93,15 +89,13 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Returns the elements children of this element.
   #
-  # @return [Array<hatemile.util.html.HTMLDOMElement>] The elements children of
-  # this element.
+  # @return [Array<hatemile.util.html.HTMLDOMElement>] The elements children of this element.
   #
   getChildrenElements: () ->
   
   # Returns the children of this element.
   #
-  # @return [Array<hatemile.util.html.HTMLDOMNode>] The children of this
-  # element.
+  # @return [Array<hatemile.util.html.HTMLDOMNode>] The children of this element.
   #
   getChildren: () ->
     
@@ -113,15 +107,13 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Check that the element has elements children.
   #
-  # @return [boolean] True if the element has elements children or false if the
-  # element not has elements children.
+  # @return [boolean] True if the element has elements children or false if the element not has elements children.
   #
   hasChildrenElements: () ->
   
   # Check that the element has children.
   #
-  # @return [boolean] True if the element has children or false if the element
-  # not has children.
+  # @return [boolean] True if the element has children or false if the element not has children.
   #
   hasChildren: () ->
   
@@ -151,28 +143,24 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   
   # Returns the first element child of this element.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The first element child of this
-  # element.
+  # @return [hatemile.util.html.HTMLDOMElement] The first element child of this element.
   #
   getFirstElementChild: () ->
   
   # Returns the last element child of this element.
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The last element child of this
-  # element.
+  # @return [hatemile.util.html.HTMLDOMElement] The last element child of this element.
   #
   getLastElementChild: () ->
   
   # Returns the first node child of this element.
   #
-  # @return [hatemile.util.html.HTMLDOMNode] The first node child of this
-  # element.
+  # @return [hatemile.util.html.HTMLDOMNode] The first node child of this element.
   #
   getFirstNodeChild: () ->
   
   # Returns the last node child of this element.
   #
-  # @return [hatemile.util.html.HTMLDOMNode] The last node child of this
-  # element.
+  # @return [hatemile.util.html.HTMLDOMNode] The last node child of this element.
   #
   getLastNodeChild: () ->

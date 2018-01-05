@@ -85,8 +85,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [string] dataInvalid The custom attribute used if the element is not
-  # valid.
+  # @param [string] dataInvalid The custom attribute used if the element is not valid.
   # @param [Function] validateFunction The validate function.
   #
   _validateNow = (field, dataInvalid, validateFunction) ->
@@ -107,8 +106,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @param [string] value The value.
   # @param [string] pattern The regular expression.
   #
-  # @return [boolean] True if the value match with regular expression or false
-  # if the value not match with regular expression.
+  # @return [boolean] True if the value match with regular expression or false if the value not match with regular expression.
   #
   _isValidRegularExpression = (value, pattern) ->
     regularExpression = new RegExp(pattern)
@@ -120,8 +118,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid URL value or false if the
-  # field have not a valid URL value.
+  # @return [boolean] True if the field has a valid URL value or false if the field have not a valid URL value.
   #
   _isValidURL = (field) ->
     return (field.getData().value.length is 0) or \
@@ -139,8 +136,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid e-mail address value or
-  # false if the field have not a valid e-mail address value.
+  # @return [boolean] True if the field has a valid e-mail address value or false if the field have not a valid e-mail address value.
   #
   _isValidEmail = (field) ->
     regularExpression = '(?:[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&' \
@@ -163,8 +159,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid date value or false if the
-  # field have not a valid date value.
+  # @return [boolean] True if the field has a valid date value or false if the field have not a valid date value.
   #
   _isValidDate = (field) ->
     return (field.getData().value.length is 0) or \
@@ -180,8 +175,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid time value or false if the
-  # field have not a valid time value.
+  # @return [boolean] True if the field has a valid time value or false if the field have not a valid time value.
   #
   _isValidTime = (field) ->
     return (field.getData().value.length is 0) or \
@@ -194,8 +188,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid date and time value or false
-  # if the field have not a valid date and time value.
+  # @return [boolean] True if the field has a valid date and time value or false if the field have not a valid date and time value.
   #
   _isValidDateTime = (field) ->
     return (field.getData().value.length is 0) or \
@@ -212,8 +205,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid month value or false if the
-  # field have not a valid month value.
+  # @return [boolean] True if the field has a valid month value or false if the field have not a valid month value.
   #
   _isValidMonth = (field) ->
     return (field.getData().value.length is 0) or \
@@ -226,8 +218,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a valid week value or false if the
-  # field have not a valid week value.
+  # @return [boolean] True if the field has a valid week value or false if the field have not a valid week value.
   #
   _isValidWeek = (field) ->
     return (field.getData().value.length is 0) or \
@@ -240,8 +231,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the value in field is between its range or false
-  # if the value in field is not between its range.
+  # @return [boolean] True if the value in field is between its range or false if the value in field is not between its range.
   #
   _isValidRange = (field) ->
     if field.getData().value.length > 0
@@ -271,8 +261,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the length of the value in field is between its
-  # range or false if the length of the value in field is not between its range.
+  # @return [boolean] True if the length of the value in field is between its range or false if the length of the value in field is not between its range.
   #
   _isValidLength = (field) ->
     if field.hasAttribute('minlength')
@@ -291,8 +280,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the value in field match with its pattern or false
-  # if the value in field not match with its pattern.
+  # @return [boolean] True if the value in field match with its pattern or false if the value in field not match with its pattern.
   #
   _isValidPattern = (field) ->
     return _isValidRegularExpression(field.getData().value, \
@@ -304,8 +292,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
   #
-  # @return [boolean] True if the field has a value or false if the field not
-  # has a value.
+  # @return [boolean] True if the field has a value or false if the field not has a value.
   #
   _isValidRequired = (field) ->
     return field.getData().value.length > 0
@@ -383,8 +370,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.
   # @param [string] typeEvent The type of event.
-  # @param [string] typeDataEvent The name of attribute that store the type of
-  # event fixed.
+  # @param [string] typeDataEvent The name of attribute that store the type of event fixed.
   # @param [string] typeFix The id of fix method.
   # @param [Function] operation The function.
   #
@@ -413,8 +399,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   # @private
   #
   # @param [hatemile.util.html.HTMLDOMElement] field The field.
-  # @param [string] dataInvalid The custom attribute used if the element is not
-  # valid.
+  # @param [string] dataInvalid The custom attribute used if the element is not valid.
   # @param [string] typeFix The id of fix method.
   # @param [Function] validateFunction The validate function.
   #
@@ -483,8 +468,7 @@ class @hatemile.implementation.AccessibleFormImplementation
   
   # Mark that the field have autocomplete.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with
-  # autocomplete.
+  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with autocomplete.
   #
   # @see hatemile.AccessibleForm#markAutoCompleteField
   #

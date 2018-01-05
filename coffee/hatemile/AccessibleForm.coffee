@@ -44,8 +44,7 @@ class @hatemile.AccessibleForm
   
   # Mark that the field have autocomplete.
   #
-  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with
-  # autocomplete.
+  # @param [hatemile.util.html.HTMLDOMElement] autoCompleteField The field with autocomplete.
   #
   markAutoCompleteField: (autoCompleteField) ->
   

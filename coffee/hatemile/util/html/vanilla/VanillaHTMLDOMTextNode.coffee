@@ -106,8 +106,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   
   # Replace this node for other node.
   #
-  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this
-  # node.
+  # @param [hatemile.util.html.HTMLDOMNode] newNode The node that replace this node.
   #
   # @return [hatemile.util.html.HTMLDOMNode] This node.
   #
@@ -176,8 +175,7 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMTextNode
   #
   # @param [Object] node The reference object with which to compare.
   #
-  # @return [boolean] True if the node is the other object is equals to this one
-  # or if the node is not the other object is equals to this one.
+  # @return [boolean] True if the node is the other object is equals to this one or if the node is not the other object is equals to this one.
   #
   # @see hatemile.util.html.HTMLDOMTextNode#equals
   #
