@@ -30,39 +30,68 @@ limitations under the License.
 #
 class @hatemile.util.html.HTMLDOMParser
   
-  # Find all elements in the parser by selector.
+  # Find elements in the parser.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload find(selector)
+  #   Find all elements in the parser by selector.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
+  #   found.
   #
-  # @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
-  # found.
+  # @overload find(element)
+  #   Find if a element is contained in parser.
+  #   @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the element, if
+  #   the element is contained in parser.
   #
   find: (selector) ->
   
-  # Find all elements in the parser by selector, children of found elements.
+  # Find elements in the parser, children of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findChildren(selector)
+  #   Find all elements in the parser by selector, children of found elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
+  #   found.
   #
-  # @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
-  # found.
+  # @overload findChildren(child)
+  #   Find if a element is a child of found elements.
+  #   @param [hatemile.util.html.HTMLDOMElement] child The element.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the element, if
+  #   the element is child of found elements.
   #
   findChildren: (selector) ->
   
-  # Find all elements in the parser by selector, descendants of found elements.
+  # Find elements in the parser, descendants of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findDescendants(selector)
+  #   Find all elements in the parser by selector, descendants of found
+  #   elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
+  #   found.
   #
-  # @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
-  # found.
+  # @overload findDescendants(element)
+  #   Find if a element is descendant of found elements.
+  #   @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the element, if
+  #   the element is descendant of found elements.
   #
   findDescendants: (selector) ->
   
-  # Find all elements in the parser by selector, ancestors of found elements.
+  # Find elements in the parser, ancestors of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findAncestors(selector)
+  #   Find all elements in the parser by selector, ancestors of found elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
+  #   found.
   #
-  # @return [hatemile.util.html.HTMLDOMParser] The parser with the elements
-  # found.
+  # @overload findAncestors(element)
+  #   Find if a element is ancestor of found elements.
+  #   @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #   @return [hatemile.util.html.HTMLDOMParser] The parser with the element, if
+  #   the element is ancestor of found elements.
   #
   findAncestors: (selector) ->
   

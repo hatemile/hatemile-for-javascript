@@ -127,14 +127,23 @@ class @hatemile.util.css.jscssp.JSCSSPParser
   
   # Initializes a new object that encapsulate the CSS parser.
   #
-  # @param [jscsspStylesheet, HTMLDOMParser, string] parser The JSCSSP parser,
-  # the HTMLDOMParser object or a string with CSS rules.
-  # @param [string] currentURL The current URL of page.
+  # @overload constructor(jscsspParser)
+  #   Initializes a new object that encapsulate the use JSCSSP parser.
+  #   @param [jscsspStylesheet] jscsspParser The JSCSSP parser.
+  #
+  # @overload constructor(htmlParser, currentURL)
+  #   Initializes a new object that load and read all stylesheet of page.
+  #   @param [hatemile.util.html.HTMLDOMParser] htmlParser The HTML parser.
+  #   @param [string] currentURL The current URL of page.
+  #
+  # @overload constructor(cssCode)
+  #   Initializes a new object that read the stylesheet of code.
+  #   @param [string] cssCode The CSS code.
   #
   constructor: (@parser, @currentURL) ->
     if not (@parser instanceof jscsspStylesheet)
       parser = new CSSParser()
-      if (@parser.find  instanceof Function) and \
+      if (@parser.find instanceof Function) and \
           (@parser.listResults instanceof Function) and \
           (@parser.getParser instanceof Function)
         @parser = _getCSSContent(@parser, @currentURL)

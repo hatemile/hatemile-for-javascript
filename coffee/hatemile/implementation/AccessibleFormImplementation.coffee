@@ -349,13 +349,21 @@ class @hatemile.implementation.AccessibleFormImplementation
   #
   # @private
   #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element.
-  # @param [string] typeEvent The type event.
-  # @param [string] typeDataEvent The custom attribute of type of event.
-  # @param [string] typeFix The id of fix method.
+  # @overload _hasEvent(element, typeEvent)
+  #   Check that the element has a event of type.
+  #   @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #   @param [string] typeEvent The type of event.
+  #   @return [boolean] True if the element has a event of type or false if it
+  #   not has.
   #
-  # @return [boolean] True if the element has the event added by developer or
-  # fixed by HaTeMiLe or false if the element not has the event.
+  # @overload _hasEvent(element, typeEvent, typeDataEvent, typeFix)
+  #   Check that the element has a event to solve the same problem.
+  #   @param [hatemile.util.html.HTMLDOMElement] element The element.
+  #   @param [string] typeEvent The type of event.
+  #   @param [string] typeDataEvent The custom attribute of type of event.
+  #   @param [string] typeFix The id of fix method.
+  #   @return [boolean] True if the element has a event to solve the same
+  #   problem or false if it not has.
   #
   _hasEvent: (element, typeEvent, typeDataEvent, typeFix) ->
     nativeElement = element.getData()

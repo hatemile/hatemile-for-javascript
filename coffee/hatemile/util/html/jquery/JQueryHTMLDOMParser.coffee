@@ -38,8 +38,27 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
   
   # Initializes a new object that encapsulate the jQuery.
   #
-  # @param [string, HTMLDocument] html The html code or owner document.
-  # @param [HTMLDocument] ownerDocument The owner document of parser.
+  # @overload constructor(htmlCode)
+  #   Initializes a new object that manipulate the HTML code with jQuery and
+  #   document object.
+  #   @param [string] htmlCode The html code.
+  #
+  # @overload constructor(doc)
+  #   Initializes a new object that manipulate the page with jQuery and document
+  #   object.
+  #   @param [HTMLDocument] doc The document object of page.
+  #
+  # @overload constructor(htmlCode, ownerDocument)
+  #   Initializes a new object that manipulate the HTML code with jQuery and
+  #   ownerDocument object.
+  #   @param [string] htmlCode The html code.
+  #   @param [HTMLDocument] ownerDocument The owner document of parser.
+  #
+  # @overload constructor(doc, ownerDocument)
+  #   Initializes a new object that manipulate the page with jQuery and
+  #   ownerDocument object.
+  #   @param [HTMLDocument] doc The document object of page.
+  #   @param [HTMLDocument] ownerDocument The owner document of parser.
   #
   constructor: (html, ownerDocument) ->
     @root = jQuery(html)
@@ -51,12 +70,20 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
     else
       @ownerDocument = document
   
-  # Find all elements in the parser by selector.
+  # Find elements in the parser.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload find(selector)
+  #   Find all elements in the parser by selector.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the elements found.
   #
-  # @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with the
-  # elements found.
+  # @overload find(element)
+  #   Find if a element is contained in parser.
+  #   @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] element The
+  #   element.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the element, if the element is contained in parser.
   #
   # @see hatemile.util.html.HTMLDOMParser#find
   #
@@ -67,12 +94,20 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
     @results = @root.find(selector)
     return this
   
-  # Find all elements in the parser by selector, children of found elements.
+  # Find elements in the parser, children of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findChildren(selector)
+  #   Find all elements in the parser by selector, children of found elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the elements found.
   #
-  # @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with the
-  # elements found.
+  # @overload findChildren(child)
+  #   Find if a element is a child of found elements.
+  #   @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] child The
+  #   element.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the element, if the element is child of found elements.
   #
   # @see hatemile.util.html.HTMLDOMParser#findChildren
   #
@@ -83,12 +118,21 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
     @results = jQuery(@results).children(selector)
     return this
   
-  # Find all elements in the parser by selector, descendants of found elements.
+  # Find elements in the parser, descendants of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findDescendants(selector)
+  #   Find all elements in the parser by selector, descendants of found
+  #   elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the elements found.
   #
-  # @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with the
-  # elements found.
+  # @overload findDescendants(element)
+  #   Find if a element is descendant of found elements.
+  #   @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] element The
+  #   element.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the element, if the element is descendant of found elements.
   #
   # @see hatemile.util.html.HTMLDOMParser#findDescendants
   #
@@ -99,12 +143,20 @@ class @hatemile.util.html.jquery.JQueryHTMLDOMParser
     @results = jQuery(@results).find(selector)
     return this
   
-  # Find all elements in the parser by selector, ancestors of found elements.
+  # Find elements in the parser, ancestors of found elements.
   #
-  # @param [string, hatemile.util.html.HTMLDOMElement] selector The selector.
+  # @overload findAncestors(selector)
+  #   Find all elements in the parser by selector, ancestors of found elements.
+  #   @param [string] selector The selector.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the elements found.
   #
-  # @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with the
-  # elements found.
+  # @overload findAncestors(element)
+  #   Find if a element is ancestor of found elements.
+  #   @param [hatemile.util.html.vanilla.VanillaHTMLDOMElement] element The
+  #   element.
+  #   @return [hatemile.util.html.jquery.JQueryHTMLDOMParser] The parser with
+  #   the element, if the element is ancestor of found elements.
   #
   # @see hatemile.util.html.HTMLDOMParser#findAncestors
   #

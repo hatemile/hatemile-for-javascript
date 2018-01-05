@@ -417,9 +417,17 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   # Initializes a new object that manipulate the display for screen readers of
   # parser.
   #
-  # @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
-  # @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
-  # @param [string] userAgent The user agent of browser.
+  # @overload constructor(parser, configure)
+  #   Use default shortcut prefix of configuration for display shortcuts of
+  #   page.
+  #   @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+  #   @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
+  #
+  # @overload constructor(parser, configure, userAgent)
+  #   Use browser shortcut prefix for display shortcuts of page.
+  #   @param [hatemile.util.html.HTMLDOMParser] parser The HTML parser.
+  #   @param [hatemile.util.Configure] configure The configuration of HaTeMiLe.
+  #   @param [string] userAgent The user agent of browser.
   #
   constructor: (@parser, @configure, userAgent) ->
     @listShortcutsAdded = false
