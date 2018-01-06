@@ -80,7 +80,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   _getDescriptionOfSymbol: (symbol) ->
     for _symbol in @symbols
       if _symbol.symbol is symbol
-        return configure.getParameter(_symbol.description)
+        return @configure.getParameter(_symbol.description)
     return null
   
   # Returns the regular expression to search all symbols.

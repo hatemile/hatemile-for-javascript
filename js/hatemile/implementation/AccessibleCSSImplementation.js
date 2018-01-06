@@ -51,7 +51,7 @@ limitations under the License.
             for (i = 0, len = ref.length; i < len; i++) {
                 _symbol = ref[i];
                 if (_symbol.symbol === symbol) {
-                    return configure.getParameter(_symbol.description);
+                    return this.configure.getParameter(_symbol.description);
                 }
             }
             return null;
@@ -332,10 +332,10 @@ limitations under the License.
             }
         };
 
-        function AccessibleCSSImplementation(htmlParser, cssParser, configure1, symbols) {
+        function AccessibleCSSImplementation(htmlParser, cssParser, configure, symbols) {
             this.htmlParser = htmlParser;
             this.cssParser = cssParser;
-            this.configure = configure1;
+            this.configure = configure;
             this.symbols = symbols;
         }
 

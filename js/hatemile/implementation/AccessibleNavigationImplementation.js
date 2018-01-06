@@ -200,17 +200,17 @@ limitations under the License.
             }
         };
 
-        function AccessibleNavigationImplementation(parser, configure1, skippers) {
+        function AccessibleNavigationImplementation(parser, configure, skippers) {
             this.parser = parser;
-            this.configure = configure1;
+            this.configure = configure;
             this.skippers = skippers;
             this.idGenerator = new hatemile.util.IDGenerator('navigation');
-            this.attributeLongDescriptionPrefixBefore = configure.getParameter('attribute-longdescription-prefix-before');
-            this.attributeLongDescriptionSuffixBefore = configure.getParameter('attribute-longdescription-suffix-before');
-            this.attributeLongDescriptionPrefixAfter = configure.getParameter('attribute-longdescription-prefix-after');
-            this.attributeLongDescriptionSuffixAfter = configure.getParameter('attribute-longdescription-suffix-after');
-            this.elementsHeadingBefore = configure.getParameter('elements-heading-before');
-            this.elementsHeadingAfter = configure.getParameter('elements-heading-after');
+            this.attributeLongDescriptionPrefixBefore = this.configure.getParameter('attribute-longdescription-prefix-before');
+            this.attributeLongDescriptionSuffixBefore = this.configure.getParameter('attribute-longdescription-suffix-before');
+            this.attributeLongDescriptionPrefixAfter = this.configure.getParameter('attribute-longdescription-prefix-after');
+            this.attributeLongDescriptionSuffixAfter = this.configure.getParameter('attribute-longdescription-suffix-after');
+            this.elementsHeadingBefore = this.configure.getParameter('elements-heading-before');
+            this.elementsHeadingAfter = this.configure.getParameter('elements-heading-after');
             this.listSkippersAdded = false;
             this.validateHeading = false;
             this.validHeading = false;

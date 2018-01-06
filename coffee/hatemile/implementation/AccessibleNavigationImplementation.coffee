@@ -217,16 +217,16 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   constructor: (@parser, @configure, @skippers) ->
     @idGenerator = new hatemile.util.IDGenerator('navigation')
-    @attributeLongDescriptionPrefixBefore = configure
+    @attributeLongDescriptionPrefixBefore = @configure
         .getParameter('attribute-longdescription-prefix-before')
-    @attributeLongDescriptionSuffixBefore = configure
+    @attributeLongDescriptionSuffixBefore = @configure
         .getParameter('attribute-longdescription-suffix-before')
-    @attributeLongDescriptionPrefixAfter = configure
+    @attributeLongDescriptionPrefixAfter = @configure
         .getParameter('attribute-longdescription-prefix-after')
-    @attributeLongDescriptionSuffixAfter = configure
+    @attributeLongDescriptionSuffixAfter = @configure
         .getParameter('attribute-longdescription-suffix-after')
-    @elementsHeadingBefore = configure.getParameter('elements-heading-before')
-    @elementsHeadingAfter = configure.getParameter('elements-heading-after')
+    @elementsHeadingBefore = @configure.getParameter('elements-heading-before')
+    @elementsHeadingAfter = @configure.getParameter('elements-heading-after')
     @listSkippersAdded = false
     @validateHeading = false
     @validHeading = false

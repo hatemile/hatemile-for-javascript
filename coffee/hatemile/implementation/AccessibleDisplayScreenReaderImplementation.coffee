@@ -431,242 +431,242 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     
     @idGenerator = new hatemile.util.IDGenerator('display')
     
-    @attributeTitlePrefixBefore = configure
+    @attributeTitlePrefixBefore = @configure
         .getParameter('attribute-title-prefix-before')
-    @attributeTitleSuffixBefore = configure
+    @attributeTitleSuffixBefore = @configure
         .getParameter('attribute-title-suffix-before')
-    @attributeTitlePrefixAfter = configure
+    @attributeTitlePrefixAfter = @configure
         .getParameter('attribute-title-prefix-after')
-    @attributeTitleSuffixAfter = configure
+    @attributeTitleSuffixAfter = @configure
         .getParameter('attribute-title-suffix-after')
-    @attributeAccesskeyDefault = configure
+    @attributeAccesskeyDefault = @configure
         .getParameter('attribute-accesskey-default')
-    @attributeAccesskeyBefore = configure
+    @attributeAccesskeyBefore = @configure
         .getParameter('attribute-accesskey-before')
-    @attributeAccesskeyAfter = configure
+    @attributeAccesskeyAfter = @configure
         .getParameter('attribute-accesskey-after')
-    @attributeAccesskeyPrefixBefore = configure
+    @attributeAccesskeyPrefixBefore = @configure
         .getParameter('attribute-accesskey-prefix-before')
-    @attributeAccesskeySuffixBefore = configure
+    @attributeAccesskeySuffixBefore = @configure
         .getParameter('attribute-accesskey-suffix-before')
-    @attributeAccesskeyPrefixAfter = configure
+    @attributeAccesskeyPrefixAfter = @configure
         .getParameter('attribute-accesskey-prefix-after')
-    @attributeAccesskeySuffixAfter = configure
+    @attributeAccesskeySuffixAfter = @configure
         .getParameter('attribute-accesskey-suffix-after')
-    @attributeTargetBlankBefore = configure
+    @attributeTargetBlankBefore = @configure
         .getParameter('attribute-target-blank-before')
-    @attributeTargetBlankAfter = configure
+    @attributeTargetBlankAfter = @configure
         .getParameter('attribute-target-blank-after')
-    @attributeDownloadBefore = configure
+    @attributeDownloadBefore = @configure
         .getParameter('attribute-download-before')
-    @attributeDownloadAfter = configure
+    @attributeDownloadAfter = @configure
         .getParameter('attribute-download-after')
-    @attributeDraggableBefore = configure
+    @attributeDraggableBefore = @configure
         .getParameter('attribute-draggable-before')
-    @attributeDraggableAfter = configure
+    @attributeDraggableAfter = @configure
         .getParameter('attribute-draggable-after')
-    @attributeDropzoneCopyBefore = configure
+    @attributeDropzoneCopyBefore = @configure
         .getParameter('attribute-dropzone-copy-before')
-    @attributeDropzoneCopyAfter = configure
+    @attributeDropzoneCopyAfter = @configure
         .getParameter('attribute-dropzone-copy-after')
-    @attributeDropzoneMoveBefore = configure
+    @attributeDropzoneMoveBefore = @configure
         .getParameter('attribute-dropzone-move-before')
-    @attributeDropzoneMoveAfter = configure
+    @attributeDropzoneMoveAfter = @configure
         .getParameter('attribute-dropzone-move-after')
-    @attributeDropzoneLinkBefore = configure
+    @attributeDropzoneLinkBefore = @configure
         .getParameter('attribute-dropzone-link-before')
-    @attributeDropzoneLinkAfter = configure
+    @attributeDropzoneLinkAfter = @configure
         .getParameter('attribute-dropzone-link-after')
-    @attributeHeadersPrefixBefore = configure
+    @attributeHeadersPrefixBefore = @configure
         .getParameter('attribute-headers-prefix-before')
-    @attributeHeadersSuffixBefore = configure
+    @attributeHeadersSuffixBefore = @configure
         .getParameter('attribute-headers-suffix-before')
-    @attributeHeadersPrefixAfter = configure
+    @attributeHeadersPrefixAfter = @configure
         .getParameter('attribute-headers-prefix-after')
-    @attributeHeadersSuffixAfter = configure
+    @attributeHeadersSuffixAfter = @configure
         .getParameter('attribute-headers-suffix-after')
-    @attributeLanguagePrefixBefore = configure
+    @attributeLanguagePrefixBefore = @configure
         .getParameter('attribute-language-prefix-before')
-    @attributeLanguageSuffixBefore = configure
+    @attributeLanguageSuffixBefore = @configure
         .getParameter('attribute-language-suffix-before')
-    @attributeLanguagePrefixAfter = configure
+    @attributeLanguagePrefixAfter = @configure
         .getParameter('attribute-language-prefix-after')
-    @attributeLanguageSuffixAfter = configure
+    @attributeLanguageSuffixAfter = @configure
         .getParameter('attribute-language-suffix-after')
-    @attributeRolePrefixBefore = configure
+    @attributeRolePrefixBefore = @configure
         .getParameter('attribute-role-prefix-before')
-    @attributeRoleSuffixBefore = configure
+    @attributeRoleSuffixBefore = @configure
         .getParameter('attribute-role-suffix-before')
-    @attributeRolePrefixAfter = configure
+    @attributeRolePrefixAfter = @configure
         .getParameter('attribute-role-prefix-after')
-    @attributeRoleSuffixAfter = configure
+    @attributeRoleSuffixAfter = @configure
         .getParameter('attribute-role-suffix-after')
     
-    @ariaAutoCompleteBothBefore = configure
+    @ariaAutoCompleteBothBefore = @configure
         .getParameter('aria-autocomplete-both-before')
-    @ariaAutoCompleteBothAfter = configure
+    @ariaAutoCompleteBothAfter = @configure
         .getParameter('aria-autocomplete-both-after')
-    @ariaAutoCompleteInlineBefore = configure
+    @ariaAutoCompleteInlineBefore = @configure
         .getParameter('aria-autocomplete-inline-before')
-    @ariaAutoCompleteInlineAfter = configure
+    @ariaAutoCompleteInlineAfter = @configure
         .getParameter('aria-autocomplete-inline-after')
-    @ariaAutoCompleteListBefore = configure
+    @ariaAutoCompleteListBefore = @configure
         .getParameter('aria-autocomplete-list-before')
-    @ariaAutoCompleteListAfter = configure
+    @ariaAutoCompleteListAfter = @configure
         .getParameter('aria-autocomplete-list-after')
-    @ariaBusyTrueBefore = configure
+    @ariaBusyTrueBefore = @configure
         .getParameter('aria-busy-true-before')
-    @ariaBusyTrueAfter = configure
+    @ariaBusyTrueAfter = @configure
         .getParameter('aria-busy-true-after')
-    @ariaCheckedFalseBefore = configure
+    @ariaCheckedFalseBefore = @configure
         .getParameter('aria-checked-false-before')
-    @ariaCheckedFalseAfter = configure
+    @ariaCheckedFalseAfter = @configure
         .getParameter('aria-checked-false-after')
-    @ariaCheckedMixedBefore = configure
+    @ariaCheckedMixedBefore = @configure
         .getParameter('aria-checked-mixed-before')
-    @ariaCheckedMixedAfter = configure
+    @ariaCheckedMixedAfter = @configure
         .getParameter('aria-checked-mixed-after')
-    @ariaCheckedTrueBefore = configure
+    @ariaCheckedTrueBefore = @configure
         .getParameter('aria-checked-true-before')
-    @ariaCheckedTrueAfter = configure
+    @ariaCheckedTrueAfter = @configure
         .getParameter('aria-checked-true-after')
-    @ariaDropeffectCopyBefore = configure
+    @ariaDropeffectCopyBefore = @configure
         .getParameter('aria-dropeffect-copy-before')
-    @ariaDropeffectCopyAfter = configure
+    @ariaDropeffectCopyAfter = @configure
         .getParameter('aria-dropeffect-copy-after')
-    @ariaDropeffectExecuteBefore = configure
+    @ariaDropeffectExecuteBefore = @configure
         .getParameter('aria-dropeffect-execute-before')
-    @ariaDropeffectExecuteAfter = configure
+    @ariaDropeffectExecuteAfter = @configure
         .getParameter('aria-dropeffect-execute-after')
-    @ariaDropeffectLinkBefore = configure
+    @ariaDropeffectLinkBefore = @configure
         .getParameter('aria-dropeffect-link-before')
-    @ariaDropeffectLinkAfter = configure
+    @ariaDropeffectLinkAfter = @configure
         .getParameter('aria-dropeffect-link-after')
-    @ariaDropeffectMoveBefore = configure
+    @ariaDropeffectMoveBefore = @configure
         .getParameter('aria-dropeffect-move-before')
-    @ariaDropeffectMoveAfter = configure
+    @ariaDropeffectMoveAfter = @configure
         .getParameter('aria-dropeffect-move-after')
-    @ariaDropeffectPopupBefore = configure
+    @ariaDropeffectPopupBefore = @configure
         .getParameter('aria-dropeffect-popup-before')
-    @ariaDropeffectPopupAfter = configure
+    @ariaDropeffectPopupAfter = @configure
         .getParameter('aria-dropeffect-popup-after')
-    @ariaExpandedFalseBefore = configure
+    @ariaExpandedFalseBefore = @configure
         .getParameter('aria-expanded-false-before')
-    @ariaExpandedFalseAfter = configure
+    @ariaExpandedFalseAfter = @configure
         .getParameter('aria-expanded-false-after')
-    @ariaExpandedTrueBefore = configure
+    @ariaExpandedTrueBefore = @configure
         .getParameter('aria-expanded-true-before')
-    @ariaExpandedTrueAfter = configure.getParameter('aria-expanded-true-after')
-    @ariaGrabbedFalseBefore = configure
+    @ariaExpandedTrueAfter = @configure.getParameter('aria-expanded-true-after')
+    @ariaGrabbedFalseBefore = @configure
         .getParameter('aria-grabbed-false-before')
-    @ariaGrabbedFalseAfter = configure.getParameter('aria-grabbed-false-after')
-    @ariaGrabbedTrueBefore = configure.getParameter('aria-grabbed-true-before')
-    @ariaGrabbedTrueAfter = configure.getParameter('aria-grabbed-true-after')
-    @ariaHaspopupTrueBefore = configure
+    @ariaGrabbedFalseAfter = @configure.getParameter('aria-grabbed-false-after')
+    @ariaGrabbedTrueBefore = @configure.getParameter('aria-grabbed-true-before')
+    @ariaGrabbedTrueAfter = @configure.getParameter('aria-grabbed-true-after')
+    @ariaHaspopupTrueBefore = @configure
         .getParameter('aria-haspopup-true-before')
-    @ariaHaspopupTrueAfter = configure.getParameter('aria-haspopup-true-after')
-    @ariaInvalidTrueBefore = configure.getParameter('aria-invalid-true-before')
-    @ariaInvalidTrueAfter = configure.getParameter('aria-invalid-true-after')
-    @ariaLevelPrefixBefore = configure.getParameter('aria-level-prefix-before')
-    @ariaLevelSuffixBefore = configure.getParameter('aria-level-suffix-before')
-    @ariaLevelPrefixAfter = configure.getParameter('aria-level-prefix-after')
-    @ariaLevelSuffixAfter = configure.getParameter('aria-level-suffix-after')
-    @ariaValueMaximumPrefixBefore = configure
+    @ariaHaspopupTrueAfter = @configure.getParameter('aria-haspopup-true-after')
+    @ariaInvalidTrueBefore = @configure.getParameter('aria-invalid-true-before')
+    @ariaInvalidTrueAfter = @configure.getParameter('aria-invalid-true-after')
+    @ariaLevelPrefixBefore = @configure.getParameter('aria-level-prefix-before')
+    @ariaLevelSuffixBefore = @configure.getParameter('aria-level-suffix-before')
+    @ariaLevelPrefixAfter = @configure.getParameter('aria-level-prefix-after')
+    @ariaLevelSuffixAfter = @configure.getParameter('aria-level-suffix-after')
+    @ariaValueMaximumPrefixBefore = @configure
         .getParameter('aria-value-maximum-prefix-before')
-    @ariaValueMaximumSuffixBefore = configure
+    @ariaValueMaximumSuffixBefore = @configure
         .getParameter('aria-value-maximum-suffix-before')
-    @ariaValueMaximumPrefixAfter = configure
+    @ariaValueMaximumPrefixAfter = @configure
         .getParameter('aria-value-maximum-prefix-after')
-    @ariaValueMaximumSuffixAfter = configure
+    @ariaValueMaximumSuffixAfter = @configure
         .getParameter('aria-value-maximum-suffix-after')
-    @ariaValueMinimumPrefixBefore = configure
+    @ariaValueMinimumPrefixBefore = @configure
         .getParameter('aria-value-minimum-prefix-before')
-    @ariaValueMinimumSuffixBefore = configure
+    @ariaValueMinimumSuffixBefore = @configure
         .getParameter('aria-value-minimum-suffix-before')
-    @ariaValueMinimumPrefixAfter = configure
+    @ariaValueMinimumPrefixAfter = @configure
         .getParameter('aria-value-minimum-prefix-after')
-    @ariaValueMinimumSuffixAfter = configure
+    @ariaValueMinimumSuffixAfter = @configure
         .getParameter('aria-value-minimum-suffix-after')
-    @ariaOrientationHorizontalBefore = configure
+    @ariaOrientationHorizontalBefore = @configure
         .getParameter('aria-orientation-horizontal-before')
-    @ariaOrientationHorizontalAfter = configure
+    @ariaOrientationHorizontalAfter = @configure
         .getParameter('aria-orientation-horizontal-after')
-    @ariaOrientationVerticalBefore = configure
+    @ariaOrientationVerticalBefore = @configure
         .getParameter('aria-orientation-vertical-before')
-    @ariaOrientationVerticalAfter = configure
+    @ariaOrientationVerticalAfter = @configure
         .getParameter('aria-orientation-vertical-after')
-    @ariaPressedFalseBefore = configure
+    @ariaPressedFalseBefore = @configure
         .getParameter('aria-pressed-false-before')
-    @ariaPressedFalseAfter = configure.getParameter('aria-pressed-false-after')
-    @ariaPressedMixedBefore = configure
+    @ariaPressedFalseAfter = @configure.getParameter('aria-pressed-false-after')
+    @ariaPressedMixedBefore = @configure
         .getParameter('aria-pressed-mixed-before')
-    @ariaPressedMixedAfter = configure.getParameter('aria-pressed-mixed-after')
-    @ariaPressedTrueBefore = configure.getParameter('aria-pressed-true-before')
-    @ariaPressedTrueAfter = configure.getParameter('aria-pressed-true-after')
-    @ariaRequiredTrueBefore = configure
+    @ariaPressedMixedAfter = @configure.getParameter('aria-pressed-mixed-after')
+    @ariaPressedTrueBefore = @configure.getParameter('aria-pressed-true-before')
+    @ariaPressedTrueAfter = @configure.getParameter('aria-pressed-true-after')
+    @ariaRequiredTrueBefore = @configure
         .getParameter('aria-required-true-before')
-    @ariaRequiredTrueAfter = configure.getParameter('aria-required-true-after')
-    @ariaSelectedFalseBefore = configure
+    @ariaRequiredTrueAfter = @configure.getParameter('aria-required-true-after')
+    @ariaSelectedFalseBefore = @configure
         .getParameter('aria-selected-false-before')
-    @ariaSelectedFalseAfter = configure
+    @ariaSelectedFalseAfter = @configure
         .getParameter('aria-selected-false-after')
-    @ariaSelectedTrueBefore = configure
+    @ariaSelectedTrueBefore = @configure
         .getParameter('aria-selected-true-before')
-    @ariaSelectedTrueAfter = configure.getParameter('aria-selected-true-after')
-    @ariaSortAscendingBefore = configure
+    @ariaSelectedTrueAfter = @configure.getParameter('aria-selected-true-after')
+    @ariaSortAscendingBefore = @configure
         .getParameter('aria-sort-ascending-before')
-    @ariaSortAscendingAfter = configure
+    @ariaSortAscendingAfter = @configure
         .getParameter('aria-sort-ascending-after')
-    @ariaSortDescendingBefore = configure
+    @ariaSortDescendingBefore = @configure
         .getParameter('aria-sort-descending-before')
-    @ariaSortDescendingAfter = configure
+    @ariaSortDescendingAfter = @configure
         .getParameter('aria-sort-descending-after')
-    @ariaSortOtherBefore = configure.getParameter('aria-sort-other-before')
-    @ariaSortOtherAfter = configure.getParameter('aria-sort-other-after')
+    @ariaSortOtherBefore = @configure.getParameter('aria-sort-other-before')
+    @ariaSortOtherAfter = @configure.getParameter('aria-sort-other-after')
     
-    @dataInvalidUrlBefore = configure
+    @dataInvalidUrlBefore = @configure
         .getParameter('attribute-data-invalid-url-before')
-    @dataInvalidUrlAfter = configure
+    @dataInvalidUrlAfter = @configure
         .getParameter('attribute-data-invalid-url-after')
-    @dataInvalidEmailBefore = configure
+    @dataInvalidEmailBefore = @configure
         .getParameter('attribute-data-invalid-email-before')
-    @dataInvalidEmailAfter = configure
+    @dataInvalidEmailAfter = @configure
         .getParameter('attribute-data-invalid-email-after')
-    @dataInvalidRangeBefore = configure
+    @dataInvalidRangeBefore = @configure
         .getParameter('attribute-data-invalid-range-before')
-    @dataInvalidRangeAfter = configure
+    @dataInvalidRangeAfter = @configure
         .getParameter('attribute-data-invalid-range-after')
-    @dataInvalidLengthBefore = configure
+    @dataInvalidLengthBefore = @configure
         .getParameter('attribute-data-invalid-length-before')
-    @dataInvalidLengthAfter = configure
+    @dataInvalidLengthAfter = @configure
         .getParameter('attribute-data-invalid-length-after')
-    @dataInvalidPatternBefore = configure
+    @dataInvalidPatternBefore = @configure
         .getParameter('attribute-data-invalid-pattern-before')
-    @dataInvalidPatternAfter = configure
+    @dataInvalidPatternAfter = @configure
         .getParameter('attribute-data-invalid-pattern-after')
-    @dataInvalidRequiredBefore = configure
+    @dataInvalidRequiredBefore = @configure
         .getParameter('attribute-data-invalid-required-before')
-    @dataInvalidRequiredAfter = configure
+    @dataInvalidRequiredAfter = @configure
         .getParameter('attribute-data-invalid-required-after')
-    @dataInvalidDateBefore = configure
+    @dataInvalidDateBefore = @configure
         .getParameter('attribute-data-invalid-date-before')
-    @dataInvalidDateAfter = configure
+    @dataInvalidDateAfter = @configure
         .getParameter('attribute-data-invalid-date-after')
-    @dataInvalidTimeBefore = configure
+    @dataInvalidTimeBefore = @configure
         .getParameter('attribute-data-invalid-time-before')
-    @dataInvalidTimeAfter = configure
+    @dataInvalidTimeAfter = @configure
         .getParameter('attribute-data-invalid-time-after')
-    @dataInvalidDateTimeBefore = configure
+    @dataInvalidDateTimeBefore = @configure
         .getParameter('attribute-data-invalid-datetime-before')
-    @dataInvalidDateTimeAfter = configure
+    @dataInvalidDateTimeAfter = @configure
         .getParameter('attribute-data-invalid-datetime-after')
-    @dataInvalidMonthBefore = configure
+    @dataInvalidMonthBefore = @configure
         .getParameter('attribute-data-invalid-month-before')
-    @dataInvalidMonthAfter = configure
+    @dataInvalidMonthAfter = @configure
         .getParameter('attribute-data-invalid-month-after')
-    @dataInvalidWeekBefore = configure
+    @dataInvalidWeekBefore = @configure
         .getParameter('attribute-data-invalid-week-before')
-    @dataInvalidWeekAfter = configure
+    @dataInvalidWeekAfter = @configure
         .getParameter('attribute-data-invalid-week-after')
     
     @shortcutPrefix = @_getShortcutPrefix(userAgent, @attributeAccesskeyDefault)
