@@ -123,12 +123,6 @@ class @hatemile.util.html.HTMLDOMElement extends @hatemile.util.html.HTMLDOMNode
   #
   getInnerHTML: () ->
   
-  # Modify the inner HTML code of this element.
-  #
-  # @param [string] html The HTML code.
-  #
-  setInnerHTML: (html) ->
-  
   # Returns the HTML code of this element.
   #
   # @return [string] The HTML code of this element.

@@ -340,16 +340,6 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   getInnerHTML: () ->
     return @data.innerHTML
   
-  # Modify the inner HTML code of this element.
-  #
-  # @param [string] html The HTML code.
-  #
-  # @see hatemile.util.html.HTMLDOMElement#setInnerHTML
-  #
-  setInnerHTML: (html) ->
-    @data.innerHTML = html
-    return
-  
   # Returns the HTML code of this element.
   #
   # @return [string] The HTML code of this element.

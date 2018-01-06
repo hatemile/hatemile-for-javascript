@@ -70,8 +70,6 @@ limitations under the License.
 
         HTMLDOMElement.prototype.getInnerHTML = function () {};
 
-        HTMLDOMElement.prototype.setInnerHTML = function (html) {};
-
         HTMLDOMElement.prototype.getOuterHTML = function () {};
 
         HTMLDOMElement.prototype.cloneElement = function () {};

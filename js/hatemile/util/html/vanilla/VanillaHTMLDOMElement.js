@@ -223,10 +223,6 @@ limitations under the License.
             return this.data.innerHTML;
         };
 
-        VanillaHTMLDOMElement.prototype.setInnerHTML = function (html) {
-            this.data.innerHTML = html;
-        };
-
         VanillaHTMLDOMElement.prototype.getOuterHTML = function () {
             return this.data.outerHTML;
         };
