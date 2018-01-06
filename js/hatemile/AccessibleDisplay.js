@@ -13,6 +13,7 @@ limitations under the License.
  */
 
 (function () {
+    'use strict';
     this.hatemile || (this.hatemile = {});
 
     this.hatemile.AccessibleDisplay = (function () {

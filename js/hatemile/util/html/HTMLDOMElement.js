@@ -13,6 +13,7 @@ limitations under the License.
  */
 
 (function () {
+    'use strict';
     var base, base1,
         extend = function (child, parent) {
             for (var key in parent) {

@@ -13,6 +13,7 @@ limitations under the License.
  */
 
 (function () {
+    'use strict';
     var base, base1, base2;
 
     this.hatemile || (this.hatemile = {});
