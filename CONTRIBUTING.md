@@ -99,5 +99,10 @@ Run the command `grunt test` in path of HaTeMiLe for JavaScript to test if the C
   
 ## Donate
   
-If you'd like to monetarily support HaTeMiLe for JavaScript development, you can [donate to us by PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PRY8PY3ANVYT6).
-
+If you'd like to monetarily support HaTeMiLe for Browser development, you can:
+* [Donate to us by PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PRY8PY3ANVYT6);
+* Donate Bitcoin to **1EhnFFHv2MheyNHViwYWhKjSWoVjSnJMzA** wallet address;
+* Donate Ethereum to **0x1f9b88c3fbd4823eac4910f456a4036e24e87f5b** wallet address;
+* Donate Litecoin to **LhLTYbH2CwCuAHEkedvmHyTBQTWfCb2aK3** wallet address;
+* Donate Dogecoin to **DECZbbUb8kGKau8ycUmdgmfaPbkBTaApjQ** wallet address;
+* Donate Tether to **1EnvcNeo1gp27h8mVLMgMuiJvq8UHCENdX** wallet address.
