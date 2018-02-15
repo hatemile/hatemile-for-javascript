@@ -99,8 +99,8 @@ accessibleScreenReader.displayAllLanguages();
 If you want contribute with HaTeMiLe for JavaScript, read [contributing guidelines](CONTRIBUTING.md).
 
 ## See also
-* [HaTeMiLe for CSS](https://github.com/carlsonsantana/HaTeMiLe-for-CSS)
-* [HaTeMiLe for Java](https://github.com/carlsonsantana/HaTeMiLe-for-Java)
-* [HaTeMiLe for PHP](https://github.com/carlsonsantana/HaTeMiLe-for-PHP)
-* [HaTeMiLe for Python](https://github.com/carlsonsantana/HaTeMiLe-for-Python)
-* [HaTeMiLe for Ruby](https://github.com/carlsonsantana/HaTeMiLe-for-Ruby)
+* [HaTeMiLe for CSS](https://github.com/hatemile/hatemile-for-css)
+* [HaTeMiLe for Java](https://github.com/hatemile/hatemile-for-java)
+* [HaTeMiLe for PHP](https://github.com/hatemile/hatemile-for-php)
+* [HaTeMiLe for Python](https://github.com/hatemile/hatemile-for-python)
+* [HaTeMiLe for Ruby](https://github.com/hatemile/hatemile-for-ruby)
