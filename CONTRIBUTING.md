@@ -75,6 +75,7 @@ If you want submit your code to HaTeMiLe for JavaScript you need follow the code
   * :bookmark: `:bookmark:` Version Tag
   * :wrench: `:wrench:` Tooling
   * :lock: `:lock:` Security
+  * :card_index: `:card_index:` Metadata
 
 #### CoffeeScript styleguide
 
