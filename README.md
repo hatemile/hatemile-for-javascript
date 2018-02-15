@@ -4,12 +4,12 @@ HaTeMiLe (HTML Accessible) is a library that can convert a HTML code in a HTML c
 
 ## Accessibility solutions
 
-* [Associate HTML elements](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Associate-HTML-elements);
-* [Provide a polyfill to CSS Speech and CSS Aural properties](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Provide-a-polyfill-to-CSS-Speech-and-CSS-Aural-properties);
-* [Display inacessible informations of page](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Display-inacessible-informations-of-page);
-* [Enable all functionality of page available from a keyboard](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Enable-all-functionality-of-page-available-from-a-keyboard);
-* [Improve the acessibility of forms](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Improve-the-acessibility-of-forms);
-* [Provide accessibility resources to navigate](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/wiki/Provide-accessibility-resources-to-navigate).
+* [Associate HTML elements](https://github.com/hatemile/hatemile-for-javascript/wiki/Associate-HTML-elements);
+* [Provide a polyfill to CSS Speech and CSS Aural properties](https://github.com/hatemile/hatemile-for-javascript/wiki/Provide-a-polyfill-to-CSS-Speech-and-CSS-Aural-properties);
+* [Display inacessible informations of page](https://github.com/hatemile/hatemile-for-javascript/wiki/Display-inacessible-informations-of-page);
+* [Enable all functionality of page available from a keyboard](https://github.com/hatemile/hatemile-for-javascript/wiki/Enable-all-functionality-of-page-available-from-a-keyboard);
+* [Improve the acessibility of forms](https://github.com/hatemile/hatemile-for-javascript/wiki/Improve-the-acessibility-of-forms);
+* [Provide accessibility resources to navigate](https://github.com/hatemile/hatemile-for-javascript/wiki/Provide-accessibility-resources-to-navigate).
 
 ## Documentation
 

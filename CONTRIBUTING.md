@@ -23,17 +23,17 @@ This project and everyone participating in it is governed by the [HaTeMiLe for J
 
 This section guides you through submitting a bug report for HaTeMiLe for JavaScript.
 
-Before submitting a bug report check if you're using the latest version of HaTeMiLe for JavaScript and [ensure the bug was not already reported](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/issues).
+Before submitting a bug report check if you're using the latest version of HaTeMiLe for JavaScript and [ensure the bug was not already reported](https://github.com/hatemile/hatemile-for-javascript/issues).
 
-If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/issues/new).
+If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/hatemile/hatemile-for-javascript/issues/new).
 
 ## Request new feature
 
 This section guides you through request new feature for HaTeMiLe for JavaScript.
 
-Before submitting a request feature check if you're using the latest version of HaTeMiLe for JavaScript and [ensure the feature was not already requested](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/issues).
+Before submitting a request feature check if you're using the latest version of HaTeMiLe for JavaScript and [ensure the feature was not already requested](https://github.com/hatemile/hatemile-for-javascript/issues).
 
-If you're unable to find an open issue requesting this feature, [open a new one](https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/issues/new).
+If you're unable to find an open issue requesting this feature, [open a new one](https://github.com/hatemile/hatemile-for-javascript/issues/new).
 
 ## Translating
 
