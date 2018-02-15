@@ -12,7 +12,7 @@
     "accessible"
   ],
   "license": "Apache License, Version 2.0",
-  "homepage": "https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript",
+  "homepage": "https://github.com/hatemile/hatemile-for-javascript",
   "ignore": [
     "**/.*",
     "node_modules",

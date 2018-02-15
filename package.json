@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript.git"
+    "url": "git+https://github.com/hatemile/hatemile-for-javascript.git"
   },
   "keywords": [
     "accessibility",
@@ -19,9 +19,9 @@
   "author": "Carlson Santana Cruz",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript/issues"
+    "url": "https://github.com/hatemile/hatemile-for-javascript/issues"
   },
-  "homepage": "https://github.com/carlsonsantana/HaTeMiLe-for-JavaScript#readme",
+  "homepage": "https://github.com/hatemile/hatemile-for-javascript#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-codo": "^0.3.0",
