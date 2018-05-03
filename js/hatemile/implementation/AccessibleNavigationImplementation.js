@@ -23,7 +23,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleNavigationImplementation = (function () {
-        var CLASS_FORCE_LINK_AFTER, CLASS_FORCE_LINK_BEFORE, CLASS_HEADING_ANCHOR, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
+        var CLASS_FORCE_LINK_AFTER, CLASS_FORCE_LINK_BEFORE, CLASS_HEADING_ANCHOR, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
 
         ID_CONTAINER_SKIPPERS = 'container-skippers';
 
@@ -45,9 +45,7 @@ limitations under the License.
 
         DATA_HEADING_LEVEL = 'data-headinglevel';
 
-        DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF = 'data-attributelongdescriptionbeforeof';
-
-        DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF = 'data-attributelongdescriptionafterof';
+        DATA_ATTRIBUTE_LONG_DESCRIPTION_OF = 'data-attributelongdescriptionof';
 
         AccessibleNavigationImplementation.prototype._generateListSkippers = function () {
             var container, list, local;
@@ -322,34 +320,28 @@ limitations under the License.
 
         AccessibleNavigationImplementation.prototype.provideNavigationToLongDescription = function (image) {
             var anchor, beforeText, id, text;
-            if (image.hasAttribute('longdesc')) {
+            if ((image.hasAttribute('longdesc')) && (image.hasAttribute('alt'))) {
                 this.idGenerator.generateId(image);
                 id = image.getAttribute('id');
-                if (image.hasAttribute('alt')) {
-                    if (this.parser.find("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF + "=\"" + id + "\"]").firstResult() === null) {
-                        if ((this.attributeLongDescriptionPrefixBefore.length > 0) || (this.attributeLongDescriptionSuffixBefore.length > 0)) {
-                            beforeText = ("" + this.attributeLongDescriptionPrefixBefore) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixBefore);
-                            anchor = this.parser.createElement('a');
-                            anchor.setAttribute('href', image.getAttribute('longdesc'));
-                            anchor.setAttribute('target', '_blank');
-                            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, id);
-                            anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE);
-                            anchor.appendText(beforeText);
-                            image.insertBefore(anchor);
-                        }
-                    }
-                    if (this.parser.find("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF + "=\"" + id + "\"]").firstResult() === null) {
-                        if ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0)) {
-                            text = ("" + this.attributeLongDescriptionPrefixAfter) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixAfter);
-                            anchor = this.parser.createElement('a');
-                            anchor.setAttribute('href', image.getAttribute('longdesc'));
-                            anchor.setAttribute('target', '_blank');
-                            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id);
-                            anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER);
-                            anchor.appendText(text);
-                            image.insertAfter(anchor);
-                        }
-                    }
+                if ((this.parser.find(("." + CLASS_FORCE_LINK_BEFORE) + ("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_OF + "=\"" + id + "\"]")).firstResult() === null) && ((this.attributeLongDescriptionPrefixBefore.length > 0) || (this.attributeLongDescriptionSuffixBefore.length > 0))) {
+                    beforeText = ("" + this.attributeLongDescriptionPrefixBefore) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixBefore);
+                    anchor = this.parser.createElement('a');
+                    anchor.setAttribute('href', image.getAttribute('longdesc'));
+                    anchor.setAttribute('target', '_blank');
+                    anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, id);
+                    anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE);
+                    anchor.appendText(beforeText);
+                    image.insertBefore(anchor);
+                }
+                if ((this.parser.find(("." + CLASS_FORCE_LINK_AFTER) + ("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF + "=\"" + id + "\"]")).firstResult() === null) && ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0))) {
+                    text = ("" + this.attributeLongDescriptionPrefixAfter) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixAfter);
+                    anchor = this.parser.createElement('a');
+                    anchor.setAttribute('href', image.getAttribute('longdesc'));
+                    anchor.setAttribute('target', '_blank');
+                    anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id);
+                    anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER);
+                    anchor.appendText(text);
+                    image.insertAfter(anchor);
                 }
             }
         };

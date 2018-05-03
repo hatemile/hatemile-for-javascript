@@ -40,10 +40,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   DATA_ANCHOR_FOR = 'data-anchorfor'
   DATA_HEADING_ANCHOR_FOR = 'data-headinganchorfor'
   DATA_HEADING_LEVEL = 'data-headinglevel'
-  DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF = \
-      'data-attributelongdescriptionbeforeof'
-  DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF = \
-      'data-attributelongdescriptionafterof'
+  DATA_ATTRIBUTE_LONG_DESCRIPTION_OF = 'data-attributelongdescriptionof'
   
   # Generate the list of skippers of page.
   #
@@ -338,40 +335,41 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   # @see hatemile.AccessibleNavigation#provideNavigationToLongDescription
   #
   provideNavigationToLongDescription: (image) ->
-    if image.hasAttribute('longdesc')
+    if (image.hasAttribute('longdesc')) and (image.hasAttribute('alt'))
       @idGenerator.generateId(image)
       id = image.getAttribute('id')
-      if image.hasAttribute('alt')
-        if @parser
-            .find("[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF}=\"#{id}\"]")
-            .firstResult() is null
-          if (@attributeLongDescriptionPrefixBefore.length > 0) or \
-              (@attributeLongDescriptionSuffixBefore.length > 0)
-            beforeText = "#{@attributeLongDescriptionPrefixBefore}" \
-                + "#{image.getAttribute('alt')}" \
-                + "#{@attributeLongDescriptionSuffixBefore}"
-            anchor = @parser.createElement('a')
-            anchor.setAttribute('href', image.getAttribute('longdesc'))
-            anchor.setAttribute('target', '_blank')
-            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_BEFORE_OF, id)
-            anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE)
-            anchor.appendText(beforeText)
-            image.insertBefore(anchor)
-        if @parser
-            .find("[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF}=\"#{id}\"]")
-            .firstResult() is null
-          if (@attributeLongDescriptionPrefixAfter.length > 0) or \
-              (@attributeLongDescriptionSuffixAfter.length > 0)
-            text = "#{@attributeLongDescriptionPrefixAfter}" \
-                + "#{image.getAttribute('alt')}" \
-                + "#{@attributeLongDescriptionSuffixAfter}"
-            anchor = @parser.createElement('a')
-            anchor.setAttribute('href', image.getAttribute('longdesc'))
-            anchor.setAttribute('target', '_blank')
-            anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id)
-            anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER)
-            anchor.appendText(text)
-            image.insertAfter(anchor)
+      if (@parser
+          .find(".#{CLASS_FORCE_LINK_BEFORE}" \
+            + "[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_OF}=\"#{id}\"]")
+          .firstResult() is null) and \
+          ((@attributeLongDescriptionPrefixBefore.length > 0) or \
+          (@attributeLongDescriptionSuffixBefore.length > 0))
+        beforeText = "#{@attributeLongDescriptionPrefixBefore}" \
+            + "#{image.getAttribute('alt')}" \
+            + "#{@attributeLongDescriptionSuffixBefore}"
+        anchor = @parser.createElement('a')
+        anchor.setAttribute('href', image.getAttribute('longdesc'))
+        anchor.setAttribute('target', '_blank')
+        anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, id)
+        anchor.setAttribute('class', CLASS_FORCE_LINK_BEFORE)
+        anchor.appendText(beforeText)
+        image.insertBefore(anchor)
+      if (@parser
+          .find(".#{CLASS_FORCE_LINK_AFTER}" \
+            + "[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF}=\"#{id}\"]")
+          .firstResult() is null) and \
+          ((@attributeLongDescriptionPrefixAfter.length > 0) or \
+          (@attributeLongDescriptionSuffixAfter.length > 0))
+        text = "#{@attributeLongDescriptionPrefixAfter}" \
+            + "#{image.getAttribute('alt')}" \
+            + "#{@attributeLongDescriptionSuffixAfter}"
+        anchor = @parser.createElement('a')
+        anchor.setAttribute('href', image.getAttribute('longdesc'))
+        anchor.setAttribute('target', '_blank')
+        anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id)
+        anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER)
+        anchor.appendText(text)
+        image.insertAfter(anchor)
     return
   
   # Provide an alternative way to access the longs descriptions of all elements
