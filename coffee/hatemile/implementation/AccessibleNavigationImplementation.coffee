@@ -31,8 +31,9 @@ self = this
 class @hatemile.implementation.AccessibleNavigationImplementation
   
   ID_CONTAINER_SKIPPERS = 'container-skippers'
-  ID_CONTAINER_HEADING = 'container-heading'
-  ID_TEXT_HEADING = 'text-heading'
+  ID_CONTAINER_HEADING_BEFORE = 'container-heading-before'
+  ID_CONTAINER_HEADING_AFTER = 'container-heading-after'
+  CLASS_TEXT_HEADING = 'text-heading'
   CLASS_SKIPPER_ANCHOR = 'skipper-anchor'
   CLASS_HEADING_ANCHOR = 'heading-anchor'
   CLASS_FORCE_LINK_BEFORE = 'force-link-before'
@@ -71,34 +72,51 @@ class @hatemile.implementation.AccessibleNavigationImplementation
   #
   # @private
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The list of heading links of page.
-  #
   _generateListHeading: () ->
-    container = @parser.find("##{ID_CONTAINER_HEADING}").firstResult()
-    if container is null
-      local = @parser.find('body').firstResult()
-      if local isnt null
-        container = @parser.createElement('div')
-        container.setAttribute('id', ID_CONTAINER_HEADING)
-        
+    local = @parser.find('body').firstResult()
+    if local isnt null
+      containerBefore = @parser.find("##{ID_CONTAINER_HEADING_BEFORE}")
+          .firstResult()
+      if (containerBefore is null) and (@elementsHeadingBefore.length > 0)
+        containerBefore = @parser.createElement('div')
+        containerBefore.setAttribute('id', ID_CONTAINER_HEADING_BEFORE)
+
         textContainer = @parser.createElement('span')
-        textContainer.setAttribute('id', ID_TEXT_HEADING)
-        
-        container.appendElement(textContainer)
-        
-        if @elementsHeadingBefore.length > 0
-          textContainer.appendText(@elementsHeadingBefore)
-          local.prependElement(container)
-        if @elementsHeadingAfter.length > 0
-          textContainer.appendText(@elementsHeadingAfter)
-          local.appendElement(container)
-    list = null
-    if container isnt null
-      list = @parser.find(container).findChildren('ol').firstResult()
-      if list is null
-        list = @parser.createElement('ol')
-        container.appendElement(list)
-    return list
+        textContainer.setAttribute('class', CLASS_TEXT_HEADING)
+        textContainer.appendText(@elementsHeadingBefore)
+
+        containerBefore.appendElement(textContainer)
+        local.prependElement(containerBefore)
+
+      if containerBefore isnt null
+        @listHeadingBefore = @parser.find(containerBefore)
+            .findChildren('ol').firstResult()
+        if @listHeadingBefore is null
+          @listHeadingBefore = @parser.createElement('ol')
+          containerBefore.appendElement(@listHeadingBefore)
+
+
+      containerAfter = @parser.find("##{ID_CONTAINER_HEADING_AFTER}")
+          .firstResult()
+      if (containerAfter is null) and (@elementsHeadingAfter.length > 0)
+        containerAfter = @parser.createElement('div')
+        containerAfter.setAttribute('id', ID_CONTAINER_HEADING_AFTER)
+
+        textContainer = @parser.createElement('span')
+        textContainer.setAttribute('class', CLASS_TEXT_HEADING)
+        textContainer.appendText(@elementsHeadingAfter)
+
+        containerAfter.appendElement(textContainer)
+        local.appendElement(containerAfter)
+
+      if containerAfter isnt null
+        @listHeadingAfter = @parser.find(containerAfter)
+            .findChildren('ol').firstResult()
+        if @listHeadingAfter is null
+          @listHeadingAfter = @parser.createElement('ol')
+          containerAfter.appendElement(@listHeadingAfter)
+      @listHeadingAdded = true
+    return
   
   # Returns the level of heading.
   #
@@ -225,9 +243,12 @@ class @hatemile.implementation.AccessibleNavigationImplementation
     @elementsHeadingBefore = @configure.getParameter('elements-heading-before')
     @elementsHeadingAfter = @configure.getParameter('elements-heading-after')
     @listSkippersAdded = false
+    @listHeadingAdded = false
     @validateHeading = false
     @validHeading = false
     @listSkippers = null
+    @listHeadingBefore = null
+    @listHeadingAfter = null
   
   # Provide a content skipper for element.
   #
@@ -293,28 +314,46 @@ class @hatemile.implementation.AccessibleNavigationImplementation
       anchor = @_generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, \
           CLASS_HEADING_ANCHOR)
       if anchor isnt null
+        if not @listHeadingAdded
+          @_generateListHeading()
+        listBefore = null
+        listAfter = null
         level = @_getHeadingLevel(heading)
         if level is 1
-          list = @_generateListHeading()
+          listBefore = @listHeadingBefore
+          listAfter = @listHeadingAfter
         else
-          superItem = @parser.find("##{ID_CONTAINER_HEADING}")
-              .findDescendants("[#{DATA_HEADING_LEVEL}=\"" \
-              + "#{(level - 1).toString()}\"]").lastResult()
-          if superItem isnt null
-            list = @parser.find(superItem).findChildren('ol').firstResult()
-            if list is null
-              list = @parser.createElement('ol')
-              superItem.appendElement(list)
-        if list isnt null
-          item = @parser.createElement('li')
-          item.setAttribute(DATA_HEADING_LEVEL, level.toString())
-          
-          link = @parser.createElement('a')
-          link.setAttribute('href', "##{anchor.getAttribute('name')}")
-          link.appendText(heading.getTextContent())
-          
-          item.appendElement(link)
-          list.appendElement(item)
+          selector = "[#{DATA_HEADING_LEVEL}=\"#{(level - 1).toString()}\"]"
+          if @listHeadingBefore isnt null
+            superItem = @parser.find(@listHeadingBefore)
+                .findDescendants(selector).lastResult()
+            if superItem isnt null
+              listBefore = @parser.find(superItem).findChildren('ol')
+                  .firstResult()
+              if listBefore is null
+                listBefore = @parser.createElement('ol')
+                superItem.appendElement(listBefore)
+          if @listHeadingAfter isnt null
+            superItem = @parser.find(@listHeadingAfter)
+                .findDescendants(selector).lastResult()
+            if superItem isnt null
+              listAfter = @parser.find(superItem).findChildren('ol')
+                  .firstResult()
+              if listAfter is null
+                listAfter = @parser.createElement('ol')
+                superItem.appendElement(listAfter)
+
+        item = @parser.createElement('li')
+        item.setAttribute(DATA_HEADING_LEVEL, level.toString())
+        link = @parser.createElement('a')
+        link.setAttribute('href', "##{anchor.getAttribute('name')}")
+        link.appendText(heading.getTextContent())
+        item.appendElement(link)
+
+        if listBefore isnt null
+          listBefore.appendElement(item.cloneElement())
+        if listAfter isnt null
+          listAfter.appendElement(item.cloneElement())
     return
   
   # Provide navigation by headings of page.

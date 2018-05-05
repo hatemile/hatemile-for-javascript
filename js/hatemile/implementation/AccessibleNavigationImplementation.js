@@ -23,13 +23,15 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleNavigationImplementation = (function () {
-        var CLASS_FORCE_LINK_AFTER, CLASS_FORCE_LINK_BEFORE, CLASS_HEADING_ANCHOR, CLASS_SKIPPER_ANCHOR, DATA_ANCHOR_FOR, DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, ID_CONTAINER_HEADING, ID_CONTAINER_SKIPPERS, ID_TEXT_HEADING;
+        var CLASS_FORCE_LINK_AFTER, CLASS_FORCE_LINK_BEFORE, CLASS_HEADING_ANCHOR, CLASS_SKIPPER_ANCHOR, CLASS_TEXT_HEADING, DATA_ANCHOR_FOR, DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, DATA_HEADING_ANCHOR_FOR, DATA_HEADING_LEVEL, ID_CONTAINER_HEADING_AFTER, ID_CONTAINER_HEADING_BEFORE, ID_CONTAINER_SKIPPERS;
 
         ID_CONTAINER_SKIPPERS = 'container-skippers';
 
-        ID_CONTAINER_HEADING = 'container-heading';
+        ID_CONTAINER_HEADING_BEFORE = 'container-heading-before';
 
-        ID_TEXT_HEADING = 'text-heading';
+        ID_CONTAINER_HEADING_AFTER = 'container-heading-after';
+
+        CLASS_TEXT_HEADING = 'text-heading';
 
         CLASS_SKIPPER_ANCHOR = 'skipper-anchor';
 
@@ -71,35 +73,45 @@ limitations under the License.
         };
 
         AccessibleNavigationImplementation.prototype._generateListHeading = function () {
-            var container, list, local, textContainer;
-            container = this.parser.find("#" + ID_CONTAINER_HEADING).firstResult();
-            if (container === null) {
-                local = this.parser.find('body').firstResult();
-                if (local !== null) {
-                    container = this.parser.createElement('div');
-                    container.setAttribute('id', ID_CONTAINER_HEADING);
+            var containerAfter, containerBefore, local, textContainer;
+            local = this.parser.find('body').firstResult();
+            if (local !== null) {
+                containerBefore = this.parser.find("#" + ID_CONTAINER_HEADING_BEFORE).firstResult();
+                if ((containerBefore === null) && (this.elementsHeadingBefore.length > 0)) {
+                    containerBefore = this.parser.createElement('div');
+                    containerBefore.setAttribute('id', ID_CONTAINER_HEADING_BEFORE);
                     textContainer = this.parser.createElement('span');
-                    textContainer.setAttribute('id', ID_TEXT_HEADING);
-                    container.appendElement(textContainer);
-                    if (this.elementsHeadingBefore.length > 0) {
-                        textContainer.appendText(this.elementsHeadingBefore);
-                        local.prependElement(container);
-                    }
-                    if (this.elementsHeadingAfter.length > 0) {
-                        textContainer.appendText(this.elementsHeadingAfter);
-                        local.appendElement(container);
+                    textContainer.setAttribute('class', CLASS_TEXT_HEADING);
+                    textContainer.appendText(this.elementsHeadingBefore);
+                    containerBefore.appendElement(textContainer);
+                    local.prependElement(containerBefore);
+                }
+                if (containerBefore !== null) {
+                    this.listHeadingBefore = this.parser.find(containerBefore).findChildren('ol').firstResult();
+                    if (this.listHeadingBefore === null) {
+                        this.listHeadingBefore = this.parser.createElement('ol');
+                        containerBefore.appendElement(this.listHeadingBefore);
                     }
                 }
-            }
-            list = null;
-            if (container !== null) {
-                list = this.parser.find(container).findChildren('ol').firstResult();
-                if (list === null) {
-                    list = this.parser.createElement('ol');
-                    container.appendElement(list);
+                containerAfter = this.parser.find("#" + ID_CONTAINER_HEADING_AFTER).firstResult();
+                if ((containerAfter === null) && (this.elementsHeadingAfter.length > 0)) {
+                    containerAfter = this.parser.createElement('div');
+                    containerAfter.setAttribute('id', ID_CONTAINER_HEADING_AFTER);
+                    textContainer = this.parser.createElement('span');
+                    textContainer.setAttribute('class', CLASS_TEXT_HEADING);
+                    textContainer.appendText(this.elementsHeadingAfter);
+                    containerAfter.appendElement(textContainer);
+                    local.appendElement(containerAfter);
                 }
+                if (containerAfter !== null) {
+                    this.listHeadingAfter = this.parser.find(containerAfter).findChildren('ol').firstResult();
+                    if (this.listHeadingAfter === null) {
+                        this.listHeadingAfter = this.parser.createElement('ol');
+                        containerAfter.appendElement(this.listHeadingAfter);
+                    }
+                }
+                this.listHeadingAdded = true;
             }
-            return list;
         };
 
         AccessibleNavigationImplementation.prototype._getHeadingLevel = function (element) {
@@ -210,9 +222,12 @@ limitations under the License.
             this.elementsHeadingBefore = this.configure.getParameter('elements-heading-before');
             this.elementsHeadingAfter = this.configure.getParameter('elements-heading-after');
             this.listSkippersAdded = false;
+            this.listHeadingAdded = false;
             this.validateHeading = false;
             this.validHeading = false;
             this.listSkippers = null;
+            this.listHeadingBefore = null;
+            this.listHeadingAfter = null;
         }
 
         AccessibleNavigationImplementation.prototype.provideNavigationBySkipper = function (element) {
@@ -274,34 +289,56 @@ limitations under the License.
         };
 
         AccessibleNavigationImplementation.prototype.provideNavigationByHeading = function (heading) {
-            var anchor, item, level, link, list, superItem;
+            var anchor, item, level, link, listAfter, listBefore, selector, superItem;
             if (!this.validateHeading) {
                 this.validHeading = this._isValidHeading();
             }
             if (this.validHeading) {
                 anchor = this._generateAnchorFor(heading, DATA_HEADING_ANCHOR_FOR, CLASS_HEADING_ANCHOR);
                 if (anchor !== null) {
+                    if (!this.listHeadingAdded) {
+                        this._generateListHeading();
+                    }
+                    listBefore = null;
+                    listAfter = null;
                     level = this._getHeadingLevel(heading);
                     if (level === 1) {
-                        list = this._generateListHeading();
+                        listBefore = this.listHeadingBefore;
+                        listAfter = this.listHeadingAfter;
                     } else {
-                        superItem = this.parser.find("#" + ID_CONTAINER_HEADING).findDescendants(("[" + DATA_HEADING_LEVEL + "=\"") + (((level - 1).toString()) + "\"]")).lastResult();
-                        if (superItem !== null) {
-                            list = this.parser.find(superItem).findChildren('ol').firstResult();
-                            if (list === null) {
-                                list = this.parser.createElement('ol');
-                                superItem.appendElement(list);
+                        selector = "[" + DATA_HEADING_LEVEL + "=\"" + ((level - 1).toString()) + "\"]";
+                        if (this.listHeadingBefore !== null) {
+                            superItem = this.parser.find(this.listHeadingBefore).findDescendants(selector).lastResult();
+                            if (superItem !== null) {
+                                listBefore = this.parser.find(superItem).findChildren('ol').firstResult();
+                                if (listBefore === null) {
+                                    listBefore = this.parser.createElement('ol');
+                                    superItem.appendElement(listBefore);
+                                }
+                            }
+                        }
+                        if (this.listHeadingAfter !== null) {
+                            superItem = this.parser.find(this.listHeadingAfter).findDescendants(selector).lastResult();
+                            if (superItem !== null) {
+                                listAfter = this.parser.find(superItem).findChildren('ol').firstResult();
+                                if (listAfter === null) {
+                                    listAfter = this.parser.createElement('ol');
+                                    superItem.appendElement(listAfter);
+                                }
                             }
                         }
                     }
-                    if (list !== null) {
-                        item = this.parser.createElement('li');
-                        item.setAttribute(DATA_HEADING_LEVEL, level.toString());
-                        link = this.parser.createElement('a');
-                        link.setAttribute('href', "#" + (anchor.getAttribute('name')));
-                        link.appendText(heading.getTextContent());
-                        item.appendElement(link);
-                        list.appendElement(item);
+                    item = this.parser.createElement('li');
+                    item.setAttribute(DATA_HEADING_LEVEL, level.toString());
+                    link = this.parser.createElement('a');
+                    link.setAttribute('href', "#" + (anchor.getAttribute('name')));
+                    link.appendText(heading.getTextContent());
+                    item.appendElement(link);
+                    if (listBefore !== null) {
+                        listBefore.appendElement(item.cloneElement());
+                    }
+                    if (listAfter !== null) {
+                        listAfter.appendElement(item.cloneElement());
                     }
                 }
             }

@@ -10,7 +10,7 @@
     'shortcut': '9'
   },
   {
-    'selector': '#container-heading',
+    'selector': '#container-heading-after',
     'description': 'skipper-table-contents',
     'shortcut': '0'
   }
