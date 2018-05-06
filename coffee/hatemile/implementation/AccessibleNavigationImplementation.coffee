@@ -395,7 +395,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         image.insertBefore(anchor)
       if (@parser
           .find(".#{CLASS_FORCE_LINK_AFTER}" \
-            + "[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF}=\"#{id}\"]")
+            + "[#{DATA_ATTRIBUTE_LONG_DESCRIPTION_OF}=\"#{id}\"]")
           .firstResult() is null) and \
           ((@attributeLongDescriptionPrefixAfter.length > 0) or \
           (@attributeLongDescriptionSuffixAfter.length > 0))
@@ -405,7 +405,7 @@ class @hatemile.implementation.AccessibleNavigationImplementation
         anchor = @parser.createElement('a')
         anchor.setAttribute('href', image.getAttribute('longdesc'))
         anchor.setAttribute('target', '_blank')
-        anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id)
+        anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, id)
         anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER)
         anchor.appendText(text)
         image.insertAfter(anchor)

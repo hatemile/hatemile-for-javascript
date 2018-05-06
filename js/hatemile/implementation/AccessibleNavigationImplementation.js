@@ -370,12 +370,12 @@ limitations under the License.
                     anchor.appendText(beforeText);
                     image.insertBefore(anchor);
                 }
-                if ((this.parser.find(("." + CLASS_FORCE_LINK_AFTER) + ("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF + "=\"" + id + "\"]")).firstResult() === null) && ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0))) {
+                if ((this.parser.find(("." + CLASS_FORCE_LINK_AFTER) + ("[" + DATA_ATTRIBUTE_LONG_DESCRIPTION_OF + "=\"" + id + "\"]")).firstResult() === null) && ((this.attributeLongDescriptionPrefixAfter.length > 0) || (this.attributeLongDescriptionSuffixAfter.length > 0))) {
                     text = ("" + this.attributeLongDescriptionPrefixAfter) + ("" + (image.getAttribute('alt'))) + ("" + this.attributeLongDescriptionSuffixAfter);
                     anchor = this.parser.createElement('a');
                     anchor.setAttribute('href', image.getAttribute('longdesc'));
                     anchor.setAttribute('target', '_blank');
-                    anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_AFTER_OF, id);
+                    anchor.setAttribute(DATA_ATTRIBUTE_LONG_DESCRIPTION_OF, id);
                     anchor.setAttribute('class', CLASS_FORCE_LINK_AFTER);
                     anchor.appendText(text);
                     image.insertAfter(anchor);
