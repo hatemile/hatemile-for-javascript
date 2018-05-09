@@ -5,7 +5,7 @@
     'shortcut': '1'
   },
   {
-    'selector': '#container-shortcuts',
+    'selector': '#container-shortcuts-after',
     'description': 'skipper-shortcuts-list',
     'shortcut': '9'
   },

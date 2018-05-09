@@ -30,8 +30,9 @@ self = this
 #
 class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   
-  ID_CONTAINER_SHORTCUTS = 'container-shortcuts'
-  ID_TEXT_SHORTCUTS = 'text-shortcuts'
+  ID_CONTAINER_SHORTCUTS_BEFORE = 'container-shortcuts-before'
+  ID_CONTAINER_SHORTCUTS_AFTER = 'container-shortcuts-after'
+  CLASS_TEXT_SHORTCUTS = 'text-shortcuts'
   CLASS_FORCE_READ_BEFORE = 'force-read-before'
   CLASS_FORCE_READ_AFTER = 'force-read-after'
   DATA_ATTRIBUTE_REQUIRED_BEFORE_OF = 'data-attributerequiredbeforeof'
@@ -44,8 +45,7 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF = 'data-attributeautocompleteafterof'
   DATA_ATTRIBUTE_TITLE_BEFORE_OF = 'data-attributetitlebeforeof'
   DATA_ATTRIBUTE_TITLE_AFTER_OF = 'data-attributetitleafterof'
-  DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF = 'data-attributeaccesskeybeforeof'
-  DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF = 'data-attributeaccesskeyafterof'
+  DATA_ATTRIBUTE_ACCESSKEY_OF = 'data-attributeaccesskeyof'
   DATA_ATTRIBUTE_TARGET_BEFORE_OF = 'data-attributetargetbeforeof'
   DATA_ATTRIBUTE_TARGET_AFTER_OF = 'data-attributetargetafterof'
   DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF = 'data-attributedownloadbeforeof'
@@ -234,37 +234,51 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   # @private
   #
-  # @return [hatemile.util.html.HTMLDOMElement] The list of shortcuts of page.
-  #
   _generateListShortcuts: () ->
-    container = @parser.find("##{ID_CONTAINER_SHORTCUTS}").firstResult()
-    if container is null
-      local = @parser.find('body').firstResult()
-      if local isnt null
-        container = @parser.createElement('div')
-        container.setAttribute('id', ID_CONTAINER_SHORTCUTS)
-        
+    local = @parser.find('body').firstResult()
+    if local isnt null
+      containerBefore = @parser.find("##{ID_CONTAINER_SHORTCUTS_BEFORE}")
+          .firstResult()
+      if (containerBefore is null) and (@attributeAccesskeyBefore.length > 0)
+        containerBefore = @parser.createElement('div')
+        containerBefore.setAttribute('id', ID_CONTAINER_SHORTCUTS_BEFORE)
+
         textContainer = @parser.createElement('span')
-        textContainer.setAttribute('id', ID_TEXT_SHORTCUTS)
-        
-        container.appendElement(textContainer)
-        
-        if @attributeAccesskeyBefore.length > 0
-          textContainer.appendText(@attributeAccesskeyBefore)
-          local.prependElement(container)
-        if @attributeAccesskeyAfter.length > 0
-          textContainer.appendText(@attributeAccesskeyAfter)
-          local.appendElement(container)
-    list = null
-    if container isnt null
-      list = @parser.find(container).findChildren('ul').firstResult()
-      if list is null
-        list = @parser.createElement('ul')
-        container.appendElement(list)
+        textContainer.setAttribute('class', CLASS_TEXT_SHORTCUTS)
+        textContainer.appendText(@attributeAccesskeyBefore)
+
+        containerBefore.appendElement(textContainer)
+        local.prependElement(containerBefore)
+      if containerBefore isnt null
+        @listShortcutsBefore = @parser.find(containerBefore).findChildren('ul')
+            .firstResult()
+        if @listShortcutsBefore is null
+          @listShortcutsBefore = @parser.createElement('ul')
+          containerBefore.appendElement(@listShortcutsBefore)
+
+
+      containerAfter = @parser.find("##{ID_CONTAINER_SHORTCUTS_AFTER}")
+          .firstResult()
+      if (containerAfter is null) and (@attributeAccesskeyAfter.length > 0)
+        containerAfter = @parser.createElement('div')
+        containerAfter.setAttribute('id', ID_CONTAINER_SHORTCUTS_AFTER)
+
+        textContainer = @parser.createElement('span')
+        textContainer.setAttribute('class', CLASS_TEXT_SHORTCUTS)
+        textContainer.appendText(@attributeAccesskeyAfter)
+
+        containerAfter.appendElement(textContainer)
+        local.appendElement(containerAfter)
+      if containerAfter isnt null
+        @listShortcutsAfter = @parser.find(containerAfter).findChildren('ul')
+            .firstResult()
+        if @listShortcutsAfter is null
+          @listShortcutsAfter = @parser.createElement('ul')
+          containerAfter.appendElement(@listShortcutsAfter)
     
     @listShortcutsAdded = true
     
-    return list
+    return
   
   # Insert a element before or after other element.
   #
@@ -427,7 +441,8 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   #
   constructor: (@parser, @configure, userAgent) ->
     @listShortcutsAdded = false
-    @listShortcuts = null
+    @listShortcutsBefore = null
+    @listShortcutsAfter = null
     
     @idGenerator = new hatemile.util.IDGenerator('display')
     
@@ -689,28 +704,32 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         element.setAttribute('title', description)
       
       if not @listShortcutsAdded
-        @listShortcuts = @_generateListShortcuts()
+        @_generateListShortcuts()
       
       keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'))
       for key in keys
         key = key.toUpperCase()
-        if @parser.find(@listShortcuts)
-            .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF}=\"#{key}\"]" \
-            + ",[#{DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF}=\"#{key}\"]")
-            .firstResult() is null
-          shortcut = "#{@shortcutPrefix} + #{key}"
-          @_forceRead(element, shortcut, @attributeAccesskeyPrefixBefore, \
-              @attributeAccesskeySuffixBefore, @attributeAccesskeyPrefixAfter, \
-              @attributeAccesskeySuffixAfter, \
-              DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, \
-              DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF)
-          
-          if @listShortcuts isnt null
-            item = @parser.createElement('li')
-            item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key)
-            item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key)
-            item.appendText("#{shortcut}: #{description}")
-            @listShortcuts.appendElement(item)
+        selector = "[#{DATA_ATTRIBUTE_ACCESSKEY_OF}=\"#{key}\"]"
+        shortcut = "#{@shortcutPrefix} + #{key}"
+
+        @_forceRead(element, shortcut, @attributeAccesskeyPrefixBefore, \
+            @attributeAccesskeySuffixBefore, @attributeAccesskeyPrefixAfter, \
+            @attributeAccesskeySuffixAfter, DATA_ATTRIBUTE_ACCESSKEY_OF, \
+            DATA_ATTRIBUTE_ACCESSKEY_OF)
+
+        item = @parser.createElement('li')
+        item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_OF, key)
+        item.appendText("#{shortcut}: #{description}")
+        if (@listShortcutsBefore isnt null) and (@parser
+            .find(@listShortcutsBefore)
+            .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_OF}=\"#{key}\"]")
+            .firstResult() is null)
+          @listShortcutsBefore.appendElement(item.cloneElement())
+        if (@listShortcutsAfter isnt null) and (@parser
+            .find(@listShortcutsAfter)
+            .findChildren("[#{DATA_ATTRIBUTE_ACCESSKEY_OF}=\"#{key}\"]")
+            .firstResult() is null)
+          @listShortcutsAfter.appendElement(item.cloneElement())
     return
   
   # Display all shortcuts of page.

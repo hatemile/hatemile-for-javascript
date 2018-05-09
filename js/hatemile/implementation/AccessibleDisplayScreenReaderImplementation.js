@@ -23,11 +23,13 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function () {
-        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, DATA_ARIA_BUSY_AFTER_OF, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF, DATA_ARIA_SORT_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_AFTER_OF, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_AFTER_OF, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_AFTER_OF, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_AFTER_OF, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_AFTER_OF, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_AFTER_OF, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_AFTER_OF, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_AFTER_OF, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_URL, DATA_INVALID_URL_AFTER_OF, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_AFTER_OF, DATA_INVALID_WEEK_BEFORE_OF, DATA_ROLE_AFTER_OF, DATA_ROLE_BEFORE_OF, ID_CONTAINER_SHORTCUTS, ID_TEXT_SHORTCUTS;
+        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, CLASS_TEXT_SHORTCUTS, DATA_ARIA_BUSY_AFTER_OF, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF, DATA_ARIA_SORT_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_AFTER_OF, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_AFTER_OF, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_AFTER_OF, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_AFTER_OF, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_AFTER_OF, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_AFTER_OF, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_AFTER_OF, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_AFTER_OF, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_URL, DATA_INVALID_URL_AFTER_OF, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_AFTER_OF, DATA_INVALID_WEEK_BEFORE_OF, DATA_ROLE_AFTER_OF, DATA_ROLE_BEFORE_OF, ID_CONTAINER_SHORTCUTS_AFTER, ID_CONTAINER_SHORTCUTS_BEFORE;
 
-        ID_CONTAINER_SHORTCUTS = 'container-shortcuts';
+        ID_CONTAINER_SHORTCUTS_BEFORE = 'container-shortcuts-before';
 
-        ID_TEXT_SHORTCUTS = 'text-shortcuts';
+        ID_CONTAINER_SHORTCUTS_AFTER = 'container-shortcuts-after';
+
+        CLASS_TEXT_SHORTCUTS = 'text-shortcuts';
 
         CLASS_FORCE_READ_BEFORE = 'force-read-before';
 
@@ -53,9 +55,7 @@ limitations under the License.
 
         DATA_ATTRIBUTE_TITLE_AFTER_OF = 'data-attributetitleafterof';
 
-        DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF = 'data-attributeaccesskeybeforeof';
-
-        DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF = 'data-attributeaccesskeyafterof';
+        DATA_ATTRIBUTE_ACCESSKEY_OF = 'data-attributeaccesskeyof';
 
         DATA_ATTRIBUTE_TARGET_BEFORE_OF = 'data-attributetargetbeforeof';
 
@@ -293,36 +293,45 @@ limitations under the License.
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype._generateListShortcuts = function () {
-            var container, list, local, textContainer;
-            container = this.parser.find("#" + ID_CONTAINER_SHORTCUTS).firstResult();
-            if (container === null) {
-                local = this.parser.find('body').firstResult();
-                if (local !== null) {
-                    container = this.parser.createElement('div');
-                    container.setAttribute('id', ID_CONTAINER_SHORTCUTS);
+            var containerAfter, containerBefore, local, textContainer;
+            local = this.parser.find('body').firstResult();
+            if (local !== null) {
+                containerBefore = this.parser.find("#" + ID_CONTAINER_SHORTCUTS_BEFORE).firstResult();
+                if ((containerBefore === null) && (this.attributeAccesskeyBefore.length > 0)) {
+                    containerBefore = this.parser.createElement('div');
+                    containerBefore.setAttribute('id', ID_CONTAINER_SHORTCUTS_BEFORE);
                     textContainer = this.parser.createElement('span');
-                    textContainer.setAttribute('id', ID_TEXT_SHORTCUTS);
-                    container.appendElement(textContainer);
-                    if (this.attributeAccesskeyBefore.length > 0) {
-                        textContainer.appendText(this.attributeAccesskeyBefore);
-                        local.prependElement(container);
-                    }
-                    if (this.attributeAccesskeyAfter.length > 0) {
-                        textContainer.appendText(this.attributeAccesskeyAfter);
-                        local.appendElement(container);
+                    textContainer.setAttribute('class', CLASS_TEXT_SHORTCUTS);
+                    textContainer.appendText(this.attributeAccesskeyBefore);
+                    containerBefore.appendElement(textContainer);
+                    local.prependElement(containerBefore);
+                }
+                if (containerBefore !== null) {
+                    this.listShortcutsBefore = this.parser.find(containerBefore).findChildren('ul').firstResult();
+                    if (this.listShortcutsBefore === null) {
+                        this.listShortcutsBefore = this.parser.createElement('ul');
+                        containerBefore.appendElement(this.listShortcutsBefore);
                     }
                 }
-            }
-            list = null;
-            if (container !== null) {
-                list = this.parser.find(container).findChildren('ul').firstResult();
-                if (list === null) {
-                    list = this.parser.createElement('ul');
-                    container.appendElement(list);
+                containerAfter = this.parser.find("#" + ID_CONTAINER_SHORTCUTS_AFTER).firstResult();
+                if ((containerAfter === null) && (this.attributeAccesskeyAfter.length > 0)) {
+                    containerAfter = this.parser.createElement('div');
+                    containerAfter.setAttribute('id', ID_CONTAINER_SHORTCUTS_AFTER);
+                    textContainer = this.parser.createElement('span');
+                    textContainer.setAttribute('class', CLASS_TEXT_SHORTCUTS);
+                    textContainer.appendText(this.attributeAccesskeyAfter);
+                    containerAfter.appendElement(textContainer);
+                    local.appendElement(containerAfter);
+                }
+                if (containerAfter !== null) {
+                    this.listShortcutsAfter = this.parser.find(containerAfter).findChildren('ul').firstResult();
+                    if (this.listShortcutsAfter === null) {
+                        this.listShortcutsAfter = this.parser.createElement('ul');
+                        containerAfter.appendElement(this.listShortcutsAfter);
+                    }
                 }
             }
             this.listShortcutsAdded = true;
-            return list;
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype._insert = function (element, insertedElement, before) {
@@ -436,7 +445,8 @@ limitations under the License.
             this.parser = parser;
             this.configure = configure;
             this.listShortcutsAdded = false;
-            this.listShortcuts = null;
+            this.listShortcutsBefore = null;
+            this.listShortcutsAfter = null;
             this.idGenerator = new hatemile.util.IDGenerator('display');
             this.attributeTitlePrefixBefore = this.configure.getParameter('attribute-title-prefix-before');
             this.attributeTitleSuffixBefore = this.configure.getParameter('attribute-title-suffix-before');
@@ -569,7 +579,7 @@ limitations under the License.
         }
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayShortcut = function (element) {
-            var description, i, item, key, keys, len, shortcut;
+            var description, i, item, key, keys, len, selector, shortcut;
             if (element.hasAttribute('accesskey')) {
                 description = this._getDescription(element);
                 if (!element.hasAttribute('title')) {
@@ -579,22 +589,23 @@ limitations under the License.
                     element.setAttribute('title', description);
                 }
                 if (!this.listShortcutsAdded) {
-                    this.listShortcuts = this._generateListShortcuts();
+                    this._generateListShortcuts();
                 }
                 keys = element.getAttribute('accesskey').split(new RegExp('[ \n\t\r]+'));
                 for (i = 0, len = keys.length; i < len; i++) {
                     key = keys[i];
                     key = key.toUpperCase();
-                    if (this.parser.find(this.listShortcuts).findChildren(("[" + DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF + "=\"" + key + "\"]") + (",[" + DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF + "=\"" + key + "\"]")).firstResult() === null) {
-                        shortcut = this.shortcutPrefix + " + " + key;
-                        this._forceRead(element, shortcut, this.attributeAccesskeyPrefixBefore, this.attributeAccesskeySuffixBefore, this.attributeAccesskeyPrefixAfter, this.attributeAccesskeySuffixAfter, DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF);
-                        if (this.listShortcuts !== null) {
-                            item = this.parser.createElement('li');
-                            item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_BEFORE_OF, key);
-                            item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_AFTER_OF, key);
-                            item.appendText(shortcut + ": " + description);
-                            this.listShortcuts.appendElement(item);
-                        }
+                    selector = "[" + DATA_ATTRIBUTE_ACCESSKEY_OF + "=\"" + key + "\"]";
+                    shortcut = this.shortcutPrefix + " + " + key;
+                    this._forceRead(element, shortcut, this.attributeAccesskeyPrefixBefore, this.attributeAccesskeySuffixBefore, this.attributeAccesskeyPrefixAfter, this.attributeAccesskeySuffixAfter, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_ACCESSKEY_OF);
+                    item = this.parser.createElement('li');
+                    item.setAttribute(DATA_ATTRIBUTE_ACCESSKEY_OF, key);
+                    item.appendText(shortcut + ": " + description);
+                    if ((this.listShortcutsBefore !== null) && (this.parser.find(this.listShortcutsBefore).findChildren("[" + DATA_ATTRIBUTE_ACCESSKEY_OF + "=\"" + key + "\"]").firstResult() === null)) {
+                        this.listShortcutsBefore.appendElement(item.cloneElement());
+                    }
+                    if ((this.listShortcutsAfter !== null) && (this.parser.find(this.listShortcutsAfter).findChildren("[" + DATA_ATTRIBUTE_ACCESSKEY_OF + "=\"" + key + "\"]").firstResult() === null)) {
+                        this.listShortcutsAfter.appendElement(item.cloneElement());
                     }
                 }
             }
