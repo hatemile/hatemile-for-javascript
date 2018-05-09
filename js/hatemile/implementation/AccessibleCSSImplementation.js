@@ -23,11 +23,9 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleCSSImplementation = (function () {
-        var DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS;
+        var DATA_ATTRIBUTE_HEADERS_OF, DATA_IGNORE, DATA_ISOLATOR_ELEMENT, DATA_SPEAK, DATA_SPEAK_AS, VALID_INHERIT_TAGS, VALID_TAGS;
 
-        DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof';
-
-        DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof';
+        DATA_ATTRIBUTE_HEADERS_OF = 'data-headersof';
 
         DATA_IGNORE = 'data-ignoreaccessibilityfix';
 
@@ -325,7 +323,7 @@ limitations under the License.
 
         AccessibleCSSImplementation.prototype._speakHeaderOnceInherit = function (element) {
             var elements, i, len;
-            elements = this.htmlParser.find(element).findDescendants(("[" + DATA_ATTRIBUTE_HEADERS_BEFORE_OF + "],") + ("[" + DATA_ATTRIBUTE_HEADERS_AFTER_OF + "]")).listResults();
+            elements = this.htmlParser.find(element).findDescendants("[" + DATA_ATTRIBUTE_HEADERS_OF + "]").listResults();
             for (i = 0, len = elements.length; i < len; i++) {
                 element = elements[i];
                 element.removeNode();

@@ -30,8 +30,7 @@ self = this
 #
 class @hatemile.implementation.AccessibleCSSImplementation
   
-  DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof'
-  DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof'
+  DATA_ATTRIBUTE_HEADERS_OF = 'data-headersof'
   DATA_IGNORE = 'data-ignoreaccessibilityfix'
   DATA_ISOLATOR_ELEMENT = 'data-auxiliarspan'
   DATA_SPEAK = 'data-cssspeak'
@@ -524,8 +523,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   #
   _speakHeaderOnceInherit: (element) ->
     elements = @htmlParser.find(element)
-        .findDescendants("[#{DATA_ATTRIBUTE_HEADERS_BEFORE_OF}]," \
-          + "[#{DATA_ATTRIBUTE_HEADERS_AFTER_OF}]").listResults()
+        .findDescendants("[#{DATA_ATTRIBUTE_HEADERS_OF}]").listResults()
     for element in elements
       element.removeNode()
     return

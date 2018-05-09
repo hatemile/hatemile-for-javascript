@@ -23,7 +23,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function () {
-        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, CLASS_TEXT_SHORTCUTS, DATA_ARIA_BUSY_AFTER_OF, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF, DATA_ARIA_SORT_BEFORE_OF, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_AFTER_OF, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_AFTER_OF, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_AFTER_OF, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_AFTER_OF, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_AFTER_OF, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_AFTER_OF, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_AFTER_OF, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_AFTER_OF, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_URL, DATA_INVALID_URL_AFTER_OF, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_AFTER_OF, DATA_INVALID_WEEK_BEFORE_OF, DATA_ROLE_AFTER_OF, DATA_ROLE_BEFORE_OF, ID_CONTAINER_SHORTCUTS_AFTER, ID_CONTAINER_SHORTCUTS_BEFORE;
+        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, CLASS_TEXT_SHORTCUTS, DATA_ARIA_BUSY_OF, DATA_ARIA_CHECKED_OF, DATA_ARIA_DROPEFFECT_OF, DATA_ARIA_EXPANDED_OF, DATA_ARIA_GRABBED_OF, DATA_ARIA_HASPOPUP_OF, DATA_ARIA_INVALID_OF, DATA_ARIA_LEVEL_OF, DATA_ARIA_ORIENTATION_OF, DATA_ARIA_PRESSED_OF, DATA_ARIA_SELECTED_OF, DATA_ARIA_SORT_OF, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_OF, DATA_ATTRIBUTE_DOWNLOAD_OF, DATA_ATTRIBUTE_DRAGGABLE_OF, DATA_ATTRIBUTE_DROPZONE_OF, DATA_ATTRIBUTE_HEADERS_OF, DATA_ATTRIBUTE_LANGUAGE_OF, DATA_ATTRIBUTE_RANGE_MAX_OF, DATA_ATTRIBUTE_RANGE_MIN_OF, DATA_ATTRIBUTE_REQUIRED_OF, DATA_ATTRIBUTE_TARGET_OF, DATA_ATTRIBUTE_TITLE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_OF, DATA_INVALID_DATE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_OF, DATA_INVALID_URL, DATA_INVALID_URL_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_OF, DATA_ROLE_OF, ID_CONTAINER_SHORTCUTS_AFTER, ID_CONTAINER_SHORTCUTS_BEFORE;
 
         ID_CONTAINER_SHORTCUTS_BEFORE = 'container-shortcuts-before';
 
@@ -35,147 +35,77 @@ limitations under the License.
 
         CLASS_FORCE_READ_AFTER = 'force-read-after';
 
-        DATA_ATTRIBUTE_REQUIRED_BEFORE_OF = 'data-attributerequiredbeforeof';
+        DATA_ATTRIBUTE_REQUIRED_OF = 'data-attributerequiredof';
 
-        DATA_ATTRIBUTE_REQUIRED_AFTER_OF = 'data-attributerequiredafterof';
+        DATA_ATTRIBUTE_RANGE_MIN_OF = 'data-attributevalueminof';
 
-        DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF = 'data-attributevalueminbeforeof';
+        DATA_ATTRIBUTE_RANGE_MAX_OF = 'data-attributevaluemaxof';
 
-        DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF = 'data-attributevalueminafterof';
+        DATA_ATTRIBUTE_AUTOCOMPLETE_OF = 'data-attributeautocompleteof';
 
-        DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF = 'data-attributevaluemaxbeforeof';
-
-        DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF = 'data-attributevaluemaxafterof';
-
-        DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF = 'data-attributeautocompletebeforeof';
-
-        DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF = 'data-attributeautocompleteafterof';
-
-        DATA_ATTRIBUTE_TITLE_BEFORE_OF = 'data-attributetitlebeforeof';
-
-        DATA_ATTRIBUTE_TITLE_AFTER_OF = 'data-attributetitleafterof';
+        DATA_ATTRIBUTE_TITLE_OF = 'data-attributetitleof';
 
         DATA_ATTRIBUTE_ACCESSKEY_OF = 'data-attributeaccesskeyof';
 
-        DATA_ATTRIBUTE_TARGET_BEFORE_OF = 'data-attributetargetbeforeof';
+        DATA_ATTRIBUTE_TARGET_OF = 'data-attributetargetof';
 
-        DATA_ATTRIBUTE_TARGET_AFTER_OF = 'data-attributetargetafterof';
+        DATA_ATTRIBUTE_DOWNLOAD_OF = 'data-attributedownloadof';
 
-        DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF = 'data-attributedownloadbeforeof';
+        DATA_ATTRIBUTE_DRAGGABLE_OF = 'data-attributedraggableof';
 
-        DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF = 'data-attributedownloadafterof';
+        DATA_ATTRIBUTE_DROPZONE_OF = 'data-attributedropzoneof';
 
-        DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF = 'data-attributedraggablebeforeof';
+        DATA_ATTRIBUTE_LANGUAGE_OF = 'data-languageof';
 
-        DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF = 'data-attributedraggableafterof';
+        DATA_ATTRIBUTE_HEADERS_OF = 'data-headersof';
 
-        DATA_ATTRIBUTE_DROPZONE_BEFORE_OF = 'data-attributedropzonebeforeof';
+        DATA_ARIA_BUSY_OF = 'data-ariabusyof';
 
-        DATA_ATTRIBUTE_DROPZONE_AFTER_OF = 'data-attributedropzoneafterof';
+        DATA_ARIA_CHECKED_OF = 'data-ariacheckedof';
 
-        DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF = 'data-languagebeforeof';
+        DATA_ARIA_DROPEFFECT_OF = 'data-ariadropeffectof';
 
-        DATA_ATTRIBUTE_LANGUAGE_AFTER_OF = 'data-languageafterof';
+        DATA_ARIA_EXPANDED_OF = 'data-ariaexpandedof';
 
-        DATA_ATTRIBUTE_HEADERS_BEFORE_OF = 'data-headersbeforeof';
+        DATA_ARIA_GRABBED_OF = 'data-ariagrabbedof';
 
-        DATA_ATTRIBUTE_HEADERS_AFTER_OF = 'data-headersafterof';
+        DATA_ARIA_HASPOPUP_OF = 'data-ariahaspopupof';
 
-        DATA_ARIA_BUSY_BEFORE_OF = 'data-ariabusybeforeof';
+        DATA_ARIA_INVALID_OF = 'data-ariainvalidof';
 
-        DATA_ARIA_BUSY_AFTER_OF = 'data-ariabusyafterof';
+        DATA_ARIA_LEVEL_OF = 'data-arialevelof';
 
-        DATA_ARIA_CHECKED_BEFORE_OF = 'data-ariacheckedbeforeof';
+        DATA_ARIA_ORIENTATION_OF = 'data-ariaorientationof';
 
-        DATA_ARIA_CHECKED_AFTER_OF = 'data-ariacheckedafterof';
+        DATA_ARIA_PRESSED_OF = 'data-ariapressedof';
 
-        DATA_ARIA_DROPEFFECT_BEFORE_OF = 'data-ariadropeffectbeforeof';
+        DATA_ARIA_SELECTED_OF = 'data-ariaselectedof';
 
-        DATA_ARIA_DROPEFFECT_AFTER_OF = 'data-ariadropeffectafterof';
+        DATA_ARIA_SORT_OF = 'data-ariasortof';
 
-        DATA_ARIA_EXPANDED_BEFORE_OF = 'data-ariaexpandedbeforeof';
+        DATA_ROLE_OF = 'data-roleof';
 
-        DATA_ARIA_EXPANDED_AFTER_OF = 'data-ariaexpandedafterof';
+        DATA_INVALID_URL_OF = 'data-invalidurlof';
 
-        DATA_ARIA_GRABBED_BEFORE_OF = 'data-ariagrabbedbeforeof';
+        DATA_INVALID_EMAIL_OF = 'data-invalidemailof';
 
-        DATA_ARIA_GRABBED_AFTER_OF = 'data-ariagrabbedafterof';
+        DATA_INVALID_RANGE_OF = 'data-invalidrangeof';
 
-        DATA_ARIA_HASPOPUP_BEFORE_OF = 'data-ariahaspopupbeforeof';
+        DATA_INVALID_LENGTH_OF = 'data-invalidlengthof';
 
-        DATA_ARIA_HASPOPUP_AFTER_OF = 'data-ariahaspopupafterof';
+        DATA_INVALID_PATTERN_OF = 'data-invalidpatternof';
 
-        DATA_ARIA_INVALID_BEFORE_OF = 'data-ariainvalidbeforeof';
+        DATA_INVALID_REQUIRED_OF = 'data-invalidrequiredof';
 
-        DATA_ARIA_INVALID_AFTER_OF = 'data-ariainvalidafterof';
+        DATA_INVALID_DATE_OF = 'data-invaliddateof';
 
-        DATA_ARIA_LEVEL_BEFORE_OF = 'data-arialevelbeforeof';
+        DATA_INVALID_TIME_OF = 'data-invalidtimeof';
 
-        DATA_ARIA_LEVEL_AFTER_OF = 'data-arialevelafterof';
+        DATA_INVALID_DATETIME_OF = 'data-invaliddatetimeof';
 
-        DATA_ARIA_ORIENTATION_BEFORE_OF = 'data-ariaorientationbeforeof';
+        DATA_INVALID_MONTH_OF = 'data-invalidmonthof';
 
-        DATA_ARIA_ORIENTATION_AFTER_OF = 'data-ariaorientationafterof';
-
-        DATA_ARIA_PRESSED_BEFORE_OF = 'data-ariapressedbeforeof';
-
-        DATA_ARIA_PRESSED_AFTER_OF = 'data-ariapressedafterof';
-
-        DATA_ARIA_SELECTED_BEFORE_OF = 'data-ariaselectedbeforeof';
-
-        DATA_ARIA_SELECTED_AFTER_OF = 'data-ariaselectedafterof';
-
-        DATA_ARIA_SORT_BEFORE_OF = 'data-ariasortbeforeof';
-
-        DATA_ARIA_SORT_AFTER_OF = 'data-ariasortafterof';
-
-        DATA_ROLE_BEFORE_OF = 'data-rolebeforeof';
-
-        DATA_ROLE_AFTER_OF = 'data-roleafterof';
-
-        DATA_INVALID_URL_BEFORE_OF = 'data-invalidurlbeforeof';
-
-        DATA_INVALID_URL_AFTER_OF = 'data-invalidurlafterof';
-
-        DATA_INVALID_EMAIL_BEFORE_OF = 'data-invalidemailbeforeof';
-
-        DATA_INVALID_EMAIL_AFTER_OF = 'data-invalidemailafterof';
-
-        DATA_INVALID_RANGE_BEFORE_OF = 'data-invalidrangebeforeof';
-
-        DATA_INVALID_RANGE_AFTER_OF = 'data-invalidrangeafterof';
-
-        DATA_INVALID_LENGTH_BEFORE_OF = 'data-invalidlengthbeforeof';
-
-        DATA_INVALID_LENGTH_AFTER_OF = 'data-invalidlengthafterof';
-
-        DATA_INVALID_PATTERN_BEFORE_OF = 'data-invalidpatternbeforeof';
-
-        DATA_INVALID_PATTERN_AFTER_OF = 'data-invalidpatternafterof';
-
-        DATA_INVALID_REQUIRED_BEFORE_OF = 'data-invalidrequiredbeforeof';
-
-        DATA_INVALID_REQUIRED_AFTER_OF = 'data-invalidrequiredafterof';
-
-        DATA_INVALID_DATE_BEFORE_OF = 'data-invaliddatebeforeof';
-
-        DATA_INVALID_DATE_AFTER_OF = 'data-invaliddateafterof';
-
-        DATA_INVALID_TIME_BEFORE_OF = 'data-invalidtimebeforeof';
-
-        DATA_INVALID_TIME_AFTER_OF = 'data-invalidtimeafterof';
-
-        DATA_INVALID_DATETIME_BEFORE_OF = 'data-invaliddatetimebeforeof';
-
-        DATA_INVALID_DATETIME_AFTER_OF = 'data-invaliddatetimeafterof';
-
-        DATA_INVALID_MONTH_BEFORE_OF = 'data-invalidmonthbeforeof';
-
-        DATA_INVALID_MONTH_AFTER_OF = 'data-invalidmonthafterof';
-
-        DATA_INVALID_WEEK_BEFORE_OF = 'data-invalidweekbeforeof';
-
-        DATA_INVALID_WEEK_AFTER_OF = 'data-invalidweekafterof';
+        DATA_INVALID_WEEK_OF = 'data-invalidweekof';
 
         DATA_INVALID_URL = 'data-invalidurl';
 
@@ -368,51 +298,62 @@ limitations under the License.
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype._forceReadSimple = function (element, textBefore, textAfter, db, da) {
-            var identifier, referenceAfter, referenceBefore, span;
+        AccessibleDisplayScreenReaderImplementation.prototype._forceReadSimple = function (element, textBefore, textAfter, dataOf) {
+            var i, identifier, len, newReferences, reference, referenceAfter, referenceBefore, references, selector, span;
             this.idGenerator.generateId(element);
             identifier = element.getAttribute('id');
-            if (textBefore.length > 0) {
-                referenceBefore = this.parser.find("[" + db + "=\"" + identifier + "\"]").firstResult();
-                if (!element.equals(referenceBefore)) {
-                    if (referenceBefore !== null) {
-                        referenceBefore.removeNode();
-                    }
-                    span = this.parser.createElement('span');
-                    span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
-                    span.setAttribute(db, identifier);
-                    span.appendText(textBefore);
-                    this._insert(element, span, true);
+            selector = "[" + dataOf + "=\"" + identifier + "\"]";
+            referenceBefore = this.parser.find("." + CLASS_FORCE_READ_BEFORE + selector).firstResult();
+            referenceAfter = this.parser.find("." + CLASS_FORCE_READ_AFTER + selector).firstResult();
+            references = this.parser.find(selector).listResults();
+            newReferences = [];
+            for (i = 0, len = references.length; i < len; i++) {
+                reference = references[i];
+                if ((!reference.equals(referenceBefore)) && (!reference.equals(referenceAfter))) {
+                    newReferences.push(reference);
                 }
             }
-            if (textAfter.length > 0) {
-                referenceAfter = this.parser.find("[" + da + "=\"" + identifier + "\"]").firstResult();
-                if (!element.equals(referenceAfter)) {
-                    if (referenceAfter !== null) {
-                        referenceAfter.removeNode();
+            if (newReferences.length === 0) {
+                if (textBefore.length > 0) {
+                    if (!element.equals(referenceBefore)) {
+                        if (referenceBefore !== null) {
+                            referenceBefore.removeNode();
+                        }
+                        span = this.parser.createElement('span');
+                        span.setAttribute('class', CLASS_FORCE_READ_BEFORE);
+                        span.setAttribute(dataOf, identifier);
+                        span.appendText(textBefore);
+                        this._insert(element, span, true);
                     }
-                    span = this.parser.createElement('span');
-                    span.setAttribute('class', CLASS_FORCE_READ_AFTER);
-                    span.setAttribute(da, identifier);
-                    span.appendText(textAfter);
-                    this._insert(element, span, false);
+                }
+                if (textAfter.length > 0) {
+                    if (!element.equals(referenceAfter)) {
+                        if (referenceAfter !== null) {
+                            referenceAfter.removeNode();
+                        }
+                        span = this.parser.createElement('span');
+                        span.setAttribute('class', CLASS_FORCE_READ_AFTER);
+                        span.setAttribute(dataOf, identifier);
+                        span.appendText(textAfter);
+                        this._insert(element, span, false);
+                    }
                 }
             }
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype._forceRead = function (e, v, tpb, tsb, tpa, tsa, db, da) {
+        AccessibleDisplayScreenReaderImplementation.prototype._forceRead = function (element, value, tpb, tsb, tpa, tsa, dataOf) {
             var textAfter, textBefore;
             if ((tpb.length > 0) || (tsb.length > 0)) {
-                textBefore = "" + tpb + v + tsb;
+                textBefore = "" + tpb + value + tsb;
             } else {
                 textBefore = '';
             }
             if ((tpa.length > 0) || (tsa.length > 0)) {
-                textAfter = "" + tpa + v + tsa;
+                textAfter = "" + tpa + value + tsa;
             } else {
                 textAfter = '';
             }
-            this._forceReadSimple(e, textBefore, textAfter, db, da);
+            this._forceReadSimple(element, textBefore, textAfter, dataOf);
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype._displayWAIARIADragandDrop = function (element) {
@@ -420,23 +361,23 @@ limitations under the License.
             if (element.hasAttribute('aria-dropeffect')) {
                 attributeValue = element.getAttribute('aria-dropeffect');
                 if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_OF);
                 } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_OF);
                 } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_OF);
                 } else if (attributeValue === 'execute') {
-                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_OF);
                 } else if (attributeValue === 'popup') {
-                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_BEFORE_OF, DATA_ARIA_DROPEFFECT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_OF);
                 }
             }
             if (element.hasAttribute('aria-grabbed')) {
                 attributeValue = element.getAttribute('aria-grabbed');
                 if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_OF);
                 } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_BEFORE_OF, DATA_ARIA_GRABBED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_OF);
                 }
             }
         };
@@ -584,8 +525,7 @@ limitations under the License.
                 description = this._getDescription(element);
                 if (!element.hasAttribute('title')) {
                     this.idGenerator.generateId(element);
-                    element.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, element.getAttribute('id'));
-                    element.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, element.getAttribute('id'));
+                    element.setAttribute(DATA_ATTRIBUTE_TITLE_OF, element.getAttribute('id'));
                     element.setAttribute('title', description);
                 }
                 if (!this.listShortcutsAdded) {
@@ -628,7 +568,7 @@ limitations under the License.
                 role = element.getAttribute('role');
                 roleDescription = this._getRoleDescription(role);
                 if (roleDescription !== null) {
-                    this._forceRead(element, roleDescription, this.attributeRolePrefixBefore, this.attributeRoleSuffixBefore, this.attributeRolePrefixAfter, this.attributeRoleSuffixAfter, DATA_ROLE_BEFORE_OF, DATA_ROLE_AFTER_OF);
+                    this._forceRead(element, roleDescription, this.attributeRolePrefixBefore, this.attributeRoleSuffixBefore, this.attributeRolePrefixAfter, this.attributeRoleSuffixAfter, DATA_ROLE_OF);
                 }
             }
         };
@@ -661,7 +601,7 @@ limitations under the License.
                     }
                 }
                 if ((textHeader !== null) && (textHeader.length > 0)) {
-                    this._forceRead(tableCell, textHeader, this.attributeHeadersPrefixBefore, this.attributeHeadersSuffixBefore, this.attributeHeadersPrefixAfter, this.attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_BEFORE_OF, DATA_ATTRIBUTE_HEADERS_AFTER_OF);
+                    this._forceRead(tableCell, textHeader, this.attributeHeadersPrefixBefore, this.attributeHeadersSuffixBefore, this.attributeHeadersPrefixAfter, this.attributeHeadersSuffixAfter, DATA_ATTRIBUTE_HEADERS_OF);
                 }
             }
         };
@@ -680,114 +620,114 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayWAIARIAStates = function (element) {
             var attributeValue;
             if ((element.hasAttribute('aria-busy')) && (element.getAttribute('aria-busy') === 'true')) {
-                this._forceReadSimple(element, this.ariaBusyTrueBefore, this.ariaBusyTrueAfter, DATA_ARIA_BUSY_BEFORE_OF, DATA_ARIA_BUSY_AFTER_OF);
+                this._forceReadSimple(element, this.ariaBusyTrueBefore, this.ariaBusyTrueAfter, DATA_ARIA_BUSY_OF);
             }
             if (element.hasAttribute('aria-checked')) {
                 attributeValue = element.getAttribute('aria-checked');
                 if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaCheckedTrueBefore, this.ariaCheckedTrueAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaCheckedTrueBefore, this.ariaCheckedTrueAfter, DATA_ARIA_CHECKED_OF);
                 } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaCheckedFalseBefore, this.ariaCheckedFalseAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaCheckedFalseBefore, this.ariaCheckedFalseAfter, DATA_ARIA_CHECKED_OF);
                 } else if (attributeValue === 'mixed') {
-                    this._forceReadSimple(element, this.ariaCheckedMixedBefore, this.ariaCheckedMixedAfter, DATA_ARIA_CHECKED_BEFORE_OF, DATA_ARIA_CHECKED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaCheckedMixedBefore, this.ariaCheckedMixedAfter, DATA_ARIA_CHECKED_OF);
                 }
             }
             if (element.hasAttribute('aria-expanded')) {
                 attributeValue = element.getAttribute('aria-expanded');
                 if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaExpandedTrueBefore, this.ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaExpandedTrueBefore, this.ariaExpandedTrueAfter, DATA_ARIA_EXPANDED_OF);
                 } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaExpandedFalseBefore, this.ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_BEFORE_OF, DATA_ARIA_EXPANDED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaExpandedFalseBefore, this.ariaExpandedFalseAfter, DATA_ARIA_EXPANDED_OF);
                 }
             }
             if ((element.hasAttribute('aria-haspopup')) && (element.getAttribute('aria-haspopup') === 'true')) {
-                this._forceReadSimple(element, this.ariaHaspopupTrueBefore, this.ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_BEFORE_OF, DATA_ARIA_HASPOPUP_AFTER_OF);
+                this._forceReadSimple(element, this.ariaHaspopupTrueBefore, this.ariaHaspopupTrueAfter, DATA_ARIA_HASPOPUP_OF);
             }
             if ((element.hasAttribute('aria-invalid')) && (element.getAttribute('aria-invalid') === 'true')) {
-                this._forceReadSimple(element, this.ariaInvalidTrueBefore, this.ariaInvalidTrueAfter, DATA_ARIA_INVALID_BEFORE_OF, DATA_ARIA_INVALID_AFTER_OF);
+                this._forceReadSimple(element, this.ariaInvalidTrueBefore, this.ariaInvalidTrueAfter, DATA_ARIA_INVALID_OF);
                 if (element.hasAttribute(DATA_INVALID_LENGTH)) {
-                    this._forceReadSimple(element, this.dataInvalidLengthBefore, this.dataInvalidLengthAfter, DATA_INVALID_LENGTH_BEFORE_OF, DATA_INVALID_LENGTH_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidLengthBefore, this.dataInvalidLengthAfter, DATA_INVALID_LENGTH_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_PATTERN)) {
-                    this._forceReadSimple(element, this.dataInvalidPatternBefore, this.dataInvalidPatternAfter, DATA_INVALID_PATTERN_BEFORE_OF, DATA_INVALID_PATTERN_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidPatternBefore, this.dataInvalidPatternAfter, DATA_INVALID_PATTERN_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_REQUIRED)) {
-                    this._forceReadSimple(element, this.dataInvalidRequiredBefore, this.dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_BEFORE_OF, DATA_INVALID_REQUIRED_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidRequiredBefore, this.dataInvalidRequiredAfter, DATA_INVALID_REQUIRED_OF);
                 }
                 if (element.hasAttribute(DATA_INVALID_URL)) {
-                    this._forceReadSimple(element, this.dataInvalidUrlBefore, this.dataInvalidUrlAfter, DATA_INVALID_URL_BEFORE_OF, DATA_INVALID_URL_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidUrlBefore, this.dataInvalidUrlAfter, DATA_INVALID_URL_OF);
                 } else if (element.hasAttribute(DATA_INVALID_EMAIL)) {
-                    this._forceReadSimple(element, this.dataInvalidEmailBefore, this.dataInvalidEmailAfter, DATA_INVALID_EMAIL_BEFORE_OF, DATA_INVALID_EMAIL_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidEmailBefore, this.dataInvalidEmailAfter, DATA_INVALID_EMAIL_OF);
                 } else if (element.hasAttribute(DATA_INVALID_RANGE)) {
-                    this._forceReadSimple(element, this.dataInvalidRangeBefore, this.dataInvalidRangeAfter, DATA_INVALID_RANGE_BEFORE_OF, DATA_INVALID_RANGE_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidRangeBefore, this.dataInvalidRangeAfter, DATA_INVALID_RANGE_OF);
                 } else if (element.hasAttribute(DATA_INVALID_DATE)) {
-                    this._forceReadSimple(element, this.dataInvalidDateBefore, this.dataInvalidDateAfter, DATA_INVALID_DATE_BEFORE_OF, DATA_INVALID_DATE_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidDateBefore, this.dataInvalidDateAfter, DATA_INVALID_DATE_OF);
                 } else if (element.hasAttribute(DATA_INVALID_TIME)) {
-                    this._forceReadSimple(element, this.dataInvalidTimeBefore, this.dataInvalidTimeAfter, DATA_INVALID_TIME_BEFORE_OF, DATA_INVALID_TIME_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidTimeBefore, this.dataInvalidTimeAfter, DATA_INVALID_TIME_OF);
                 } else if (element.hasAttribute(DATA_INVALID_DATETIME)) {
-                    this._forceReadSimple(element, this.dataInvalidDateTimeBefore, this.dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_BEFORE_OF, DATA_INVALID_DATETIME_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidDateTimeBefore, this.dataInvalidDateTimeAfter, DATA_INVALID_DATETIME_OF);
                 } else if (element.hasAttribute(DATA_INVALID_MONTH)) {
-                    this._forceReadSimple(element, this.dataInvalidMonthBefore, this.dataInvalidMonthAfter, DATA_INVALID_MONTH_BEFORE_OF, DATA_INVALID_MONTH_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidMonthBefore, this.dataInvalidMonthAfter, DATA_INVALID_MONTH_OF);
                 } else if (element.hasAttribute(DATA_INVALID_WEEK)) {
-                    this._forceReadSimple(element, this.dataInvalidWeekBefore, this.dataInvalidWeekAfter, DATA_INVALID_WEEK_BEFORE_OF, DATA_INVALID_WEEK_AFTER_OF);
+                    this._forceReadSimple(element, this.dataInvalidWeekBefore, this.dataInvalidWeekAfter, DATA_INVALID_WEEK_OF);
                 }
             }
             if (element.hasAttribute('aria-level')) {
-                this._forceRead(element, element.getAttribute('aria-level'), this.ariaLevelPrefixBefore, this.ariaLevelSuffixBefore, this.ariaLevelPrefixAfter, this.ariaLevelSuffixAfter, DATA_ARIA_LEVEL_BEFORE_OF, DATA_ARIA_LEVEL_AFTER_OF);
+                this._forceRead(element, element.getAttribute('aria-level'), this.ariaLevelPrefixBefore, this.ariaLevelSuffixBefore, this.ariaLevelPrefixAfter, this.ariaLevelSuffixAfter, DATA_ARIA_LEVEL_OF);
             }
             if (element.hasAttribute('aria-orientation')) {
                 attributeValue = element.getAttribute('aria-orientation');
                 if (attributeValue === 'vertical') {
-                    this._forceReadSimple(element, this.ariaOrientationVerticalBefore, this.ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaOrientationVerticalBefore, this.ariaOrientationVerticalAfter, DATA_ARIA_ORIENTATION_OF);
                 } else if (attributeValue === 'horizontal') {
-                    this._forceReadSimple(element, this.ariaOrientationHorizontalBefore, this.ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_BEFORE_OF, DATA_ARIA_ORIENTATION_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaOrientationHorizontalBefore, this.ariaOrientationHorizontalAfter, DATA_ARIA_ORIENTATION_OF);
                 }
             }
             if (element.hasAttribute('aria-pressed')) {
                 attributeValue = element.getAttribute('aria-pressed');
                 if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaPressedTrueBefore, this.ariaPressedTrueAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaPressedTrueBefore, this.ariaPressedTrueAfter, DATA_ARIA_PRESSED_OF);
                 } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaPressedFalseBefore, this.ariaPressedFalseAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaPressedFalseBefore, this.ariaPressedFalseAfter, DATA_ARIA_PRESSED_OF);
                 } else if (attributeValue === 'mixed') {
-                    this._forceReadSimple(element, this.ariaPressedMixedBefore, this.ariaPressedMixedAfter, DATA_ARIA_PRESSED_BEFORE_OF, DATA_ARIA_PRESSED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaPressedMixedBefore, this.ariaPressedMixedAfter, DATA_ARIA_PRESSED_OF);
                 }
             }
             if (element.hasAttribute('aria-selected')) {
                 attributeValue = element.getAttribute('aria-selected');
                 if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaSelectedTrueBefore, this.ariaSelectedTrueAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaSelectedTrueBefore, this.ariaSelectedTrueAfter, DATA_ARIA_SELECTED_OF);
                 } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaSelectedFalseBefore, this.ariaSelectedFalseAfter, DATA_ARIA_SELECTED_BEFORE_OF, DATA_ARIA_SELECTED_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaSelectedFalseBefore, this.ariaSelectedFalseAfter, DATA_ARIA_SELECTED_OF);
                 }
             }
             if (element.hasAttribute('aria-sort')) {
                 attributeValue = element.getAttribute('aria-sort');
                 if (attributeValue === 'ascending') {
-                    this._forceReadSimple(element, this.ariaSortAscendingBefore, this.ariaSortAscendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaSortAscendingBefore, this.ariaSortAscendingAfter, DATA_ARIA_SORT_OF);
                 } else if (attributeValue === 'descending') {
-                    this._forceReadSimple(element, this.ariaSortDescendingBefore, this.ariaSortDescendingAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaSortDescendingBefore, this.ariaSortDescendingAfter, DATA_ARIA_SORT_OF);
                 } else if (attributeValue === 'other') {
-                    this._forceReadSimple(element, this.ariaSortOtherBefore, this.ariaSortOtherAfter, DATA_ARIA_SORT_BEFORE_OF, DATA_ARIA_SORT_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaSortOtherBefore, this.ariaSortOtherAfter, DATA_ARIA_SORT_OF);
                 }
             }
             if ((element.hasAttribute('aria-required')) && (element.getAttribute('aria-required') === 'true')) {
-                this._forceReadSimple(element, this.ariaRequiredTrueBefore, this.ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_BEFORE_OF, DATA_ATTRIBUTE_REQUIRED_AFTER_OF);
+                this._forceReadSimple(element, this.ariaRequiredTrueBefore, this.ariaRequiredTrueAfter, DATA_ATTRIBUTE_REQUIRED_OF);
             }
             if (element.hasAttribute('aria-valuemin')) {
-                this._forceRead(element, element.getAttribute('aria-valuemin'), this.ariaValueMinimumPrefixBefore, this.ariaValueMinimumSuffixBefore, this.ariaValueMinimumPrefixAfter, this.ariaValueMinimumSuffixAfter, DATA_ATTRIBUTE_RANGE_MIN_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MIN_AFTER_OF);
+                this._forceRead(element, element.getAttribute('aria-valuemin'), this.ariaValueMinimumPrefixBefore, this.ariaValueMinimumSuffixBefore, this.ariaValueMinimumPrefixAfter, this.ariaValueMinimumSuffixAfter, DATA_ATTRIBUTE_RANGE_MIN_OF);
             }
             if (element.hasAttribute('aria-valuemax')) {
-                this._forceRead(element, element.getAttribute('aria-valuemax'), this.ariaValueMaximumPrefixBefore, this.ariaValueMaximumSuffixBefore, this.ariaValueMaximumPrefixAfter, this.ariaValueMaximumSuffixAfter, DATA_ATTRIBUTE_RANGE_MAX_BEFORE_OF, DATA_ATTRIBUTE_RANGE_MAX_AFTER_OF);
+                this._forceRead(element, element.getAttribute('aria-valuemax'), this.ariaValueMaximumPrefixBefore, this.ariaValueMaximumSuffixBefore, this.ariaValueMaximumPrefixAfter, this.ariaValueMaximumSuffixAfter, DATA_ATTRIBUTE_RANGE_MAX_OF);
             }
             if (element.hasAttribute('aria-autocomplete')) {
                 attributeValue = element.getAttribute('aria-autocomplete');
                 if (attributeValue === 'both') {
-                    this._forceReadSimple(element, this.ariaAutoCompleteBothBefore, this.ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaAutoCompleteBothBefore, this.ariaAutoCompleteBothAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_OF);
                 } else if (attributeValue === 'inline') {
-                    this._forceReadSimple(element, this.ariaAutoCompleteListBefore, this.ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaAutoCompleteListBefore, this.ariaAutoCompleteListAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_OF);
                 } else if (attributeValue === 'list') {
-                    this._forceReadSimple(element, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_BEFORE_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_AFTER_OF);
+                    this._forceReadSimple(element, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_OF);
                 }
             }
             this._displayWAIARIADragandDrop(element);
@@ -806,10 +746,10 @@ limitations under the License.
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayLinkAttributes = function (link) {
             if (link.hasAttribute('download')) {
-                this._forceReadSimple(link, this.attributeDownloadBefore, this.attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_BEFORE_OF, DATA_ATTRIBUTE_DOWNLOAD_AFTER_OF);
+                this._forceReadSimple(link, this.attributeDownloadBefore, this.attributeDownloadAfter, DATA_ATTRIBUTE_DOWNLOAD_OF);
             }
             if ((link.hasAttribute('target')) && (link.getAttribute('target') === '_blank')) {
-                this._forceReadSimple(link, this.attributeTargetBlankBefore, this.attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_BEFORE_OF, DATA_ATTRIBUTE_TARGET_AFTER_OF);
+                this._forceReadSimple(link, this.attributeTargetBlankBefore, this.attributeTargetBlankAfter, DATA_ATTRIBUTE_TARGET_OF);
             }
         };
 
@@ -829,7 +769,7 @@ limitations under the License.
                 if (element.getTagName() === 'IMG') {
                     this.displayAlternativeTextImage(element);
                 } else {
-                    this._forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_BEFORE_OF, DATA_ATTRIBUTE_TITLE_AFTER_OF);
+                    this._forceRead(element, element.getAttribute('title'), this.attributeTitlePrefixBefore, this.attributeTitleSuffixBefore, this.attributeTitlePrefixAfter, this.attributeTitleSuffixAfter, DATA_ATTRIBUTE_TITLE_OF);
                 }
             }
         };
@@ -848,16 +788,16 @@ limitations under the License.
         AccessibleDisplayScreenReaderImplementation.prototype.displayDragAndDrop = function (element) {
             var attributeValue;
             if (element.hasAttribute('draggable')) {
-                this._forceReadSimple(element, this.attributeDraggableBefore, this.attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_BEFORE_OF, DATA_ATTRIBUTE_DRAGGABLE_AFTER_OF);
+                this._forceReadSimple(element, this.attributeDraggableBefore, this.attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_OF);
             }
             if (element.hasAttribute('dropzone')) {
                 attributeValue = element.getAttribute('dropzone');
                 if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.attributeDropzoneCopyBefore, this.attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this._forceReadSimple(element, this.attributeDropzoneCopyBefore, this.attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_OF);
                 } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.attributeDropzoneMoveBefore, this.attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this._forceReadSimple(element, this.attributeDropzoneMoveBefore, this.attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_OF);
                 } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_BEFORE_OF, DATA_ATTRIBUTE_DROPZONE_AFTER_OF);
+                    this._forceReadSimple(element, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_OF);
                 }
             }
             this._displayWAIARIADragandDrop(element);
@@ -885,7 +825,7 @@ limitations under the License.
             if (languageCode !== null) {
                 language = this._getLanguageDescription(languageCode);
                 if (language !== null) {
-                    this._forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_BEFORE_OF, DATA_ATTRIBUTE_LANGUAGE_AFTER_OF);
+                    this._forceRead(element, language, this.attributeLanguagePrefixBefore, this.attributeLanguageSuffixBefore, this.attributeLanguagePrefixAfter, this.attributeLanguageSuffixAfter, DATA_ATTRIBUTE_LANGUAGE_OF);
                 }
             }
         };
@@ -909,8 +849,7 @@ limitations under the License.
                     image.setAttribute('alt', image.getAttribute('title'));
                 }
                 this.idGenerator.generateId(image);
-                image.setAttribute(DATA_ATTRIBUTE_TITLE_BEFORE_OF, image.getAttribute('id'));
-                image.setAttribute(DATA_ATTRIBUTE_TITLE_AFTER_OF, image.getAttribute('id'));
+                image.setAttribute(DATA_ATTRIBUTE_TITLE_OF, image.getAttribute('id'));
             } else {
                 image.setAttribute('alt', '');
                 image.setAttribute('role', 'presentation');
