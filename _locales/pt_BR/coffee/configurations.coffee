@@ -90,17 +90,6 @@
   'attribute-target-blank-after': ''
   'attribute-download-before': '(Download) '
   'attribute-download-after': ''
-  'attribute-draggable-before': ''
-  'attribute-draggable-after': ' (Arrastável)'
-  'attribute-dropzone-copy-before': ''
-  'attribute-dropzone-copy-after': \
-      ' (Colar o elemento selecionado para o local)'
-  'attribute-dropzone-move-before': ''
-  'attribute-dropzone-move-after': \
-      ' (Mover o elemento selecionado para o local)'
-  'attribute-dropzone-link-before': ''
-  'attribute-dropzone-link-after': \
-      ' (Criar um link do elemento selecionado para o local)'
   'attribute-data-invalid-url-before': ''
   'attribute-data-invalid-url-after': \
       ' (Informe um endereço da internet válido)'

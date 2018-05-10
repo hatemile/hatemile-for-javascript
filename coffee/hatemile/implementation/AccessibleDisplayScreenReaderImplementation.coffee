@@ -43,8 +43,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
   DATA_ATTRIBUTE_ACCESSKEY_OF = 'data-attributeaccesskeyof'
   DATA_ATTRIBUTE_TARGET_OF = 'data-attributetargetof'
   DATA_ATTRIBUTE_DOWNLOAD_OF = 'data-attributedownloadof'
-  DATA_ATTRIBUTE_DRAGGABLE_OF = 'data-attributedraggableof'
-  DATA_ATTRIBUTE_DROPZONE_OF = 'data-attributedropzoneof'
   DATA_ATTRIBUTE_LANGUAGE_OF = 'data-languageof'
   DATA_ATTRIBUTE_HEADERS_OF = 'data-headersof'
   DATA_ARIA_BUSY_OF = 'data-ariabusyof'
@@ -354,40 +352,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     @_forceReadSimple(element, textBefore, textAfter, dataOf)
     return
   
-  # Display that the element has WAI-ARIA drag-and-drop state.
-  #
-  # @private
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with WAI-ARIA drag-and-drop state.
-  #
-  _displayWAIARIADragandDrop: (element) ->
-    if element.hasAttribute('aria-dropeffect')
-      attributeValue = element.getAttribute('aria-dropeffect')
-      if attributeValue is 'copy'
-        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
-            @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_OF)
-      else if attributeValue is 'move'
-        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
-            @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_OF)
-      else if attributeValue is 'link'
-        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
-            @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_OF)
-      else if attributeValue is 'execute'
-        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
-            @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_OF)
-      else if attributeValue is 'popup'
-        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
-            @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_OF)
-    if element.hasAttribute('aria-grabbed')
-      attributeValue = element.getAttribute('aria-grabbed')
-      if attributeValue is 'true'
-        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
-            @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_OF)
-      else if attributeValue is 'false'
-        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
-            @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_OF)
-    return
-  
   # Initializes a new object that manipulate the display for screen readers of
   # parser.
   #
@@ -440,22 +404,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
         .getParameter('attribute-download-before')
     @attributeDownloadAfter = @configure
         .getParameter('attribute-download-after')
-    @attributeDraggableBefore = @configure
-        .getParameter('attribute-draggable-before')
-    @attributeDraggableAfter = @configure
-        .getParameter('attribute-draggable-after')
-    @attributeDropzoneCopyBefore = @configure
-        .getParameter('attribute-dropzone-copy-before')
-    @attributeDropzoneCopyAfter = @configure
-        .getParameter('attribute-dropzone-copy-after')
-    @attributeDropzoneMoveBefore = @configure
-        .getParameter('attribute-dropzone-move-before')
-    @attributeDropzoneMoveAfter = @configure
-        .getParameter('attribute-dropzone-move-after')
-    @attributeDropzoneLinkBefore = @configure
-        .getParameter('attribute-dropzone-link-before')
-    @attributeDropzoneLinkAfter = @configure
-        .getParameter('attribute-dropzone-link-after')
     @attributeHeadersPrefixBefore = @configure
         .getParameter('attribute-headers-prefix-before')
     @attributeHeadersSuffixBefore = @configure
@@ -905,7 +853,31 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
       else if attributeValue is 'list'
         @_forceReadSimple(element, @ariaAutoCompleteInlineBefore, \
             @ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_OF)
-    @_displayWAIARIADragandDrop(element)
+    if element.hasAttribute('aria-dropeffect')
+      attributeValue = element.getAttribute('aria-dropeffect')
+      if attributeValue is 'copy'
+        @_forceReadSimple(element, @ariaDropeffectCopyBefore, \
+            @ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_OF)
+      else if attributeValue is 'move'
+        @_forceReadSimple(element, @ariaDropeffectMoveBefore, \
+            @ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_OF)
+      else if attributeValue is 'link'
+        @_forceReadSimple(element, @ariaDropeffectLinkBefore, \
+            @ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_OF)
+      else if attributeValue is 'execute'
+        @_forceReadSimple(element, @ariaDropeffectExecuteBefore, \
+            @ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_OF)
+      else if attributeValue is 'popup'
+        @_forceReadSimple(element, @ariaDropeffectPopupBefore, \
+            @ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_OF)
+    if element.hasAttribute('aria-grabbed')
+      attributeValue = element.getAttribute('aria-grabbed')
+      if attributeValue is 'true'
+        @_forceReadSimple(element, @ariaGrabbedTrueBefore, \
+            @ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_OF)
+      else if attributeValue is 'false'
+        @_forceReadSimple(element, @ariaGrabbedFalseBefore, \
+            @ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_OF)
     return
   
   # Display the WAI-ARIA attributes of all elements of page.
@@ -977,42 +949,6 @@ class @hatemile.implementation.AccessibleDisplayScreenReaderImplementation
     for element in elements
       if self.hatemile.util.CommonFunctions.isValidElement(element)
         @displayTitle(element)
-    return
-  
-  # Display that the element has drag-and-drop event.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or drop events.
-  #
-  # @see hatemile.AccessibleDisplay#displayDragAndDrop
-  #
-  displayDragAndDrop: (element) ->
-    if element.hasAttribute('draggable')
-      @_forceReadSimple(element, @attributeDraggableBefore, \
-          @attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_OF)
-    if element.hasAttribute('dropzone')
-      attributeValue = element.getAttribute('dropzone')
-      if attributeValue is 'copy'
-        @_forceReadSimple(element, @attributeDropzoneCopyBefore, \
-            @attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_OF)
-      else if attributeValue is 'move'
-        @_forceReadSimple(element, @attributeDropzoneMoveBefore, \
-            @attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_OF)
-      else if attributeValue is 'link'
-        @_forceReadSimple(element, @attributeDropzoneLinkBefore, \
-            @attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_OF)
-    @_displayWAIARIADragandDrop(element)
-    return
-  
-  # Display that an elements of page have drag-and-drop events.
-  #
-  # @see hatemile.AccessibleDisplay#displayAllDragsAndDrops
-  #
-  displayAllDragsAndDrops: () ->
-    elements = @parser.find('[draggable],[dropzone],[aria-dropeffect],' \
-        + '[aria-grabbed]').listResults()
-    for element in elements
-      if self.hatemile.util.CommonFunctions.isValidElement(element)
-        @displayDragAndDrop(element)
     return
   
   # Display the language of element.

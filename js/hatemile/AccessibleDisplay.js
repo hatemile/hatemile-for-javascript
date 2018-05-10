@@ -43,10 +43,6 @@ limitations under the License.
 
         AccessibleDisplay.prototype.displayAllTitles = function () {};
 
-        AccessibleDisplay.prototype.displayDragAndDrop = function (element) {};
-
-        AccessibleDisplay.prototype.displayAllDragsAndDrops = function () {};
-
         AccessibleDisplay.prototype.displayLanguage = function (element) {};
 
         AccessibleDisplay.prototype.displayAllLanguages = function () {};

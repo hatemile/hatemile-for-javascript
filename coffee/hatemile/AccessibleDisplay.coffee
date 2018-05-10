@@ -83,16 +83,6 @@ class @hatemile.AccessibleDisplay
   #
   displayAllTitles: () ->
   
-  # Display that the element has drag-and-drop event.
-  #
-  # @param [hatemile.util.html.HTMLDOMElement] element The element with drag or drop events.
-  #
-  displayDragAndDrop: (element) ->
-  
-  # Display that an elements of page have drag-and-drop events.
-  #
-  displayAllDragsAndDrops: () ->
-  
   # Display the language of element.
   #
   # @param [hatemile.util.html.HTMLDOMElement] element The element.

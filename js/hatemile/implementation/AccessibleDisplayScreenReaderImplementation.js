@@ -23,7 +23,7 @@ limitations under the License.
     (base = this.hatemile).implementation || (base.implementation = {});
 
     this.hatemile.implementation.AccessibleDisplayScreenReaderImplementation = (function () {
-        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, CLASS_TEXT_SHORTCUTS, DATA_ARIA_BUSY_OF, DATA_ARIA_CHECKED_OF, DATA_ARIA_DROPEFFECT_OF, DATA_ARIA_EXPANDED_OF, DATA_ARIA_GRABBED_OF, DATA_ARIA_HASPOPUP_OF, DATA_ARIA_INVALID_OF, DATA_ARIA_LEVEL_OF, DATA_ARIA_ORIENTATION_OF, DATA_ARIA_PRESSED_OF, DATA_ARIA_SELECTED_OF, DATA_ARIA_SORT_OF, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_OF, DATA_ATTRIBUTE_DOWNLOAD_OF, DATA_ATTRIBUTE_DRAGGABLE_OF, DATA_ATTRIBUTE_DROPZONE_OF, DATA_ATTRIBUTE_HEADERS_OF, DATA_ATTRIBUTE_LANGUAGE_OF, DATA_ATTRIBUTE_RANGE_MAX_OF, DATA_ATTRIBUTE_RANGE_MIN_OF, DATA_ATTRIBUTE_REQUIRED_OF, DATA_ATTRIBUTE_TARGET_OF, DATA_ATTRIBUTE_TITLE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_OF, DATA_INVALID_DATE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_OF, DATA_INVALID_URL, DATA_INVALID_URL_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_OF, DATA_ROLE_OF, ID_CONTAINER_SHORTCUTS_AFTER, ID_CONTAINER_SHORTCUTS_BEFORE;
+        var CLASS_FORCE_READ_AFTER, CLASS_FORCE_READ_BEFORE, CLASS_TEXT_SHORTCUTS, DATA_ARIA_BUSY_OF, DATA_ARIA_CHECKED_OF, DATA_ARIA_DROPEFFECT_OF, DATA_ARIA_EXPANDED_OF, DATA_ARIA_GRABBED_OF, DATA_ARIA_HASPOPUP_OF, DATA_ARIA_INVALID_OF, DATA_ARIA_LEVEL_OF, DATA_ARIA_ORIENTATION_OF, DATA_ARIA_PRESSED_OF, DATA_ARIA_SELECTED_OF, DATA_ARIA_SORT_OF, DATA_ATTRIBUTE_ACCESSKEY_OF, DATA_ATTRIBUTE_AUTOCOMPLETE_OF, DATA_ATTRIBUTE_DOWNLOAD_OF, DATA_ATTRIBUTE_HEADERS_OF, DATA_ATTRIBUTE_LANGUAGE_OF, DATA_ATTRIBUTE_RANGE_MAX_OF, DATA_ATTRIBUTE_RANGE_MIN_OF, DATA_ATTRIBUTE_REQUIRED_OF, DATA_ATTRIBUTE_TARGET_OF, DATA_ATTRIBUTE_TITLE_OF, DATA_INVALID_DATE, DATA_INVALID_DATETIME, DATA_INVALID_DATETIME_OF, DATA_INVALID_DATE_OF, DATA_INVALID_EMAIL, DATA_INVALID_EMAIL_OF, DATA_INVALID_LENGTH, DATA_INVALID_LENGTH_OF, DATA_INVALID_MONTH, DATA_INVALID_MONTH_OF, DATA_INVALID_PATTERN, DATA_INVALID_PATTERN_OF, DATA_INVALID_RANGE, DATA_INVALID_RANGE_OF, DATA_INVALID_REQUIRED, DATA_INVALID_REQUIRED_OF, DATA_INVALID_TIME, DATA_INVALID_TIME_OF, DATA_INVALID_URL, DATA_INVALID_URL_OF, DATA_INVALID_WEEK, DATA_INVALID_WEEK_OF, DATA_ROLE_OF, ID_CONTAINER_SHORTCUTS_AFTER, ID_CONTAINER_SHORTCUTS_BEFORE;
 
         ID_CONTAINER_SHORTCUTS_BEFORE = 'container-shortcuts-before';
 
@@ -50,10 +50,6 @@ limitations under the License.
         DATA_ATTRIBUTE_TARGET_OF = 'data-attributetargetof';
 
         DATA_ATTRIBUTE_DOWNLOAD_OF = 'data-attributedownloadof';
-
-        DATA_ATTRIBUTE_DRAGGABLE_OF = 'data-attributedraggableof';
-
-        DATA_ATTRIBUTE_DROPZONE_OF = 'data-attributedropzoneof';
 
         DATA_ATTRIBUTE_LANGUAGE_OF = 'data-languageof';
 
@@ -356,32 +352,6 @@ limitations under the License.
             this._forceReadSimple(element, textBefore, textAfter, dataOf);
         };
 
-        AccessibleDisplayScreenReaderImplementation.prototype._displayWAIARIADragandDrop = function (element) {
-            var attributeValue;
-            if (element.hasAttribute('aria-dropeffect')) {
-                attributeValue = element.getAttribute('aria-dropeffect');
-                if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_OF);
-                } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_OF);
-                } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_OF);
-                } else if (attributeValue === 'execute') {
-                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_OF);
-                } else if (attributeValue === 'popup') {
-                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_OF);
-                }
-            }
-            if (element.hasAttribute('aria-grabbed')) {
-                attributeValue = element.getAttribute('aria-grabbed');
-                if (attributeValue === 'true') {
-                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_OF);
-                } else if (attributeValue === 'false') {
-                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_OF);
-                }
-            }
-        };
-
         function AccessibleDisplayScreenReaderImplementation(parser, configure, userAgent) {
             this.parser = parser;
             this.configure = configure;
@@ -404,14 +374,6 @@ limitations under the License.
             this.attributeTargetBlankAfter = this.configure.getParameter('attribute-target-blank-after');
             this.attributeDownloadBefore = this.configure.getParameter('attribute-download-before');
             this.attributeDownloadAfter = this.configure.getParameter('attribute-download-after');
-            this.attributeDraggableBefore = this.configure.getParameter('attribute-draggable-before');
-            this.attributeDraggableAfter = this.configure.getParameter('attribute-draggable-after');
-            this.attributeDropzoneCopyBefore = this.configure.getParameter('attribute-dropzone-copy-before');
-            this.attributeDropzoneCopyAfter = this.configure.getParameter('attribute-dropzone-copy-after');
-            this.attributeDropzoneMoveBefore = this.configure.getParameter('attribute-dropzone-move-before');
-            this.attributeDropzoneMoveAfter = this.configure.getParameter('attribute-dropzone-move-after');
-            this.attributeDropzoneLinkBefore = this.configure.getParameter('attribute-dropzone-link-before');
-            this.attributeDropzoneLinkAfter = this.configure.getParameter('attribute-dropzone-link-after');
             this.attributeHeadersPrefixBefore = this.configure.getParameter('attribute-headers-prefix-before');
             this.attributeHeadersSuffixBefore = this.configure.getParameter('attribute-headers-suffix-before');
             this.attributeHeadersPrefixAfter = this.configure.getParameter('attribute-headers-prefix-after');
@@ -730,7 +692,28 @@ limitations under the License.
                     this._forceReadSimple(element, this.ariaAutoCompleteInlineBefore, this.ariaAutoCompleteInlineAfter, DATA_ATTRIBUTE_AUTOCOMPLETE_OF);
                 }
             }
-            this._displayWAIARIADragandDrop(element);
+            if (element.hasAttribute('aria-dropeffect')) {
+                attributeValue = element.getAttribute('aria-dropeffect');
+                if (attributeValue === 'copy') {
+                    this._forceReadSimple(element, this.ariaDropeffectCopyBefore, this.ariaDropeffectCopyAfter, DATA_ARIA_DROPEFFECT_OF);
+                } else if (attributeValue === 'move') {
+                    this._forceReadSimple(element, this.ariaDropeffectMoveBefore, this.ariaDropeffectMoveAfter, DATA_ARIA_DROPEFFECT_OF);
+                } else if (attributeValue === 'link') {
+                    this._forceReadSimple(element, this.ariaDropeffectLinkBefore, this.ariaDropeffectLinkAfter, DATA_ARIA_DROPEFFECT_OF);
+                } else if (attributeValue === 'execute') {
+                    this._forceReadSimple(element, this.ariaDropeffectExecuteBefore, this.ariaDropeffectExecuteAfter, DATA_ARIA_DROPEFFECT_OF);
+                } else if (attributeValue === 'popup') {
+                    this._forceReadSimple(element, this.ariaDropeffectPopupBefore, this.ariaDropeffectPopupAfter, DATA_ARIA_DROPEFFECT_OF);
+                }
+            }
+            if (element.hasAttribute('aria-grabbed')) {
+                attributeValue = element.getAttribute('aria-grabbed');
+                if (attributeValue === 'true') {
+                    this._forceReadSimple(element, this.ariaGrabbedTrueBefore, this.ariaGrabbedTrueAfter, DATA_ARIA_GRABBED_OF);
+                } else if (attributeValue === 'false') {
+                    this._forceReadSimple(element, this.ariaGrabbedFalseBefore, this.ariaGrabbedFalseAfter, DATA_ARIA_GRABBED_OF);
+                }
+            }
         };
 
         AccessibleDisplayScreenReaderImplementation.prototype.displayAllWAIARIAStates = function () {
@@ -781,35 +764,6 @@ limitations under the License.
                 element = elements[i];
                 if (self.hatemile.util.CommonFunctions.isValidElement(element)) {
                     this.displayTitle(element);
-                }
-            }
-        };
-
-        AccessibleDisplayScreenReaderImplementation.prototype.displayDragAndDrop = function (element) {
-            var attributeValue;
-            if (element.hasAttribute('draggable')) {
-                this._forceReadSimple(element, this.attributeDraggableBefore, this.attributeDraggableAfter, DATA_ATTRIBUTE_DRAGGABLE_OF);
-            }
-            if (element.hasAttribute('dropzone')) {
-                attributeValue = element.getAttribute('dropzone');
-                if (attributeValue === 'copy') {
-                    this._forceReadSimple(element, this.attributeDropzoneCopyBefore, this.attributeDropzoneCopyAfter, DATA_ATTRIBUTE_DROPZONE_OF);
-                } else if (attributeValue === 'move') {
-                    this._forceReadSimple(element, this.attributeDropzoneMoveBefore, this.attributeDropzoneMoveAfter, DATA_ATTRIBUTE_DROPZONE_OF);
-                } else if (attributeValue === 'link') {
-                    this._forceReadSimple(element, this.attributeDropzoneLinkBefore, this.attributeDropzoneLinkAfter, DATA_ATTRIBUTE_DROPZONE_OF);
-                }
-            }
-            this._displayWAIARIADragandDrop(element);
-        };
-
-        AccessibleDisplayScreenReaderImplementation.prototype.displayAllDragsAndDrops = function () {
-            var element, elements, i, len;
-            elements = this.parser.find('[draggable],[dropzone],[aria-dropeffect],' + '[aria-grabbed]').listResults();
-            for (i = 0, len = elements.length; i < len; i++) {
-                element = elements[i];
-                if (self.hatemile.util.CommonFunctions.isValidElement(element)) {
-                    this.displayDragAndDrop(element);
                 }
             }
         };
