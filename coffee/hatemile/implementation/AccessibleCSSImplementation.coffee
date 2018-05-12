@@ -62,7 +62,7 @@ class @hatemile.implementation.AccessibleCSSImplementation
   _getFormatedSymbol: (symbol) ->
     return symbol.replace('\\', '\\\\').replace('.', '\\.').replace('+', '\\+')
         .replace('*', '\\*').replace('?', '\\?').replace('^', '\\^')
-        .replace('$', '\\$').replace('[', '\\[').replace(']', '\\[')
+        .replace('$', '\\$').replace('[', '\\[').replace(']', '\\]')
         .replace('{', '\\{').replace('}', '\\}').replace('(', '\\(')
         .replace(')', '\\)').replace('|', '\\|').replace('/', '\\/')
         .replace(',', '\\,').replace('!', '\\!').replace('=', '\\=')
