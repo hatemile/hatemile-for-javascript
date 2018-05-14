@@ -23,7 +23,7 @@ self = this
 #
 @hatemile.util or= {}
 
-# The CommonFuncionts class contains the used methods by HaTeMiLe classes.
+# The CommonFunctions class contains the used methods by HaTeMiLe classes.
 #
 class @hatemile.util.CommonFunctions
   
