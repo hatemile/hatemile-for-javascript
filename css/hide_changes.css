@@ -5,9 +5,11 @@
 .force-link-before,
 .force-link-after,
 .screen-reader-only,
-#container-heading,
+#container-heading-before,
+#container-heading-after,
 #container-skippers,
-#container-shortcuts {
+#container-shortcuts-before,
+#container-shortcuts-after {
     position: absolute !important;
     display: inline-block !important;
     width: 1px !important;
