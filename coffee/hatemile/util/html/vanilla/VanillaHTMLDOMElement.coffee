@@ -377,10 +377,8 @@ class @hatemile.util.html.vanilla.VanillaHTMLDOMElement
   # @see hatemile.util.html.HTMLDOMElement#cloneElement
   #
   cloneElement: () ->
-    div = @data.ownerDocument.createElement('div')
-    div.innerHTML = @getOuterHTML()
     return new self.hatemile.util.html.vanilla
-        .VanillaHTMLDOMElement(div.firstElementChild)
+        .VanillaHTMLDOMElement(@data.cloneNode(true))
   
   # Returns the first element child of this element.
   #

@@ -237,10 +237,7 @@ limitations under the License.
         };
 
         VanillaHTMLDOMElement.prototype.cloneElement = function () {
-            var div;
-            div = this.data.ownerDocument.createElement('div');
-            div.innerHTML = this.getOuterHTML();
-            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(div.firstElementChild);
+            return new self.hatemile.util.html.vanilla.VanillaHTMLDOMElement(this.data.cloneNode(true));
         };
 
         VanillaHTMLDOMElement.prototype.getFirstElementChild = function () {
